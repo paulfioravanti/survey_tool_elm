@@ -7,9 +7,10 @@ defmodule SurveyServer.Application do
 
   @impl true
   def start(_type, _args) do
+    port = Application.get_env(:survey_server, :cowboy_port)
     # List all child processes to be supervised
     children = [
-      {SurveyServer.Endpoint, []}
+      {SurveyServer.Endpoint, [port: port]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

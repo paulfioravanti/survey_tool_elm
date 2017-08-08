@@ -8,8 +8,8 @@ defmodule SurveyServer.Endpoint do
   @doc """
   This function called by `Supervisor.start_link/2`
   """
-  def start_link(_args) do
-    {:ok, _} = Plug.Adapters.Cowboy.http(SurveyServer.Router, [])
+  def start_link(opts) do
+    {:ok, _} = Plug.Adapters.Cowboy.http(SurveyServer.Router, [], opts)
   end
 
   @doc """
@@ -19,10 +19,10 @@ defmodule SurveyServer.Endpoint do
   def child_spec(opts) do
     %{
       id: Endpoint,
-      start: {Endpoint, :start_link, [opts]},
-      type: :worker,
       restart: :permanent,
-      shutdown: 500
+      shutdown: 500,
+      start: {Endpoint, :start_link, [opts]},
+      type: :worker
     }
   end
 end
