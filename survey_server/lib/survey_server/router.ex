@@ -7,6 +7,7 @@ defmodule SurveyServer.Router do
   """
 
   use Plug.Router
+  alias SurveyServer.Encoder
 
   if Mix.env == :dev do
     use Plug.Debugger
@@ -46,7 +47,7 @@ defmodule SurveyServer.Router do
 
   # NOTE: File was found.
   defp send_response({:ok, content}, conn) do
-    json = encode_json(content)
+    json = Encoder.encode_json(content)
 
     conn
     |> put_resp_content_type("application/json")
@@ -57,15 +58,10 @@ defmodule SurveyServer.Router do
     send_error(conn, "Record not found")
   end
 
-  defp encode_json(string) do
-    string
-    |> Poison.Parser.parse!()
-    |> Poison.encode!()
-  end
-
   defp send_error(conn, message) do
+    error = Encoder.json_error(message)
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(404, Poison.encode!(%{error: message}))
+    |> send_resp(404, error)
   end
 end
