@@ -12,7 +12,7 @@ defmodule SurveyServer.Router do
     use Plug.Debugger
   end
 
-  # NOTE: By default, Cowboy makes a request to find a favicon and errors
+  # NOTE: By default, Cowboy makes a request to find a favicon, and errors
   # if it's missing, so provide one.
   plug Plug.Static,
     at: "/",
