@@ -21,6 +21,7 @@ defmodule SurveyServer.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.1"},
+      {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
       {:plug, "~> 1.4"},
       {:poison, "~> 3.1"}
     ]
