@@ -9,19 +9,22 @@ defmodule SurveyServer.Router do
   use Plug.Router
   alias SurveyServer.Encoder
 
-  if Mix.env == :dev do
+  if Mix.env() == :dev do
     use Plug.Debugger
   end
 
   # NOTE: By default, Cowboy makes a request to find a favicon, and errors
   # if it's missing, so provide one.
-  plug Plug.Static,
+  plug(
+    Plug.Static,
     at: "/",
     from: :survey_server,
     gzip: false,
     only: ~w(favicon.ico)
-  plug :match
-  plug :dispatch
+  )
+
+  plug(:match)
+  plug(:dispatch)
 
   get "/survey_results" do
     "survey_results/index.json"
@@ -53,6 +56,7 @@ defmodule SurveyServer.Router do
     |> put_resp_content_type("application/json")
     |> send_resp(200, json)
   end
+
   # NOTE: File was not found.
   defp send_response({:error, :enoent}, conn) do
     send_error(conn, "Record not found")
@@ -60,6 +64,7 @@ defmodule SurveyServer.Router do
 
   defp send_error(conn, message) do
     error = Encoder.json_error(message)
+
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(404, error)

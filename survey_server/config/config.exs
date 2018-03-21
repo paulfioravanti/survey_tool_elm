@@ -20,18 +20,17 @@ use Mix.Config
 #
 #     config :logger, level: :info
 #
-if Mix.env == :dev do
+if Mix.env() == :dev do
   # Configures automated testing/linting
-  config :mix_test_watch,
-    clear: true
-    # tasks: [
-    #   "coveralls.html",
-    #   "dogma",
-    #   "credo --strict",
-    #   "docs",
-    #   "inch --pedantic",
-    #   "dialyzer --halt-exit-status"
-    # ]
+  config :mix_test_watch, clear: true
+  # tasks: [
+  #   "coveralls.html",
+  #   "dogma",
+  #   "credo --strict",
+  #   "docs",
+  #   "inch --pedantic",
+  #   "dialyzer --halt-exit-status"
+  # ]
 end
 
 # It is also possible to import configuration files, relative to this
@@ -40,4 +39,4 @@ end
 # Configuration from the imported file will override the ones defined
 # here (which is why it is important to import them last).
 #
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"
