@@ -1,3 +1,3 @@
 use Mix.Config
 
-config :survey_server, cowboy_port: 4000
+config :back_end, cowboy_port: 4000

@@ -2,7 +2,7 @@ defmodule RouterTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  alias SurveyServer.Router
+  alias BackEnd.Router
 
   @opts Router.init([])
   @json_resp_type ["application/json; charset=utf-8"]
@@ -17,7 +17,7 @@ defmodule RouterTest do
 
   describe "GET /survey_results" do
     setup do
-      json = Utilities.read_json("lib/survey_server/survey_results/index.json")
+      json = Utilities.read_json("lib/back_end/survey_results/index.json")
       {:ok, [json: json]}
     end
 
@@ -31,7 +31,7 @@ defmodule RouterTest do
 
   describe "GET /survey_results/:id" do
     setup do
-      json = Utilities.read_json("lib/survey_server/survey_results/1.json")
+      json = Utilities.read_json("lib/back_end/survey_results/1.json")
       {:ok, [json: json]}
     end
 

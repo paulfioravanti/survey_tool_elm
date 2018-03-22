@@ -1,9 +1,9 @@
-defmodule SurveyServer.Mixfile do
+defmodule BackEnd.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :survey_server,
+      app: :back_end,
       version: "0.1.0",
       elixir: "~> 1.5",
       start_permanent: Mix.env() == :prod,
@@ -14,7 +14,7 @@ defmodule SurveyServer.Mixfile do
   def application do
     [
       extra_applications: [:logger],
-      mod: {SurveyServer.Application, []}
+      mod: {BackEnd.Application, []}
     ]
   end
 

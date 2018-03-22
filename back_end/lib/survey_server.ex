@@ -1,2 +1,0 @@
-defmodule SurveyServer do
-end

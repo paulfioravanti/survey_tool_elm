@@ -1,4 +1,4 @@
-defmodule SurveyServer.Endpoint do
+defmodule BackEnd.Endpoint do
   @moduledoc """
   Endpoint to kick off a Cowboy server.
   """
@@ -9,7 +9,7 @@ defmodule SurveyServer.Endpoint do
   This function called by `Supervisor.start_link/2`
   """
   def start_link(opts) do
-    {:ok, _} = Plug.Adapters.Cowboy.http(SurveyServer.Router, [], opts)
+    {:ok, _} = Plug.Adapters.Cowboy.http(BackEnd.Router, [], opts)
   end
 
   @doc """

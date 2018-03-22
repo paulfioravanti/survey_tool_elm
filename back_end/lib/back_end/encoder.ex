@@ -1,4 +1,4 @@
-defmodule SurveyServer.Encoder do
+defmodule BackEnd.Encoder do
   @moduledoc """
   Module responsible for encoding strings into JSON objects.
   """

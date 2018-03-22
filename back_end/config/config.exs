@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure your application as:
 #
-#     config :survey_server, key: :value
+#     config :back_end, key: :value
 #
 # and access this configuration in your application as:
 #
-#     Application.get_env(:survey_server, :key)
+#     Application.get_env(:back_end, :key)
 #
 # You can also configure a 3rd-party app:
 #

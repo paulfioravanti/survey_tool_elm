@@ -1,4 +1,4 @@
-defmodule SurveyServer.Router do
+defmodule BackEnd.Router do
   @moduledoc """
   Simple router for survey server.  Serves up static JSON files, but goes
   and fetches/reads them in every time since under production conditions
@@ -7,7 +7,7 @@ defmodule SurveyServer.Router do
   """
 
   use Plug.Router
-  alias SurveyServer.Encoder
+  alias BackEnd.Encoder
 
   if Mix.env() == :dev do
     use Plug.Debugger
@@ -18,7 +18,7 @@ defmodule SurveyServer.Router do
   plug(
     Plug.Static,
     at: "/",
-    from: :survey_server,
+    from: :back_end,
     gzip: false,
     only: ~w(favicon.ico)
   )
