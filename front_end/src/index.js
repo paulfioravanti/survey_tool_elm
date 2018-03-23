@@ -1,5 +1,5 @@
-// import './main.css';
 import "tachyons";
+import "./main.css";
 import { Main } from "./Main.elm";
 // import registerServiceWorker from './registerServiceWorker';
 

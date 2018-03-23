@@ -61,12 +61,12 @@ view model =
 
 surveySummary : String -> String -> String -> String -> Html msg
 surveySummary title numParticipants numResponses responseRatePercentage =
-    article [ class "ba b--black-10 ma2 mt2-ns grow grow:focus grow:active avenir" ]
+    article [ class "ba b--black-10 ma2 mt2-ns grow grow:focus grow:active avenir hover-bg-washed-red" ]
         [ a
-            [ class "db pv1 ph0 no-underline black hover-bg-washed-red"
+            [ class "db pv1 ph0 no-underline black hover-trigger"
             , href "#"
             ]
-            [ h1 [ class "tc f2 f1-ns mt0 mb2 light-silver" ]
+            [ h1 [ class "tc f2 f1-ns mt0 mb2 light-silver hover-target hover--pink" ]
                 [ text title ]
             , div
                 [ class "flex flex-column flex-row-ns justify-around ph4 ph0-ns"
@@ -96,7 +96,7 @@ responseRate responseRatePercentage =
     div [ class "tc flex flex-column-ns mt2 mt0-ns justify-between dark-gray" ]
         [ div [ class "f2 ttu fw3" ]
             [ text "Response Rate" ]
-        , div [ class "f2 f1-ns bg-light-gray" ]
+        , div [ class "f2 f1-ns bg-light-gray hover-target hover--bg-pink" ]
             [ text responseRatePercentage ]
         ]
 
