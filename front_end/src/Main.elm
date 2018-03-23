@@ -1,6 +1,20 @@
 module Main exposing (..)
 
-import Html exposing (Html, a, article, div, h1, h2, img, main_, p, section, span, text)
+import Html
+    exposing
+        ( Html
+        , a
+        , article
+        , div
+        , h1
+        , h2
+        , img
+        , main_
+        , p
+        , section
+        , span
+        , text
+        )
 import Html.Attributes exposing (alt, attribute, class, href, src)
 
 
@@ -39,43 +53,59 @@ view model =
         [ section [ attribute "data-name" "survey-results", class "mw7 center" ]
             [ h1 [ class "tc ttu f1 f-5-ns mv4" ]
                 [ text "Survey Results" ]
-            , surveyResult "Simple Survey" "6" "5" "83%"
-            , surveyResult "Acme Engagement Survey" "271" "271" "100%"
+            , surveySummary "Simple Survey" "6" "5" "83%"
+            , surveySummary "Acme Engagement Survey" "271" "271" "100%"
             ]
         ]
 
 
-surveyResult title numParticipants numResponses responseRate =
+surveySummary : String -> String -> String -> String -> Html msg
+surveySummary title numParticipants numResponses responseRatePercentage =
     article [ class "ba b--black-10 mt2 grow grow:focus grow:active" ]
-        [ a
-            [ class "db pv1 ph0 no-underline black", href "#" ]
+        [ a [ class "db pv1 ph0 no-underline black", href "#" ]
             [ h1 [ class "tc f2 f1-ns mt0 mb2" ]
                 [ text title ]
             , div
-                [ class "flex flex-column flex-row-ns justify-around ph4 ph0-ns" ]
+                [ class
+                    "flex flex-column flex-row-ns justify-around ph4 ph0-ns"
+                ]
                 [ div [ class "w-50-ns" ]
-                    [ div [ class "flex justify-between" ]
-                        [ div [ class "f2 f1-ns" ]
-                            [ text "Participants" ]
-                        , div [ class "f2 f1-ns" ]
-                            [ text numParticipants ]
-                        ]
-                    , div [ class "flex justify-between" ]
-                        [ div [ class "f2 f1-ns" ]
-                            [ text "Responses" ]
-                        , div [ class "f2 f1-ns" ]
-                            [ text numResponses ]
-                        ]
+                    [ participants numParticipants
+                    , responses numResponses
                     ]
-                , div
-                    [ class "tc flex flex-column-ns mt2 mt0-ns justify-between" ]
-                    [ div [ class "f2 ttu" ]
-                        [ text "Response Rate" ]
-                    , div [ class "f2 f1-ns" ]
-                        [ text responseRate ]
-                    ]
+                , responseRate responseRatePercentage
                 ]
             ]
+        ]
+
+
+participants : String -> Html msg
+participants numParticipants =
+    div [ class "flex justify-between" ]
+        [ div [ class "f2 f1-ns" ]
+            [ text "Participants" ]
+        , div [ class "f2 f1-ns" ]
+            [ text numParticipants ]
+        ]
+
+
+responses : String -> Html msg
+responses numResponses =
+    div [ class "flex justify-between" ]
+        [ div [ class "f2 f1-ns" ]
+            [ text "Responses" ]
+        , div [ class "f2 f1-ns" ]
+            [ text numResponses ]
+        ]
+
+
+responseRate : String -> Html msg
+responseRate responseRatePercentage =
+    div [ class "tc flex flex-column-ns mt2 mt0-ns justify-between" ]
+        [ div [ class "f2 ttu" ]
+            [ text "Response Rate" ]
+        , div [ class "f2 f1-ns" ]
+            [ text responseRatePercentage ]
         ]
 
 
