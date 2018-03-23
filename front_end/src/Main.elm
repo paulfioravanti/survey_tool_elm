@@ -49,24 +49,26 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    main_ []
-        [ section [ attribute "data-name" "survey-results", class "mw7 center" ]
-            [ div [ class "flex justify-around" ]
-                [ h1 [ class "ttu f2 f-5-ns mv3 avenir dark-gray" ]
-                    [ text "Survey"
-                    , img
-                        [ src "/culture-amp.png"
-                        , class "img h2 h3-ns mt0 mt4-ns mh0 mh2-ns"
-                        , alt "logo"
-                        ]
-                        []
-                    , text "Results"
-                    ]
+    let
+        logo =
+            img
+                [ src "/culture-amp.png"
+                , class "h2 h3-ns img mh0 mh2-ns mt0 mt4-ns"
+                , alt "logo"
                 ]
-            , surveySummary "Simple Survey" "6" "5" "83%"
-            , surveySummary "Acme Engagement Survey" "271" "271" "100%"
+                []
+    in
+        main_ []
+            [ section
+                [ attribute "data-name" "survey-results", class "mw7 center" ]
+                [ div [ class "flex justify-around" ]
+                    [ h1 [ class "ttu f2 f-5-ns mv3 avenir dark-gray" ]
+                        [ text "Survey", logo, text "Results" ]
+                    ]
+                , surveySummary "Simple Survey" "6" "5" "83%"
+                , surveySummary "Acme Engagement Survey" "271" "271" "100%"
+                ]
             ]
-        ]
 
 
 surveySummary : String -> String -> String -> String -> Html msg
@@ -94,7 +96,21 @@ surveySummary title numParticipants numResponses responseRatePercentage =
             , "pv1"
             ]
                 |> String.join " "
+    in
+        article [ class articleClasses ]
+            [ a [ class linkClasses, href "#" ]
+                [ summaryHeading title
+                , summaryContent
+                    numParticipants
+                    numResponses
+                    responseRatePercentage
+                ]
+            ]
 
+
+summaryHeading : String -> Html msg
+summaryHeading title =
+    let
         headingClasses =
             [ "f1-ns"
             , "f3"
@@ -106,7 +122,14 @@ surveySummary title numParticipants numResponses responseRatePercentage =
             , "tc"
             ]
                 |> String.join " "
+    in
+        h1 [ class headingClasses ]
+            [ text title ]
 
+
+summaryContent : String -> String -> String -> Html msg
+summaryContent numParticipants numResponses responseRatePercentage =
+    let
         contentClasses =
             [ "flex"
             , "flex-column"
@@ -117,27 +140,21 @@ surveySummary title numParticipants numResponses responseRatePercentage =
             ]
                 |> String.join " "
     in
-        article [ class articleClasses ]
-            [ a [ class linkClasses, href "#" ]
-                [ h1 [ class headingClasses ]
-                    [ text title ]
-                , div [ class contentClasses ]
-                    [ div [ class "w-50-ns" ]
-                        [ statistic "Participants" numParticipants
-                        , statistic "Responses" numResponses
-                        ]
-                    , responseRate responseRatePercentage
-                    ]
+        div [ class contentClasses ]
+            [ div [ class "w-50-ns" ]
+                [ statistic "Participants" numParticipants
+                , statistic "Responses" numResponses
                 ]
+            , responseRate responseRatePercentage
             ]
 
 
 statistic : String -> String -> Html msg
 statistic label value =
     div [ class "flex justify-between mid-gray b" ]
-        [ div [ class "f3 f1-ns fw2" ]
+        [ div [ class "f1-ns f3 fw2" ]
             [ text label ]
-        , div [ class "f3 f1-ns" ]
+        , div [ class "f1-ns f3" ]
             [ text value ]
         ]
 
@@ -161,7 +178,7 @@ responseRate responseRatePercentage =
         div [ class responseRateClasses ]
             [ div [ class "f2-ns ttu fw3" ]
                 [ text "Response Rate" ]
-            , div [ class "f1-ns bg-light-gray hover-target hover-bg-brand" ]
+            , div [ class "bg-light-gray f1-ns hover-bg-brand hover-target" ]
                 [ text responseRatePercentage ]
             ]
 
