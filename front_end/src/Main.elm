@@ -61,9 +61,9 @@ view model =
 
 surveySummary : String -> String -> String -> String -> Html msg
 surveySummary title numParticipants numResponses responseRatePercentage =
-    article [ class "ba b--black-10 mt2 grow grow:focus grow:active avenir" ]
+    article [ class "ba b--black-10 ma2 mt2-ns grow grow:focus grow:active avenir" ]
         [ a
-            [ class "db pv1 ph0 no-underline black hover-bg-washed-blue"
+            [ class "db pv1 ph0 no-underline black hover-bg-washed-red"
             , href "#"
             ]
             [ h1 [ class "tc f2 f1-ns mt0 mb2 light-silver" ]
@@ -83,7 +83,7 @@ surveySummary title numParticipants numResponses responseRatePercentage =
 
 statistic : String -> String -> Html msg
 statistic label value =
-    div [ class "flex justify-between" ]
+    div [ class "flex justify-between mid-gray" ]
         [ div [ class "f2 f1-ns fw2" ]
             [ text label ]
         , div [ class "f2 f1-ns" ]
@@ -93,10 +93,10 @@ statistic label value =
 
 responseRate : String -> Html msg
 responseRate responseRatePercentage =
-    div [ class "tc flex flex-column-ns mt2 mt0-ns justify-between" ]
-        [ div [ class "f2 ttu fw2" ]
+    div [ class "tc flex flex-column-ns mt2 mt0-ns justify-between dark-gray" ]
+        [ div [ class "f2 ttu fw3" ]
             [ text "Response Rate" ]
-        , div [ class "f2 f1-ns" ]
+        , div [ class "f2 f1-ns bg-light-gray" ]
             [ text responseRatePercentage ]
         ]
 
