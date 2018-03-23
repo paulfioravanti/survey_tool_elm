@@ -51,8 +51,18 @@ view : Model -> Html Msg
 view model =
     main_ []
         [ section [ attribute "data-name" "survey-results", class "mw7 center" ]
-            [ h1 [ class "tc ttu f1 f-5-ns mv4 avenir dark-gray" ]
-                [ text "Survey Results" ]
+            [ div [ class "flex justify-around" ]
+                [ h1 [ class "ttu f2 f-5-ns mv3 avenir dark-gray" ]
+                    [ text "Survey"
+                    , img
+                        [ src "/culture-amp.png"
+                        , class "img h2 h3-ns mt0 mt4-ns mh0 mh2-ns"
+                        , alt "logo"
+                        ]
+                        []
+                    , text "Results"
+                    ]
+                ]
             , surveySummary "Simple Survey" "6" "5" "83%"
             , surveySummary "Acme Engagement Survey" "271" "271" "100%"
             ]
@@ -67,7 +77,7 @@ surveySummary title numParticipants numResponses responseRatePercentage =
             , href "#"
             ]
             [ h1
-                [ class "tc f2 f1-ns mt0 mb2 light-silver hover-target hover-brand"
+                [ class "tc f3 f1-ns mt0 mb2 light-silver hover-target hover-brand"
                 ]
                 [ text title ]
             , div
@@ -86,9 +96,9 @@ surveySummary title numParticipants numResponses responseRatePercentage =
 statistic : String -> String -> Html msg
 statistic label value =
     div [ class "flex justify-between mid-gray b" ]
-        [ div [ class "f2 f1-ns fw2" ]
+        [ div [ class "f3 f1-ns fw2" ]
             [ text label ]
-        , div [ class "f2 f1-ns" ]
+        , div [ class "f3 f1-ns" ]
             [ text value ]
         ]
 
@@ -96,9 +106,9 @@ statistic label value =
 responseRate : String -> Html msg
 responseRate responseRatePercentage =
     div [ class "tc flex flex-column-ns mt2 mt0-ns justify-between dark-gray b" ]
-        [ div [ class "f2 ttu fw3" ]
+        [ div [ class "f3 f2-ns ttu fw3" ]
             [ text "Response Rate" ]
-        , div [ class "f2 f1-ns bg-light-gray hover-target hover-bg-brand" ]
+        , div [ class "f3 f1-ns bg-light-gray hover-target hover-bg-brand" ]
             [ text responseRatePercentage ]
         ]
 
