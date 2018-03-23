@@ -49,26 +49,27 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    let
-        logo =
-            img
-                [ src "/culture-amp.png"
-                , class "h2 h3-ns img mh0 mh2-ns mt0 mt4-ns"
-                , alt "logo"
+    main_ []
+        [ section
+            [ attribute "data-name" "survey-results", class "mw7 center" ]
+            [ div [ class "flex justify-around" ]
+                [ h1 [ class "ttu f2 f-5-ns mv3 avenir dark-gray" ]
+                    [ text "Survey", logo, text "Results" ]
                 ]
-                []
-    in
-        main_ []
-            [ section
-                [ attribute "data-name" "survey-results", class "mw7 center" ]
-                [ div [ class "flex justify-around" ]
-                    [ h1 [ class "ttu f2 f-5-ns mv3 avenir dark-gray" ]
-                        [ text "Survey", logo, text "Results" ]
-                    ]
-                , surveySummary "Simple Survey" "6" "5" "83%"
-                , surveySummary "Acme Engagement Survey" "271" "271" "100%"
-                ]
+            , surveySummary "Simple Survey" "6" "5" "83%"
+            , surveySummary "Acme Engagement Survey" "271" "271" "100%"
             ]
+        ]
+
+
+logo : Html msg
+logo =
+    let
+        logoClasses =
+            [ "h2 h3-ns", "img", "mh0 mh2-ns", "mt0 mt4-ns" ]
+                |> String.join " "
+    in
+        img [ src "/culture-amp.png", class logoClasses, alt "logo" ] []
 
 
 surveySummary : String -> String -> String -> String -> Html msg
@@ -78,27 +79,22 @@ surveySummary title numParticipants numResponses responseRatePercentage =
             [ "avenir"
             , "b--black-10"
             , "ba"
-            , "grow"
-            , "grow:active"
-            , "grow:focus"
+            , "grow grow:active grow:focus"
             , "hover-bg-washed-red"
-            , "ma2"
-            , "mt2-ns"
+            , "ma2 mt2-ns"
             ]
                 |> String.join " "
 
         linkClasses =
-            [ "black"
-            , "db"
-            , "hover-trigger"
-            , "no-underline"
-            , "ph0"
-            , "pv1"
-            ]
+            [ "black", "db", "no-underline", "ph0", "pv1" ]
                 |> String.join " "
     in
         article [ class articleClasses ]
-            [ a [ class linkClasses, href "#" ]
+            [ a
+                [ attribute "data-name" "survey-link"
+                , class linkClasses
+                , href "#"
+                ]
                 [ summaryHeading title
                 , summaryContent
                     numParticipants
@@ -112,10 +108,8 @@ summaryHeading : String -> Html msg
 summaryHeading title =
     let
         headingClasses =
-            [ "f1-ns"
-            , "f3"
+            [ "f3 f1-ns"
             , "hover-brand"
-            , "hover-target"
             , "light-silver"
             , "mb2"
             , "mt0"
@@ -135,8 +129,7 @@ summaryContent numParticipants numResponses responseRatePercentage =
             , "flex-column"
             , "flex-row-ns"
             , "justify-around"
-            , "ph4"
-            , "ph0-ns"
+            , "ph4 ph0-ns"
             ]
                 |> String.join " "
     in
@@ -169,8 +162,7 @@ responseRate responseRatePercentage =
             , "flex"
             , "flex-column-ns"
             , "justify-between"
-            , "mt0-ns"
-            , "mt2"
+            , "mt2 mt0-ns"
             , "tc"
             ]
                 |> String.join " "
@@ -178,7 +170,7 @@ responseRate responseRatePercentage =
         div [ class responseRateClasses ]
             [ div [ class "f2-ns ttu fw3" ]
                 [ text "Response Rate" ]
-            , div [ class "bg-light-gray f1-ns hover-bg-brand hover-target" ]
+            , div [ class "bg-light-gray f1-ns hover-bg-brand" ]
                 [ text responseRatePercentage ]
             ]
 

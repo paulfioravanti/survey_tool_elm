@@ -4,12 +4,12 @@
   --brand-color-lighter: rgb(252 ,51 ,90);
 }
 
-.hover-trigger:hover
-.hover-target.hover-brand {
+[data-name="survey-link"]:hover
+.hover-brand {
   color: var(--brand-color);
 }
 
-.hover-trigger:hover
-.hover-target.hover-bg-brand {
+[data-name="survey-link"]:hover
+.hover-bg-brand {
   background-color: var(--brand-color-lighter);
 }
