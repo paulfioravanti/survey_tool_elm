@@ -66,7 +66,9 @@ surveySummary title numParticipants numResponses responseRatePercentage =
             [ class "db pv1 ph0 no-underline black hover-trigger"
             , href "#"
             ]
-            [ h1 [ class "tc f2 f1-ns mt0 mb2 light-silver hover-target hover--pink" ]
+            [ h1
+                [ class "tc f2 f1-ns mt0 mb2 light-silver hover-target hover-brand"
+                ]
                 [ text title ]
             , div
                 [ class "flex flex-column flex-row-ns justify-around ph4 ph0-ns"
@@ -83,7 +85,7 @@ surveySummary title numParticipants numResponses responseRatePercentage =
 
 statistic : String -> String -> Html msg
 statistic label value =
-    div [ class "flex justify-between mid-gray" ]
+    div [ class "flex justify-between mid-gray b" ]
         [ div [ class "f2 f1-ns fw2" ]
             [ text label ]
         , div [ class "f2 f1-ns" ]
@@ -93,10 +95,10 @@ statistic label value =
 
 responseRate : String -> Html msg
 responseRate responseRatePercentage =
-    div [ class "tc flex flex-column-ns mt2 mt0-ns justify-between dark-gray" ]
+    div [ class "tc flex flex-column-ns mt2 mt0-ns justify-between dark-gray b" ]
         [ div [ class "f2 ttu fw3" ]
             [ text "Response Rate" ]
-        , div [ class "f2 f1-ns bg-light-gray hover-target hover--bg-pink" ]
+        , div [ class "f2 f1-ns bg-light-gray hover-target hover-bg-brand" ]
             [ text responseRatePercentage ]
         ]
 
