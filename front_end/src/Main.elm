@@ -53,7 +53,7 @@ view model =
         [ section
             [ attribute "data-name" "survey-results", class "mw7 center" ]
             [ div [ class "flex justify-around" ]
-                [ h1 [ class "ttu f2 f-5-ns mv3 avenir dark-gray" ]
+                [ h1 [ class "avenir dark-gray f2 f-5-ns mv3 ttu" ]
                     [ text "Survey", logo, text "Results" ]
                 ]
             , surveySummary "Simple Survey" "6" "5" "83%"
@@ -82,11 +82,12 @@ surveySummary title numParticipants numResponses responseRatePercentage =
             , "grow grow:active grow:focus"
             , "hover-bg-washed-red"
             , "ma2 mt2-ns"
+            , "pa2"
             ]
                 |> String.join " "
 
         linkClasses =
-            [ "black", "db", "no-underline", "ph0", "pv1" ]
+            [ "no-underline", "ph0", "pv1" ]
                 |> String.join " "
     in
         article [ class articleClasses ]
@@ -126,8 +127,7 @@ summaryContent numParticipants numResponses responseRatePercentage =
     let
         contentClasses =
             [ "flex"
-            , "flex-column"
-            , "flex-row-ns"
+            , "flex-column flex-row-ns"
             , "justify-around"
             , "ph4 ph0-ns"
             ]
@@ -144,10 +144,10 @@ summaryContent numParticipants numResponses responseRatePercentage =
 
 statistic : String -> String -> Html msg
 statistic label value =
-    div [ class "flex justify-between mid-gray b" ]
-        [ div [ class "f1-ns f3 fw2" ]
+    div [ class "b flex justify-between mid-gray" ]
+        [ div [ class "f3 f1-ns fw2" ]
             [ text label ]
-        , div [ class "f1-ns f3" ]
+        , div [ class "f3 f1-ns" ]
             [ text value ]
         ]
 
@@ -168,7 +168,7 @@ responseRate responseRatePercentage =
                 |> String.join " "
     in
         div [ class responseRateClasses ]
-            [ div [ class "f2-ns ttu fw3" ]
+            [ div [ class "f2-ns fw3 ttu" ]
                 [ text "Response Rate" ]
             , div [ class "bg-light-gray f1-ns hover-bg-brand" ]
                 [ text responseRatePercentage ]
