@@ -51,7 +51,7 @@ view : Model -> Html Msg
 view model =
     main_ []
         [ section [ attribute "data-name" "survey-results", class "mw7 center" ]
-            [ h1 [ class "tc ttu f1 f-5-ns mv4" ]
+            [ h1 [ class "tc ttu f1 f-5-ns mv4 avenir dark-gray" ]
                 [ text "Survey Results" ]
             , surveySummary "Simple Survey" "6" "5" "83%"
             , surveySummary "Acme Engagement Survey" "271" "271" "100%"
@@ -61,17 +61,19 @@ view model =
 
 surveySummary : String -> String -> String -> String -> Html msg
 surveySummary title numParticipants numResponses responseRatePercentage =
-    article [ class "ba b--black-10 mt2 grow grow:focus grow:active" ]
-        [ a [ class "db pv1 ph0 no-underline black", href "#" ]
-            [ h1 [ class "tc f2 f1-ns mt0 mb2" ]
+    article [ class "ba b--black-10 mt2 grow grow:focus grow:active avenir" ]
+        [ a
+            [ class "db pv1 ph0 no-underline black hover-bg-washed-blue"
+            , href "#"
+            ]
+            [ h1 [ class "tc f2 f1-ns mt0 mb2 light-silver" ]
                 [ text title ]
             , div
-                [ class
-                    "flex flex-column flex-row-ns justify-around ph4 ph0-ns"
+                [ class "flex flex-column flex-row-ns justify-around ph4 ph0-ns"
                 ]
                 [ div [ class "w-50-ns" ]
-                    [ participants numParticipants
-                    , responses numResponses
+                    [ statistic "Participants" numParticipants
+                    , statistic "Responses" numResponses
                     ]
                 , responseRate responseRatePercentage
                 ]
@@ -79,30 +81,20 @@ surveySummary title numParticipants numResponses responseRatePercentage =
         ]
 
 
-participants : String -> Html msg
-participants numParticipants =
+statistic : String -> String -> Html msg
+statistic label value =
     div [ class "flex justify-between" ]
-        [ div [ class "f2 f1-ns" ]
-            [ text "Participants" ]
+        [ div [ class "f2 f1-ns fw2" ]
+            [ text label ]
         , div [ class "f2 f1-ns" ]
-            [ text numParticipants ]
-        ]
-
-
-responses : String -> Html msg
-responses numResponses =
-    div [ class "flex justify-between" ]
-        [ div [ class "f2 f1-ns" ]
-            [ text "Responses" ]
-        , div [ class "f2 f1-ns" ]
-            [ text numResponses ]
+            [ text value ]
         ]
 
 
 responseRate : String -> Html msg
 responseRate responseRatePercentage =
     div [ class "tc flex flex-column-ns mt2 mt0-ns justify-between" ]
-        [ div [ class "f2 ttu" ]
+        [ div [ class "f2 ttu fw2" ]
             [ text "Response Rate" ]
         , div [ class "f2 f1-ns" ]
             [ text responseRatePercentage ]
