@@ -15,10 +15,11 @@ import Html
         , text
         )
 import Html.Attributes exposing (attribute, class, href)
+import SurveyResult.Model exposing (SurveyResult)
 
 
-view : String -> String -> String -> String -> Html msg
-view title numParticipants numResponses responseRatePercentage =
+view : SurveyResult -> Html msg
+view surveyResult =
     let
         articleClasses =
             [ "avenir"
@@ -39,13 +40,13 @@ view title numParticipants numResponses responseRatePercentage =
             [ a
                 [ attribute "data-name" "survey-link"
                 , class linkClasses
-                , href "#"
+                , href surveyResult.url
                 ]
-                [ summaryHeading title
+                [ summaryHeading surveyResult.name
                 , summaryContent
-                    numParticipants
-                    numResponses
-                    responseRatePercentage
+                    surveyResult.participationCount
+                    surveyResult.submittedResponseCount
+                    surveyResult.responseRate
                 ]
             ]
 
