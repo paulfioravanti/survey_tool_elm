@@ -1,19 +1,15 @@
 module SurveyResultList.Update exposing (update)
 
+import RemoteData exposing (RemoteData(Failure, Success), WebData)
 import SurveyResultList.Messages exposing (Msg(FetchSurveyResultList))
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
-update : Msg -> ( SurveyResultList, Cmd Msg )
+update : Msg -> ( WebData SurveyResultList, Cmd Msg )
 update msg =
     case msg of
         FetchSurveyResultList (Ok response) ->
-            ( response, Cmd.none )
+            ( Success response, Cmd.none )
 
         FetchSurveyResultList (Err error) ->
-            ( errorList, Cmd.none )
-
-
-errorList : SurveyResultList
-errorList =
-    SurveyResultList.Model.initialSurveyResultList
+            ( Failure error, Cmd.none )

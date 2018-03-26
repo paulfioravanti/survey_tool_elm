@@ -1,14 +1,15 @@
 module Model exposing (Model, initialModel)
 
-import SurveyResultList.Model exposing (SurveyResultList, initialSurveyResultList)
+import RemoteData exposing (RemoteData(NotRequested), WebData)
+import SurveyResultList.Model exposing (SurveyResultList)
 
 
 type alias Model =
-    { surveyResultList : SurveyResultList
+    { surveyResultList : WebData SurveyResultList
     }
 
 
 initialModel : Model
 initialModel =
-    { surveyResultList = initialSurveyResultList
+    { surveyResultList = NotRequested
     }

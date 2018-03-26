@@ -14,5 +14,5 @@ update msg model =
                     SurveyResultList.Update.update msg
             in
                 ( { model | surveyResultList = surveyResultList }
-                , Cmd.none
+                , Cmd.map SurveyResultListMsg cmd
                 )

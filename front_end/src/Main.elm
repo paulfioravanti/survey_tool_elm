@@ -3,6 +3,7 @@ module Main exposing (main)
 import Html
 import Messages exposing (Msg(SurveyResultListMsg))
 import Model exposing (Model)
+import RemoteData exposing (RemoteData(Requesting))
 import SurveyResultList.Commands
 import Update
 import View
@@ -20,7 +21,11 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model.initialModel
-    , SurveyResultList.Commands.fetchSurveyResultList
-        |> Cmd.map SurveyResultListMsg
-    )
+    let
+        model =
+            Model.initialModel
+    in
+        ( { model | surveyResultList = Requesting }
+        , SurveyResultList.Commands.fetchSurveyResultList
+            |> Cmd.map SurveyResultListMsg
+        )

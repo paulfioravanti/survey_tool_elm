@@ -1,6 +1,6 @@
-module SurveyResultList.View exposing (view)
+module SurveyResultList.View exposing (view, warningMessage)
 
-import Html exposing (Html, div, h1, img, section, text)
+import Html exposing (Html, div, h1, h4, i, img, section, span, text)
 import Html.Attributes exposing (alt, attribute, class, src)
 import SurveyResult.View
 import SurveyResultList.Model exposing (SurveyResultList)
@@ -27,6 +27,17 @@ view surveyResultList =
                         |> List.map SurveyResult.View.view
                    )
             )
+
+
+warningMessage : String -> String -> Html msg -> Html msg
+warningMessage iconClasses message content =
+    div [ class "warning" ]
+        [ span [ class "fa-stack" ]
+            [ i [ class iconClasses ] [] ]
+        , h4 []
+            [ text message ]
+        , content
+        ]
 
 
 heading : Html msg
