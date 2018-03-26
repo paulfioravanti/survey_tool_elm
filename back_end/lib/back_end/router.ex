@@ -23,6 +23,7 @@ defmodule BackEnd.Router do
     only: ~w(favicon.ico)
   )
 
+  plug(CORSPlug)
   plug(:match)
   plug(:dispatch)
 
