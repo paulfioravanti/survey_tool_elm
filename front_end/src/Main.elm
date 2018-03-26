@@ -1,8 +1,9 @@
 module Main exposing (main)
 
 import Html
-import Messages exposing (Msg)
+import Messages exposing (Msg(SurveyResultListMsg))
 import Model exposing (Model)
+import SurveyResultList.Commands
 import Update
 import View
 
@@ -19,4 +20,7 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model.initialModel, Cmd.none )
+    ( Model.initialModel
+    , SurveyResultList.Commands.fetchSurveyResultList
+        |> Cmd.map SurveyResultListMsg
+    )

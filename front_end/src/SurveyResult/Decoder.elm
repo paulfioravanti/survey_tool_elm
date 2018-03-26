@@ -10,7 +10,7 @@ decoder =
     Decode.succeed
         SurveyResult
         |: (field "name" string)
-        |: (field "participation_count" int)
+        |: (field "participant_count" int)
         |: (field "response_rate" float)
         |: (field "submitted_response_count" int)
         |: (field "url" string)

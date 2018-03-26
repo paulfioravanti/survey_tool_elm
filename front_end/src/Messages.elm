@@ -1,5 +1,7 @@
 module Messages exposing (Msg(..))
 
+import SurveyResultList.Messages
+
 
 type Msg
-    = NoOp
+    = SurveyResultListMsg SurveyResultList.Messages.Msg

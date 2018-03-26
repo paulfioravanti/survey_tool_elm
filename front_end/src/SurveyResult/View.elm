@@ -46,7 +46,7 @@ view surveyResult =
                 , summaryContent
                     (toString surveyResult.participationCount)
                     (toString surveyResult.submittedResponseCount)
-                    (toString surveyResult.responseRate)
+                    (toPercentage surveyResult.responseRate)
                 ]
             ]
 
@@ -119,3 +119,15 @@ responseRate responseRatePercentage =
             , div [ class "bg-light-gray f1-ns hover-bg-brand" ]
                 [ text responseRatePercentage ]
             ]
+
+
+toPercentage : Float -> String
+toPercentage float =
+    let
+        percent =
+            float
+                * 100
+                |> round
+                |> toString
+    in
+        percent ++ "%"
