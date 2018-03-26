@@ -9,4 +9,4 @@ import SurveyResultList.View
 view : Model -> Html Msg
 view model =
     main_ []
-        [ SurveyResultList.View.view ]
+        [ SurveyResultList.View.view model.surveyResultList ]

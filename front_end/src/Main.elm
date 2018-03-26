@@ -19,4 +19,4 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
+    ( Model.initialModel, Cmd.none )

@@ -2,12 +2,12 @@ module SurveyResultList.View exposing (view)
 
 import Html exposing (Html, div, h1, img, section, text)
 import Html.Attributes exposing (alt, attribute, class, src)
-import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.View
+import SurveyResultList.Model exposing (SurveyResultList)
 
 
-view : Html msg
-view =
+view : SurveyResultList -> Html msg
+view surveyResultList =
     let
         articleClasses =
             [ "avenir"
@@ -19,26 +19,13 @@ view =
             , "pa2"
             ]
                 |> String.join " "
-
-        surveyResults =
-            [ SurveyResult
-                "Simple Survey"
-                "6"
-                "83%"
-                "5"
-                "/survey_results/1"
-            , SurveyResult
-                "Acme Engagement Survey"
-                "271"
-                "100%"
-                "271"
-                "/survey_results/2"
-            ]
     in
         section [ attribute "data-name" "survey-results", class "mw7 center" ]
             (div [ class "flex justify-around" ]
                 [ heading ]
-                :: List.map SurveyResult.View.view surveyResults
+                :: (surveyResultList.surveyResults
+                        |> List.map SurveyResult.View.view
+                   )
             )
 
 

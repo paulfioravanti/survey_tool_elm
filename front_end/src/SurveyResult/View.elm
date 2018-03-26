@@ -44,9 +44,9 @@ view surveyResult =
                 ]
                 [ summaryHeading surveyResult.name
                 , summaryContent
-                    surveyResult.participationCount
-                    surveyResult.submittedResponseCount
-                    surveyResult.responseRate
+                    (toString surveyResult.participationCount)
+                    (toString surveyResult.submittedResponseCount)
+                    (toString surveyResult.responseRate)
                 ]
             ]
 
