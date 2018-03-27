@@ -13,6 +13,7 @@ import RemoteData
         , WebData
         )
 import Shared.LoadingMessage as LoadingMessage
+import Shared.ErrorMessage as ErrorMessage
 import SurveyResultList.View
 
 
@@ -26,7 +27,7 @@ render surveyResultList =
             LoadingMessage.view
 
         Failure error ->
-            text "Unable to get survey results"
+            ErrorMessage.view
 
         Success surveyResultList ->
             SurveyResultList.View.view surveyResultList

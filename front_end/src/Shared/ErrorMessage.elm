@@ -1,4 +1,4 @@
-module Shared.LoadingMessage exposing (view)
+module Shared.ErrorMessage exposing (view)
 
 import Html exposing (Html, div, h1, i, section, text)
 import Html.Attributes exposing (attribute, class)
@@ -12,12 +12,11 @@ view =
             , "flex-column"
             , "justify-center"
             , "items-center"
-            , "light-silver"
             , "vh-75"
             ]
                 |> String.join " "
     in
-        section [ attribute "data-name" "loading-message" ]
+        section [ attribute "data-name" "error-message" ]
             [ div [ class messageClasses ]
                 [ div [ class "" ]
                     [ icon ]
@@ -34,9 +33,8 @@ icon =
         iconClasses =
             [ "brand-50"
             , "fa-4x"
-            , "fa-pulse"
-            , "fa-spinner"
-            , "fas"
+            , "fa-frown"
+            , "far"
             ]
                 |> String.join " "
     in
@@ -48,11 +46,16 @@ heading =
     let
         headingClasses =
             [ "avenir"
-            , "f2 f1-ns"
+            , "light-silver"
             , "mv2"
-            , "ttu"
             ]
                 |> String.join " "
     in
         h1 [ class headingClasses ]
-            [ text "Loading" ]
+            [ div [ class "f2 f1-ns ttu" ]
+                [ text "Error retrieving data"
+                ]
+            , div [ class "f6 tc" ]
+                [ text "(Is the back end server running?)"
+                ]
+            ]
