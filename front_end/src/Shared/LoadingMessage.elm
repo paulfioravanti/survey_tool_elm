@@ -13,11 +13,11 @@ view =
             , "justify-center"
             , "items-center"
             , "light-silver"
-            , "vh-100"
+            , "vh-75"
             ]
                 |> String.join " "
     in
-        section [ attribute "data-name" "loading-message", class "center mw7" ]
+        section [ attribute "data-name" "loading-message" ]
             [ div [ class messageClasses ]
                 [ div [ class "" ]
                     [ icon ]
