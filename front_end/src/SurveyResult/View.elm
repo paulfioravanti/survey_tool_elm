@@ -36,12 +36,8 @@ view surveyResult =
             [ "no-underline", "ph0", "pv1" ]
                 |> String.join " "
     in
-        article [ class articleClasses ]
-            [ a
-                [ attribute "data-name" "survey-link"
-                , class linkClasses
-                , href surveyResult.url
-                ]
+        article [ attribute "data-name" "survey-result", class articleClasses ]
+            [ a [ class linkClasses, href surveyResult.url ]
                 [ summaryHeading surveyResult.name
                 , summaryContent
                     (toString surveyResult.participationCount)
