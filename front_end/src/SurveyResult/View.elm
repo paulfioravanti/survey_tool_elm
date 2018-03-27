@@ -40,9 +40,9 @@ view surveyResult =
             [ a [ class linkClasses, href surveyResult.url ]
                 [ summaryHeading surveyResult.name
                 , summaryContent
-                    (toString surveyResult.participationCount)
-                    (toString surveyResult.submittedResponseCount)
-                    (toPercentage surveyResult.responseRate)
+                    surveyResult.participationCount
+                    surveyResult.submittedResponseCount
+                    surveyResult.responseRate
                 ]
             ]
 
@@ -64,7 +64,7 @@ summaryHeading title =
             [ text title ]
 
 
-summaryContent : String -> String -> String -> Html msg
+summaryContent : Int -> Int -> Float -> Html msg
 summaryContent numParticipants numResponses responseRatePercentage =
     let
         contentClasses =
@@ -84,17 +84,17 @@ summaryContent numParticipants numResponses responseRatePercentage =
             ]
 
 
-statistic : String -> String -> Html msg
+statistic : String -> Int -> Html msg
 statistic label value =
     div [ class "b flex justify-between mid-gray" ]
         [ div [ class "f3 f1-ns fw2" ]
             [ text label ]
         , div [ class "f3 f1-ns" ]
-            [ text value ]
+            [ text (toString value) ]
         ]
 
 
-responseRate : String -> Html msg
+responseRate : Float -> Html msg
 responseRate responseRatePercentage =
     let
         responseRateClasses =
@@ -113,7 +113,7 @@ responseRate responseRatePercentage =
             [ div [ class "f2-ns fw3 ttu" ]
                 [ text "Response Rate" ]
             , div [ class "bg-light-gray f1-ns hover-bg-brand" ]
-                [ text responseRatePercentage ]
+                [ text (toPercentage responseRatePercentage) ]
             ]
 
 
