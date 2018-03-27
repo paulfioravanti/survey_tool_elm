@@ -18,9 +18,9 @@ view =
     in
         section [ attribute "data-name" "error-message" ]
             [ div [ class messageClasses ]
-                [ div [ class "" ]
+                [ div []
                     [ icon ]
-                , div [ class "" ]
+                , div []
                     [ heading ]
                 ]
             ]

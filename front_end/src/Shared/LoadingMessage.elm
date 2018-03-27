@@ -19,9 +19,9 @@ view =
     in
         section [ attribute "data-name" "loading-message" ]
             [ div [ class messageClasses ]
-                [ div [ class "" ]
+                [ div []
                     [ icon ]
-                , div [ class "" ]
+                , div []
                     [ heading ]
                 ]
             ]
