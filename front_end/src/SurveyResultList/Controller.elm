@@ -12,6 +12,7 @@ import RemoteData
             )
         , WebData
         )
+import Shared.LoadingMessage as LoadingMessage
 import SurveyResultList.View
 
 
@@ -22,10 +23,7 @@ render surveyResultList =
             text ""
 
         Requesting ->
-            SurveyResultList.View.warningMessage
-                "fa fa-spin fa-cog fa-2x fa-fw"
-                "Fetching survey results..."
-                (text "")
+            LoadingMessage.view
 
         Failure error ->
             text "Unable to get survey results"
