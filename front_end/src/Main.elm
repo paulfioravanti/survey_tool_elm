@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import Config exposing (Config)
 import Html
 import Messages exposing (Msg(SurveyResultListMsg))
 import Model exposing (Model)
@@ -9,23 +10,24 @@ import Update
 import View
 
 
-main : Program Never Model Msg
+main : Program Config Model Msg
 main =
-    Html.program
+    Html.programWithFlags
         { init = init
         , view = View.view
         , update = Update.update
-        , subscriptions = always Sub.none
+        , subscriptions = \_ -> Sub.none
         }
 
 
-init : ( Model, Cmd Msg )
-init =
+init : Config -> ( Model, Cmd Msg )
+init config =
     let
         model =
-            Model.initialModel
+            Model.initialModel config
     in
         ( { model | surveyResultList = Requesting }
-        , SurveyResultList.Commands.fetchSurveyResultList
+        , model.config.apiUrl
+            |> SurveyResultList.Commands.fetchSurveyResultList
             |> Cmd.map SurveyResultListMsg
         )

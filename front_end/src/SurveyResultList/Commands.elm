@@ -1,13 +1,12 @@
 module SurveyResultList.Commands exposing (fetchSurveyResultList)
 
-import Commands exposing (surveyResultsApiUrl)
 import SurveyResultList.Decoder as Decoder
 import SurveyResultList.Messages exposing (Msg(FetchSurveyResultList))
 import Http
 
 
-fetchSurveyResultList : Cmd Msg
-fetchSurveyResultList =
+fetchSurveyResultList : String -> Cmd Msg
+fetchSurveyResultList apiUrl =
     Decoder.decoder
-        |> Http.get surveyResultsApiUrl
+        |> Http.get apiUrl
         |> Http.send FetchSurveyResultList
