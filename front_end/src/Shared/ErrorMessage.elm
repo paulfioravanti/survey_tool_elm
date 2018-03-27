@@ -2,6 +2,7 @@ module Shared.ErrorMessage exposing (view)
 
 import Html exposing (Html, div, h1, i, section, text)
 import Html.Attributes exposing (attribute, class)
+import Html.Keyed as Keyed
 
 
 view : Html msg
@@ -18,8 +19,7 @@ view =
     in
         section [ attribute "data-name" "error-message" ]
             [ div [ class messageClasses ]
-                [ div []
-                    [ icon ]
+                [ Keyed.node "div" [] [ ( "error-icon", icon ) ]
                 , div []
                     [ heading ]
                 ]
