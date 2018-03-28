@@ -1,4 +1,4 @@
-module Routes exposing (Route(..))
+module Routing.Routes exposing (Route(..))
 
 
 type Route

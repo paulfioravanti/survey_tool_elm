@@ -4,7 +4,7 @@ import Html exposing (Html)
 import Messages.NotFound as NotFound
 import Model exposing (Model)
 import Msg exposing (Msg)
-import Routes
+import Routing.Routes
     exposing
         ( Route
             ( ListSurveyResultsRoute

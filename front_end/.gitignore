@@ -12,3 +12,9 @@ node_modules
 
 # Desktop Services Store on macOS
 .DS_Store
+
+# Private dev-mode ENV variables
+.env
+
+# Generated elm-module-graph
+module-graph.json

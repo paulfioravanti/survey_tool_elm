@@ -1,10 +1,10 @@
 module Update exposing (update)
 
-import Msg exposing (Msg(SurveyResultListMsg, UrlChange, UpdatePage))
+import Msg exposing (Msg(SurveyResultListMsg, RoutingMsg, UpdatePage))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
-import Router
-import Routes exposing (Route(ListSurveyResultsRoute))
+import Routing.Routes exposing (Route(ListSurveyResultsRoute))
+import Routing.Update
 import SurveyResultList.Cmd
 import SurveyResultList.Update
 import Task
@@ -22,10 +22,10 @@ update msg model =
                 , Cmd.map SurveyResultListMsg cmd
                 )
 
-        UrlChange location ->
+        RoutingMsg msg ->
             let
-                route =
-                    Router.toRoute location
+                ( route, cmd ) =
+                    Routing.Update.update msg
             in
                 ( { model | route = route }
                 , Task.succeed ()

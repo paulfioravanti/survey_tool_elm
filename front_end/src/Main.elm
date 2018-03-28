@@ -2,18 +2,19 @@ module Main exposing (main)
 
 import Config exposing (Config)
 import Model exposing (Model)
-import Msg exposing (Msg(UrlChange, UpdatePage))
+import Msg exposing (Msg(RoutingMsg, UpdatePage))
 import Navigation
-import Router
+import Routing.Msg exposing (Msg(UrlChange))
+import Routing.Router as Router
 import Task
 import Update
 import View
 
 
-main : Program Config Model Msg
+main : Program Config Model Msg.Msg
 main =
     Navigation.programWithFlags
-        UrlChange
+        (RoutingMsg << UrlChange)
         { init = init
         , view = View.view
         , update = Update.update
@@ -21,7 +22,7 @@ main =
         }
 
 
-init : Config -> Navigation.Location -> ( Model, Cmd Msg )
+init : Config -> Navigation.Location -> ( Model, Cmd Msg.Msg )
 init config location =
     let
         model =

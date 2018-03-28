@@ -1,11 +1,10 @@
 module Msg exposing (Msg(..))
 
-import Navigation
-import Routes exposing (Route)
+import Routing.Msg
 import SurveyResultList.Msg
 
 
 type Msg
     = SurveyResultListMsg SurveyResultList.Msg.Msg
-    | UrlChange Navigation.Location
+    | RoutingMsg Routing.Msg.Msg
     | UpdatePage ()
