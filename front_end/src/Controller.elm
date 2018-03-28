@@ -3,7 +3,7 @@ module Controller exposing (render)
 import Html exposing (Html)
 import Messages exposing (Msg)
 import Model exposing (Model)
-import Routing.Routes
+import Routes
     exposing
         ( Route
             ( ListSurveyResultsRoute

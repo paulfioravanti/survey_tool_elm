@@ -1,10 +1,10 @@
-module Update exposing (update, updateUrl)
+module Update exposing (update, updateUrlChange)
 
 import Messages exposing (Msg(SurveyResultListMsg, UrlChange))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
-import Routing.Parser
-import Routing.Routes exposing (Route(ListSurveyResultsRoute))
+import Router
+import Routes exposing (Route(ListSurveyResultsRoute))
 import SurveyResultList.Commands
 import SurveyResultList.Update
 
@@ -24,13 +24,13 @@ update msg model =
         UrlChange location ->
             let
                 route =
-                    Routing.Parser.toRoute location
+                    Router.toRoute location
             in
-                updateUrl { model | route = route }
+                updateUrlChange { model | route = route }
 
 
-updateUrl : Model -> ( Model, Cmd Msg )
-updateUrl model =
+updateUrlChange : Model -> ( Model, Cmd Msg )
+updateUrlChange model =
     case model.route of
         ListSurveyResultsRoute ->
             case model.surveyResultList of

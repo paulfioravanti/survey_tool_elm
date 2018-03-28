@@ -5,8 +5,8 @@ import Html.Attributes exposing (attribute, class)
 import Html.Keyed as Keyed
 
 
-view : Html msg
-view =
+view : String -> Html msg
+view message =
     let
         messageClasses =
             [ "flex"
@@ -21,7 +21,7 @@ view =
             [ div [ class messageClasses ]
                 [ Keyed.node "div" [] [ ( "error-icon", icon ) ]
                 , div []
-                    [ heading ]
+                    [ heading message ]
                 ]
             ]
 
@@ -41,8 +41,8 @@ icon =
         i [ class iconClasses ] []
 
 
-heading : Html msg
-heading =
+heading : String -> Html msg
+heading message =
     let
         headingClasses =
             [ "avenir"
@@ -56,6 +56,6 @@ heading =
                 [ text "Error retrieving data"
                 ]
             , div [ class "f6 tc" ]
-                [ text "(Is the back end server running?)"
+                [ text ("(" ++ message ++ ")")
                 ]
             ]

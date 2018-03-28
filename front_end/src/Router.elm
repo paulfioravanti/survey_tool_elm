@@ -1,18 +1,18 @@
-module Routing.Parser exposing (toRoute, toPath)
+module Router exposing (toRoute, toPath)
 
 import Navigation
-import Routing.Routes exposing (Route(ListSurveyResultsRoute, NotFoundRoute))
+import Routes exposing (Route(ListSurveyResultsRoute, NotFoundRoute))
 import UrlParser exposing (Parser, (</>), int, map, oneOf, s, top)
 
 
 toRoute : Navigation.Location -> Route
 toRoute location =
     let
-        locationRoute =
+        route =
             location
                 |> UrlParser.parsePath matchers
     in
-        case locationRoute of
+        case route of
             Just route ->
                 route
 

@@ -1,13 +1,10 @@
 module Main exposing (main)
 
 import Config exposing (Config)
-import Messages exposing (Msg(SurveyResultListMsg, UrlChange))
+import Messages exposing (Msg(UrlChange))
 import Model exposing (Model)
 import Navigation
-import RemoteData exposing (RemoteData(Requesting))
-import Routing.Parser
-import Routing.Routes exposing (Route(ListSurveyResultsRoute, NotFoundRoute))
-import SurveyResultList.Commands
+import Router
 import Update
 import View
 
@@ -26,6 +23,6 @@ main =
 init : Config -> Navigation.Location -> ( Model, Cmd Msg )
 init config location =
     location
-        |> Routing.Parser.toRoute
+        |> Router.toRoute
         |> Model.initialModel config
-        |> Update.updateUrl
+        |> Update.updateUrlChange
