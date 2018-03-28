@@ -1,12 +1,13 @@
-module Update exposing (update, updateUrlChange)
+module Update exposing (update)
 
-import Messages exposing (Msg(SurveyResultListMsg, UrlChange))
+import Messages exposing (Msg(SurveyResultListMsg, UrlChange, UpdatePage))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Router
 import Routes exposing (Route(ListSurveyResultsRoute))
 import SurveyResultList.Commands
 import SurveyResultList.Update
+import Task
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -26,24 +27,25 @@ update msg model =
                 route =
                     Router.toRoute location
             in
-                updateUrlChange { model | route = route }
+                ( { model | route = route }
+                , Task.succeed ()
+                    |> Task.perform UpdatePage
+                )
 
+        UpdatePage _ ->
+            case model.route of
+                ListSurveyResultsRoute ->
+                    case model.surveyResultList of
+                        NotRequested ->
+                            ( { model | surveyResultList = Requesting }
+                            , fetchSurveyResultList model.config.apiUrl
+                            )
 
-updateUrlChange : Model -> ( Model, Cmd Msg )
-updateUrlChange model =
-    case model.route of
-        ListSurveyResultsRoute ->
-            case model.surveyResultList of
-                NotRequested ->
-                    ( { model | surveyResultList = Requesting }
-                    , fetchSurveyResultList model.config.apiUrl
-                    )
+                        _ ->
+                            ( model, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
-
-        _ ->
-            ( model, Cmd.none )
 
 
 fetchSurveyResultList : String -> Cmd Msg
