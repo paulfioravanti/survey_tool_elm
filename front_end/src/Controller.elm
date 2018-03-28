@@ -10,7 +10,7 @@ import Routes
             , NotFoundRoute
             )
         )
-import Shared.NotFoundMessage
+import Shared.NotFoundMessage as NotFoundMessage
 import SurveyResultList.Controller
 
 
@@ -22,4 +22,4 @@ render model =
                 |> SurveyResultList.Controller.render
 
         NotFoundRoute ->
-            Shared.NotFoundMessage.view
+            NotFoundMessage.view
