@@ -3,7 +3,7 @@ module Update exposing (update)
 import Msg exposing (Msg(SurveyResultListMsg, RoutingMsg, UpdatePage))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
-import Routing.Routes exposing (Route(ListSurveyResultsRoute))
+import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Routing.Update
 import SurveyResultList.Cmd
 import SurveyResultList.Update

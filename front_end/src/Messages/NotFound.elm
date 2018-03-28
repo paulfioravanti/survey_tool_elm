@@ -1,12 +1,13 @@
 module Messages.NotFound exposing (view)
 
-import Html exposing (Html, div, h1, i, section, text)
-import Html.Attributes exposing (attribute, class)
+import Html exposing (Html, a, div, h1, i, section, text)
+import Html.Attributes exposing (attribute, class, href)
+import Html.Events exposing (onClick)
 import Html.Keyed as Keyed
 
 
-view : Html msg
-view =
+view : msg -> String -> Html msg
+view msg path =
     let
         messageClasses =
             [ "flex"
@@ -22,6 +23,7 @@ view =
                 [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
                 , div []
                     [ heading ]
+                , backToHomeLink msg path
                 ]
             ]
 
@@ -55,3 +57,19 @@ heading =
     in
         h1 [ class headingClasses ]
             [ text "Page Not Found" ]
+
+
+backToHomeLink : msg -> String -> Html msg
+backToHomeLink msg path =
+    let
+        linkClasses =
+            [ "avenir"
+            , "f5"
+            , "hover-gray"
+            , "light-silver"
+            , "link"
+            ]
+                |> String.join " "
+    in
+        a [ href path, class linkClasses, onClick msg ]
+            [ text "←  Back to survey results" ]

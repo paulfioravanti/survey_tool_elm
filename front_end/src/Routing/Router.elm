@@ -1,7 +1,7 @@
 module Routing.Router exposing (toRoute, toPath)
 
 import Navigation
-import Routing.Routes exposing (Route(ListSurveyResultsRoute, NotFoundRoute))
+import Routing.Route exposing (Route(ListSurveyResultsRoute, NotFoundRoute))
 import UrlParser exposing (Parser, (</>), int, map, oneOf, s, top)
 
 

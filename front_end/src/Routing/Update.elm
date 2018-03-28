@@ -1,8 +1,9 @@
 module Routing.Update exposing (update)
 
-import Routing.Msg exposing (Msg(UrlChange))
+import Navigation
+import Routing.Msg exposing (Msg(NavigateTo, UrlChange))
 import Routing.Router as Router
-import Routing.Routes exposing (Route)
+import Routing.Route exposing (Route)
 import Task
 
 
@@ -13,4 +14,9 @@ update msg cmdMsg =
             ( Router.toRoute location
             , Task.succeed ()
                 |> Task.perform cmdMsg
+            )
+
+        NavigateTo route ->
+            ( route
+            , Navigation.newUrl (Router.toPath route)
             )
