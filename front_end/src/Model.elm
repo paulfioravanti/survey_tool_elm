@@ -13,8 +13,8 @@ type alias Model =
     }
 
 
-initialModel : Route -> Config -> Model
-initialModel route config =
+initialModel : Config -> Route -> Model
+initialModel config route =
     { surveyResultList = NotRequested
     , config = config
     , route = route

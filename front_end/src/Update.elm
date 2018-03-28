@@ -1,4 +1,4 @@
-module Update exposing (update)
+module Update exposing (update, updateUrl)
 
 import Messages exposing (Msg(SurveyResultListMsg, UrlChange))
 import Model exposing (Model)
@@ -25,26 +25,29 @@ update msg model =
             let
                 route =
                     Routing.Parser.toRoute location
-
-                model_ =
-                    { model | route = route }
             in
-                case route of
-                    ListSurveyResultsRoute ->
-                        case model_.surveyResultList of
-                            NotRequested ->
-                                ( { model_ | surveyResultList = Requesting }
-                                , model_.config.apiUrl
-                                    |> SurveyResultList.Commands.fetchSurveyResultList
-                                    |> Cmd.map SurveyResultListMsg
-                                )
-
-                            _ ->
-                                ( model_, Cmd.none )
-
-                    _ ->
-                        ( model, Cmd.none )
+                updateUrl { model | route = route }
 
 
+updateUrl : Model -> ( Model, Cmd Msg )
+updateUrl model =
+    case model.route of
+        ListSurveyResultsRoute ->
+            case model.surveyResultList of
+                NotRequested ->
+                    ( { model | surveyResultList = Requesting }
+                    , fetchSurveyResultList model.config.apiUrl
+                    )
 
--- ( { model | route = route }, Cmd.map RoutingMsg cmd )
+                _ ->
+                    ( model, Cmd.none )
+
+        _ ->
+            ( model, Cmd.none )
+
+
+fetchSurveyResultList : String -> Cmd Msg
+fetchSurveyResultList apiUrl =
+    apiUrl
+        |> SurveyResultList.Commands.fetchSurveyResultList
+        |> Cmd.map SurveyResultListMsg

@@ -1,4 +1,4 @@
-module Shared.LoadingMessage exposing (view)
+module Shared.NotFoundMessage exposing (view)
 
 import Html exposing (Html, div, h1, i, section, text)
 import Html.Attributes exposing (attribute, class)
@@ -17,9 +17,9 @@ view =
             ]
                 |> String.join " "
     in
-        section [ attribute "data-name" "loading-message" ]
+        section [ attribute "data-name" "not-found-message" ]
             [ div [ class messageClasses ]
-                [ Keyed.node "div" [] [ ( "loading-icon", icon ) ]
+                [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
                 , div []
                     [ heading ]
                 ]
@@ -33,9 +33,8 @@ icon =
         iconClasses =
             [ "brand-50"
             , "fa-4x"
-            , "fa-pulse"
-            , "fa-spinner"
-            , "fas"
+            , "fa-meh"
+            , "far"
             ]
                 |> String.join " "
     in
@@ -55,4 +54,4 @@ heading =
                 |> String.join " "
     in
         h1 [ class headingClasses ]
-            [ text "Loading" ]
+            [ text "Page Not Found" ]

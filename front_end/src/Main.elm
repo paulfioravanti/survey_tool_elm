@@ -25,20 +25,7 @@ main =
 
 init : Config -> Navigation.Location -> ( Model, Cmd Msg )
 init config location =
-    let
-        route =
-            Routing.Parser.toRoute location
-
-        model =
-            Model.initialModel route config
-    in
-        case route of
-            ListSurveyResultsRoute ->
-                ( { model | surveyResultList = Requesting }
-                , model.config.apiUrl
-                    |> SurveyResultList.Commands.fetchSurveyResultList
-                    |> Cmd.map SurveyResultListMsg
-                )
-
-            _ ->
-                ( model, Cmd.none )
+    location
+        |> Routing.Parser.toRoute
+        |> Model.initialModel config
+        |> Update.updateUrl
