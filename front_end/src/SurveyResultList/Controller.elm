@@ -2,7 +2,8 @@ module SurveyResultList.Controller exposing (render)
 
 import Html exposing (Html, text)
 import Http
-import SurveyResultList.Model exposing (SurveyResultList)
+import Messages.Loading as Loading
+import Messages.Error as Error
 import RemoteData
     exposing
         ( RemoteData
@@ -13,8 +14,7 @@ import RemoteData
             )
         , WebData
         )
-import Shared.LoadingMessage as LoadingMessage
-import Shared.ErrorMessage as ErrorMessage
+import SurveyResultList.Model exposing (SurveyResultList)
 import SurveyResultList.View
 
 
@@ -25,12 +25,12 @@ render surveyResultList =
             text ""
 
         Requesting ->
-            LoadingMessage.view
+            Loading.view
 
         Failure error ->
             error
                 |> errorToMessage
-                |> ErrorMessage.view
+                |> Error.view
 
         Success surveyResultList ->
             SurveyResultList.View.view surveyResultList

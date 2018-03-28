@@ -1,4 +1,4 @@
-module SurveyResultList.Messages exposing (Msg(..))
+module SurveyResultList.Msg exposing (Msg(..))
 
 import Http
 import SurveyResultList.Model exposing (SurveyResultList)

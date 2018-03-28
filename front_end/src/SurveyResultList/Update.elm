@@ -1,7 +1,7 @@
 module SurveyResultList.Update exposing (update)
 
 import RemoteData exposing (RemoteData(Failure, Success), WebData)
-import SurveyResultList.Messages exposing (Msg(FetchSurveyResultList))
+import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
 import SurveyResultList.Model exposing (SurveyResultList)
 
 

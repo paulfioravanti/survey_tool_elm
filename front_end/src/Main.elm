@@ -1,8 +1,8 @@
 module Main exposing (main)
 
 import Config exposing (Config)
-import Messages exposing (Msg(UrlChange, UpdatePage))
 import Model exposing (Model)
+import Msg exposing (Msg(UrlChange, UpdatePage))
 import Navigation
 import Router
 import Task

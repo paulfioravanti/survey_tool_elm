@@ -1,11 +1,11 @@
 module Update exposing (update)
 
-import Messages exposing (Msg(SurveyResultListMsg, UrlChange, UpdatePage))
+import Msg exposing (Msg(SurveyResultListMsg, UrlChange, UpdatePage))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Router
 import Routes exposing (Route(ListSurveyResultsRoute))
-import SurveyResultList.Commands
+import SurveyResultList.Cmd
 import SurveyResultList.Update
 import Task
 
@@ -51,5 +51,5 @@ update msg model =
 fetchSurveyResultList : String -> Cmd Msg
 fetchSurveyResultList apiUrl =
     apiUrl
-        |> SurveyResultList.Commands.fetchSurveyResultList
+        |> SurveyResultList.Cmd.fetchSurveyResultList
         |> Cmd.map SurveyResultListMsg

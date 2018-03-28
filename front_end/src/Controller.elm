@@ -1,8 +1,9 @@
 module Controller exposing (render)
 
 import Html exposing (Html)
-import Messages exposing (Msg)
+import Messages.NotFound as NotFound
 import Model exposing (Model)
+import Msg exposing (Msg)
 import Routes
     exposing
         ( Route
@@ -10,7 +11,6 @@ import Routes
             , NotFoundRoute
             )
         )
-import Shared.NotFoundMessage as NotFoundMessage
 import SurveyResultList.Controller
 
 
@@ -22,4 +22,4 @@ render model =
                 |> SurveyResultList.Controller.render
 
         NotFoundRoute ->
-            NotFoundMessage.view
+            NotFound.view
