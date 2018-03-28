@@ -7,7 +7,6 @@ import Routing.Routes exposing (Route(ListSurveyResultsRoute))
 import Routing.Update
 import SurveyResultList.Cmd
 import SurveyResultList.Update
-import Task
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -25,11 +24,10 @@ update msg model =
         RoutingMsg msg ->
             let
                 ( route, cmd ) =
-                    Routing.Update.update msg
+                    Routing.Update.update msg UpdatePage
             in
                 ( { model | route = route }
-                , Task.succeed ()
-                    |> Task.perform UpdatePage
+                , cmd
                 )
 
         UpdatePage _ ->
