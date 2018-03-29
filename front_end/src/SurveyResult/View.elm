@@ -15,11 +15,14 @@ import Html
         , text
         )
 import Html.Attributes exposing (attribute, class, href)
+import Html.Events exposing (onWithOptions)
+import Json.Decode as Decode
+import Regex exposing (HowMany(AtMost))
 import SurveyResult.Model exposing (SurveyResult)
 
 
-view : SurveyResult -> Html msg
-view surveyResult =
+view : (Int -> msg) -> SurveyResult -> Html msg
+view msg surveyResult =
     let
         articleClasses =
             [ "avenir"
@@ -33,11 +36,27 @@ view surveyResult =
                 |> String.join " "
 
         linkClasses =
-            [ "no-underline", "ph0", "pv1" ]
+            [ "no-underline"
+            , "ph0"
+            , "pv1"
+            ]
                 |> String.join " "
     in
         article [ attribute "data-name" "survey-result", class articleClasses ]
-            [ a [ class linkClasses, href (summaryUrl surveyResult.url) ]
+            [ a
+                [ href (summaryUrl surveyResult.url)
+                , class linkClasses
+                , onWithOptions
+                    "click"
+                    { stopPropagation = False
+                    , preventDefault = True
+                    }
+                    (surveyResult.url
+                        |> summaryId
+                        |> msg
+                        |> Decode.succeed
+                    )
+                ]
                 [ summaryHeading surveyResult.name
                 , summaryContent
                     surveyResult.participationCount
@@ -52,6 +71,17 @@ summaryUrl url =
     url
         |> String.split ".json"
         |> String.join ""
+
+
+summaryId : String -> Int
+summaryId url =
+    url
+        |> Regex.find (AtMost 1) (Regex.regex "\\d+")
+        |> List.map .match
+        |> List.head
+        |> Maybe.withDefault "0"
+        |> String.toInt
+        |> Result.withDefault 0
 
 
 summaryHeading : String -> Html msg

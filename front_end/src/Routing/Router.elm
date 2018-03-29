@@ -1,7 +1,14 @@
 module Routing.Router exposing (toRoute, toPath)
 
 import Navigation
-import Routing.Route exposing (Route(ListSurveyResultsRoute, NotFoundRoute))
+import Routing.Route
+    exposing
+        ( Route
+            ( ListSurveyResultsRoute
+            , NotFoundRoute
+            , SurveyResultDetailRoute
+            )
+        )
 import UrlParser exposing (Parser, (</>), int, map, oneOf, s, top)
 
 
@@ -26,6 +33,9 @@ toPath route =
         ListSurveyResultsRoute ->
             "/"
 
+        SurveyResultDetailRoute id ->
+            "/survey_results/" ++ toString id
+
         NotFoundRoute ->
             "/not-found"
 
@@ -35,4 +45,5 @@ matchers =
     oneOf
         [ map ListSurveyResultsRoute top
         , map ListSurveyResultsRoute (s "survey_results")
+        , map SurveyResultDetailRoute (s "survey_results" </> int)
         ]

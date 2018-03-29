@@ -18,8 +18,8 @@ import SurveyResultList.Model exposing (SurveyResultList)
 import SurveyResultList.View
 
 
-render : WebData SurveyResultList -> Html msg
-render surveyResultList =
+render : (Int -> msg) -> WebData SurveyResultList -> Html msg
+render msg surveyResultList =
     case surveyResultList of
         NotRequested ->
             text ""
@@ -33,7 +33,7 @@ render surveyResultList =
                 |> Error.view
 
         Success surveyResultList ->
-            SurveyResultList.View.view surveyResultList
+            SurveyResultList.View.view msg surveyResultList
 
 
 errorToMessage : Http.Error -> String

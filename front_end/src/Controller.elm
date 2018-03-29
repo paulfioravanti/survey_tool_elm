@@ -10,6 +10,7 @@ import Routing.Route
     exposing
         ( Route
             ( ListSurveyResultsRoute
+            , SurveyResultDetailRoute
             , NotFoundRoute
             )
         )
@@ -20,8 +21,22 @@ render : Model -> Html Msg.Msg
 render model =
     case model.route of
         ListSurveyResultsRoute ->
-            model.surveyResultList
-                |> SurveyResultList.Controller.render
+            let
+                msg =
+                    (ChangeLocation << SurveyResultDetailRoute)
+            in
+                model.surveyResultList
+                    |> SurveyResultList.Controller.render msg
+                    |> Html.map RoutingMsg
+
+        SurveyResultDetailRoute id ->
+            let
+                msg =
+                    (ChangeLocation << SurveyResultDetailRoute)
+            in
+                model.surveyResultList
+                    |> SurveyResultList.Controller.render msg
+                    |> Html.map RoutingMsg
 
         NotFoundRoute ->
             let

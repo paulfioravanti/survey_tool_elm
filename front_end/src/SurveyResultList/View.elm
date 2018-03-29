@@ -6,13 +6,13 @@ import SurveyResult.View
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
-view : SurveyResultList -> Html msg
-view surveyResultList =
+view : (Int -> msg) -> SurveyResultList -> Html msg
+view msg surveyResultList =
     section [ attribute "data-name" "survey-results", class "center mw7" ]
         (div [ class "flex justify-around" ]
             [ heading ]
             :: (surveyResultList.surveyResults
-                    |> List.map SurveyResult.View.view
+                    |> List.map (SurveyResult.View.view msg)
                )
         )
 
