@@ -4,7 +4,7 @@ import Config exposing (Config)
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg, UpdatePage))
 import Navigation
-import Routing.Msg exposing (Msg(UrlChange))
+import Routing.Msg exposing (Msg(OnLocationChange))
 import Routing.Router as Router
 import Task
 import Update
@@ -14,7 +14,7 @@ import View
 main : Program Config Model Msg.Msg
 main =
     Navigation.programWithFlags
-        (RoutingMsg << UrlChange)
+        (RoutingMsg << OnLocationChange)
         { init = init
         , view = View.view
         , update = Update.update

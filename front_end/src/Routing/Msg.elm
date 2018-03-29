@@ -5,5 +5,5 @@ import Routing.Route exposing (Route)
 
 
 type Msg
-    = UrlChange Navigation.Location
-    | NavigateTo Route
+    = ChangeLocation Route
+    | OnLocationChange Navigation.Location

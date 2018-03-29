@@ -4,7 +4,7 @@ import Html exposing (Html)
 import Messages.NotFound as NotFound
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
-import Routing.Msg exposing (Msg(NavigateTo))
+import Routing.Msg exposing (Msg(ChangeLocation))
 import Routing.Router as Router
 import Routing.Route
     exposing
@@ -26,7 +26,7 @@ render model =
         NotFoundRoute ->
             let
                 msg =
-                    (NavigateTo ListSurveyResultsRoute)
+                    (ChangeLocation ListSurveyResultsRoute)
 
                 path =
                     Router.toPath ListSurveyResultsRoute
