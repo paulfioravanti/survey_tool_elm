@@ -37,7 +37,7 @@ view surveyResult =
                 |> String.join " "
     in
         article [ attribute "data-name" "survey-result", class articleClasses ]
-            [ a [ class linkClasses, href surveyResult.url ]
+            [ a [ class linkClasses, href (summaryUrl surveyResult.url) ]
                 [ summaryHeading surveyResult.name
                 , summaryContent
                     surveyResult.participationCount
@@ -45,6 +45,13 @@ view surveyResult =
                     surveyResult.responseRate
                 ]
             ]
+
+
+summaryUrl : String -> String
+summaryUrl url =
+    url
+        |> String.split ".json"
+        |> String.join ""
 
 
 summaryHeading : String -> Html msg
