@@ -2,8 +2,9 @@ module Messages.NotFound exposing (view)
 
 import Html exposing (Html, a, div, h1, i, section, text)
 import Html.Attributes exposing (attribute, class, href)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onWithOptions)
 import Html.Keyed as Keyed
+import Json.Decode as Decode
 
 
 view : msg -> String -> Html msg
@@ -71,5 +72,14 @@ backToHomeLink msg path =
             ]
                 |> String.join " "
     in
-        a [ href path, class linkClasses, onClick msg ]
+        a
+            [ href path
+            , class linkClasses
+            , onWithOptions
+                "click"
+                { stopPropagation = False
+                , preventDefault = True
+                }
+                (Decode.succeed msg)
+            ]
             [ text "←  Back to survey results" ]
