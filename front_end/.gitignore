@@ -18,3 +18,6 @@ node_modules
 
 # Generated elm-module-graph
 module-graph.json
+
+# Generated test files from elm-verify-examples
+tests/VerifyExamples

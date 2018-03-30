@@ -30,6 +30,16 @@ toFormattedPercentage float =
         percent ++ "%"
 
 
+{-| Removes ".json" from a string.
+
+    -- You can write the expected result on the next line,
+
+    toSurveyResultDetailUrl "/survey_results/1.json"
+    --> "/survey_results/1"
+
+    toSurveyResultDetailUrl "/survey_results/1"
+    --> "/survey_results/1"
+-}
 toSurveyResultDetailUrl : String -> String
 toSurveyResultDetailUrl url =
     url
