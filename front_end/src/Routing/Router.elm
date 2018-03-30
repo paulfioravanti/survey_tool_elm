@@ -31,7 +31,7 @@ toPath : Route -> String
 toPath route =
     case route of
         ListSurveyResultsRoute ->
-            "/"
+            "/survey_results"
 
         SurveyResultDetailRoute id ->
             "/survey_results/" ++ id
