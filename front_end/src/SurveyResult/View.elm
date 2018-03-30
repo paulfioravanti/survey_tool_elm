@@ -1,5 +1,6 @@
 module SurveyResult.View exposing (view)
 
+import Helpers
 import Html
     exposing
         ( Html
@@ -17,7 +18,6 @@ import Html
 import Html.Attributes exposing (attribute, class, href)
 import Html.Events exposing (onWithOptions)
 import Json.Decode as Decode
-import Regex exposing (HowMany(AtMost))
 import SurveyResult.Model exposing (SurveyResult)
 
 
@@ -44,7 +44,7 @@ view msg surveyResult =
     in
         article [ attribute "data-name" "survey-result", class articleClasses ]
             [ a
-                [ href (summaryUrl surveyResult.url)
+                [ href (Helpers.toSurveyResultDetailUrl surveyResult.url)
                 , class linkClasses
                 , onWithOptions
                     "click"
@@ -52,7 +52,7 @@ view msg surveyResult =
                     , preventDefault = True
                     }
                     (surveyResult.url
-                        |> summaryId
+                        |> Helpers.extractSurveyResultDetailId
                         |> msg
                         |> Decode.succeed
                     )
@@ -64,24 +64,6 @@ view msg surveyResult =
                     surveyResult.responseRate
                 ]
             ]
-
-
-summaryUrl : String -> String
-summaryUrl url =
-    url
-        |> String.split ".json"
-        |> String.join ""
-
-
-summaryId : String -> Int
-summaryId url =
-    url
-        |> Regex.find (AtMost 1) (Regex.regex "\\d+")
-        |> List.map .match
-        |> List.head
-        |> Maybe.withDefault "0"
-        |> String.toInt
-        |> Result.withDefault 0
 
 
 summaryHeading : String -> Html msg
@@ -150,17 +132,5 @@ responseRate responseRatePercentage =
             [ div [ class "f2-ns fw3 ttu" ]
                 [ text "Response Rate" ]
             , div [ class "bg-light-gray f1-ns hover-bg-brand" ]
-                [ text (toPercentage responseRatePercentage) ]
+                [ text (Helpers.toFormattedPercentage responseRatePercentage) ]
             ]
-
-
-toPercentage : Float -> String
-toPercentage float =
-    let
-        percent =
-            float
-                * 100
-                |> round
-                |> toString
-    in
-        percent ++ "%"
