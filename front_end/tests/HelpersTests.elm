@@ -1,7 +1,7 @@
 module HelpersTests exposing (..)
 
 import Expect
-import Fuzz exposing (Fuzzer, string)
+import Fuzz exposing (Fuzzer, float, string)
 import Helpers
 import Regex
 import Test exposing (Test, describe, fuzz, test)
@@ -20,19 +20,6 @@ extractSurveyResultDetailIdTests =
                 "/survey_results/abc.json"
                     |> Helpers.extractSurveyResultDetailId
                     |> Expect.equal "abc"
-        , fuzz string "extracts the id from the URL" <|
-            \str ->
-                let
-                    id =
-                        "/survey_results/"
-                            ++ str
-                            ++ ".json"
-                            |> Helpers.extractSurveyResultDetailId
-                in
-                    if Regex.contains (Regex.regex "[^\\w\\d]+") str then
-                        Expect.equal "" id
-                    else
-                        Expect.equal str id
         ]
 
 
@@ -49,6 +36,21 @@ toFormattedPercentageTests =
                 0.8366666666666664
                     |> Helpers.toFormattedPercentage
                     |> Expect.equal "84%"
+        , fuzz float "returns a rounded percentage string" <|
+            \float ->
+                let
+                    percentage =
+                        float
+                            * 100
+                            |> round
+                            |> toString
+
+                    formattedPercentage =
+                        percentage ++ "%"
+                in
+                    float
+                        |> Helpers.toFormattedPercentage
+                        |> Expect.equal formattedPercentage
         ]
 
 
@@ -65,4 +67,11 @@ toSurveyResultDetailUrlTests =
                 "/survey_results/1"
                     |> Helpers.toSurveyResultDetailUrl
                     |> Expect.equal "/survey_results/1"
+        , fuzz string "removes .json from any string" <|
+            \string ->
+                "/survey_results/1"
+                    |> Helpers.toSurveyResultDetailUrl
+                    |> String.contains ".json"
+                    |> not
+                    |> Expect.true "Expected to not contain '.json'"
         ]

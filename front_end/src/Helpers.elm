@@ -11,7 +11,7 @@ import Regex exposing (HowMany(AtMost))
 extractSurveyResultDetailId : String -> String
 extractSurveyResultDetailId url =
     url
-        |> Regex.find (AtMost 1) (Regex.regex "/([\\w\\d]+).json$")
+        |> Regex.find (AtMost 1) (Regex.regex "/([^/]+).json$")
         |> List.concatMap .submatches
         |> List.head
         |> Maybe.withDefault (Just "")
