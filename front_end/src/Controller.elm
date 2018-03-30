@@ -32,10 +32,12 @@ render model =
         SurveyResultDetailRoute id ->
             let
                 msg =
-                    (ChangeLocation << SurveyResultDetailRoute)
+                    (ChangeLocation ListSurveyResultsRoute)
+
+                path =
+                    Router.toPath ListSurveyResultsRoute
             in
-                model.surveyResultList
-                    |> SurveyResultList.Controller.render msg
+                NotFound.view msg path
                     |> Html.map RoutingMsg
 
         NotFoundRoute ->
