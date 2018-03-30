@@ -1,8 +1,10 @@
 module HelpersTests exposing (..)
 
 import Expect
+import Fuzz exposing (Fuzzer, string)
 import Helpers
-import Test exposing (Test, describe, test)
+import Regex
+import Test exposing (Test, describe, fuzz, test)
 
 
 extractSurveyResultDetailIdTests : Test
@@ -18,6 +20,19 @@ extractSurveyResultDetailIdTests =
                 "/survey_results/abc.json"
                     |> Helpers.extractSurveyResultDetailId
                     |> Expect.equal "abc"
+        , fuzz string "extracts the id from the URL" <|
+            \str ->
+                let
+                    id =
+                        "/survey_results/"
+                            ++ str
+                            ++ ".json"
+                            |> Helpers.extractSurveyResultDetailId
+                in
+                    if Regex.contains (Regex.regex "[^\\w\\d]+") str then
+                        Expect.equal "" id
+                    else
+                        Expect.equal str id
         ]
 
 
