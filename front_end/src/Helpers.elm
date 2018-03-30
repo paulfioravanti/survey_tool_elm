@@ -8,15 +8,20 @@ module Helpers
 import Regex exposing (HowMany(AtMost))
 
 
-extractSurveyResultDetailId : String -> Int
+{-|
+This function goes on the assumption that survey result detail IDs are integers.
+Returning integer 0 is potentially not the best way to resolve "bad"
+survey result detail IDs provided by the server, but it will at least
+cause a NotFound error, which should be adequate for error handling.
+-}
+extractSurveyResultDetailId : String -> String
 extractSurveyResultDetailId url =
     url
-        |> Regex.find (AtMost 1) (Regex.regex "\\d+")
-        |> List.map .match
+        |> Regex.find (AtMost 1) (Regex.regex "/([^/]+).json$")
+        |> List.concatMap .submatches
         |> List.head
-        |> Maybe.withDefault "0"
-        |> String.toInt
-        |> Result.withDefault 0
+        |> Maybe.withDefault (Just "")
+        |> Maybe.withDefault ""
 
 
 toFormattedPercentage : Float -> String

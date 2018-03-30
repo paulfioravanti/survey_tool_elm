@@ -18,7 +18,7 @@ import SurveyResultList.Model exposing (SurveyResultList)
 import SurveyResultList.View
 
 
-render : (Int -> msg) -> WebData SurveyResultList -> Html msg
+render : (String -> msg) -> WebData SurveyResultList -> Html msg
 render msg surveyResultList =
     case surveyResultList of
         NotRequested ->

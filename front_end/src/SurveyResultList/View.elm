@@ -6,7 +6,7 @@ import SurveyResult.View
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
-view : (Int -> msg) -> SurveyResultList -> Html msg
+view : (String -> msg) -> SurveyResultList -> Html msg
 view msg surveyResultList =
     section [ attribute "data-name" "survey-results", class "center mw7" ]
         (div [ class "flex justify-around" ]

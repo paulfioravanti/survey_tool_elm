@@ -9,7 +9,7 @@ import Routing.Route
             , SurveyResultDetailRoute
             )
         )
-import UrlParser exposing (Parser, (</>), int, map, oneOf, s, top)
+import UrlParser exposing (Parser, (</>), map, oneOf, s, string, top)
 
 
 toRoute : Navigation.Location -> Route
@@ -34,7 +34,7 @@ toPath route =
             "/"
 
         SurveyResultDetailRoute id ->
-            "/survey_results/" ++ toString id
+            "/survey_results/" ++ id
 
         NotFoundRoute ->
             "/not-found"
@@ -45,5 +45,5 @@ matchers =
     oneOf
         [ map ListSurveyResultsRoute top
         , map ListSurveyResultsRoute (s "survey_results")
-        , map SurveyResultDetailRoute (s "survey_results" </> int)
+        , map SurveyResultDetailRoute (s "survey_results" </> string)
         ]

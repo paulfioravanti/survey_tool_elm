@@ -8,16 +8,16 @@ import Test exposing (Test, describe, test)
 extractSurveyResultDetailIdTests : Test
 extractSurveyResultDetailIdTests =
     describe "extractSurveyResultDetailId"
-        [ test "returns Int id from URL" <|
+        [ test "returns id from URL" <|
             \() ->
                 "/survey_results/10.json"
                     |> Helpers.extractSurveyResultDetailId
-                    |> Expect.equal 10
-        , test "returns Int 0 when no numerical id in URL" <|
+                    |> Expect.equal "10"
+        , test "makes no assumptions that id in URL is an integer" <|
             \() ->
                 "/survey_results/abc.json"
                     |> Helpers.extractSurveyResultDetailId
-                    |> Expect.equal 0
+                    |> Expect.equal "abc"
         ]
 
 

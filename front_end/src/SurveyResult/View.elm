@@ -21,7 +21,7 @@ import Json.Decode as Decode
 import SurveyResult.Model exposing (SurveyResult)
 
 
-view : (Int -> msg) -> SurveyResult -> Html msg
+view : (String -> msg) -> SurveyResult -> Html msg
 view msg surveyResult =
     let
         articleClasses =
