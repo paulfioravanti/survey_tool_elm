@@ -8,6 +8,15 @@ module Helpers
 import Regex exposing (HowMany(AtMost))
 
 
+{-| Extracts the survey result detail ID from a given URL
+
+    extractSurveyResultDetailId "/survey_results/10.json"
+    --> "10"
+
+    extractSurveyResultDetailId "/survey_results/abc.json"
+    --> "abc"
+
+-}
 extractSurveyResultDetailId : String -> String
 extractSurveyResultDetailId url =
     url
@@ -18,6 +27,15 @@ extractSurveyResultDetailId url =
         |> Maybe.withDefault ""
 
 
+{-| Formats a float into a displayable percentage
+
+    toFormattedPercentage 0.8333333333333334
+    --> "83%"
+
+    toFormattedPercentage 0.8366666666666664
+    --> "84%"
+
+-}
 toFormattedPercentage : Float -> String
 toFormattedPercentage float =
     let
@@ -32,13 +50,12 @@ toFormattedPercentage float =
 
 {-| Removes ".json" from a string.
 
-    -- You can write the expected result on the next line,
-
     toSurveyResultDetailUrl "/survey_results/1.json"
     --> "/survey_results/1"
 
     toSurveyResultDetailUrl "/survey_results/1"
     --> "/survey_results/1"
+
 -}
 toSurveyResultDetailUrl : String -> String
 toSurveyResultDetailUrl url =

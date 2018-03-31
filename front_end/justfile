@@ -1,5 +1,5 @@
 elm-verify-examples:
-  elm-verify-examples
+  elm-verify-examples --keep-examples
 
 test: elm-verify-examples
   elm-test
