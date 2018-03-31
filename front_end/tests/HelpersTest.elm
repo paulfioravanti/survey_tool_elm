@@ -1,4 +1,4 @@
-module HelpersTests exposing (..)
+module HelpersTest exposing (..)
 
 import Expect
 import Fuzz exposing (Fuzzer, float, string)
