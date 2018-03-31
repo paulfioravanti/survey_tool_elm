@@ -1,6 +1,7 @@
 {
   "root": "../src",
   "tests": [
-    "Helpers"
+    "Helpers",
+    "SurveyResult.Decoder"
   ]
 }
