@@ -3,7 +3,7 @@ module SurveyResult.Model exposing (SurveyResult)
 
 type alias SurveyResult =
     { name : String
-    , participationCount : Int
+    , participantCount : Int
     , responseRate : Float
     , submittedResponseCount : Int
     , url : String

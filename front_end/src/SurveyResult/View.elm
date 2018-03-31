@@ -59,7 +59,7 @@ view msg surveyResult =
                 ]
                 [ summaryHeading surveyResult.name
                 , summaryContent
-                    surveyResult.participationCount
+                    surveyResult.participantCount
                     surveyResult.submittedResponseCount
                     surveyResult.responseRate
                 ]
