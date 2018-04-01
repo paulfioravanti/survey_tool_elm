@@ -1,4 +1,4 @@
-module SurveyResult.DecoderTest exposing (..)
+module SurveyResult.DecoderTest exposing (decoderTests)
 
 import Expect
 import Json.Decode as Decode

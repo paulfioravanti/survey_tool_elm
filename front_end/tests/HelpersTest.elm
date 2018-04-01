@@ -1,4 +1,8 @@
-module HelpersTest exposing (..)
+module HelpersTest
+    exposing
+        ( toFormattedPercentageTests
+        , toSurveyResultDetailUrlTests
+        )
 
 import Expect
 import Fuzz exposing (Fuzzer, float, string)
