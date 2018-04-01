@@ -1,25 +1,24 @@
 module SurveyResult.DecoderTest exposing (decoderTests)
 
 import Expect
+import SurveyResult.Fuzzer as SurveyResult
 import Json.Decode as Decode
-import SurveyResult.Decoder
-import SurveyResult.Encoder
-import SurveyResult.Fuzzer
-import SurveyResult.Model exposing (SurveyResult)
-import Test exposing (Test, describe, fuzz, test)
+import SurveyResult.Decoder as Decoder
+import SurveyResult.Encoder as Encoder
+import Test exposing (Test, describe, fuzz)
 
 
 decoderTests : Test
 decoderTests =
     let
         surveyResult =
-            SurveyResult.Fuzzer.fuzzer
+            SurveyResult.fuzzer
     in
         describe "SurveyResult.Decoder"
             [ fuzz surveyResult "decoder maps to a SurveyResult" <|
                 \surveyResult ->
                     surveyResult
-                        |> SurveyResult.Encoder.encoder
-                        |> Decode.decodeValue SurveyResult.Decoder.decoder
+                        |> Encoder.encoder
+                        |> Decode.decodeValue Decoder.decoder
                         |> Expect.equal (Ok surveyResult)
             ]

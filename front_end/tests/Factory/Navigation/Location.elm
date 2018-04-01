@@ -1,8 +1,6 @@
-module Navigation.Location exposing (stub)
+module Factory.Navigation.Location exposing (factory)
 
-import Fuzz exposing (Fuzzer, float, int, string)
 import Navigation
-import SurveyResult.Model exposing (SurveyResult)
 
 
 {-| A Navigation.Location looks like:
@@ -25,8 +23,8 @@ where the url pathname value needs to be placed so these records can
 be used in Routing tests.
 
 -}
-stub : String -> Navigation.Location
-stub pathname =
+factory : String -> Navigation.Location
+factory pathname =
     Navigation.Location
         ""
         ""

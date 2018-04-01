@@ -6,10 +6,8 @@ import SurveyResult.Model exposing (SurveyResult)
 
 fuzzer : Fuzzer SurveyResult
 fuzzer =
-    Fuzz.map5
-        SurveyResult
-        string
-        int
-        float
-        int
-        string
+    Fuzz.map SurveyResult string
+        |> Fuzz.andMap int
+        |> Fuzz.andMap float
+        |> Fuzz.andMap int
+        |> Fuzz.andMap string
