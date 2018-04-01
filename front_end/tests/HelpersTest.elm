@@ -33,7 +33,7 @@ toSurveyResultDetailUrlTests =
     describe "toSurveyResultDetailUrl"
         [ fuzz string "removes .json from any string" <|
             \string ->
-                "/survey_results/1"
+                string
                     |> Helpers.toSurveyResultDetailUrl
                     |> String.contains ".json"
                     |> not

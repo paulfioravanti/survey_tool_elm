@@ -13,14 +13,20 @@ import Regex exposing (HowMany(AtMost))
     extractSurveyResultDetailId "/survey_results/10.json"
     --> "10"
 
+    extractSurveyResultDetailId "/survey_results/10"
+    --> "10"
+
     extractSurveyResultDetailId "/survey_results/abc.json"
+    --> "abc"
+
+    extractSurveyResultDetailId "/survey_results/abc"
     --> "abc"
 
 -}
 extractSurveyResultDetailId : String -> String
 extractSurveyResultDetailId url =
     url
-        |> Regex.find (AtMost 1) (Regex.regex "/([^/]+).json$")
+        |> Regex.find (AtMost 1) (Regex.regex "/([^/.]+)(?:.json)?$")
         |> List.concatMap .submatches
         |> List.head
         |> Maybe.withDefault (Just "")
