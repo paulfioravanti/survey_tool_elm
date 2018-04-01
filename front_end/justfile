@@ -3,3 +3,6 @@ elm-verify-examples:
 
 test: elm-verify-examples
   elm-test
+
+coverage: elm-verify-examples
+  elm-coverage
