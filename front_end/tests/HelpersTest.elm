@@ -1,6 +1,7 @@
 module HelpersTest
     exposing
-        ( toFormattedPercentageTests
+        ( extractSurveyResultDetailIdTests
+        , toFormattedPercentageTests
         , toSurveyResultDetailUrlTests
         )
 
@@ -9,6 +10,21 @@ import Fuzz exposing (Fuzzer, float, string)
 import Helpers
 import Regex
 import Test exposing (Test, describe, fuzz, test)
+
+
+extractSurveyResultDetailIdTests : Test
+extractSurveyResultDetailIdTests =
+    describe "extractSurveyResultDetailIdTests"
+        [ fuzz surveyResultDetailId "extracts the id from a url string" <|
+            \id ->
+                let
+                    url =
+                        "/survey_results/" ++ id ++ ".json"
+                in
+                    url
+                        |> Helpers.extractSurveyResultDetailId
+                        |> Expect.equal id
+        ]
 
 
 toFormattedPercentageTests : Test
@@ -43,3 +59,20 @@ toSurveyResultDetailUrlTests =
                     |> not
                     |> Expect.true "Expected to not contain '.json'"
         ]
+
+
+surveyResultDetailId : Fuzzer String
+surveyResultDetailId =
+    let
+        condition =
+            \string ->
+                string
+                    |> Regex.contains (Regex.regex "[/.]")
+                    |> not
+    in
+        Fuzz.string
+            |> Fuzz.conditional
+                { retries = 100
+                , fallback = (\string -> "")
+                , condition = condition
+                }
