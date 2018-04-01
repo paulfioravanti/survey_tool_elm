@@ -2,6 +2,7 @@
   "root": "../src",
   "tests": [
     "Helpers",
+    "Routing.Router",
     "SurveyResult.Decoder",
     "SurveyResultList.Decoder"
   ]
