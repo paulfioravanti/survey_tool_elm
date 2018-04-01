@@ -13,6 +13,21 @@ type alias Model =
     }
 
 
+{-| Initialises Model attributes
+
+    import Config exposing (Config)
+    import Factory.Config
+    import RemoteData exposing (RemoteData(NotRequested))
+    import Routing.Route exposing (Route(ListSurveyResultsRoute))
+
+    config : Config
+    config =
+        Factory.Config.factory
+
+    initialModel config ListSurveyResultsRoute
+    --> Model NotRequested config ListSurveyResultsRoute
+
+-}
 initialModel : Config -> Route -> Model
 initialModel config route =
     { surveyResultList = NotRequested
