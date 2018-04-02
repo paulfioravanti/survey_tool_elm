@@ -50,11 +50,6 @@ update msg model =
 
                 SurveyResultDetailRoute id ->
                     case model.surveyResultList of
-                        NotRequested ->
-                            ( { model | surveyResultList = Requesting }
-                            , fetchSurveyResultList model.config.apiUrl
-                            )
-
                         _ ->
                             ( model, Cmd.none )
 

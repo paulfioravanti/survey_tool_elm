@@ -14,7 +14,7 @@ import Test exposing (Test, describe, fuzz, test)
 
 extractSurveyResultDetailIdTests : Test
 extractSurveyResultDetailIdTests =
-    describe "extractSurveyResultDetailIdTests"
+    describe "extractSurveyResultDetailId"
         [ fuzz surveyResultDetailId "extracts the id from a url string" <|
             \id ->
                 let
