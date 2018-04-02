@@ -1,4 +1,9 @@
-module Main exposing (main)
+module Main exposing (main, init)
+
+{-| NOTE: The init function does not really need to be exposed for the app
+to function, but this was the only way I could think of test it. I was
+unable to figure out a way to test init through main.
+-}
 
 import Config exposing (Config)
 import Model exposing (Model)
@@ -18,7 +23,7 @@ main =
         { init = init
         , view = View.view
         , update = Update.update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = always Sub.none
         }
 
 
