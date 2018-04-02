@@ -1,4 +1,4 @@
-module Config.Fuzzer exposing (fuzzer)
+module Fuzzer.Config exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer, string)
 import Config exposing (Config)

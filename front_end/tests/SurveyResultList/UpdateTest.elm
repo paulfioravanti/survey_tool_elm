@@ -1,14 +1,14 @@
 module SurveyResultList.UpdateTest exposing (updateTests)
 
-import Config.Fuzzer as Config
 import Expect
+import Fuzzer.Config as Config
+import Fuzzer.SurveyResultList as SurveyResultList
 import Http exposing (Error(NetworkError))
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultListMsg))
 import RemoteData exposing (RemoteData(Failure, Requesting, Success))
 import Result exposing (Result)
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
-import SurveyResultList.Fuzzer as SurveyResultList
 import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
 import Test exposing (Test, describe, fuzz, fuzz2)
 import Update

@@ -1,7 +1,7 @@
-module SurveyResultList.Fuzzer exposing (fuzzer)
+module Fuzzer.SurveyResultList exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer, list)
-import SurveyResult.Fuzzer as SurveyResult
+import Fuzzer.SurveyResult as SurveyResult
 import SurveyResultList.Model exposing (SurveyResultList)
 
 

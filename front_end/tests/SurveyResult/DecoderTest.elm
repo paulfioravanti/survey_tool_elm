@@ -1,7 +1,7 @@
 module SurveyResult.DecoderTest exposing (decoderTests)
 
 import Expect
-import SurveyResult.Fuzzer as SurveyResult
+import Fuzzer.SurveyResult as SurveyResult
 import Json.Decode as Decode
 import SurveyResult.Decoder as Decoder
 import SurveyResult.Encoder as Encoder

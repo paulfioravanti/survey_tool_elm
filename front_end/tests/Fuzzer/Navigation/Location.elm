@@ -1,4 +1,4 @@
-module Navigation.Location.Fuzzer exposing (fuzzer)
+module Fuzzer.Navigation.Location exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer, constant, string)
 import Navigation

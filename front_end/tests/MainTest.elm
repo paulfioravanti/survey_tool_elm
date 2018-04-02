@@ -1,8 +1,8 @@
 module MainTest exposing (mainTests)
 
 import Expect
-import Config.Fuzzer as Config
-import Navigation.Location.Fuzzer as Location
+import Fuzzer.Config as Config
+import Fuzzer.Navigation.Location as Location
 import Main
 import Model exposing (Model)
 import Routing.Router as Router

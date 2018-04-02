@@ -1,4 +1,4 @@
-module SurveyResult.Fuzzer exposing (fuzzer)
+module Fuzzer.SurveyResult exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer, float, int, string)
 import SurveyResult.Model exposing (SurveyResult)
