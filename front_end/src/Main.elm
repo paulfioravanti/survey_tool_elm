@@ -1,4 +1,4 @@
-module Main exposing (main, init)
+module Main exposing (main, init, subscriptions)
 
 {-| NOTE: The init function does not really need to be exposed for the app
 to function, but this was the only way I could think of test it. I was
@@ -23,7 +23,7 @@ main =
         { init = init
         , view = View.view
         , update = Update.update
-        , subscriptions = always Sub.none
+        , subscriptions = subscriptions
         }
 
 
@@ -39,3 +39,8 @@ init config location =
         , Task.succeed ()
             |> Task.perform UpdatePage
         )
+
+
+subscriptions : Model -> Sub Msg.Msg
+subscriptions model =
+    Sub.none

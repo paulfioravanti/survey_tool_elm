@@ -1,4 +1,4 @@
-module MainTest exposing (initTests)
+module MainTest exposing (mainTests)
 
 import Expect
 import Factory.Config as Config
@@ -14,24 +14,29 @@ functions are "the same", so the Cmd Msg in the second
 tuple value cannot be tested. More info at:
 http://package.elm-lang.org/packages/elm-lang/core/latest/Basics#==
 -}
-initTests : Test
-initTests =
-    describe "init"
-        [ test "initialises the model" <|
-            \() ->
-                let
-                    config =
-                        Config.factory
+mainTests : Test
+mainTests =
+    let
+        config =
+            Config.factory
 
-                    location =
-                        Location.factory "/"
+        location =
+            Location.factory "/"
 
-                    model =
-                        location
-                            |> Router.toRoute
-                            |> Model.initialModel config
-                in
+        model =
+            location
+                |> Router.toRoute
+                |> Model.initialModel config
+    in
+        describe "Main"
+            [ test "init" <|
+                \() ->
                     Main.init config location
                         |> Tuple.first
                         |> Expect.equal model
-        ]
+            , test "subscriptions" <|
+                \() ->
+                    model
+                        |> Main.subscriptions
+                        |> Expect.equal Sub.none
+            ]
