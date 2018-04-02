@@ -31,7 +31,8 @@ mainTests =
         describe "Main"
             [ test "init" <|
                 \() ->
-                    Main.init config location
+                    location
+                        |> Main.init config
                         |> Tuple.first
                         |> Expect.equal model
             , test "subscriptions" <|
