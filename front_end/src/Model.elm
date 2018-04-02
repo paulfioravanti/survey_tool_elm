@@ -16,13 +16,12 @@ type alias Model =
 {-| Initialises Model attributes
 
     import Config exposing (Config)
-    import Factory.Config
     import RemoteData exposing (RemoteData(NotRequested))
     import Routing.Route exposing (Route(ListSurveyResultsRoute))
 
     config : Config
     config =
-        Factory.Config.factory
+        Config "http://www.example.com/survey_results"
 
     initialModel config ListSurveyResultsRoute
     --> Model NotRequested config ListSurveyResultsRoute

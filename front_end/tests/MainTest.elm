@@ -2,11 +2,11 @@ module MainTest exposing (mainTests)
 
 import Expect
 import Config.Fuzzer as Config
-import Factory.Navigation.Location as Location
+import Navigation.Location.Fuzzer as Location
 import Main
 import Model exposing (Model)
 import Routing.Router as Router
-import Test exposing (Test, describe, fuzz, test)
+import Test exposing (Test, describe, fuzz2)
 
 
 {-| NOTE: It's not currently possible to determine whether
@@ -21,11 +21,11 @@ mainTests =
             Config.fuzzer
 
         location =
-            Location.factory "/"
+            Location.fuzzer "/"
     in
         describe "Main"
-            [ fuzz config "init" <|
-                \config ->
+            [ fuzz2 config location "init" <|
+                \config location ->
                     let
                         model =
                             location
@@ -36,8 +36,8 @@ mainTests =
                             |> Main.init config
                             |> Tuple.first
                             |> Expect.equal model
-            , fuzz config "subscriptions" <|
-                \config ->
+            , fuzz2 config location "subscriptions" <|
+                \config location ->
                     let
                         model =
                             location

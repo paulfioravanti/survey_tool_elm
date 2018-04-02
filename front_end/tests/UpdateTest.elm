@@ -2,7 +2,6 @@ module UpdateTest exposing (updateTests)
 
 import Config.Fuzzer as Config
 import Expect
-import Factory.Navigation.Location as Location
 import Model exposing (Model)
 import Msg exposing (Msg(UpdatePage))
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
