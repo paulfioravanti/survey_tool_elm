@@ -1,7 +1,7 @@
 module SurveyResultList.UpdateTest exposing (updateTests)
 
+import Config.Fuzzer as Config
 import Expect
-import Factory.Config as Config
 import Http exposing (Error(NetworkError))
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultListMsg))
@@ -10,7 +10,7 @@ import Result exposing (Result)
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import SurveyResultList.Fuzzer as SurveyResultList
 import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
-import Test exposing (Test, describe, fuzz, test)
+import Test exposing (Test, describe, fuzz, fuzz2)
 import Update
 
 
@@ -20,21 +20,25 @@ updateTests =
         surveyResultList =
             SurveyResultList.fuzzer
 
-        model =
-            Model
-                Requesting
-                Config.factory
-                ListSurveyResultsRoute
+        config =
+            Config.fuzzer
     in
         describe "update when SurveyResultListMsg msg sent"
-            [ test
+            [ fuzz
+                config
                 """
                 model surveyResultList is updated with a Failure when
                 FetchSurveyResultList request fails
                 """
               <|
-                \() ->
+                \config ->
                     let
+                        model =
+                            Model
+                                Requesting
+                                config
+                                ListSurveyResultsRoute
+
                         msg =
                             SurveyResultListMsg
                                 (FetchSurveyResultList (Err NetworkError))
@@ -46,15 +50,22 @@ updateTests =
                                 { model
                                     | surveyResultList = Failure NetworkError
                                 }
-            , fuzz
+            , fuzz2
+                config
                 surveyResultList
                 """
                 model surveyResultList is updated with a Success when
                 FetchSurveyResultList request succeeds
                 """
               <|
-                \surveyResultList ->
+                \config surveyResultList ->
                     let
+                        model =
+                            Model
+                                Requesting
+                                config
+                                ListSurveyResultsRoute
+
                         msg =
                             SurveyResultListMsg
                                 (FetchSurveyResultList (Ok surveyResultList))

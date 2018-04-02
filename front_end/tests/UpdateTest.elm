@@ -1,7 +1,7 @@
 module UpdateTest exposing (updateTests)
 
+import Config.Fuzzer as Config
 import Expect
-import Factory.Config as Config
 import Factory.Navigation.Location as Location
 import Model exposing (Model)
 import Msg exposing (Msg(UpdatePage))
@@ -14,29 +14,33 @@ import Routing.Route
             , SurveyResultDetailRoute
             )
         )
-import Test exposing (Test, describe, test)
+import Test exposing (Test, describe, fuzz)
 import Update
 
 
 updateTests : Test
 updateTests =
     let
+        config =
+            Config.fuzzer
+
         msg =
             UpdatePage ()
     in
         describe "update when UpdatePage msg sent"
-            [ test
+            [ fuzz
+                config
                 """
                 when the route is ListSurveyResultsRoute, it updates the
                 surveyResultsList to Requesting when it is NotRequested.
                 """
               <|
-                \() ->
+                \config ->
                     let
                         model =
                             Model
                                 NotRequested
-                                Config.factory
+                                config
                                 ListSurveyResultsRoute
                     in
                         model
@@ -44,55 +48,58 @@ updateTests =
                             |> Tuple.first
                             |> Expect.equal
                                 { model | surveyResultList = Requesting }
-            , test
+            , fuzz
+                config
                 """
                 when the route is ListSurveyResultsRoute, it does not update the
                 model if surveyResultsList has already been requested
                 (ie it is not NotRequested).
                 """
               <|
-                \() ->
+                \config ->
                     let
                         model =
                             Model
                                 Requesting
-                                Config.factory
+                                config
                                 ListSurveyResultsRoute
                     in
                         model
                             |> Update.update msg
                             |> Tuple.first
                             |> Expect.equal model
-            , test
+            , fuzz
+                config
                 """
                 when the route is SurveyResultDetailRoute, it does not update
                 the model.
                 """
               <|
-                \() ->
+                \config ->
                     let
                         model =
                             Model
                                 Requesting
-                                Config.factory
+                                config
                                 (SurveyResultDetailRoute "10")
                     in
                         model
                             |> Update.update msg
                             |> Tuple.first
                             |> Expect.equal model
-            , test
+            , fuzz
+                config
                 """
                 when the route is none of the above routes, it does not update
                 the model.
                 """
               <|
-                \() ->
+                \config ->
                     let
                         model =
                             Model
                                 Requesting
-                                Config.factory
+                                config
                                 NotFoundRoute
                     in
                         model
