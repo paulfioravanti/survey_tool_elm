@@ -2,8 +2,8 @@ module SurveyResultList.Controller exposing (render)
 
 import Html exposing (Html, text)
 import Http
-import Messages.Loading as Loading
-import Messages.Error as Error
+import Message.Loading as Loading
+import Message.Error as Error
 import RemoteData
     exposing
         ( RemoteData

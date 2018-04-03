@@ -1,4 +1,4 @@
-module Messages.NotFound exposing (view)
+module Message.NotFound exposing (view)
 
 import Html exposing (Html, a, div, h1, i, section, text)
 import Html.Attributes exposing (attribute, class, href)

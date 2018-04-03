@@ -1,7 +1,7 @@
 module Controller exposing (render)
 
 import Html exposing (Html)
-import Messages.NotFound as NotFound
+import Message.NotFound as NotFound
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Routing.Msg exposing (Msg(ChangeLocation))

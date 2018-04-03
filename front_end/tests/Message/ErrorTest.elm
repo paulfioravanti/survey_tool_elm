@@ -1,4 +1,4 @@
-module Messages.ErrorTest exposing (suite)
+module Message.ErrorTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config

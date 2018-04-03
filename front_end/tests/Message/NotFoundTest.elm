@@ -1,14 +1,14 @@
-module Messages.LoadingTest exposing (suite)
+module Message.NotFoundTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config
 import Html.Attributes as Attributes
 import Model exposing (Model)
-import RemoteData exposing (RemoteData(Requesting))
-import Routing.Route exposing (Route(ListSurveyResultsRoute))
+import RemoteData exposing (RemoteData(NotRequested))
+import Routing.Route exposing (Route(NotFoundRoute))
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
-import Test.Html.Selector exposing (attribute, tag)
+import Test.Html.Selector as Selector exposing (tag)
 import View
 
 
@@ -21,23 +21,26 @@ suite =
         describe "view"
             [ fuzz
                 config
-                "displays a loading message when data has been requested"
+                "displays an error message when page cannot be found"
               <|
                 \config ->
                     let
                         model =
-                            Model Requesting config ListSurveyResultsRoute
+                            Model
+                                NotRequested
+                                config
+                                NotFoundRoute
 
-                        loadingMessage =
-                            attribute
+                        notFoundMessage =
+                            Selector.attribute
                                 (Attributes.attribute
                                     "data-name"
-                                    "loading-message"
+                                    "not-found-message"
                                 )
                     in
                         model
                             |> View.view
                             |> Query.fromHtml
                             |> Query.find [ tag "section" ]
-                            |> Query.has [ loadingMessage ]
+                            |> Query.has [ notFoundMessage ]
             ]
