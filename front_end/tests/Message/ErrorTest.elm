@@ -19,6 +19,13 @@ suite =
     let
         config =
             Config.fuzzer
+
+        errorMessage =
+            Selector.attribute
+                (Attributes.attribute
+                    "data-name"
+                    "error-message"
+                )
     in
         describe "view"
             [ fuzz
@@ -32,13 +39,6 @@ suite =
                                 (Failure NetworkError)
                                 config
                                 ListSurveyResultsRoute
-
-                        errorMessage =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "error-message"
-                                )
                     in
                         model
                             |> View.view
@@ -59,13 +59,6 @@ suite =
                                 (Failure (BadStatus response))
                                 config
                                 ListSurveyResultsRoute
-
-                        errorMessage =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "error-message"
-                                )
                     in
                         model
                             |> View.view
@@ -86,13 +79,6 @@ suite =
                                 (Failure (BadPayload "BadPayload" response))
                                 config
                                 ListSurveyResultsRoute
-
-                        errorMessage =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "error-message"
-                                )
                     in
                         model
                             |> View.view
@@ -110,13 +96,6 @@ suite =
                                 (Failure Timeout)
                                 config
                                 ListSurveyResultsRoute
-
-                        errorMessage =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "error-message"
-                                )
                     in
                         model
                             |> View.view
