@@ -1,4 +1,4 @@
-module MainTest exposing (mainTests)
+module MainTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config
@@ -14,8 +14,8 @@ functions are "the same", so the Cmd Msg in the second
 tuple value cannot be tested. More info at:
 http://package.elm-lang.org/packages/elm-lang/core/latest/Basics#==
 -}
-mainTests : Test
-mainTests =
+suite : Test
+suite =
     let
         config =
             Config.fuzzer

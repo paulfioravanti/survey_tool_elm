@@ -1,4 +1,4 @@
-module Routing.UpdateTest exposing (updateTests)
+module Routing.UpdateTest exposing (suite)
 
 import Expect
 import Factory.Navigation.Location as Location
@@ -13,8 +13,8 @@ import Test exposing (Test, describe, fuzz3, fuzz4)
 import Update
 
 
-updateTests : Test
-updateTests =
+suite : Test
+suite =
     let
         config =
             Config.fuzzer

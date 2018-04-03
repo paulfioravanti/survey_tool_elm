@@ -1,4 +1,4 @@
-module UpdateTest exposing (updateTests)
+module UpdateTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config
@@ -17,8 +17,8 @@ import Test exposing (Test, describe, fuzz)
 import Update
 
 
-updateTests : Test
-updateTests =
+suite : Test
+suite =
     let
         config =
             Config.fuzzer

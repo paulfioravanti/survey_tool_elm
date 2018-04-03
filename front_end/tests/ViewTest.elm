@@ -1,8 +1,9 @@
-module ViewTest exposing (viewTests)
+module ViewTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config
-import Html.Attributes exposing (type_, value)
+import Html.Attributes as Attributes
+import Http exposing (Error(NetworkError))
 import Model exposing (Model)
 import RemoteData
     exposing
@@ -27,8 +28,8 @@ import Test.Html.Selector exposing (attribute, class, classes, id, tag, text)
 import View
 
 
-viewTests : Test
-viewTests =
+suite : Test
+suite =
     let
         config =
             Config.fuzzer
@@ -47,18 +48,4 @@ viewTests =
                             |> View.view
                             |> Query.fromHtml
                             |> Query.contains []
-            , fuzz
-                config
-                "displays a loading page when data has been requested"
-              <|
-                \config ->
-                    let
-                        model =
-                            Model Requesting config ListSurveyResultsRoute
-                    in
-                        model
-                            |> View.view
-                            |> Query.fromHtml
-                            |> Query.find [ tag "h1" ]
-                            |> Query.has [ text "Loading" ]
             ]

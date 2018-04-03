@@ -1,4 +1,4 @@
-module SurveyResultList.DecoderTest exposing (decoderTests)
+module SurveyResultList.DecoderTest exposing (suite)
 
 import Expect
 import Fuzzer.SurveyResultList as SurveyResultList
@@ -8,8 +8,8 @@ import SurveyResultList.Encoder as Encoder
 import Test exposing (Test, describe, fuzz)
 
 
-decoderTests : Test
-decoderTests =
+suite : Test
+suite =
     let
         surveyResultList =
             SurveyResultList.fuzzer

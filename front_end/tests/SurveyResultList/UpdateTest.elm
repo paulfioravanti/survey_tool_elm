@@ -1,4 +1,4 @@
-module SurveyResultList.UpdateTest exposing (updateTests)
+module SurveyResultList.UpdateTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config
@@ -14,8 +14,8 @@ import Test exposing (Test, describe, fuzz, fuzz2)
 import Update
 
 
-updateTests : Test
-updateTests =
+suite : Test
+suite =
     let
         surveyResultList =
             SurveyResultList.fuzzer
