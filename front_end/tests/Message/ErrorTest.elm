@@ -39,12 +39,19 @@ suite =
                                 (Failure NetworkError)
                                 config
                                 ListSurveyResultsRoute
+
+                        networkErrorMessage =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "network-error-message"
+                                )
                     in
                         model
                             |> View.view
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
-                            |> Query.has [ text "Is the server running?" ]
+                            |> Query.has [ networkErrorMessage ]
             , fuzz
                 config
                 "displays an error message when error is a BadStatus"
@@ -59,12 +66,19 @@ suite =
                                 (Failure (BadStatus response))
                                 config
                                 ListSurveyResultsRoute
+
+                        badStatusMessage =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "bad-status-message"
+                                )
                     in
                         model
                             |> View.view
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
-                            |> Query.has [ text "BadStatus Error" ]
+                            |> Query.has [ badStatusMessage ]
             , fuzz
                 config
                 "displays an error message when error is a BadPayload"
@@ -79,12 +93,19 @@ suite =
                                 (Failure (BadPayload "BadPayload" response))
                                 config
                                 ListSurveyResultsRoute
+
+                        badPayloadMessage =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "bad-payload-message"
+                                )
                     in
                         model
                             |> View.view
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
-                            |> Query.has [ text "Decoding Failed: BadPayload" ]
+                            |> Query.has [ badPayloadMessage ]
             , fuzz
                 config
                 "displays an error message when error is any other Http error"
@@ -96,10 +117,17 @@ suite =
                                 (Failure Timeout)
                                 config
                                 ListSurveyResultsRoute
+
+                        otherErrorMessage =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "other-error-message"
+                                )
                     in
                         model
                             |> View.view
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
-                            |> Query.has [ text "Timeout" ]
+                            |> Query.has [ otherErrorMessage ]
             ]

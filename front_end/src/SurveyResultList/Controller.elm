@@ -36,17 +36,17 @@ render msg surveyResultList =
             SurveyResultList.View.view msg surveyResultList
 
 
-errorToMessage : Http.Error -> String
+errorToMessage : Http.Error -> ( String, String )
 errorToMessage error =
     case error of
         Http.NetworkError ->
-            "Is the server running?"
+            ( "network-error-message", "Is the server running?" )
 
         Http.BadStatus response ->
-            toString response.status
+            ( "bad-status-message", toString response.status )
 
         Http.BadPayload message _ ->
-            "Decoding Failed: " ++ message
+            ( "bad-payload-message", "Decoding Failed: " ++ message )
 
         _ ->
-            toString error
+            ( "other-error-message", toString error )
