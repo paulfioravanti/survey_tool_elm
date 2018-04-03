@@ -1,8 +1,11 @@
-elm-verify-examples:
-  elm-verify-examples
-
-test: elm-verify-examples
+elm-test:
   elm-test
 
-coverage: elm-verify-examples
+elm-coverage:
   elm-coverage
+
+test: elm-test
+  elm-verify-examples
+
+coverage: elm-coverage
+  elm-verify-examples
