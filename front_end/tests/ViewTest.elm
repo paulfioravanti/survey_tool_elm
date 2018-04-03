@@ -2,29 +2,11 @@ module ViewTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config
-import Html.Attributes as Attributes
-import Http exposing (Error(NetworkError))
 import Model exposing (Model)
-import RemoteData
-    exposing
-        ( RemoteData
-            ( Failure
-            , NotRequested
-            , Requesting
-            , Success
-            )
-        )
-import Routing.Route
-    exposing
-        ( Route
-            ( ListSurveyResultsRoute
-            , NotFoundRoute
-            , SurveyResultDetailRoute
-            )
-        )
+import RemoteData exposing (RemoteData(NotRequested))
+import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
-import Test.Html.Selector exposing (attribute, class, classes, id, tag, text)
 import View
 
 
