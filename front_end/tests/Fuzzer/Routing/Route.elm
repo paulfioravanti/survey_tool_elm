@@ -13,6 +13,7 @@ import Routing.Route
 import Shrink
 
 
+fuzzer : Fuzzer Route
 fuzzer =
     let
         generator : Random.Generator Route
