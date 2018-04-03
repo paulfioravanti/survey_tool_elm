@@ -1,8 +1,8 @@
 module Routing.UpdateTest exposing (updateTests)
 
 import Expect
-import Fuzzer.Config as Config
 import Factory.Navigation.Location as Location
+import Fuzzer.Config as Config
 import Fuzzer.Routing.Route as Route
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
