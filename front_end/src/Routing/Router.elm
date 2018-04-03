@@ -14,34 +14,19 @@ import UrlParser exposing (Parser, (</>), map, oneOf, s, string, top)
 
 {-| Translates a Navigation.Location into a Route
 
-    import Navigation
+    import Factory.Navigation.Location as Location
     import Routing.Route exposing (Route(..))
 
-    location : String -> Navigation.Location
-    location path =
-      Navigation.Location
-          ""
-          ""
-          ""
-          ""
-          ""
-          ""
-          path
-          ""
-          ""
-          ""
-          ""
-
-    toRoute (location "/")
+    toRoute (Location.factory "/")
     --> ListSurveyResultsRoute
 
-    toRoute (location "/survey_results")
+    toRoute (Location.factory "/survey_results")
     --> ListSurveyResultsRoute
 
-    toRoute (location "/survey_results/1")
+    toRoute (Location.factory "/survey_results/1")
     --> SurveyResultDetailRoute "1"
 
-    toRoute (location "/invalid")
+    toRoute (Location.factory "/invalid")
     --> NotFoundRoute
 
 -}
