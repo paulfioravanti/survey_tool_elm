@@ -3,11 +3,12 @@ module Routing.UpdateTest exposing (updateTests)
 import Expect
 import Fuzzer.Config as Config
 import Fuzzer.Navigation.Location as Location
+import Fuzzer.Routing.Route as Route
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Routing.Msg exposing (Msg(ChangeLocation, OnLocationChange))
-import Routing.Route exposing (Route(ListSurveyResultsRoute, NotFoundRoute))
-import Test exposing (Test, describe, fuzz, fuzz2)
+import Routing.Route exposing (Route(ListSurveyResultsRoute))
+import Test exposing (Test, describe, fuzz3, fuzz4)
 import Update
 
 
@@ -19,31 +20,43 @@ updateTests =
 
         location =
             Location.fuzzer "/survey_results"
+
+        route =
+            Route.fuzzer
+
+        newRoute =
+            Route.fuzzer
     in
         describe "update"
-            [ fuzz config "updates the model route on ChangeLocation message" <|
-                \config ->
+            [ fuzz3
+                config
+                route
+                newRoute
+                "updates the model route on ChangeLocation message"
+              <|
+                \config route newRoute ->
                     let
                         model =
-                            Model.initialModel config NotFoundRoute
+                            Model.initialModel config route
 
                         msg =
-                            RoutingMsg (ChangeLocation ListSurveyResultsRoute)
+                            RoutingMsg (ChangeLocation newRoute)
                     in
                         model
                             |> Update.update msg
                             |> Tuple.first
                             |> Expect.equal
-                                { model | route = ListSurveyResultsRoute }
-            , fuzz2
+                                { model | route = newRoute }
+            , fuzz3
                 config
                 location
+                route
                 "updates the model route on OnLocationChange message"
               <|
-                \config location ->
+                \config location route ->
                     let
                         model =
-                            Model.initialModel config NotFoundRoute
+                            Model.initialModel config route
 
                         msg =
                             RoutingMsg (OnLocationChange location)
