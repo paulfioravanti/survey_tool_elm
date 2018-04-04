@@ -38,9 +38,9 @@ suite =
                     let
                         model =
                             Model
-                                NotRequested
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                     in
                         model
                             |> Update.update msg
@@ -59,9 +59,9 @@ suite =
                     let
                         model =
                             Model
-                                Requesting
                                 config
                                 ListSurveyResultsRoute
+                                Requesting
                     in
                         model
                             |> Update.update msg
@@ -78,9 +78,9 @@ suite =
                     let
                         model =
                             Model
-                                Requesting
                                 config
                                 (SurveyResultDetailRoute "10")
+                                Requesting
                     in
                         model
                             |> Update.update msg
@@ -97,9 +97,9 @@ suite =
                     let
                         model =
                             Model
-                                Requesting
                                 config
                                 NotFoundRoute
+                                Requesting
                     in
                         model
                             |> Update.update msg

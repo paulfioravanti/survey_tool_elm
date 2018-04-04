@@ -32,9 +32,9 @@ suite =
                     let
                         model =
                             Model
-                                (Success surveyResultList)
                                 config
                                 ListSurveyResultsRoute
+                                (Success surveyResultList)
 
                         surveyResults =
                             Selector.attribute

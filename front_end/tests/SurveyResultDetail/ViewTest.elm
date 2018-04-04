@@ -32,9 +32,9 @@ suite =
                     let
                         model =
                             Model
-                                NotRequested
                                 config
                                 (SurveyResultDetailRoute "id")
+                                NotRequested
 
                         notFoundMessage =
                             Selector.attribute

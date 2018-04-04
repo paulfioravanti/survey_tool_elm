@@ -7,9 +7,9 @@ import SurveyResultList.Model exposing (SurveyResultList)
 
 
 type alias Model =
-    { surveyResultList : WebData SurveyResultList
-    , config : Config
+    { config : Config
     , route : Route
+    , surveyResultList : WebData SurveyResultList
     }
 
 
@@ -24,12 +24,15 @@ type alias Model =
         Config "http://www.example.com/survey_results"
 
     initialModel config ListSurveyResultsRoute
-    --> Model NotRequested config ListSurveyResultsRoute
+    --> Model
+            config
+            ListSurveyResultsRoute
+            NotRequested
 
 -}
 initialModel : Config -> Route -> Model
 initialModel config route =
-    { surveyResultList = NotRequested
-    , config = config
+    { config = config
     , route = route
+    , surveyResultList = NotRequested
     }

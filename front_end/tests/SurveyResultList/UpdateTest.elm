@@ -35,9 +35,9 @@ suite =
                     let
                         model =
                             Model
-                                Requesting
                                 config
                                 ListSurveyResultsRoute
+                                Requesting
 
                         msg =
                             SurveyResultListMsg
@@ -62,9 +62,9 @@ suite =
                     let
                         model =
                             Model
-                                Requesting
                                 config
                                 ListSurveyResultsRoute
+                                Requesting
 
                         msg =
                             SurveyResultListMsg

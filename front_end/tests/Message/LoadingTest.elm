@@ -26,7 +26,10 @@ suite =
                 \config ->
                     let
                         model =
-                            Model Requesting config ListSurveyResultsRoute
+                            Model
+                                config
+                                ListSurveyResultsRoute
+                                Requesting
 
                         loadingMessage =
                             attribute

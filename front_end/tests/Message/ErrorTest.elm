@@ -36,9 +36,9 @@ suite =
                     let
                         model =
                             Model
-                                (Failure NetworkError)
                                 config
                                 ListSurveyResultsRoute
+                                (Failure NetworkError)
 
                         networkErrorMessage =
                             Selector.attribute
@@ -63,9 +63,9 @@ suite =
 
                         model =
                             Model
-                                (Failure (BadStatus response))
                                 config
                                 ListSurveyResultsRoute
+                                (Failure (BadStatus response))
 
                         badStatusMessage =
                             Selector.attribute
@@ -90,9 +90,9 @@ suite =
 
                         model =
                             Model
-                                (Failure (BadPayload "BadPayload" response))
                                 config
                                 ListSurveyResultsRoute
+                                (Failure (BadPayload "BadPayload" response))
 
                         badPayloadMessage =
                             Selector.attribute
@@ -114,9 +114,9 @@ suite =
                     let
                         model =
                             Model
-                                (Failure Timeout)
                                 config
                                 ListSurveyResultsRoute
+                                (Failure Timeout)
 
                         otherErrorMessage =
                             Selector.attribute

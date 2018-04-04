@@ -24,7 +24,7 @@ suite =
                 \config ->
                     let
                         model =
-                            Model NotRequested config ListSurveyResultsRoute
+                            Model config ListSurveyResultsRoute NotRequested
                     in
                         model
                             |> View.view

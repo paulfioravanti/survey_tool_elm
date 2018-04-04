@@ -27,9 +27,9 @@ suite =
                     let
                         model =
                             Model
-                                NotRequested
                                 config
                                 NotFoundRoute
+                                NotRequested
 
                         notFoundMessage =
                             Selector.attribute
