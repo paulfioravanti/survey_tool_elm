@@ -64,4 +64,4 @@ decoder =
     in
         Decode.succeed
             SurveyResultList
-            |: (field "survey_results" (list surveyResult))
+            |: field "survey_results" (list surveyResult)
