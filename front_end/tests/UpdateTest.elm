@@ -41,6 +41,7 @@ suite =
                                 config
                                 ListSurveyResultsRoute
                                 NotRequested
+                                NotRequested
                     in
                         model
                             |> Update.update msg
@@ -61,6 +62,7 @@ suite =
                             Model
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                                 Requesting
                     in
                         model
@@ -80,6 +82,7 @@ suite =
                             Model
                                 config
                                 (SurveyResultDetailRoute "10")
+                                NotRequested
                                 Requesting
                     in
                         model
@@ -99,6 +102,7 @@ suite =
                             Model
                                 config
                                 NotFoundRoute
+                                NotRequested
                                 Requesting
                     in
                         model

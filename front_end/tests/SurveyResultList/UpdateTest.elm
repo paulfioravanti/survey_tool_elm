@@ -6,7 +6,15 @@ import Fuzzer.SurveyResultList as SurveyResultList
 import Http exposing (Error(NetworkError))
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultListMsg))
-import RemoteData exposing (RemoteData(Failure, Requesting, Success))
+import RemoteData
+    exposing
+        ( RemoteData
+            ( Failure
+            , NotRequested
+            , Requesting
+            , Success
+            )
+        )
 import Result exposing (Result)
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
@@ -37,6 +45,7 @@ suite =
                             Model
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                                 Requesting
 
                         msg =
@@ -64,6 +73,7 @@ suite =
                             Model
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                                 Requesting
 
                         msg =

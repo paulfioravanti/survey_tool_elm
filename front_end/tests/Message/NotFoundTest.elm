@@ -30,6 +30,7 @@ suite =
                                 config
                                 NotFoundRoute
                                 NotRequested
+                                NotRequested
 
                         notFoundMessage =
                             Selector.attribute

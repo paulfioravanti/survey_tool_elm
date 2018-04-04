@@ -6,7 +6,7 @@ import Fuzzer.Config as Config
 import Html.Attributes as Attributes
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import Model exposing (Model)
-import RemoteData exposing (RemoteData(Failure))
+import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
@@ -38,6 +38,7 @@ suite =
                             Model
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                                 (Failure NetworkError)
 
                         networkErrorMessage =
@@ -65,6 +66,7 @@ suite =
                             Model
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                                 (Failure (BadStatus response))
 
                         badStatusMessage =
@@ -92,6 +94,7 @@ suite =
                             Model
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                                 (Failure (BadPayload "BadPayload" response))
 
                         badPayloadMessage =
@@ -116,6 +119,7 @@ suite =
                             Model
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                                 (Failure Timeout)
 
                         otherErrorMessage =

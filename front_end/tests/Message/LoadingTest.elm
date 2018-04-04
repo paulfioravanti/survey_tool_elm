@@ -4,7 +4,7 @@ import Expect
 import Fuzzer.Config as Config
 import Html.Attributes as Attributes
 import Model exposing (Model)
-import RemoteData exposing (RemoteData(Requesting))
+import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
@@ -29,6 +29,7 @@ suite =
                             Model
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                                 Requesting
 
                         loadingMessage =

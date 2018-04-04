@@ -35,6 +35,7 @@ suite =
                                 config
                                 (SurveyResultDetailRoute "id")
                                 NotRequested
+                                NotRequested
 
                         notFoundMessage =
                             Selector.attribute

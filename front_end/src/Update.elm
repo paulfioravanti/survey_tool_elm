@@ -42,23 +42,18 @@ update msg model =
                     case model.surveyResultList of
                         NotRequested ->
                             ( { model | surveyResultList = Requesting }
-                            , fetchSurveyResultList model.config.apiUrl
+                            , model.config.apiUrl
+                                |> SurveyResultList.Cmd.fetchSurveyResultList
+                                |> Cmd.map SurveyResultListMsg
                             )
 
                         _ ->
                             ( model, Cmd.none )
 
                 SurveyResultDetailRoute id ->
-                    case model.surveyResultList of
+                    case model.surveyResultDetail of
                         _ ->
                             ( model, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
-
-
-fetchSurveyResultList : String -> Cmd Msg
-fetchSurveyResultList apiUrl =
-    apiUrl
-        |> SurveyResultList.Cmd.fetchSurveyResultList
-        |> Cmd.map SurveyResultListMsg

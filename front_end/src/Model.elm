@@ -4,11 +4,13 @@ import Config exposing (Config)
 import RemoteData exposing (RemoteData(NotRequested), WebData)
 import Routing.Route exposing (Route)
 import SurveyResultList.Model exposing (SurveyResultList)
+import SurveyResult.Model exposing (SurveyResult)
 
 
 type alias Model =
     { config : Config
     , route : Route
+    , surveyResultDetail : WebData SurveyResult
     , surveyResultList : WebData SurveyResultList
     }
 
@@ -28,11 +30,13 @@ type alias Model =
     -->     config
     -->     ListSurveyResultsRoute
     -->     NotRequested
+    -->     NotRequested
 
 -}
 initialModel : Config -> Route -> Model
 initialModel config route =
     { config = config
     , route = route
+    , surveyResultDetail = NotRequested
     , surveyResultList = NotRequested
     }

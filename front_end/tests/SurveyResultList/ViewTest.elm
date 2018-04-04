@@ -5,7 +5,7 @@ import Fuzzer.Config as Config
 import Fuzzer.SurveyResultList as SurveyResultList
 import Html.Attributes as Attributes
 import Model exposing (Model)
-import RemoteData exposing (RemoteData(Success))
+import RemoteData exposing (RemoteData(NotRequested, Success))
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Test exposing (Test, describe, fuzz2)
 import Test.Html.Query as Query
@@ -34,6 +34,7 @@ suite =
                             Model
                                 config
                                 ListSurveyResultsRoute
+                                NotRequested
                                 (Success surveyResultList)
 
                         surveyResults =
