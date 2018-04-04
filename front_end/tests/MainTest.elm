@@ -21,18 +21,21 @@ suite =
             Config.fuzzer
 
         location =
-            Location.fuzzer "/"
+            Location.fuzzer
     in
         describe "Main"
             [ fuzz2 config location "init" <|
                 \config location ->
                     let
+                        rootLocation =
+                            { location | pathname = "/" }
+
                         model =
-                            location
+                            rootLocation
                                 |> Router.toRoute
                                 |> Model.initialModel config
                     in
-                        location
+                        rootLocation
                             |> Main.init config
                             |> Tuple.first
                             |> Expect.equal model
@@ -40,7 +43,7 @@ suite =
                 \config location ->
                     let
                         model =
-                            location
+                            { location | pathname = "/" }
                                 |> Router.toRoute
                                 |> Model.initialModel config
                     in

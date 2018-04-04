@@ -24,15 +24,15 @@ where the url pathname value needs to be placed so these fuzzers can
 be used in tests that involve routing.
 
 -}
-fuzzer : String -> Fuzzer Navigation.Location
-fuzzer pathname =
+fuzzer : Fuzzer Navigation.Location
+fuzzer =
     Fuzz.map Navigation.Location string
         |> Fuzz.andMap string
         |> Fuzz.andMap string
         |> Fuzz.andMap string
         |> Fuzz.andMap string
         |> Fuzz.andMap string
-        |> Fuzz.andMap (constant pathname)
+        |> Fuzz.andMap string
         |> Fuzz.andMap string
         |> Fuzz.andMap string
         |> Fuzz.andMap string

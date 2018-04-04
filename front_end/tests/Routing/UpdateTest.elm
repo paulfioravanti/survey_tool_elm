@@ -1,8 +1,8 @@
 module Routing.UpdateTest exposing (suite)
 
 import Expect
-import Factory.Navigation.Location as Location
 import Fuzzer.Config as Config
+import Fuzzer.Navigation.Location as Location
 import Fuzzer.Routing.Route as Route
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
@@ -24,6 +24,9 @@ suite =
 
         newRoute =
             Route.fuzzer
+
+        location =
+            Location.fuzzer
     in
         describe "update"
             [ fuzz3
@@ -45,24 +48,23 @@ suite =
                             |> Tuple.first
                             |> Expect.equal
                                 { model | route = newRoute }
-            , fuzz3
+            , fuzz4
                 config
                 route
                 newRoute
+                location
                 "updates the model route on OnLocationChange message"
               <|
-                \config route newRoute ->
+                \config route newRoute location ->
                     let
                         model =
                             Model.initialModel config route
 
-                        location =
-                            newRoute
-                                |> Router.toPath
-                                |> Location.factory
+                        newLocation =
+                            { location | pathname = Router.toPath newRoute }
 
                         msg =
-                            RoutingMsg (OnLocationChange location)
+                            RoutingMsg (OnLocationChange newLocation)
                     in
                         model
                             |> Update.update msg
