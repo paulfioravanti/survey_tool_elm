@@ -14,6 +14,7 @@ fuzzer =
                     |> Fuzz.andMap int
                     |> Fuzz.andMap float
                     |> Fuzz.andMap int
+                    |> Fuzz.andMap (constant Nothing)
                     |> Fuzz.andMap
                         (constant ("/survey_results/" ++ id ++ ".json"))
             )

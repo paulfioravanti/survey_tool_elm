@@ -43,12 +43,14 @@ import SurveyResultList.Model exposing (SurveyResultList)
                 6
                 0.8333333333333334
                 5
+                Nothing
                 "/survey_results/1.json"
             , SurveyResult
                 "Acme Engagement Survey"
                 271
                 1
                 271
+                Nothing
                 "/survey_results/2.json"
             ]
 

@@ -25,9 +25,9 @@ type alias Model =
 
     initialModel config ListSurveyResultsRoute
     --> Model
-            config
-            ListSurveyResultsRoute
-            NotRequested
+    -->     config
+    -->     ListSurveyResultsRoute
+    -->     NotRequested
 
 -}
 initialModel : Config -> Route -> Model
