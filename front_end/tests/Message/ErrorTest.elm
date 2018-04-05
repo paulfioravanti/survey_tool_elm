@@ -1,14 +1,14 @@
 module Message.ErrorTest exposing (suite)
 
 import Expect
-import Factory.Http.Response as Response
+import Fuzzer.Http.Response as Response
 import Fuzzer.Config as Config
 import Html.Attributes as Attributes
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
-import Test exposing (Test, describe, fuzz)
+import Test exposing (Test, describe, fuzz, fuzz2)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag, text)
 import View
@@ -26,6 +26,9 @@ suite =
                     "data-name"
                     "error-message"
                 )
+
+        response =
+            Response.fuzzer
     in
         describe "view"
             [ fuzz
@@ -53,15 +56,13 @@ suite =
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ networkErrorMessage ]
-            , fuzz
+            , fuzz2
                 config
+                response
                 "displays an error message when error is a BadStatus"
               <|
-                \config ->
+                \config response ->
                     let
-                        response =
-                            Response.factory "BadStatus Error"
-
                         model =
                             Model
                                 config
@@ -81,15 +82,13 @@ suite =
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ badStatusMessage ]
-            , fuzz
+            , fuzz2
                 config
+                response
                 "displays an error message when error is a BadPayload"
               <|
-                \config ->
+                \config response ->
                     let
-                        response =
-                            Response.factory "BadPayload Error"
-
                         model =
                             Model
                                 config
