@@ -72,8 +72,8 @@ suite =
             , fuzz
                 config
                 """
-                when the route is SurveyResultDetailRoute, it does not update
-                the model.
+                when the route is SurveyResultDetailRoute, it updates the
+                surveyResultDetail to Requesting when it is NotRequested.
                 """
               <|
                 \config ->
@@ -83,12 +83,13 @@ suite =
                                 config
                                 (SurveyResultDetailRoute "10")
                                 NotRequested
-                                Requesting
+                                NotRequested
                     in
                         model
                             |> Update.update msg
                             |> Tuple.first
-                            |> Expect.equal model
+                            |> Expect.equal
+                                { model | surveyResultDetail = Requesting }
             , fuzz
                 config
                 """
@@ -103,7 +104,7 @@ suite =
                                 config
                                 NotFoundRoute
                                 NotRequested
-                                Requesting
+                                NotRequested
                     in
                         model
                             |> Update.update msg

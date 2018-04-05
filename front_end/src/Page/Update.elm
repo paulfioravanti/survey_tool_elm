@@ -1,6 +1,6 @@
 module Page.Update exposing (update)
 
-import Msg exposing (Msg(SurveyResultListMsg))
+import Msg exposing (Msg(SurveyResultMsg, SurveyResultListMsg))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Routing.Route
@@ -10,6 +10,7 @@ import Routing.Route
             , SurveyResultDetailRoute
             )
         )
+import SurveyResult.Cmd
 import SurveyResultList.Cmd
 
 
@@ -29,9 +30,11 @@ update model =
                     ( model, Cmd.none )
 
         SurveyResultDetailRoute id ->
-            case model.surveyResultDetail of
-                _ ->
-                    ( model, Cmd.none )
+            ( { model | surveyResultDetail = Requesting }
+            , model.config.apiUrl
+                |> SurveyResult.Cmd.fetchSurveyResult id
+                |> Cmd.map SurveyResultMsg
+            )
 
         _ ->
             ( model, Cmd.none )
