@@ -4,6 +4,7 @@ import Html exposing (Html, text)
 import Http
 import Message.Loading as Loading
 import Message.Error as Error
+import Message.NotFound as NotFound
 import RemoteData
     exposing
         ( RemoteData
@@ -18,8 +19,8 @@ import SurveyResult.Model exposing (SurveyResult)
 import SurveyResultDetail.View
 
 
-render : msg -> WebData SurveyResult -> Html msg
-render msg surveyResult =
+render : msg -> String -> WebData SurveyResult -> Html msg
+render msg path surveyResult =
     case surveyResult of
         NotRequested ->
             text ""
@@ -28,9 +29,21 @@ render msg surveyResult =
             Loading.view
 
         Failure error ->
-            error
-                |> errorToMessage
-                |> Error.view
+            case error of
+                Http.BadStatus response ->
+                    case response.status.code of
+                        404 ->
+                            NotFound.view msg path
+
+                        _ ->
+                            error
+                                |> errorToMessage
+                                |> Error.view
+
+                _ ->
+                    error
+                        |> errorToMessage
+                        |> Error.view
 
         Success surveyResult ->
             SurveyResultDetail.View.view msg surveyResult

@@ -57,7 +57,7 @@ heading =
                 |> String.join " "
     in
         h1 [ class headingClasses ]
-            [ text "Page Not Found" ]
+            [ text "Not Found" ]
 
 
 backToHomeLink : msg -> String -> Html msg

@@ -39,7 +39,7 @@ render model =
                     Router.toPath ListSurveyResultsRoute
             in
                 model.surveyResultDetail
-                    |> SurveyResult.Controller.render msg
+                    |> SurveyResult.Controller.render msg path
                     |> Html.map RoutingMsg
 
         NotFoundRoute ->
