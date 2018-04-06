@@ -1,59 +1,11 @@
 module Helpers
     exposing
-        ( errorToMessage
-        , extractSurveyResultDetailId
+        ( extractSurveyResultDetailId
         , toFormattedPercentage
         , toSurveyResultDetailUrl
         )
 
-import Http
 import Regex exposing (HowMany(AtMost))
-
-
-{-| Returns a tagged message tuple from a Http.Error
-
-    import Dict
-    import Http
-
-    type alias Status =
-        { code : Int, message : String }
-
-    response : body -> Http.Response body
-    response body =
-        Http.Response
-            "www.example.com"
-            (Status 400 "Not Found")
-            Dict.empty
-            body
-
-
-    errorToMessage Http.NetworkError
-    --> ( "network-error-message", "Is the server running?" )
-
-    errorToMessage (Http.BadStatus (response "Response body"))
-    --> ( "bad-status-message", "\"Not Found\"" )
-
-    errorToMessage (Http.BadPayload "Payload Failed" (response "Response body"))
-    --> ( "bad-payload-message", "Decoding Failed: Payload Failed")
-
-    errorToMessage (Http.Timeout)
-    --> ( "other-error-message", "Timeout" )
-
--}
-errorToMessage : Http.Error -> ( String, String )
-errorToMessage error =
-    case error of
-        Http.NetworkError ->
-            ( "network-error-message", "Is the server running?" )
-
-        Http.BadStatus response ->
-            ( "bad-status-message", toString response.status.message )
-
-        Http.BadPayload message response ->
-            ( "bad-payload-message", "Decoding Failed: " ++ message )
-
-        _ ->
-            ( "other-error-message", toString error )
 
 
 {-| Extracts the survey result detail ID from a given URL

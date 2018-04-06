@@ -3,11 +3,15 @@ module Message.Error exposing (view)
 import Html exposing (Html, div, h1, i, main_, section, text)
 import Html.Attributes exposing (attribute, class)
 import Html.Keyed as Keyed
+import Http
 
 
-view : ( String, String ) -> Html msg
-view messageTuple =
+view : Http.Error -> Html msg
+view error =
     let
+        taggedMessage =
+            errorToMessage error
+
         messageClasses =
             [ "flex"
             , "flex-column"
@@ -22,10 +26,26 @@ view messageTuple =
                 [ div [ class messageClasses ]
                     [ Keyed.node "div" [] [ ( "error-icon", icon ) ]
                     , div []
-                        [ heading messageTuple ]
+                        [ heading taggedMessage ]
                     ]
                 ]
             ]
+
+
+errorToMessage : Http.Error -> ( String, String )
+errorToMessage error =
+    case error of
+        Http.NetworkError ->
+            ( "network-error-message", "Is the server running?" )
+
+        Http.BadStatus response ->
+            ( "bad-status-message", toString response.status.message )
+
+        Http.BadPayload message response ->
+            ( "bad-payload-message", "Decoding Failed: " ++ message )
+
+        _ ->
+            ( "other-error-message", toString error )
 
 
 icon : Html msg

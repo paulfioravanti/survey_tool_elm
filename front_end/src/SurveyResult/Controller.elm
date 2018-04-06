@@ -1,7 +1,7 @@
 module SurveyResult.Controller exposing (render)
 
-import Helpers
 import Html exposing (Html, text)
+import Http
 import Message.Loading as Loading
 import Message.Error as Error
 import Message.NotFound as NotFound
@@ -36,14 +36,10 @@ render msg path surveyResult =
                             NotFound.view msg path
 
                         _ ->
-                            error
-                                |> Helpers.errorToMessage
-                                |> Error.view
+                            Error.view error
 
                 _ ->
-                    error
-                        |> Helpers.errorToMessage
-                        |> Error.view
+                    Error.view error
 
         Success surveyResult ->
             SurveyResultDetail.View.view msg surveyResult

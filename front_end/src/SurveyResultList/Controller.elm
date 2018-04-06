@@ -1,6 +1,5 @@
 module SurveyResultList.Controller exposing (render)
 
-import Helpers
 import Html exposing (Html, text)
 import Message.Loading as Loading
 import Message.Error as Error
@@ -28,9 +27,7 @@ render msg surveyResultList =
             Loading.view
 
         Failure error ->
-            error
-                |> Helpers.errorToMessage
-                |> Error.view
+            Error.view error
 
         Success surveyResultList ->
             SurveyResultList.View.view msg surveyResultList
