@@ -19,14 +19,14 @@ import SurveyResultList.Controller
 
 
 render : Model -> Html Msg.Msg
-render model =
-    case model.route of
+render { route, surveyResultList, surveyResultDetail } =
+    case route of
         ListSurveyResultsRoute ->
             let
                 msg =
                     (ChangeLocation << SurveyResultDetailRoute)
             in
-                model.surveyResultList
+                surveyResultList
                     |> SurveyResultList.Controller.render msg
                     |> Html.map RoutingMsg
 
@@ -38,7 +38,7 @@ render model =
                 path =
                     Router.toPath ListSurveyResultsRoute
             in
-                model.surveyResultDetail
+                surveyResultDetail
                     |> SurveyResult.Controller.render msg path
                     |> Html.map RoutingMsg
 
