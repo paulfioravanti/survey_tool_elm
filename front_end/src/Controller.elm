@@ -14,6 +14,7 @@ import Routing.Route
             , NotFoundRoute
             )
         )
+import SurveyResult.Controller
 import SurveyResultList.Controller
 
 
@@ -37,7 +38,8 @@ render model =
                 path =
                     Router.toPath ListSurveyResultsRoute
             in
-                NotFound.view msg path
+                model.surveyResultDetail
+                    |> SurveyResult.Controller.render msg
                     |> Html.map RoutingMsg
 
         NotFoundRoute ->

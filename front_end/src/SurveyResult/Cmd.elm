@@ -1,7 +1,7 @@
 module SurveyResult.Cmd exposing (fetchSurveyResult)
 
 import Http
-import SurveyResult.Decoder as Decoder
+import SurveyResultDetail.Decoder as Decoder
 import SurveyResult.Msg exposing (Msg(FetchSurveyResult))
 
 
