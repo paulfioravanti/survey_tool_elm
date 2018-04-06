@@ -1,7 +1,7 @@
 module SurveyResult.Controller exposing (render)
 
+import Helpers
 import Html exposing (Html, text)
-import Http
 import Message.Loading as Loading
 import Message.Error as Error
 import Message.NotFound as NotFound
@@ -37,29 +37,13 @@ render msg path surveyResult =
 
                         _ ->
                             error
-                                |> errorToMessage
+                                |> Helpers.errorToMessage
                                 |> Error.view
 
                 _ ->
                     error
-                        |> errorToMessage
+                        |> Helpers.errorToMessage
                         |> Error.view
 
         Success surveyResult ->
             SurveyResultDetail.View.view msg surveyResult
-
-
-errorToMessage : Http.Error -> ( String, String )
-errorToMessage error =
-    case error of
-        Http.NetworkError ->
-            ( "network-error-message", "Is the server running?" )
-
-        Http.BadStatus response ->
-            ( "bad-status-message", toString response.status )
-
-        Http.BadPayload message _ ->
-            ( "bad-payload-message", "Decoding Failed: " ++ message )
-
-        _ ->
-            ( "other-error-message", toString error )
