@@ -10,6 +10,7 @@ import Html
         , h1
         , h2
         , img
+        , main_
         , p
         , section
         , span
@@ -22,7 +23,7 @@ import SurveyResult.Model exposing (SurveyResult)
 
 
 view : msg -> SurveyResult -> Html msg
-view msg surveyResult =
+view msg { name, participantCount, responseRate, submittedResponseCount } =
     let
         articleClasses =
             [ "avenir"
@@ -35,12 +36,17 @@ view msg surveyResult =
             ]
                 |> String.join " "
     in
-        article [ attribute "data-name" "survey-result", class articleClasses ]
-            [ summaryHeading surveyResult.name
-            , summaryContent
-                surveyResult.participantCount
-                surveyResult.submittedResponseCount
-                surveyResult.responseRate
+        main_ []
+            [ article
+                [ attribute "data-name" "survey-result"
+                , class articleClasses
+                ]
+                [ summaryHeading name
+                , summaryContent
+                    participantCount
+                    submittedResponseCount
+                    responseRate
+                ]
             ]
 
 
@@ -62,7 +68,7 @@ summaryHeading title =
 
 
 summaryContent : Int -> Int -> Float -> Html msg
-summaryContent numParticipants numResponses responseRatePercentage =
+summaryContent participantCount submittedResponseCount responseRate =
     let
         contentClasses =
             [ "flex"
@@ -74,10 +80,10 @@ summaryContent numParticipants numResponses responseRatePercentage =
     in
         div [ class contentClasses ]
             [ div [ class "w-50-ns" ]
-                [ statistic "Participants" numParticipants
-                , statistic "Responses" numResponses
+                [ statistic "Participants" participantCount
+                , statistic "Responses" submittedResponseCount
                 ]
-            , responseRate responseRatePercentage
+            , responseRatePercentage responseRate
             ]
 
 
@@ -91,8 +97,8 @@ statistic label value =
         ]
 
 
-responseRate : Float -> Html msg
-responseRate responseRatePercentage =
+responseRatePercentage : Float -> Html msg
+responseRatePercentage responseRate =
     let
         responseRateClasses =
             [ "b"
@@ -110,5 +116,5 @@ responseRate responseRatePercentage =
             [ div [ class "f2-ns fw3 ttu" ]
                 [ text "Response Rate" ]
             , div [ class "bg-light-gray f1-ns hover-bg-brand" ]
-                [ text (Helpers.toFormattedPercentage responseRatePercentage) ]
+                [ text (Helpers.toFormattedPercentage responseRate) ]
             ]

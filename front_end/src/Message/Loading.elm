@@ -1,6 +1,6 @@
 module Message.Loading exposing (view)
 
-import Html exposing (Html, div, h1, i, section, text)
+import Html exposing (Html, div, h1, i, main_, section, text)
 import Html.Attributes exposing (attribute, class)
 import Html.Keyed as Keyed
 
@@ -17,11 +17,13 @@ view =
             ]
                 |> String.join " "
     in
-        section [ attribute "data-name" "loading-message" ]
-            [ div [ class messageClasses ]
-                [ Keyed.node "div" [] [ ( "loading-icon", icon ) ]
-                , div []
-                    [ heading ]
+        main_ []
+            [ section [ attribute "data-name" "loading-message" ]
+                [ div [ class messageClasses ]
+                    [ Keyed.node "div" [] [ ( "loading-icon", icon ) ]
+                    , div []
+                        [ heading ]
+                    ]
                 ]
             ]
 

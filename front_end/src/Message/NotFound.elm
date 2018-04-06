@@ -1,6 +1,6 @@
 module Message.NotFound exposing (view)
 
-import Html exposing (Html, a, div, h1, i, section, text)
+import Html exposing (Html, a, div, h1, i, main_, section, text)
 import Html.Attributes exposing (attribute, class, href)
 import Html.Events exposing (onWithOptions)
 import Html.Keyed as Keyed
@@ -19,12 +19,14 @@ view msg path =
             ]
                 |> String.join " "
     in
-        section [ attribute "data-name" "not-found-message" ]
-            [ div [ class messageClasses ]
-                [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
-                , div []
-                    [ heading ]
-                , backToHomeLink msg path
+        main_ []
+            [ section [ attribute "data-name" "not-found-message" ]
+                [ div [ class messageClasses ]
+                    [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
+                    , div []
+                        [ heading ]
+                    , backToHomeLink msg path
+                    ]
                 ]
             ]
 

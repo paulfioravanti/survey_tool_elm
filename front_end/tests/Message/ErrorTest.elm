@@ -1,5 +1,6 @@
 module Message.ErrorTest exposing (suite)
 
+import Controller
 import Expect
 import Fuzzer.Http.Response as Response
 import Fuzzer.Config as Config
@@ -11,7 +12,6 @@ import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Test exposing (Test, describe, fuzz, fuzz2)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag, text)
-import View
 
 
 suite : Test
@@ -52,7 +52,7 @@ suite =
                                 )
                     in
                         model
-                            |> View.view
+                            |> Controller.render
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ networkErrorMessage ]
@@ -78,7 +78,7 @@ suite =
                                 )
                     in
                         model
-                            |> View.view
+                            |> Controller.render
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ badStatusMessage ]
@@ -104,7 +104,7 @@ suite =
                                 )
                     in
                         model
-                            |> View.view
+                            |> Controller.render
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ badPayloadMessage ]
@@ -129,7 +129,7 @@ suite =
                                 )
                     in
                         model
-                            |> View.view
+                            |> Controller.render
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ otherErrorMessage ]

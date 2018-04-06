@@ -1,5 +1,6 @@
 module Message.NotFoundTest exposing (suite)
 
+import Controller
 import Expect
 import Fuzzer.Config as Config
 import Html.Attributes as Attributes
@@ -9,7 +10,6 @@ import Routing.Route exposing (Route(NotFoundRoute))
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
-import View
 
 
 suite : Test
@@ -40,7 +40,7 @@ suite =
                                 )
                     in
                         model
-                            |> View.view
+                            |> Controller.render
                             |> Query.fromHtml
                             |> Query.find [ tag "section" ]
                             |> Query.has [ notFoundMessage ]

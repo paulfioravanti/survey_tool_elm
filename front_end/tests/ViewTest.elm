@@ -1,5 +1,6 @@
 module ViewTest exposing (suite)
 
+import Controller
 import Expect
 import Fuzzer.Config as Config
 import Model exposing (Model)
@@ -7,7 +8,7 @@ import RemoteData exposing (RemoteData(NotRequested))
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
-import View
+import Html exposing (Html, text)
 
 
 suite : Test
@@ -31,7 +32,8 @@ suite =
                                 NotRequested
                     in
                         model
-                            |> View.view
+                            |> Controller.render
                             |> Query.fromHtml
-                            |> Query.contains []
+                            |> Query.children []
+                            |> Query.count (Expect.equal 0)
             ]

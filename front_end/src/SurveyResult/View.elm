@@ -22,7 +22,7 @@ import SurveyResult.Model exposing (SurveyResult)
 
 
 view : (String -> msg) -> SurveyResult -> Html msg
-view msg surveyResult =
+view msg { name, participantCount, responseRate, submittedResponseCount, url } =
     let
         articleClasses =
             [ "avenir"
@@ -44,24 +44,24 @@ view msg surveyResult =
     in
         article [ attribute "data-name" "survey-result", class articleClasses ]
             [ a
-                [ href (Helpers.toSurveyResultDetailUrl surveyResult.url)
+                [ href (Helpers.toSurveyResultDetailUrl url)
                 , class linkClasses
                 , onWithOptions
                     "click"
                     { stopPropagation = False
                     , preventDefault = True
                     }
-                    (surveyResult.url
+                    (url
                         |> Helpers.extractSurveyResultDetailId
                         |> msg
                         |> Decode.succeed
                     )
                 ]
-                [ summaryHeading surveyResult.name
+                [ summaryHeading name
                 , summaryContent
-                    surveyResult.participantCount
-                    surveyResult.submittedResponseCount
-                    surveyResult.responseRate
+                    participantCount
+                    submittedResponseCount
+                    responseRate
                 ]
             ]
 
@@ -84,7 +84,7 @@ summaryHeading title =
 
 
 summaryContent : Int -> Int -> Float -> Html msg
-summaryContent numParticipants numResponses responseRatePercentage =
+summaryContent participantCount submittedResponseCount responseRate =
     let
         contentClasses =
             [ "flex"
@@ -96,10 +96,10 @@ summaryContent numParticipants numResponses responseRatePercentage =
     in
         div [ class contentClasses ]
             [ div [ class "w-50-ns" ]
-                [ statistic "Participants" numParticipants
-                , statistic "Responses" numResponses
+                [ statistic "Participants" participantCount
+                , statistic "Responses" submittedResponseCount
                 ]
-            , responseRate responseRatePercentage
+            , responseRatePercentage responseRate
             ]
 
 
@@ -113,8 +113,8 @@ statistic label value =
         ]
 
 
-responseRate : Float -> Html msg
-responseRate responseRatePercentage =
+responseRatePercentage : Float -> Html msg
+responseRatePercentage responseRate =
     let
         responseRateClasses =
             [ "b"
@@ -132,5 +132,5 @@ responseRate responseRatePercentage =
             [ div [ class "f2-ns fw3 ttu" ]
                 [ text "Response Rate" ]
             , div [ class "bg-light-gray f1-ns hover-bg-brand" ]
-                [ text (Helpers.toFormattedPercentage responseRatePercentage) ]
+                [ text (Helpers.toFormattedPercentage responseRate) ]
             ]
