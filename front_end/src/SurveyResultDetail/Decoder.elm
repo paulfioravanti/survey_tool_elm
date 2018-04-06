@@ -8,7 +8,10 @@ import SurveyResult.Model exposing (SurveyResult)
 {-| Decodes a JSON survey result with details.
 
     import Json.Decode as Decode
+    import Question.Model exposing (Question)
+    import SurveyResponse.Model exposing (SurveyResponse)
     import SurveyResult.Model exposing (SurveyResult)
+    import Theme.Model exposing (Theme)
 
     json : String
     json =
@@ -39,7 +42,6 @@ import SurveyResult.Model exposing (SurveyResult)
             "response_rate": 0.8333333333333334,
             "participant_count": 6,
             "name": "Simple Survey"
-
           }
         }
         """
@@ -51,7 +53,16 @@ import SurveyResult.Model exposing (SurveyResult)
             6
             0.8333333333333334
             5
-            Nothing
+            (Just
+                [ Theme
+                    "The Work"
+                    [ Question
+                        "I like the kind of work I do."
+                        [ SurveyResponse 1 1 1 "5" ]
+                        "ratingquestion"
+                    ]
+                ]
+            )
             "/survey_results/1.json"
 
     Decode.decodeString decoder json

@@ -8,7 +8,7 @@ import Theme.Decoder
 
 {-| Decodes a JSON survey result.
 
-    import Json.Decode
+    import Json.Decode as Decode
     import SurveyResult.Model exposing (SurveyResult)
 
     json : String
@@ -33,7 +33,7 @@ import Theme.Decoder
             Nothing
             "/survey_results/1.json"
 
-    Json.Decode.decodeString decoder json
+    Decode.decodeString decoder json
     --> Ok surveyResult
 
 -}
