@@ -9,6 +9,7 @@ import Html
         , div
         , h1
         , h2
+        , h3
         , img
         , main_
         , p
@@ -17,22 +18,20 @@ import Html
         , text
         )
 import Html.Attributes exposing (attribute, class, href)
-import Html.Events exposing (onWithOptions)
-import Json.Decode as Decode
+import Question.Model exposing (Question)
+import Round
+import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResult.Model exposing (SurveyResult)
+import Theme.Model exposing (Theme)
 
 
 view : msg -> SurveyResult -> Html msg
-view msg { name, participantCount, responseRate, submittedResponseCount } =
+view msg surveyResult =
     let
         articleClasses =
-            [ "avenir"
-            , "b--black-10"
-            , "ba"
-            , "grow grow:active grow:focus"
-            , "hover-bg-washed-red"
-            , "ma2 mt2-ns"
-            , "pa2"
+            [ "center"
+            , "flex flex-column"
+            , "mw8"
             ]
                 |> String.join " "
     in
@@ -41,80 +40,169 @@ view msg { name, participantCount, responseRate, submittedResponseCount } =
                 [ attribute "data-name" "survey-result"
                 , class articleClasses
                 ]
-                [ summaryHeading name
-                , summaryContent
-                    participantCount
-                    submittedResponseCount
-                    responseRate
+                [ h1 [ class "f1 avenir" ]
+                    [ text surveyResult.name ]
+                , div [ attribute "data-name" "participation-count" ]
+                    [ div [ class "" ]
+                        [ text "Participants" ]
+                    , div [ class "" ]
+                        [ text (toString surveyResult.participantCount) ]
+                    ]
+                , div [ attribute "data-name" "submitted-response-count" ]
+                    [ div [ class "" ]
+                        [ text "Responses" ]
+                    , div [ class "" ]
+                        [ text (toString surveyResult.submittedResponseCount) ]
+                    ]
+                , div [ attribute "data-name" "submitted-response-rate" ]
+                    [ div [ class "" ]
+                        [ text "Response Rate" ]
+                    , div [ class "" ]
+                        [ text
+                            (Helpers.toFormattedPercentage
+                                surveyResult.responseRate
+                            )
+                        ]
+                    ]
+                , div [ attribute "data-name" "themes" ]
+                    (List.map
+                        themeView
+                        (Maybe.withDefault [] surveyResult.themes)
+                    )
                 ]
             ]
 
 
-summaryHeading : String -> Html msg
-summaryHeading title =
-    let
-        headingClasses =
-            [ "f3 f1-ns"
-            , "hover-brand"
-            , "light-silver"
-            , "mb2"
-            , "mt0"
-            , "tc"
-            ]
-                |> String.join " "
-    in
-        h1 [ class headingClasses ]
-            [ text title ]
-
-
-summaryContent : Int -> Int -> Float -> Html msg
-summaryContent participantCount submittedResponseCount responseRate =
-    let
-        contentClasses =
-            [ "flex"
-            , "flex-column flex-row-ns"
-            , "justify-around"
-            , "ph4 ph0-ns"
-            ]
-                |> String.join " "
-    in
-        div [ class contentClasses ]
-            [ div [ class "w-50-ns" ]
-                [ statistic "Participants" participantCount
-                , statistic "Responses" submittedResponseCount
-                ]
-            , responseRatePercentage responseRate
-            ]
-
-
-statistic : String -> Int -> Html msg
-statistic label value =
-    div [ class "b flex justify-between mid-gray" ]
-        [ div [ class "f3 f1-ns fw2" ]
-            [ text label ]
-        , div [ class "f3 f1-ns" ]
-            [ text (toString value) ]
+themeView : Theme -> Html msg
+themeView theme =
+    div [ attribute "data-name" "theme" ]
+        [ h2 [ class "" ]
+            [ text theme.name ]
+        , div [ attribute "data-name" "theme-average-score" ]
+            [ text (themeAverageScore theme.questions) ]
+        , div [ attribute "data-name" "questions" ]
+            (List.map questionView theme.questions)
         ]
 
 
-responseRatePercentage : Float -> Html msg
-responseRatePercentage responseRate =
+questionView : Question -> Html msg
+questionView question =
+    div [ attribute "data-name" "question" ]
+        [ h3 [ class "" ]
+            [ text question.description ]
+        , div [ attribute "data-name" "question-average-score" ]
+            [ text (questionAverageScore question.surveyResponses) ]
+        , div [ attribute "data-name" "survey-responses" ]
+            (List.map surveyResponseView question.surveyResponses)
+        ]
+
+
+surveyResponseView : SurveyResponse -> Html msg
+surveyResponseView surveyResponse =
+    div [ attribute "data-name" "survey-response" ]
+        [ text surveyResponse.responseContent
+        ]
+
+
+themeAverageScore : List Question -> String
+themeAverageScore questions =
     let
-        responseRateClasses =
-            [ "b"
-            , "dark-gray"
-            , "f3"
-            , "flex"
-            , "flex-column-ns"
-            , "justify-between"
-            , "mt2 mt0-ns"
-            , "tc"
-            ]
-                |> String.join " "
+        themeSum =
+            questions
+                |> questionsSum
+                |> toFloat
+
+        themeSurveyResponseCount =
+            questions
+                |> questionsResponseCount
+                |> toFloat
     in
-        div [ class responseRateClasses ]
-            [ div [ class "f2-ns fw3 ttu" ]
-                [ text "Response Rate" ]
-            , div [ class "bg-light-gray f1-ns hover-bg-brand" ]
-                [ text (Helpers.toFormattedPercentage responseRate) ]
-            ]
+        themeSurveyResponseCount
+            |> (/) themeSum
+            |> Round.round 2
+
+
+addValidResponse : SurveyResponse -> Int -> Int
+addValidResponse surveyResponse acc =
+    let
+        responseContent =
+            surveyResponse.responseContent
+                |> responseIntValue
+    in
+        if responseContent > 0 then
+            acc + 1
+        else
+            acc
+
+
+questionsResponseCount : List Question -> Int
+questionsResponseCount questions =
+    let
+        addQuestionSurveyResponsesCount =
+            (\question acc ->
+                question.surveyResponses
+                    |> List.foldl addValidResponse 0
+                    |> (+) acc
+            )
+    in
+        questions
+            |> List.foldl addQuestionSurveyResponsesCount 0
+
+
+questionAverageScore : List SurveyResponse -> String
+questionAverageScore surveyResponses =
+    let
+        questionSum =
+            surveyResponses
+                |> responsesSum
+                |> toFloat
+
+        questionSurveyResponseCount =
+            surveyResponses
+                |> responseCount
+                |> toFloat
+    in
+        questionSurveyResponseCount
+            |> (/) questionSum
+            |> Round.round 2
+
+
+responseCount : List SurveyResponse -> Int
+responseCount surveyResponses =
+    surveyResponses
+        |> List.foldl addValidResponse 0
+
+
+questionsSum : List Question -> Int
+questionsSum questions =
+    let
+        addQuestionsSum =
+            (\question acc ->
+                question.surveyResponses
+                    |> responsesSum
+                    |> (+) acc
+            )
+    in
+        questions
+            |> List.foldl addQuestionsSum 0
+
+
+responsesSum : List SurveyResponse -> Int
+responsesSum surveyResponses =
+    let
+        addResponseContent =
+            (\surveyResponse acc ->
+                surveyResponse.responseContent
+                    |> responseIntValue
+                    |> (+) acc
+            )
+    in
+        surveyResponses
+            |> List.foldl addResponseContent 0
+
+
+responseIntValue : String -> Int
+responseIntValue responseContent =
+    responseContent
+        |> String.toInt
+        |> Result.withDefault 0

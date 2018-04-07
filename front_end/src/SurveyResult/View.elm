@@ -67,7 +67,7 @@ view msg { name, participantCount, responseRate, submittedResponseCount, url } =
 
 
 summaryHeading : String -> Html msg
-summaryHeading title =
+summaryHeading name =
     let
         headingClasses =
             [ "f3 f1-ns"
@@ -80,7 +80,7 @@ summaryHeading title =
                 |> String.join " "
     in
         h1 [ class headingClasses ]
-            [ text title ]
+            [ text name ]
 
 
 summaryContent : Int -> Int -> Float -> Html msg
@@ -105,12 +105,21 @@ summaryContent participantCount submittedResponseCount responseRate =
 
 statistic : String -> Int -> Html msg
 statistic label value =
-    div [ class "b flex justify-between mid-gray" ]
-        [ div [ class "f3 f1-ns fw2" ]
-            [ text label ]
-        , div [ class "f3 f1-ns" ]
-            [ text (toString value) ]
-        ]
+    let
+        classes =
+            [ "b"
+            , "flex"
+            , "justify-between"
+            , "mid-gray"
+            ]
+                |> String.join " "
+    in
+        div [ class classes ]
+            [ div [ class "f3 f1-ns fw2" ]
+                [ text label ]
+            , div [ class "f3 f1-ns" ]
+                [ text (toString value) ]
+            ]
 
 
 responseRatePercentage : Float -> Html msg
