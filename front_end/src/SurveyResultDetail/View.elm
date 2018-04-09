@@ -1,5 +1,6 @@
 module SurveyResultDetail.View exposing (view)
 
+import Dict exposing (Dict)
 import Helpers
 import Html
     exposing
@@ -92,9 +93,32 @@ questionView question =
             [ text question.description ]
         , div [ attribute "data-name" "question-average-score" ]
             [ text (questionAverageScore question.surveyResponses) ]
+        , div [ attribute "data-name" "survey-responses-histogram" ]
+            [ text (toString (surveyResponsesHistogram question.surveyResponses)) ]
         , div [ attribute "data-name" "survey-responses" ]
             (List.map surveyResponseView question.surveyResponses)
         ]
+
+
+surveyResponsesHistogram : List SurveyResponse -> Dict String (List Int)
+surveyResponsesHistogram surveyResponses =
+    let
+        histogram =
+            Dict.fromList
+                [ ( "1", [] )
+                , ( "2", [] )
+                , ( "3", [] )
+                , ( "4", [] )
+                , ( "5", [] )
+                ]
+
+        prependRatingToList { respondentId, responseContent } dict =
+            if Dict.member responseContent dict then
+                Dict.update responseContent (Maybe.map ((::) respondentId)) dict
+            else
+                dict
+    in
+        List.foldl prependRatingToList histogram surveyResponses
 
 
 surveyResponseView : SurveyResponse -> Html msg
