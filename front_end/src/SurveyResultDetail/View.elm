@@ -38,7 +38,7 @@ view msg surveyResult =
     in
         main_ []
             [ article
-                [ attribute "data-name" "survey-result"
+                [ attribute "data-name" "survey-result-detail"
                 , class articleClasses
                 ]
                 [ h1 [ class "f1 avenir" ]
@@ -88,18 +88,27 @@ themeView theme =
 
 questionView : Question -> Html msg
 questionView question =
-    div [ attribute "data-name" "question" ]
-        [ h3 [ class "" ]
-            [ text question.description ]
-        , div [ attribute "data-name" "question-average-score" ]
-            [ text (questionAverageScore question.surveyResponses) ]
-        , div [ attribute "data-name" "survey-responses-histogram" ]
-            [ text (toString (surveyResponsesHistogram question.surveyResponses)) ]
-        , div [ attribute "data-name" "1-response-tooltip" ]
-            [ text (respondentsByResponseContent (surveyResponsesHistogram question.surveyResponses) "4") ]
-        , div [ attribute "data-name" "survey-responses" ]
-            (List.map surveyResponseView question.surveyResponses)
-        ]
+    let
+        ratings =
+            [ "1", "2", "3", "4", "5" ]
+
+        histogram =
+            surveyResponsesHistogram question.surveyResponses
+    in
+        div [ attribute "data-name" "question" ]
+            [ h3 [ class "" ]
+                [ text question.description ]
+            , div [ attribute "data-name" "question-average-score" ]
+                [ text (questionAverageScore question.surveyResponses) ]
+            , div
+                [ attribute "data-name" "survey-responses"
+                , class "inline-flex"
+                ]
+                (List.map
+                    (surveyResponseView histogram)
+                    ratings
+                )
+            ]
 
 
 surveyResponsesHistogram : List SurveyResponse -> Dict String (List Int)
@@ -129,7 +138,7 @@ surveyResponsesHistogram surveyResponses =
 respondentsByResponseContent : Dict String (List Int) -> String -> String
 respondentsByResponseContent histogram responseContent =
     let
-        numNamedIds =
+        numIdsToDisplay =
             5
 
         respondents =
@@ -138,20 +147,42 @@ respondentsByResponseContent histogram responseContent =
                 |> Maybe.withDefault []
 
         ( head, tail ) =
-            ( List.take numNamedIds respondents
-            , List.drop numNamedIds respondents
+            ( List.take numIdsToDisplay respondents
+            , List.drop numIdsToDisplay respondents
             )
 
-        rootMessage =
+        participantIdsToDisplay =
             head
                 |> List.map toString
                 |> String.join ", "
-                |> (++) "Chosen by respondent IDs "
     in
         if List.isEmpty respondents then
-            ""
+            "Chosen by no respondents."
         else if head == respondents then
-            rootMessage
+            let
+                headLength =
+                    List.length head
+
+                ( headHead, headTail ) =
+                    ( List.take (headLength - 1) head
+                    , List.drop (headLength - 1) head
+                    )
+
+                headIds =
+                    headHead
+                        |> List.map toString
+                        |> String.join ", "
+
+                tailId =
+                    headTail
+                        |> List.head
+                        |> Maybe.withDefault 0
+            in
+                "Chosen by respondent IDs "
+                    ++ headIds
+                    ++ ", and "
+                    ++ toString tailId
+                    ++ "."
         else
             let
                 tailLength =
@@ -159,21 +190,55 @@ respondentsByResponseContent histogram responseContent =
 
                 others =
                     if tailLength == 1 then
-                        " other"
+                        " other."
                     else
-                        " others"
+                        " others."
             in
-                rootMessage
+                "Chosen by respondent IDs "
+                    ++ participantIdsToDisplay
                     ++ ", and "
                     ++ toString tailLength
                     ++ others
 
 
-surveyResponseView : SurveyResponse -> Html msg
-surveyResponseView surveyResponse =
-    div [ attribute "data-name" "survey-response" ]
-        [ text surveyResponse.responseContent
-        ]
+surveyResponseView : Dict String (List Int) -> String -> Html msg
+surveyResponseView histogram rating =
+    let
+        surveyResponseClasses =
+            [ "bg-moon-gray"
+            , "br4"
+            , "dt"
+            , "h2"
+            , "mh1"
+            , "pointer"
+            , "tc"
+            , "w2"
+            ]
+                |> String.join " "
+
+        responseContentClasses =
+            [ "br4"
+            , "dtc"
+            , "hover-bg-brand"
+            , "hover-white"
+            , "tooltip"
+            , "v-mid"
+            ]
+                |> String.join " "
+    in
+        div
+            [ attribute "data-name" "survey-response"
+            , class surveyResponseClasses
+            ]
+            [ div
+                [ attribute "data-name" "survey-response-content"
+                , class responseContentClasses
+                ]
+                [ text rating
+                , span [ class "tooltiptext" ]
+                    [ text (respondentsByResponseContent histogram rating) ]
+                ]
+            ]
 
 
 themeAverageScore : List Question -> String
