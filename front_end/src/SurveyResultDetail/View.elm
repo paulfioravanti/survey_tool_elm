@@ -205,24 +205,26 @@ surveyResponseView : Dict String (List Int) -> String -> Html msg
 surveyResponseView histogram rating =
     let
         surveyResponseClasses =
-            [ "bg-moon-gray"
-            , "br4"
-            , "dt"
-            , "h2"
+            [ "dt"
             , "mh1"
-            , "pointer"
-            , "tc"
-            , "w2"
             ]
                 |> String.join " "
 
         responseContentClasses =
-            [ "br4"
+            [ "b--light-silver"
+            , "ba"
+            , "bg-moon-gray"
+            , "br4"
             , "dtc"
+            , "h2"
+            , "hover-b--brand"
             , "hover-bg-brand"
             , "hover-white"
-            , "tooltip"
+            , "pointer"
+            , "relative"
+            , "tc"
             , "v-mid"
+            , "w2"
             ]
                 |> String.join " "
     in
@@ -235,10 +237,34 @@ surveyResponseView histogram rating =
                 , class responseContentClasses
                 ]
                 [ text rating
-                , span [ class "tooltiptext" ]
-                    [ text (respondentsByResponseContent histogram rating) ]
+                , surveyResponseTooltip histogram rating
                 ]
             ]
+
+
+surveyResponseTooltip : Dict String (List Int) -> String -> Html msg
+surveyResponseTooltip histogram rating =
+    let
+        tooltipClasses =
+            [ "absolute"
+            , "avenir"
+            , "bg-dark-gray"
+            , "br3"
+            , "f6"
+            , "nl5"
+            , "pa1"
+            , "tc"
+            , "w4"
+            , "white"
+            , "z-1"
+            ]
+                |> String.join " "
+    in
+        span
+            [ attribute "data-name" "survey-response-tooltip"
+            , class tooltipClasses
+            ]
+            [ text (respondentsByResponseContent histogram rating) ]
 
 
 themeAverageScore : List Question -> String

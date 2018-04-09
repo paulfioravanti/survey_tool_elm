@@ -1,7 +1,22 @@
+@import "tooltip.css";
+
 /* CA Branding Colour */
 :root {
   --brand-color: rgb(252 ,51 ,90);
   --brand-color-50: rgb(252 ,51 ,90, .5);
+}
+
+.brand {
+  color: var(--brand-color);
+}
+
+.brand-50 {
+  color: var(--brand-color-50);
+}
+
+.hover-b--brand:hover,
+.hover-b--brand:focus {
+	border-color: var(--brand-color);
 }
 
 [data-name="survey-result"]:hover
@@ -17,46 +32,4 @@
 [data-name="survey-response"]:hover
 .hover-bg-brand {
   background-color: var(--brand-color);
-}
-
-.brand {
-  color: var(--brand-color);
-}
-
-.brand-50 {
-  color: var(--brand-color-50);
-}
-
-.tooltip {
-    position: relative;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 130px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 150%;
-    left: 50%;
-    margin-left: -60px;
-}
-
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
 }
