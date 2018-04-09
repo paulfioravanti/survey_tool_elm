@@ -95,6 +95,8 @@ questionView question =
             [ text (questionAverageScore question.surveyResponses) ]
         , div [ attribute "data-name" "survey-responses-histogram" ]
             [ text (toString (surveyResponsesHistogram question.surveyResponses)) ]
+        , div [ attribute "data-name" "1-response-tooltip" ]
+            [ text (respondentsByResponseContent (surveyResponsesHistogram question.surveyResponses) "4") ]
         , div [ attribute "data-name" "survey-responses" ]
             (List.map surveyResponseView question.surveyResponses)
         ]
@@ -114,11 +116,57 @@ surveyResponsesHistogram surveyResponses =
 
         prependRatingToList { respondentId, responseContent } dict =
             if Dict.member responseContent dict then
-                Dict.update responseContent (Maybe.map ((::) respondentId)) dict
+                Dict.update
+                    responseContent
+                    (Maybe.map ((::) respondentId))
+                    dict
             else
                 dict
     in
         List.foldl prependRatingToList histogram surveyResponses
+
+
+respondentsByResponseContent : Dict String (List Int) -> String -> String
+respondentsByResponseContent histogram responseContent =
+    let
+        numNamedIds =
+            5
+
+        respondents =
+            histogram
+                |> Dict.get responseContent
+                |> Maybe.withDefault []
+
+        ( head, tail ) =
+            ( List.take numNamedIds respondents
+            , List.drop numNamedIds respondents
+            )
+
+        rootMessage =
+            head
+                |> List.map toString
+                |> String.join ", "
+                |> (++) "Chosen by respondent IDs "
+    in
+        if List.isEmpty respondents then
+            ""
+        else if head == respondents then
+            rootMessage
+        else
+            let
+                tailLength =
+                    List.length tail
+
+                others =
+                    if tailLength == 1 then
+                        " other"
+                    else
+                        " others"
+            in
+                rootMessage
+                    ++ ", and "
+                    ++ toString tailLength
+                    ++ others
 
 
 surveyResponseView : SurveyResponse -> Html msg
