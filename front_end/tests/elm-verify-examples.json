@@ -3,7 +3,7 @@
   "tests": [
     "Helpers",
     "Model",
-    "Routing.Router",
+    "Routing.Utils",
     "SurveyResult.Decoder",
     "SurveyResult.Utils",
     "SurveyResultDetail.Decoder",

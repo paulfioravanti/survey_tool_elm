@@ -1,4 +1,4 @@
-module Routing.Router exposing (toRoute, toPath)
+module Routing.Utils exposing (toRoute, toPath)
 
 import Navigation
 import Routing.Route

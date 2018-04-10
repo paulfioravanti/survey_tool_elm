@@ -8,7 +8,7 @@ import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Routing.Msg exposing (Msg(ChangeLocation, OnLocationChange))
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
-import Routing.Router as Router
+import Routing.Utils as Utils
 import Test exposing (Test, describe, fuzz3, fuzz4)
 import Update
 
@@ -61,7 +61,7 @@ suite =
                             Model.initialModel config route
 
                         newLocation =
-                            { location | pathname = Router.toPath newRoute }
+                            { location | pathname = Utils.toPath newRoute }
 
                         msg =
                             RoutingMsg (OnLocationChange newLocation)

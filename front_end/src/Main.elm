@@ -12,7 +12,7 @@ import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg, UpdatePage))
 import Navigation
 import Routing.Msg exposing (Msg(OnLocationChange))
-import Routing.Router as Router
+import Routing.Utils
 import Task
 import Update
 
@@ -33,7 +33,7 @@ init config location =
     let
         model =
             location
-                |> Router.toRoute
+                |> Routing.Utils.toRoute
                 |> Model.initialModel config
     in
         ( model

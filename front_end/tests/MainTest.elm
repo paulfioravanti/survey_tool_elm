@@ -5,7 +5,7 @@ import Fuzzer.Config as Config
 import Fuzzer.Navigation.Location as Location
 import Main
 import Model exposing (Model)
-import Routing.Router as Router
+import Routing.Utils
 import Test exposing (Test, describe, fuzz2)
 
 
@@ -32,7 +32,7 @@ suite =
 
                         model =
                             rootLocation
-                                |> Router.toRoute
+                                |> Routing.Utils.toRoute
                                 |> Model.initialModel config
                     in
                         rootLocation

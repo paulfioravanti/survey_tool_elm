@@ -5,7 +5,6 @@ import Message.NotFound as NotFound
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Routing.Msg exposing (Msg(ChangeLocation))
-import Routing.Router as Router
 import Routing.Route
     exposing
         ( Route
@@ -14,6 +13,7 @@ import Routing.Route
             , NotFoundRoute
             )
         )
+import Routing.Utils as Utils
 import SurveyResult.Controller
 import SurveyResultList.Controller
 
@@ -36,7 +36,7 @@ render { route, surveyResultList, surveyResultDetail } =
                     (ChangeLocation ListSurveyResultsRoute)
 
                 path =
-                    Router.toPath ListSurveyResultsRoute
+                    Utils.toPath ListSurveyResultsRoute
             in
                 surveyResultDetail
                     |> SurveyResult.Controller.render msg path
@@ -48,7 +48,7 @@ render { route, surveyResultList, surveyResultDetail } =
                     (ChangeLocation ListSurveyResultsRoute)
 
                 path =
-                    Router.toPath ListSurveyResultsRoute
+                    Utils.toPath ListSurveyResultsRoute
             in
                 NotFound.view msg path
                     |> Html.map RoutingMsg
