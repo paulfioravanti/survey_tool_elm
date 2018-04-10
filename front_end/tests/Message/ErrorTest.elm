@@ -1,6 +1,5 @@
 module Message.ErrorTest exposing (suite)
 
-import Controller
 import Expect
 import Fuzzer.Http.Response as Response
 import Fuzzer.Config as Config
@@ -9,6 +8,7 @@ import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
+import Router
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Test exposing (Test, describe, fuzz, fuzz2)
 import Test.Html.Query as Query
@@ -53,7 +53,7 @@ suite =
                                 )
                     in
                         model
-                            |> Controller.render
+                            |> Router.route
                             |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
@@ -80,7 +80,7 @@ suite =
                                 )
                     in
                         model
-                            |> Controller.render
+                            |> Router.route
                             |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
@@ -107,7 +107,7 @@ suite =
                                 )
                     in
                         model
-                            |> Controller.render
+                            |> Router.route
                             |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
@@ -133,7 +133,7 @@ suite =
                                 )
                     in
                         model
-                            |> Controller.render
+                            |> Router.route
                             |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]

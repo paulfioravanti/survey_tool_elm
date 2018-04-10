@@ -6,11 +6,11 @@ unable to figure out a way to test init through main.
 -}
 
 import Config exposing (Config)
-import Controller
 import Html.Styled as Html
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg, UpdatePage))
 import Navigation
+import Router
 import Routing.Msg exposing (Msg(OnLocationChange))
 import Routing.Utils
 import Task
@@ -22,7 +22,7 @@ main =
     Navigation.programWithFlags
         (RoutingMsg << OnLocationChange)
         { init = init
-        , view = Controller.render >> Html.toUnstyled
+        , view = Router.route >> Html.toUnstyled
         , update = Update.update
         , subscriptions = subscriptions
         }

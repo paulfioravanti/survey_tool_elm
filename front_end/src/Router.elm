@@ -1,4 +1,4 @@
-module Controller exposing (render)
+module Router exposing (route)
 
 import Html.Styled as Html exposing (Html)
 import Message.NotFound as NotFound
@@ -18,8 +18,8 @@ import SurveyResult.Controller
 import SurveyResultList.Controller
 
 
-render : Model -> Html Msg.Msg
-render { route, surveyResultList, surveyResultDetail } =
+route : Model -> Html Msg.Msg
+route { route, surveyResultList, surveyResultDetail } =
     case route of
         ListSurveyResultsRoute ->
             let

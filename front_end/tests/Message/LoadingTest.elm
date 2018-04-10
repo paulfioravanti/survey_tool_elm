@@ -1,12 +1,12 @@
 module Message.LoadingTest exposing (suite)
 
-import Controller
 import Expect
 import Fuzzer.Config as Config
 import Html.Attributes as Attributes
 import Html.Styled
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
+import Router
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
@@ -41,7 +41,7 @@ suite =
                                 )
                     in
                         model
-                            |> Controller.render
+                            |> Router.route
                             |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section" ]

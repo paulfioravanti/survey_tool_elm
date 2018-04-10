@@ -44,7 +44,7 @@ suite =
                     let
                         model =
                             { location | pathname = "/" }
-                                |> Router.toRoute
+                                |> Routing.Utils.toRoute
                                 |> Model.initialModel config
                     in
                         model
