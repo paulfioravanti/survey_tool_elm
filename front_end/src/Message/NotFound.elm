@@ -1,17 +1,17 @@
 module Message.NotFound exposing (view)
 
-import Css exposing (..)
 import Html.Styled exposing (Html, a, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)
 import Html.Styled.Keyed as Keyed
 import Json.Decode as Decode
+import Styles
 
 
 view : msg -> String -> Html msg
 view msg path =
     let
-        messageClasses =
+        classes =
             [ "flex"
             , "flex-column"
             , "justify-center"
@@ -21,13 +21,11 @@ view msg path =
                 |> String.join " "
     in
         main_ []
-            [ section [ attribute "data-name" "not-found-message" ]
-                [ div [ class messageClasses ]
-                    [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
-                    , div []
-                        [ heading ]
-                    , backToHomeLink msg path
-                    ]
+            [ section [ class classes ]
+                [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
+                , div []
+                    [ heading ]
+                , backToHomeLink msg path
                 ]
             ]
 
@@ -36,24 +34,20 @@ icon : Html msg
 icon =
     let
         -- NOTE: fa-prefixed classes are from Font Awesome.
-        iconClasses =
+        classes =
             [ "fa-4x"
             , "fa-meh"
             , "far"
             ]
                 |> String.join " "
     in
-        i
-            [ class iconClasses
-            , css [ color (rgba 252 51 90 0.5) ]
-            ]
-            []
+        i [ class classes, css [ Styles.brandColorAlpha ] ] []
 
 
 heading : Html msg
 heading =
     let
-        headingClasses =
+        classes =
             [ "avenir"
             , "f2 f1-ns"
             , "light-silver"
@@ -62,14 +56,14 @@ heading =
             ]
                 |> String.join " "
     in
-        h1 [ class headingClasses ]
+        h1 [ class classes ]
             [ text "Not Found" ]
 
 
 backToHomeLink : msg -> String -> Html msg
 backToHomeLink msg path =
     let
-        linkClasses =
+        classes =
             [ "avenir"
             , "f5"
             , "hover-gray"
@@ -80,11 +74,11 @@ backToHomeLink msg path =
     in
         a
             [ href path
-            , class linkClasses
+            , class classes
             , onWithOptions
                 "click"
-                { stopPropagation = False
-                , preventDefault = True
+                { preventDefault = True
+                , stopPropagation = False
                 }
                 (Decode.succeed msg)
             ]

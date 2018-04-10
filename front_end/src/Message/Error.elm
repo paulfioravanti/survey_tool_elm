@@ -1,19 +1,16 @@
 module Message.Error exposing (view)
 
-import Css exposing (..)
 import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed
 import Http
+import Styles
 
 
 view : Http.Error -> Html msg
 view error =
     let
-        taggedMessage =
-            errorToMessage error
-
-        messageClasses =
+        classes =
             [ "flex"
             , "flex-column"
             , "justify-center"
@@ -23,52 +20,46 @@ view error =
                 |> String.join " "
     in
         main_ []
-            [ section [ attribute "data-name" "error-message" ]
-                [ div [ class messageClasses ]
-                    [ Keyed.node "div" [] [ ( "error-icon", icon ) ]
-                    , div []
-                        [ heading taggedMessage ]
-                    ]
+            [ section [ class classes ]
+                [ Keyed.node "div" [] [ ( "error-icon", icon ) ]
+                , div []
+                    [ heading (errorToMessage error) ]
                 ]
             ]
 
 
-errorToMessage : Http.Error -> ( String, String )
+errorToMessage : Http.Error -> String
 errorToMessage error =
     case error of
         Http.NetworkError ->
-            ( "network-error-message", "Is the server running?" )
+            "Is the server running?"
 
         Http.BadStatus response ->
-            ( "bad-status-message", toString response.status.message )
+            toString response.status.message
 
         Http.BadPayload message response ->
-            ( "bad-payload-message", "Decoding Failed: " ++ message )
+            "Decoding Failed: " ++ message
 
         _ ->
-            ( "other-error-message", toString error )
+            toString error
 
 
 icon : Html msg
 icon =
     let
         -- NOTE: fa-prefixed classes are from Font Awesome.
-        iconClasses =
+        classes =
             [ "fa-4x"
             , "fa-frown"
             , "far"
             ]
                 |> String.join " "
     in
-        i
-            [ class iconClasses
-            , css [ color (rgba 252 51 90 0.5) ]
-            ]
-            []
+        i [ class classes, css [ Styles.brandColorAlpha ] ] []
 
 
-heading : ( String, String ) -> Html msg
-heading ( attributeName, message ) =
+heading : String -> Html msg
+heading message =
     let
         headingClasses =
             [ "avenir"
@@ -76,12 +67,22 @@ heading ( attributeName, message ) =
             , "mv2"
             ]
                 |> String.join " "
+
+        headingTextClasses =
+            [ "f2 f1-ns"
+            , "ttu"
+            ]
+                |> String.join " "
+
+        errorMessageClasses =
+            [ "f6"
+            , "tc"
+            ]
+                |> String.join " "
     in
         h1 [ class headingClasses ]
-            [ div [ class "f2 f1-ns ttu" ]
-                [ text "Error retrieving data"
-                ]
-            , div [ attribute "data-name" attributeName, class "f6 tc" ]
-                [ text ("(" ++ message ++ ")")
-                ]
+            [ div [ class headingTextClasses ]
+                [ text "Error retrieving data" ]
+            , div [ class errorMessageClasses ]
+                [ text ("(" ++ message ++ ")") ]
             ]

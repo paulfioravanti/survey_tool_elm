@@ -1,15 +1,15 @@
 module Message.Loading exposing (view)
 
-import Css exposing (..)
 import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed
+import Styles
 
 
 view : Html msg
 view =
     let
-        messageClasses =
+        classes =
             [ "flex"
             , "flex-column"
             , "justify-center"
@@ -19,12 +19,10 @@ view =
                 |> String.join " "
     in
         main_ []
-            [ section [ attribute "data-name" "loading-message" ]
-                [ div [ class messageClasses ]
-                    [ Keyed.node "div" [] [ ( "loading-icon", icon ) ]
-                    , div []
-                        [ heading ]
-                    ]
+            [ section [ class classes ]
+                [ Keyed.node "div" [] [ ( "loading-icon", icon ) ]
+                , div []
+                    [ heading ]
                 ]
             ]
 
@@ -33,7 +31,7 @@ icon : Html msg
 icon =
     let
         -- NOTE: fa-prefixed classes are from Font Awesome.
-        iconClasses =
+        classes =
             [ "fa-4x"
             , "fa-pulse"
             , "fa-spinner"
@@ -41,17 +39,13 @@ icon =
             ]
                 |> String.join " "
     in
-        i
-            [ class iconClasses
-            , css [ color (rgba 252 51 90 0.5) ]
-            ]
-            []
+        i [ class classes, css [ Styles.brandColorAlpha ] ] []
 
 
 heading : Html msg
 heading =
     let
-        headingClasses =
+        classes =
             [ "avenir"
             , "f2 f1-ns"
             , "light-silver"
@@ -60,5 +54,5 @@ heading =
             ]
                 |> String.join " "
     in
-        h1 [ class headingClasses ]
+        h1 [ class classes ]
             [ text "Loading" ]

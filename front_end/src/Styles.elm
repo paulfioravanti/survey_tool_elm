@@ -1,6 +1,6 @@
-module Styles exposing (brandBackgroundColor, brandColor)
+module Styles exposing (brandBackgroundColor, brandColor, brandColorAlpha)
 
-import Css exposing (Color, Style, backgroundColor, color, rgb)
+import Css exposing (Color, Style, backgroundColor, color, rgb, rgba)
 
 
 brandBackgroundColor : Style
@@ -11,6 +11,16 @@ brandBackgroundColor =
 brandColor : Style
 brandColor =
     color brand
+
+
+brandColorAlpha : Style
+brandColorAlpha =
+    color brandAlpha
+
+
+brandAlpha : Color
+brandAlpha =
+    rgba 252 51 90 0.5
 
 
 brand : Color
