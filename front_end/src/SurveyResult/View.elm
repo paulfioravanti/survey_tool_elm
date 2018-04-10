@@ -72,7 +72,7 @@ summaryLink msg surveyResult =
             onWithOptions
                 "click"
                 { preventDefault = True, stopPropagation = False }
-                (surveyResult.url
+                (url
                     |> SurveyResult.Utils.extractId
                     |> msg
                     |> Decode.succeed
@@ -218,6 +218,10 @@ responseRateValue responseRate =
             , "f1-ns"
             ]
                 |> String.join " "
+
+        responsePercentage =
+            responseRate
+                |> Utils.toFormattedPercentage
     in
         div [ class classes, class "hover-bg-brand" ]
-            [ text (Utils.toFormattedPercentage responseRate) ]
+            [ text responsePercentage ]
