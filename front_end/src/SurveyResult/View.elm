@@ -1,7 +1,9 @@
 module SurveyResult.View exposing (view)
 
+import Css exposing (..)
+import Css.Foreign exposing (descendants)
 import Helpers
-import Html
+import Html.Styled
     exposing
         ( Html
         , a
@@ -15,8 +17,8 @@ import Html
         , span
         , text
         )
-import Html.Attributes exposing (attribute, class, href)
-import Html.Events exposing (onWithOptions)
+import Html.Styled.Attributes exposing (attribute, class, css, href)
+import Html.Styled.Events exposing (onWithOptions)
 import Json.Decode as Decode
 import SurveyResult.Model exposing (SurveyResult)
 
@@ -42,7 +44,20 @@ view msg { name, participantCount, responseRate, submittedResponseCount, url } =
             ]
                 |> String.join " "
     in
-        article [ attribute "data-name" "survey-result", class articleClasses ]
+        article
+            [ attribute "data-name" "survey-result"
+            , class articleClasses
+            , css
+                [ hover
+                    [ descendants
+                        [ Css.Foreign.class "hover-bg-brand"
+                            [ backgroundColor (rgb 252 51 90) ]
+                        , Css.Foreign.class "hover-brand"
+                            [ color (rgb 252 51 90) ]
+                        ]
+                    ]
+                ]
+            ]
             [ a
                 [ href (Helpers.toSurveyResultDetailUrl url)
                 , class linkClasses
@@ -136,10 +151,16 @@ responseRatePercentage responseRate =
             , "tc"
             ]
                 |> String.join " "
+
+        percentageClasses =
+            [ "bg-light-gray"
+            , "f1-ns"
+            ]
+                |> String.join " "
     in
         div [ class responseRateClasses ]
             [ div [ class "f2-ns fw3 ttu" ]
                 [ text "Response Rate" ]
-            , div [ class "bg-light-gray f1-ns hover-bg-brand" ]
+            , div [ class percentageClasses, class "hover-bg-brand" ]
                 [ text (Helpers.toFormattedPercentage responseRate) ]
             ]

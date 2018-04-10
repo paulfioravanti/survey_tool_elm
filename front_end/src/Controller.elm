@@ -1,6 +1,6 @@
 module Controller exposing (render)
 
-import Html exposing (Html)
+import Html.Styled as Html exposing (Html)
 import Message.NotFound as NotFound
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))

@@ -7,6 +7,7 @@ unable to figure out a way to test init through main.
 
 import Config exposing (Config)
 import Controller
+import Html.Styled as Html
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg, UpdatePage))
 import Navigation
@@ -21,7 +22,7 @@ main =
     Navigation.programWithFlags
         (RoutingMsg << OnLocationChange)
         { init = init
-        , view = Controller.render
+        , view = Controller.render >> Html.toUnstyled
         , update = Update.update
         , subscriptions = subscriptions
         }

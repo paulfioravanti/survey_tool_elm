@@ -1,7 +1,7 @@
 module SurveyResultList.View exposing (view)
 
-import Html exposing (Html, div, h1, h4, img, main_, section, span, text)
-import Html.Attributes exposing (alt, attribute, class, src)
+import Html.Styled exposing (Html, div, h1, h4, img, main_, section, span, text)
+import Html.Styled.Attributes exposing (alt, attribute, class, src)
 import SurveyResult.View
 import SurveyResultList.Model exposing (SurveyResultList)
 

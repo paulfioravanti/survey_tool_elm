@@ -1,9 +1,10 @@
 module Message.NotFound exposing (view)
 
-import Html exposing (Html, a, div, h1, i, main_, section, text)
-import Html.Attributes exposing (attribute, class, href)
-import Html.Events exposing (onWithOptions)
-import Html.Keyed as Keyed
+import Css exposing (..)
+import Html.Styled exposing (Html, a, div, h1, i, main_, section, text)
+import Html.Styled.Attributes exposing (attribute, class, css, href)
+import Html.Styled.Events exposing (onWithOptions)
+import Html.Styled.Keyed as Keyed
 import Json.Decode as Decode
 
 
@@ -36,14 +37,17 @@ icon =
     let
         -- NOTE: fa-prefixed classes are from Font Awesome.
         iconClasses =
-            [ "brand-50"
-            , "fa-4x"
+            [ "fa-4x"
             , "fa-meh"
             , "far"
             ]
                 |> String.join " "
     in
-        i [ class iconClasses ] []
+        i
+            [ class iconClasses
+            , css [ color (rgba 252 51 90 0.5) ]
+            ]
+            []
 
 
 heading : Html msg

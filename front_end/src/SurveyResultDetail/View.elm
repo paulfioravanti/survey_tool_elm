@@ -1,8 +1,10 @@
 module SurveyResultDetail.View exposing (view)
 
+import Css exposing (..)
+import Css.Foreign exposing (children)
 import Dict exposing (Dict)
 import Helpers
-import Html
+import Html.Styled
     exposing
         ( Html
         , a
@@ -18,7 +20,7 @@ import Html
         , span
         , text
         )
-import Html.Attributes exposing (attribute, class, href)
+import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Question.Model exposing (Question)
 import Round
 import SurveyResponse.Model exposing (SurveyResponse)
@@ -217,8 +219,6 @@ surveyResponseView histogram rating =
             , "br4"
             , "dtc"
             , "h2"
-            , "hover-b--brand"
-            , "hover-bg-brand"
             , "hover-white"
             , "pointer"
             , "relative"
@@ -231,10 +231,28 @@ surveyResponseView histogram rating =
         div
             [ attribute "data-name" "survey-response"
             , class surveyResponseClasses
+            , css
+                [ hover
+                    [ children
+                        [ Css.Foreign.class "hover-bg-brand"
+                            [ backgroundColor (rgb 252 51 90) ]
+                        ]
+                    ]
+                ]
             ]
             [ div
                 [ attribute "data-name" "survey-response-content"
                 , class responseContentClasses
+                , class "hover-bg-brand"
+                , css
+                    [ hover
+                        [ borderColor (rgb 252 51 90)
+                        , children
+                            [ Css.Foreign.class "survey-response-tooltip"
+                                [ visibility visible ]
+                            ]
+                        ]
+                    ]
                 ]
                 [ text rating
                 , surveyResponseTooltip histogram rating
@@ -259,10 +277,27 @@ surveyResponseTooltip histogram rating =
             , "z-1"
             ]
                 |> String.join " "
+
+        styles =
+            [ after
+                [ borderColor4 (hex "000") transparent transparent transparent
+                , borderStyle solid
+                , borderWidth (px 5)
+                , left (pct 50)
+                , position absolute
+                , property "content" "''"
+                , top (pct 100)
+                ]
+            , bottom (pct 150)
+            , left (pct 25)
+            , visibility hidden
+            ]
     in
         span
             [ attribute "data-name" "survey-response-tooltip"
             , class tooltipClasses
+            , class "survey-response-tooltip"
+            , css styles
             ]
             [ text (respondentsByResponseContent histogram rating) ]
 

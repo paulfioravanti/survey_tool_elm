@@ -1,8 +1,9 @@
 module Message.Loading exposing (view)
 
-import Html exposing (Html, div, h1, i, main_, section, text)
-import Html.Attributes exposing (attribute, class)
-import Html.Keyed as Keyed
+import Css exposing (..)
+import Html.Styled exposing (Html, div, h1, i, main_, section, text)
+import Html.Styled.Attributes exposing (attribute, class, css)
+import Html.Styled.Keyed as Keyed
 
 
 view : Html msg
@@ -33,15 +34,18 @@ icon =
     let
         -- NOTE: fa-prefixed classes are from Font Awesome.
         iconClasses =
-            [ "brand-50"
-            , "fa-4x"
+            [ "fa-4x"
             , "fa-pulse"
             , "fa-spinner"
             , "fas"
             ]
                 |> String.join " "
     in
-        i [ class iconClasses ] []
+        i
+            [ class iconClasses
+            , css [ color (rgba 252 51 90 0.5) ]
+            ]
+            []
 
 
 heading : Html msg
