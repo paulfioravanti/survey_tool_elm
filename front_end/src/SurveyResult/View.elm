@@ -28,7 +28,7 @@ import Utils
 view : (String -> msg) -> SurveyResult -> Html msg
 view msg surveyResult =
     let
-        articleTachyons =
+        classes =
             [ "avenir"
             , "b--black-10"
             , "ba"
@@ -39,8 +39,8 @@ view msg surveyResult =
             ]
                 |> String.join " "
 
-        articleCss =
-            hover
+        styles =
+            [ hover
                 [ descendants
                     [ Css.Foreign.class "hover-bg-brand"
                         [ Styles.brandBackgroundColor ]
@@ -48,35 +48,38 @@ view msg surveyResult =
                         [ Styles.brandColor ]
                     ]
                 ]
+            ]
     in
-        article [ class articleTachyons, css [ articleCss ] ]
+        article [ class classes, css styles ]
             [ summaryLink msg surveyResult ]
 
 
 summaryLink : (String -> msg) -> SurveyResult -> Html msg
 summaryLink msg surveyResult =
     let
-        linkTachyons =
+        url =
+            surveyResult.url
+                |> SurveyResult.Utils.toDetailUrl
+
+        classes =
             [ "no-underline"
             , "ph0"
             , "pv1"
             ]
                 |> String.join " "
-    in
-        a
-            [ href (SurveyResult.Utils.toDetailUrl surveyResult.url)
-            , class linkTachyons
-            , onWithOptions
+
+        clickOptions =
+            onWithOptions
                 "click"
-                { stopPropagation = False
-                , preventDefault = True
-                }
+                { preventDefault = True, stopPropagation = False }
                 (surveyResult.url
                     |> SurveyResult.Utils.extractId
                     |> msg
                     |> Decode.succeed
                 )
-            ]
+    in
+        a
+            [ href url, class classes, clickOptions ]
             [ summaryHeading surveyResult.name
             , summaryContent
                 surveyResult.participantCount
@@ -88,9 +91,8 @@ summaryLink msg surveyResult =
 summaryHeading : String -> Html msg
 summaryHeading name =
     let
-        headingClasses =
+        classes =
             [ "f3 f1-ns"
-            , "hover-brand"
             , "light-silver"
             , "mb2"
             , "mt0"
@@ -98,14 +100,14 @@ summaryHeading name =
             ]
                 |> String.join " "
     in
-        h1 [ class headingClasses ]
+        h1 [ class classes, class "hover-brand" ]
             [ text name ]
 
 
 summaryContent : Int -> Int -> Float -> Html msg
 summaryContent participantCount submittedResponseCount responseRate =
     let
-        contentClasses =
+        classes =
             [ "flex"
             , "flex-column flex-row-ns"
             , "justify-around"
@@ -113,12 +115,22 @@ summaryContent participantCount submittedResponseCount responseRate =
             ]
                 |> String.join " "
     in
-        div [ class contentClasses ]
-            [ div [ class "w-50-ns" ]
-                [ statistic "Participants" participantCount
-                , statistic "Responses" submittedResponseCount
-                ]
+        div [ class classes ]
+            [ statistics participantCount submittedResponseCount
             , responseRatePercentage responseRate
+            ]
+
+
+statistics : Int -> Int -> Html msg
+statistics participantCount submittedResponseCount =
+    let
+        classes =
+            [ "w-50-ns" ]
+                |> String.join " "
+    in
+        div [ class classes ]
+            [ statistic "Participants" participantCount
+            , statistic "Responses" submittedResponseCount
             ]
 
 
@@ -134,11 +146,33 @@ statistic label value =
                 |> String.join " "
     in
         div [ class classes ]
-            [ div [ class "f3 f1-ns fw2" ]
-                [ text label ]
-            , div [ class "f3 f1-ns" ]
-                [ text (toString value) ]
+            [ statisticLabel label
+            , statisticValue value
             ]
+
+
+statisticLabel : String -> Html msg
+statisticLabel label =
+    let
+        classes =
+            [ "f3 f1-ns"
+            , "fw2"
+            ]
+                |> String.join " "
+    in
+        div [ class classes ]
+            [ text label ]
+
+
+statisticValue : Int -> Html msg
+statisticValue value =
+    let
+        classes =
+            [ "f3 f1-ns" ]
+                |> String.join " "
+    in
+        div [ class classes ]
+            [ text (toString value) ]
 
 
 responseRatePercentage : Float -> Html msg
@@ -155,16 +189,35 @@ responseRatePercentage responseRate =
             , "tc"
             ]
                 |> String.join " "
+    in
+        div [ class responseRateClasses ]
+            [ responseRateLabel
+            , responseRateValue responseRate
+            ]
 
-        percentageClasses =
+
+responseRateLabel : Html msg
+responseRateLabel =
+    let
+        classes =
+            [ "f2-ns"
+            , "fw3"
+            , "ttu"
+            ]
+                |> String.join " "
+    in
+        div [ class classes ]
+            [ text "Response Rate" ]
+
+
+responseRateValue : Float -> Html msg
+responseRateValue responseRate =
+    let
+        classes =
             [ "bg-light-gray"
             , "f1-ns"
             ]
                 |> String.join " "
     in
-        div [ class responseRateClasses ]
-            [ div [ class "f2-ns fw3 ttu" ]
-                [ text "Response Rate" ]
-            , div [ class percentageClasses, class "hover-bg-brand" ]
-                [ text (Utils.toFormattedPercentage responseRate) ]
-            ]
+        div [ class classes, class "hover-bg-brand" ]
+            [ text (Utils.toFormattedPercentage responseRate) ]
