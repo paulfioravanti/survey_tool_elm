@@ -5,6 +5,7 @@
     "Model",
     "Routing.Router",
     "SurveyResult.Decoder",
+    "SurveyResult.Utils",
     "SurveyResultDetail.Decoder",
     "SurveyResultList.Decoder"
   ]

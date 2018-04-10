@@ -3,7 +3,6 @@ module SurveyResultDetail.UpdateTest exposing (suite)
 import Expect
 import Fuzzer.Config as Config
 import Fuzzer.SurveyResult as SurveyResult
-import Helpers
 import Http exposing (Error(NetworkError))
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultMsg))
@@ -19,6 +18,7 @@ import RemoteData
 import Result exposing (Result)
 import Routing.Route exposing (Route(SurveyResultDetailRoute))
 import SurveyResult.Msg exposing (Msg(FetchSurveyResult))
+import SurveyResult.Utils as Utils
 import Test exposing (Test, describe, fuzz2)
 import Update
 
@@ -45,7 +45,7 @@ suite =
                     let
                         id =
                             surveyResultDetail.url
-                                |> Helpers.extractSurveyResultDetailId
+                                |> Utils.extractId
 
                         model =
                             Model
@@ -77,7 +77,7 @@ suite =
                     let
                         id =
                             surveyResultDetail.url
-                                |> Helpers.extractSurveyResultDetailId
+                                |> Utils.extractId
 
                         model =
                             Model

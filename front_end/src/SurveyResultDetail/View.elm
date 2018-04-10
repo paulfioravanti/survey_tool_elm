@@ -3,7 +3,6 @@ module SurveyResultDetail.View exposing (view)
 import Css exposing (..)
 import Css.Foreign exposing (children)
 import Dict exposing (Dict)
-import Helpers
 import Html.Styled
     exposing
         ( Html
@@ -26,6 +25,7 @@ import Round
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResult.Model exposing (SurveyResult)
 import Theme.Model exposing (Theme)
+import Utils
 
 
 view : msg -> SurveyResult -> Html msg
@@ -62,7 +62,7 @@ view msg surveyResult =
                         [ text "Response Rate" ]
                     , div [ class "" ]
                         [ text
-                            (Helpers.toFormattedPercentage
+                            (Utils.toFormattedPercentage
                                 surveyResult.responseRate
                             )
                         ]

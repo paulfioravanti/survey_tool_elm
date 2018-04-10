@@ -1,8 +1,7 @@
 module SurveyResult.View exposing (view)
 
-import Css exposing (..)
+import Css exposing (hover)
 import Css.Foreign exposing (descendants)
-import Helpers
 import Html.Styled
     exposing
         ( Html
@@ -20,13 +19,16 @@ import Html.Styled
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)
 import Json.Decode as Decode
+import Styles
 import SurveyResult.Model exposing (SurveyResult)
+import SurveyResult.Utils
+import Utils
 
 
 view : (String -> msg) -> SurveyResult -> Html msg
-view msg { name, participantCount, responseRate, submittedResponseCount, url } =
+view msg surveyResult =
     let
-        articleClasses =
+        articleTachyons =
             [ "avenir"
             , "b--black-10"
             , "ba"
@@ -37,47 +39,49 @@ view msg { name, participantCount, responseRate, submittedResponseCount, url } =
             ]
                 |> String.join " "
 
-        linkClasses =
+        articleCss =
+            hover
+                [ descendants
+                    [ Css.Foreign.class "hover-bg-brand"
+                        [ Styles.brandBackgroundColor ]
+                    , Css.Foreign.class "hover-brand"
+                        [ Styles.brandColor ]
+                    ]
+                ]
+    in
+        article [ class articleTachyons, css [ articleCss ] ]
+            [ summaryLink msg surveyResult ]
+
+
+summaryLink : (String -> msg) -> SurveyResult -> Html msg
+summaryLink msg surveyResult =
+    let
+        linkTachyons =
             [ "no-underline"
             , "ph0"
             , "pv1"
             ]
                 |> String.join " "
     in
-        article
-            [ attribute "data-name" "survey-result"
-            , class articleClasses
-            , css
-                [ hover
-                    [ descendants
-                        [ Css.Foreign.class "hover-bg-brand"
-                            [ backgroundColor (rgb 252 51 90) ]
-                        , Css.Foreign.class "hover-brand"
-                            [ color (rgb 252 51 90) ]
-                        ]
-                    ]
-                ]
+        a
+            [ href (SurveyResult.Utils.toDetailUrl surveyResult.url)
+            , class linkTachyons
+            , onWithOptions
+                "click"
+                { stopPropagation = False
+                , preventDefault = True
+                }
+                (surveyResult.url
+                    |> SurveyResult.Utils.extractId
+                    |> msg
+                    |> Decode.succeed
+                )
             ]
-            [ a
-                [ href (Helpers.toSurveyResultDetailUrl url)
-                , class linkClasses
-                , onWithOptions
-                    "click"
-                    { stopPropagation = False
-                    , preventDefault = True
-                    }
-                    (url
-                        |> Helpers.extractSurveyResultDetailId
-                        |> msg
-                        |> Decode.succeed
-                    )
-                ]
-                [ summaryHeading name
-                , summaryContent
-                    participantCount
-                    submittedResponseCount
-                    responseRate
-                ]
+            [ summaryHeading surveyResult.name
+            , summaryContent
+                surveyResult.participantCount
+                surveyResult.submittedResponseCount
+                surveyResult.responseRate
             ]
 
 
@@ -162,5 +166,5 @@ responseRatePercentage responseRate =
             [ div [ class "f2-ns fw3 ttu" ]
                 [ text "Response Rate" ]
             , div [ class percentageClasses, class "hover-bg-brand" ]
-                [ text (Helpers.toFormattedPercentage responseRate) ]
+                [ text (Utils.toFormattedPercentage responseRate) ]
             ]
