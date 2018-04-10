@@ -5,6 +5,7 @@ import Expect
 import Fuzzer.Config as Config
 import Fuzzer.SurveyResultList as SurveyResultList
 import Html.Attributes as Attributes
+import Html.Styled
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Success))
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
@@ -46,6 +47,7 @@ suite =
                     in
                         model
                             |> Controller.render
+                            |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section" ]
                             |> Query.has [ surveyResults ]

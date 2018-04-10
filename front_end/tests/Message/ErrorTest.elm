@@ -5,6 +5,7 @@ import Expect
 import Fuzzer.Http.Response as Response
 import Fuzzer.Config as Config
 import Html.Attributes as Attributes
+import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
@@ -53,6 +54,7 @@ suite =
                     in
                         model
                             |> Controller.render
+                            |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ networkErrorMessage ]
@@ -79,6 +81,7 @@ suite =
                     in
                         model
                             |> Controller.render
+                            |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ badStatusMessage ]
@@ -105,6 +108,7 @@ suite =
                     in
                         model
                             |> Controller.render
+                            |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ badPayloadMessage ]
@@ -130,6 +134,7 @@ suite =
                     in
                         model
                             |> Controller.render
+                            |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ otherErrorMessage ]

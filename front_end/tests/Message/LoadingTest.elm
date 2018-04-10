@@ -4,6 +4,7 @@ import Controller
 import Expect
 import Fuzzer.Config as Config
 import Html.Attributes as Attributes
+import Html.Styled
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
@@ -41,6 +42,7 @@ suite =
                     in
                         model
                             |> Controller.render
+                            |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.find [ tag "section" ]
                             |> Query.has [ loadingMessage ]
