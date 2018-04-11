@@ -49,6 +49,5 @@ suite =
                             |> Router.route
                             |> Html.Styled.toUnstyled
                             |> Query.fromHtml
-                            |> Query.find [ tag "section" ]
-                            |> Query.has [ surveyResults ]
+                            |> Query.has [ tag "section", surveyResults ]
             ]

@@ -21,7 +21,8 @@ view msg path =
                 |> String.join " "
     in
         main_ []
-            [ section [ class classes ]
+            [ section
+                [ attribute "data-name" "not-found-message", class classes ]
                 [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
                 , div []
                     [ heading ]

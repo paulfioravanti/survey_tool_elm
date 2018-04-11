@@ -20,28 +20,12 @@ view error =
                 |> String.join " "
     in
         main_ []
-            [ section [ class classes ]
+            [ section [ attribute "data-name" "error-message", class classes ]
                 [ Keyed.node "div" [] [ ( "error-icon", icon ) ]
                 , div []
-                    [ heading (errorToMessage error) ]
+                    [ errorContent error ]
                 ]
             ]
-
-
-errorToMessage : Http.Error -> String
-errorToMessage error =
-    case error of
-        Http.NetworkError ->
-            "Is the server running?"
-
-        Http.BadStatus response ->
-            toString response.status.message
-
-        Http.BadPayload message response ->
-            "Decoding Failed: " ++ message
-
-        _ ->
-            toString error
 
 
 icon : Html msg
@@ -58,31 +42,62 @@ icon =
         i [ class classes, css [ Styles.brandColorAlpha ] ] []
 
 
-heading : String -> Html msg
-heading message =
+errorContent : Http.Error -> Html msg
+errorContent error =
     let
-        headingClasses =
+        classes =
             [ "avenir"
             , "light-silver"
             , "mv2"
             ]
                 |> String.join " "
+    in
+        h1 [ class classes ]
+            [ errorHeading
+            , errorMessage error
+            ]
 
-        headingTextClasses =
+
+errorHeading : Html msg
+errorHeading =
+    let
+        classes =
             [ "f2 f1-ns"
             , "ttu"
             ]
                 |> String.join " "
+    in
+        div [ class classes ]
+            [ text "Error retrieving data" ]
 
-        errorMessageClasses =
+
+errorMessage : Http.Error -> Html msg
+errorMessage error =
+    let
+        ( name, message ) =
+            errorToMessage error
+
+        classes =
             [ "f6"
             , "tc"
             ]
                 |> String.join " "
     in
-        h1 [ class headingClasses ]
-            [ div [ class headingTextClasses ]
-                [ text "Error retrieving data" ]
-            , div [ class errorMessageClasses ]
-                [ text ("(" ++ message ++ ")") ]
-            ]
+        div [ attribute "data-name" name, class classes ]
+            [ text ("(" ++ message ++ ")") ]
+
+
+errorToMessage : Http.Error -> ( String, String )
+errorToMessage error =
+    case error of
+        Http.NetworkError ->
+            ( "network-error-message", "Is the server running?" )
+
+        Http.BadStatus response ->
+            ( "bad-status-message", toString response.status.message )
+
+        Http.BadPayload message response ->
+            ( "bad-payload-message", "Decoding Failed: " ++ message )
+
+        _ ->
+            ( "other-error-message", toString error )

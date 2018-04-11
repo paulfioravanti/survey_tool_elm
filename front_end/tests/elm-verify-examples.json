@@ -1,12 +1,12 @@
 {
   "root": "../src",
   "tests": [
-    "Helpers",
     "Model",
     "Routing.Utils",
     "SurveyResult.Decoder",
     "SurveyResult.Utils",
     "SurveyResultDetail.Decoder",
-    "SurveyResultList.Decoder"
+    "SurveyResultList.Decoder",
+    "Utils"
   ]
 }

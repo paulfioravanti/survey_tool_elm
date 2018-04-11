@@ -17,7 +17,7 @@ view msg { surveyResults } =
                 |> String.join " "
     in
         main_ []
-            [ section [ class classes ]
+            [ section [ attribute "data-name" "survey-results", class classes ]
                 (surveyResultList msg surveyResults)
             ]
 

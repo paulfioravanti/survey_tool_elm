@@ -19,7 +19,7 @@ view =
                 |> String.join " "
     in
         main_ []
-            [ section [ class classes ]
+            [ section [ attribute "data-name" "loading-message", class classes ]
                 [ Keyed.node "div" [] [ ( "loading-icon", icon ) ]
                 , div []
                     [ heading ]
