@@ -16,14 +16,16 @@ import Html.Styled
         ( Html
         , article
         , div
+        , footer
         , h1
         , h2
         , h3
+        , img
         , main_
         , span
         , text
         )
-import Html.Styled.Attributes exposing (attribute, class, css)
+import Html.Styled.Attributes exposing (alt, attribute, class, css, src)
 import Question.Model exposing (Question)
 import Question.Utils
 import Styles
@@ -43,6 +45,14 @@ view msg surveyResult =
             , "mw7"
             ]
                 |> String.join " "
+
+        logoClasses =
+            [ "h2 h4-ns"
+            , "img"
+            , "mh0 mh2-ns"
+            , "mt0 mv3-ns"
+            ]
+                |> String.join " "
     in
         main_ []
             [ article
@@ -51,7 +61,7 @@ view msg surveyResult =
                 ]
                 [ h1 [ class "f1 avenir tc dark-gray" ]
                     [ text surveyResult.name ]
-                , div [ class "flex flex-row justify-between bg-light-gray br3 pa2" ]
+                , div [ class "flex flex-row justify-between bg-light-gray br3 pa2 mv2" ]
                     [ div
                         [ attribute "data-name" "participation-count"
                         , class ""
@@ -90,21 +100,24 @@ view msg surveyResult =
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]
+            , footer [ class "center tc b--light-gray b--dotted bt bb-0 br-0 bl-0 mw7 mt4" ]
+                [ img [ src "/logo.png", class logoClasses, alt "logo" ] []
+                ]
             ]
 
 
 themeView : Theme -> Html msg
 themeView theme =
     div [ attribute "data-name" "theme" ]
-        [ div [ class "flex flex-row justify-between bb b--light-gray" ]
+        [ div [ class "flex flex-row justify-between bb b--light-gray mv2" ]
             [ h2 [ class "dark-gray ttu f3" ]
                 [ text theme.name ]
             , h2
                 [ attribute "data-name" "theme-average-score"
-                , class "b f3 mr4"
+                , class "b f3"
                 ]
                 [ span [ class "fw2 mr2" ]
-                    [ text "Average Score " ]
+                    [ text "Average " ]
                 , text (Question.Utils.averageScore theme.questions)
                 ]
             ]
@@ -128,18 +141,28 @@ questionView question =
                 |> SurveyResponse.Utils.averageScore
     in
         div [ attribute "data-name" "question" ]
-            [ h3 [ class "" ]
-                [ text question.description ]
-            , div [ attribute "data-name" "question-average-score" ]
-                [ text averageScore ]
-            , div
-                [ attribute "data-name" "survey-responses"
-                , class "inline-flex"
+            [ div [ class "flex flex-row justify-between mv2" ]
+                [ h3 [ class "w-70 fw4" ]
+                    [ text question.description ]
+                , div [ class "flex-column" ]
+                    [ h3
+                        [ attribute "data-name" "question-average-score"
+                        , class "tr"
+                        ]
+                        [ span [ class "fw1 mr2" ]
+                            [ text "Average " ]
+                        , text averageScore
+                        ]
+                    , div
+                        [ attribute "data-name" "survey-responses"
+                        , class "flex"
+                        ]
+                        (List.map
+                            (surveyResponseView histogram)
+                            ratings
+                        )
+                    ]
                 ]
-                (List.map
-                    (surveyResponseView histogram)
-                    ratings
-                )
             ]
 
 
@@ -174,7 +197,7 @@ surveyResponseView histogram rating =
             , css
                 [ hover
                     [ children
-                        [ Css.Foreign.class "hover-bg-brand"
+                        [ Css.Foreign.class "survey-response-content"
                             [ Styles.brandBackgroundColor ]
                         ]
                     ]
@@ -183,7 +206,7 @@ surveyResponseView histogram rating =
             [ div
                 [ attribute "data-name" "survey-response-content"
                 , class responseContentClasses
-                , class "hover-bg-brand"
+                , class "survey-response-content"
                 , css
                     [ hover
                         [ Styles.brandBorderColor

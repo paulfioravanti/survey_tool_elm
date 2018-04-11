@@ -51,10 +51,24 @@ respondentsByResponseContent histogram responseContent =
     in
         if List.isEmpty respondents then
             "Chosen by no respondents."
+        else if List.length respondents == 1 then
+            displaySingleRespondent respondents
         else if head == respondents then
             displayAllRespondents head
         else
             displayTruncatedRespondents head tail
+
+
+displaySingleRespondent : List Int -> String
+displaySingleRespondent respondents =
+    let
+        id =
+            respondents
+                |> List.head
+                |> Maybe.withDefault 0
+                |> toString
+    in
+        "Chosen by respondent ID " ++ id ++ "."
 
 
 displayAllRespondents : List Int -> String
