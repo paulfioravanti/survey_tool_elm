@@ -21,8 +21,10 @@ import Html.Styled
         )
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Question.Model exposing (Question)
+import Question.Utils
 import Round
 import SurveyResponse.Model exposing (SurveyResponse)
+import SurveyResponse.Utils
 import SurveyResult.Model exposing (SurveyResult)
 import Theme.Model exposing (Theme)
 import Utils
@@ -82,7 +84,7 @@ themeView theme =
         [ h2 [ class "" ]
             [ text theme.name ]
         , div [ attribute "data-name" "theme-average-score" ]
-            [ text (themeAverageScore theme.questions) ]
+            [ text (Question.Utils.averageScore theme.questions) ]
         , div [ attribute "data-name" "questions" ]
             (List.map questionView theme.questions)
         ]
@@ -95,13 +97,16 @@ questionView question =
             [ "1", "2", "3", "4", "5" ]
 
         histogram =
-            surveyResponsesHistogram question.surveyResponses
+            SurveyResponse.Utils.respondentHistogram question.surveyResponses
+
+        averageScore =
+            SurveyResponse.Utils.averageScore question.surveyResponses
     in
         div [ attribute "data-name" "question" ]
             [ h3 [ class "" ]
                 [ text question.description ]
             , div [ attribute "data-name" "question-average-score" ]
-                [ text (questionAverageScore question.surveyResponses) ]
+                [ text averageScore ]
             , div
                 [ attribute "data-name" "survey-responses"
                 , class "inline-flex"
@@ -111,30 +116,6 @@ questionView question =
                     ratings
                 )
             ]
-
-
-surveyResponsesHistogram : List SurveyResponse -> Dict String (List Int)
-surveyResponsesHistogram surveyResponses =
-    let
-        histogram =
-            Dict.fromList
-                [ ( "1", [] )
-                , ( "2", [] )
-                , ( "3", [] )
-                , ( "4", [] )
-                , ( "5", [] )
-                ]
-
-        prependRatingToList { respondentId, responseContent } dict =
-            if Dict.member responseContent dict then
-                Dict.update
-                    responseContent
-                    (Maybe.map ((::) respondentId))
-                    dict
-            else
-                dict
-    in
-        List.foldl prependRatingToList histogram surveyResponses
 
 
 respondentsByResponseContent : Dict String (List Int) -> String -> String
@@ -300,107 +281,3 @@ surveyResponseTooltip histogram rating =
             , css styles
             ]
             [ text (respondentsByResponseContent histogram rating) ]
-
-
-themeAverageScore : List Question -> String
-themeAverageScore questions =
-    let
-        themeSum =
-            questions
-                |> questionsSum
-                |> toFloat
-
-        themeSurveyResponseCount =
-            questions
-                |> questionsResponseCount
-                |> toFloat
-    in
-        themeSurveyResponseCount
-            |> (/) themeSum
-            |> Round.round 2
-
-
-addValidResponse : SurveyResponse -> Int -> Int
-addValidResponse surveyResponse acc =
-    let
-        responseContent =
-            surveyResponse.responseContent
-                |> responseIntValue
-    in
-        if responseContent > 0 then
-            acc + 1
-        else
-            acc
-
-
-questionsResponseCount : List Question -> Int
-questionsResponseCount questions =
-    let
-        addQuestionSurveyResponsesCount =
-            (\question acc ->
-                question.surveyResponses
-                    |> List.foldl addValidResponse 0
-                    |> (+) acc
-            )
-    in
-        questions
-            |> List.foldl addQuestionSurveyResponsesCount 0
-
-
-questionAverageScore : List SurveyResponse -> String
-questionAverageScore surveyResponses =
-    let
-        questionSum =
-            surveyResponses
-                |> responsesSum
-                |> toFloat
-
-        questionSurveyResponseCount =
-            surveyResponses
-                |> responseCount
-                |> toFloat
-    in
-        questionSurveyResponseCount
-            |> (/) questionSum
-            |> Round.round 2
-
-
-responseCount : List SurveyResponse -> Int
-responseCount surveyResponses =
-    surveyResponses
-        |> List.foldl addValidResponse 0
-
-
-questionsSum : List Question -> Int
-questionsSum questions =
-    let
-        addQuestionsSum =
-            (\question acc ->
-                question.surveyResponses
-                    |> responsesSum
-                    |> (+) acc
-            )
-    in
-        questions
-            |> List.foldl addQuestionsSum 0
-
-
-responsesSum : List SurveyResponse -> Int
-responsesSum surveyResponses =
-    let
-        addResponseContent =
-            (\surveyResponse acc ->
-                surveyResponse.responseContent
-                    |> responseIntValue
-                    |> (+) acc
-            )
-    in
-        surveyResponses
-            |> List.foldl addResponseContent 0
-
-
-responseIntValue : String -> Int
-responseIntValue responseContent =
-    responseContent
-        |> String.toInt
-        |> Result.withDefault 0
