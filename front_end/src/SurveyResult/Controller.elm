@@ -42,4 +42,4 @@ render msg path surveyResult =
                     Error.view error
 
         Success surveyResult ->
-            SurveyResultDetail.View.view msg surveyResult
+            SurveyResultDetail.View.view msg path surveyResult

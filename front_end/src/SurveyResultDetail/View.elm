@@ -14,20 +14,25 @@ import Dict exposing (Dict)
 import Html.Styled
     exposing
         ( Html
+        , a
         , article
         , div
         , footer
         , h1
         , h2
         , h3
+        , i
         , img
         , main_
         , span
         , text
         )
-import Html.Styled.Attributes exposing (alt, attribute, class, css, src)
+import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
+import Html.Styled.Events exposing (onWithOptions)
+import Json.Decode as Decode
 import Question.Model exposing (Question)
 import Question.Utils
+import Routing.Utils
 import Styles
 import SurveyResponse.Utils
 import SurveyResult.Model exposing (SurveyResult)
@@ -36,8 +41,8 @@ import Theme.Model exposing (Theme)
 import Utils
 
 
-view : msg -> SurveyResult -> Html msg
-view msg surveyResult =
+view : msg -> String -> SurveyResult -> Html msg
+view msg path surveyResult =
     let
         articleClasses =
             [ "center"
@@ -53,14 +58,37 @@ view msg surveyResult =
             , "mt0 mv3-ns"
             ]
                 |> String.join " "
+
+        -- NOTE: fa-prefixed classes are from Font Awesome.
+        iconClasses =
+            [ "fa-3x"
+            , "fa-angle-left"
+            , "fas"
+            ]
+                |> String.join " "
+
+        clickOptions =
+            onWithOptions
+                "click"
+                { preventDefault = True, stopPropagation = False }
+                (Decode.succeed msg)
     in
         main_ []
             [ article
                 [ attribute "data-name" "survey-result-detail"
                 , class articleClasses
                 ]
-                [ h1 [ class "f1 avenir tc dark-gray" ]
-                    [ text surveyResult.name ]
+                [ a [ href path, class "absolute mt4 dim", clickOptions ]
+                    [ i
+                        [ class iconClasses
+                        , css [ Styles.brandColor ]
+                        ]
+                        []
+                    ]
+                , div [ class "flex flex-row center" ]
+                    [ h1 [ class "f1 avenir tc dark-gray" ]
+                        [ text surveyResult.name ]
+                    ]
                 , div [ class "flex flex-row justify-between bg-light-gray br3 pa2 mv2" ]
                     [ div
                         [ attribute "data-name" "participation-count"
@@ -101,7 +129,9 @@ view msg surveyResult =
                     )
                 ]
             , footer [ class "center tc b--light-gray b--dotted bt bb-0 br-0 bl-0 mw7 mt4" ]
-                [ img [ src "/logo.png", class logoClasses, alt "logo" ] []
+                [ a [ href path, class "dim", clickOptions ]
+                    [ img [ src "/logo.png", class logoClasses, alt "logo" ] []
+                    ]
                 ]
             ]
 
@@ -117,7 +147,7 @@ themeView theme =
                 , class "b f3"
                 ]
                 [ span [ class "fw2 mr2" ]
-                    [ text "Average " ]
+                    [ text "Average Score " ]
                 , text (Question.Utils.averageScore theme.questions)
                 ]
             ]
@@ -150,7 +180,7 @@ questionView question =
                         , class "tr"
                         ]
                         [ span [ class "fw1 mr2" ]
-                            [ text "Average " ]
+                            [ text "Average Score " ]
                         , text averageScore
                         ]
                     , div
