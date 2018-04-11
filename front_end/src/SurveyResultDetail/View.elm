@@ -20,13 +20,13 @@ import Html.Styled
         , h2
         , h3
         , main_
+        , span
         , text
         )
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Question.Model exposing (Question)
 import Question.Utils
 import Styles
-import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResponse.Utils
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResultDetail.Tooltip as Tooltip
@@ -40,7 +40,7 @@ view msg surveyResult =
         articleClasses =
             [ "center"
             , "flex flex-column"
-            , "mw8"
+            , "mw7"
             ]
                 |> String.join " "
     in
@@ -49,28 +49,39 @@ view msg surveyResult =
                 [ attribute "data-name" "survey-result-detail"
                 , class articleClasses
                 ]
-                [ h1 [ class "f1 avenir" ]
+                [ h1 [ class "f1 avenir tc dark-gray" ]
                     [ text surveyResult.name ]
-                , div [ attribute "data-name" "participation-count" ]
-                    [ div [ class "" ]
-                        [ text "Participants" ]
-                    , div [ class "" ]
-                        [ text (toString surveyResult.participantCount) ]
-                    ]
-                , div [ attribute "data-name" "submitted-response-count" ]
-                    [ div [ class "" ]
-                        [ text "Responses" ]
-                    , div [ class "" ]
-                        [ text (toString surveyResult.submittedResponseCount) ]
-                    ]
-                , div [ attribute "data-name" "submitted-response-rate" ]
-                    [ div [ class "" ]
-                        [ text "Response Rate" ]
-                    , div [ class "" ]
-                        [ text
-                            (Utils.toFormattedPercentage
-                                surveyResult.responseRate
-                            )
+                , div [ class "flex flex-row justify-between bg-light-gray br3 pa2" ]
+                    [ div
+                        [ attribute "data-name" "participation-count"
+                        , class ""
+                        ]
+                        [ div [ class "f3 fw2" ]
+                            [ text "Participants" ]
+                        , div [ class "f3 tc b" ]
+                            [ text (toString surveyResult.participantCount) ]
+                        ]
+                    , div
+                        [ attribute "data-name" "submitted-response-count"
+                        , class ""
+                        ]
+                        [ div [ class "f3 fw2" ]
+                            [ text "Responses" ]
+                        , div [ class "f3 tc b" ]
+                            [ text (toString surveyResult.submittedResponseCount) ]
+                        ]
+                    , div
+                        [ attribute "data-name" "submitted-response-rate"
+                        , class ""
+                        ]
+                        [ div [ class "f3 fw2" ]
+                            [ text "Response Rate" ]
+                        , div [ class "f3 tc b" ]
+                            [ text
+                                (Utils.toFormattedPercentage
+                                    surveyResult.responseRate
+                                )
+                            ]
                         ]
                     ]
                 , div [ attribute "data-name" "themes" ]
@@ -85,10 +96,18 @@ view msg surveyResult =
 themeView : Theme -> Html msg
 themeView theme =
     div [ attribute "data-name" "theme" ]
-        [ h2 [ class "" ]
-            [ text theme.name ]
-        , div [ attribute "data-name" "theme-average-score" ]
-            [ text (Question.Utils.averageScore theme.questions) ]
+        [ div [ class "flex flex-row justify-between bb b--light-gray" ]
+            [ h2 [ class "dark-gray ttu f3" ]
+                [ text theme.name ]
+            , h2
+                [ attribute "data-name" "theme-average-score"
+                , class "b f3 mr4"
+                ]
+                [ span [ class "fw2 mr2" ]
+                    [ text "Average Score " ]
+                , text (Question.Utils.averageScore theme.questions)
+                ]
+            ]
         , div [ attribute "data-name" "questions" ]
             (List.map questionView theme.questions)
         ]

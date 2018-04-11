@@ -42,9 +42,9 @@ view msg surveyResult =
         styles =
             [ hover
                 [ descendants
-                    [ Css.Foreign.class "hover-bg-brand"
+                    [ Css.Foreign.class "response-rate-value"
                         [ Styles.brandBackgroundColor ]
-                    , Css.Foreign.class "hover-brand"
+                    , Css.Foreign.class "summary-heading"
                         [ Styles.brandColor ]
                     ]
                 ]
@@ -100,7 +100,7 @@ summaryHeading name =
             ]
                 |> String.join " "
     in
-        h1 [ class classes, class "hover-brand" ]
+        h1 [ class classes, class "summary-heading" ]
             [ text name ]
 
 
@@ -223,5 +223,5 @@ responseRateValue responseRate =
             responseRate
                 |> Utils.toFormattedPercentage
     in
-        div [ class classes, class "hover-bg-brand" ]
+        div [ class classes, class "response-rate-value" ]
             [ text responsePercentage ]
