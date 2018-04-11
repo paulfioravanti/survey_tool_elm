@@ -25,6 +25,7 @@ import Html.Styled
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Question.Model exposing (Question)
 import Question.Utils
+import Styles
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResponse.Utils
 import SurveyResult.Model exposing (SurveyResult)
@@ -155,7 +156,7 @@ surveyResponseView histogram rating =
                 [ hover
                     [ children
                         [ Css.Foreign.class "hover-bg-brand"
-                            [ backgroundColor (rgb 252 51 90) ]
+                            [ Styles.brandBackgroundColor ]
                         ]
                     ]
                 ]
@@ -166,7 +167,7 @@ surveyResponseView histogram rating =
                 , class "hover-bg-brand"
                 , css
                     [ hover
-                        [ borderColor (rgb 252 51 90)
+                        [ Styles.brandBorderColor
                         , children
                             [ Css.Foreign.class "survey-response-tooltip"
                                 [ visibility visible ]

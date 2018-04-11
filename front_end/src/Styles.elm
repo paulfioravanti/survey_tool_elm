@@ -1,6 +1,7 @@
 module Styles
     exposing
         ( brandBackgroundColor
+        , brandBorderColor
         , brandColor
         , brandColorAlpha
         , tooltip
@@ -14,6 +15,7 @@ import Css
         , absolute
         , after
         , backgroundColor
+        , borderColor
         , borderColor4
         , borderStyle
         , borderWidth
@@ -38,6 +40,11 @@ import Css
 brandBackgroundColor : Style
 brandBackgroundColor =
     backgroundColor brand
+
+
+brandBorderColor : Style
+brandBorderColor =
+    borderColor brand
 
 
 brandColor : Style
