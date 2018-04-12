@@ -36,24 +36,21 @@ suite =
 
 changeLocationTest : Fuzzer Config -> Fuzzer Route -> Fuzzer Route -> Test
 changeLocationTest config route newRoute =
-    fuzz3
-        config
-        route
-        newRoute
-        "updates the model route on ChangeLocation message"
-    <|
-        \config route newRoute ->
-            let
-                model =
-                    Model.initialModel config route
+    describe "when msg is ChangeLocation"
+        [ fuzz3 config route newRoute "updates the model route" <|
+            \config route newRoute ->
+                let
+                    model =
+                        Model.initialModel config route
 
-                msg =
-                    RoutingMsg (ChangeLocation newRoute)
-            in
-                model
-                    |> Update.update msg
-                    |> Tuple.first
-                    |> Expect.equal { model | route = newRoute }
+                    msg =
+                        RoutingMsg (ChangeLocation newRoute)
+                in
+                    model
+                        |> Update.update msg
+                        |> Tuple.first
+                        |> Expect.equal { model | route = newRoute }
+        ]
 
 
 onLocationChangeTest : Fuzzer Config -> Fuzzer Route -> Fuzzer Route -> Test
@@ -62,25 +59,21 @@ onLocationChangeTest config route newRoute =
         location =
             Location.fuzzer
     in
-        fuzz4
-            config
-            route
-            newRoute
-            location
-            "updates the model route on OnLocationChange message"
-        <|
-            \config route newRoute location ->
-                let
-                    model =
-                        Model.initialModel config route
+        describe "when msg is OnLocationChange"
+            [ fuzz4 config route newRoute location "updates the model route" <|
+                \config route newRoute location ->
+                    let
+                        model =
+                            Model.initialModel config route
 
-                    newLocation =
-                        { location | pathname = Utils.toPath newRoute }
+                        newLocation =
+                            { location | pathname = Utils.toPath newRoute }
 
-                    msg =
-                        RoutingMsg (OnLocationChange newLocation)
-                in
-                    model
-                        |> Update.update msg
-                        |> Tuple.first
-                        |> Expect.equal { model | route = newRoute }
+                        msg =
+                            RoutingMsg (OnLocationChange newLocation)
+                    in
+                        model
+                            |> Update.update msg
+                            |> Tuple.first
+                            |> Expect.equal { model | route = newRoute }
+            ]

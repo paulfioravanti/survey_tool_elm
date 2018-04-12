@@ -40,29 +40,31 @@ suite =
 
 networkErrorTest : Fuzzer Config -> Selector -> Test
 networkErrorTest config errorMessage =
-    fuzz config "displays an error message when error is a NetworkError" <|
-        \config ->
-            let
-                model =
-                    Model
-                        config
-                        ListSurveyResultsRoute
-                        NotRequested
-                        (Failure NetworkError)
+    describe "when error is a NetworkError"
+        [ fuzz config "displays an error message" <|
+            \config ->
+                let
+                    model =
+                        Model
+                            config
+                            ListSurveyResultsRoute
+                            NotRequested
+                            (Failure NetworkError)
 
-                networkErrorMessage =
-                    Selector.attribute
-                        (Attributes.attribute
-                            "data-name"
-                            "network-error-message"
-                        )
-            in
-                model
-                    |> Router.route
-                    |> Html.Styled.toUnstyled
-                    |> Query.fromHtml
-                    |> Query.find [ tag "section", errorMessage ]
-                    |> Query.has [ networkErrorMessage ]
+                    networkErrorMessage =
+                        Selector.attribute
+                            (Attributes.attribute
+                                "data-name"
+                                "network-error-message"
+                            )
+                in
+                    model
+                        |> Router.route
+                        |> Html.Styled.toUnstyled
+                        |> Query.fromHtml
+                        |> Query.find [ tag "section", errorMessage ]
+                        |> Query.has [ networkErrorMessage ]
+        ]
 
 
 badStatusTest :
@@ -71,33 +73,31 @@ badStatusTest :
     -> Selector
     -> Test
 badStatusTest config response errorMessage =
-    fuzz2
-        config
-        response
-        "displays an error message when error is a BadStatus"
-    <|
-        \config response ->
-            let
-                model =
-                    Model
-                        config
-                        ListSurveyResultsRoute
-                        NotRequested
-                        (Failure (BadStatus response))
+    describe "when error is a BadStatus"
+        [ fuzz2 config response "displays an error message" <|
+            \config response ->
+                let
+                    model =
+                        Model
+                            config
+                            ListSurveyResultsRoute
+                            NotRequested
+                            (Failure (BadStatus response))
 
-                badStatusMessage =
-                    Selector.attribute
-                        (Attributes.attribute
-                            "data-name"
-                            "bad-status-message"
-                        )
-            in
-                model
-                    |> Router.route
-                    |> Html.Styled.toUnstyled
-                    |> Query.fromHtml
-                    |> Query.find [ tag "section", errorMessage ]
-                    |> Query.has [ badStatusMessage ]
+                    badStatusMessage =
+                        Selector.attribute
+                            (Attributes.attribute
+                                "data-name"
+                                "bad-status-message"
+                            )
+                in
+                    model
+                        |> Router.route
+                        |> Html.Styled.toUnstyled
+                        |> Query.fromHtml
+                        |> Query.find [ tag "section", errorMessage ]
+                        |> Query.has [ badStatusMessage ]
+        ]
 
 
 badPayloadTest :
@@ -106,60 +106,57 @@ badPayloadTest :
     -> Selector
     -> Test
 badPayloadTest config response errorMessage =
-    fuzz2
-        config
-        response
-        "displays an error message when error is a BadPayload"
-    <|
-        \config response ->
-            let
-                model =
-                    Model
-                        config
-                        ListSurveyResultsRoute
-                        NotRequested
-                        (Failure (BadPayload "BadPayload" response))
+    describe "when error is a BadPayload"
+        [ fuzz2 config response "displays an error message" <|
+            \config response ->
+                let
+                    model =
+                        Model
+                            config
+                            ListSurveyResultsRoute
+                            NotRequested
+                            (Failure (BadPayload "BadPayload" response))
 
-                badPayloadMessage =
-                    Selector.attribute
-                        (Attributes.attribute
-                            "data-name"
-                            "bad-payload-message"
-                        )
-            in
-                model
-                    |> Router.route
-                    |> Html.Styled.toUnstyled
-                    |> Query.fromHtml
-                    |> Query.find [ tag "section", errorMessage ]
-                    |> Query.has [ badPayloadMessage ]
+                    badPayloadMessage =
+                        Selector.attribute
+                            (Attributes.attribute
+                                "data-name"
+                                "bad-payload-message"
+                            )
+                in
+                    model
+                        |> Router.route
+                        |> Html.Styled.toUnstyled
+                        |> Query.fromHtml
+                        |> Query.find [ tag "section", errorMessage ]
+                        |> Query.has [ badPayloadMessage ]
+        ]
 
 
 otherErrorTest : Fuzzer Config -> Selector -> Test
 otherErrorTest config errorMessage =
-    fuzz
-        config
-        "displays an error message when error is any other Http error"
-    <|
-        \config ->
-            let
-                model =
-                    Model
-                        config
-                        ListSurveyResultsRoute
-                        NotRequested
-                        (Failure Timeout)
+    describe "when error is any other Http error"
+        [ fuzz config "displays an error message" <|
+            \config ->
+                let
+                    model =
+                        Model
+                            config
+                            ListSurveyResultsRoute
+                            NotRequested
+                            (Failure Timeout)
 
-                otherErrorMessage =
-                    Selector.attribute
-                        (Attributes.attribute
-                            "data-name"
-                            "other-error-message"
-                        )
-            in
-                model
-                    |> Router.route
-                    |> Html.Styled.toUnstyled
-                    |> Query.fromHtml
-                    |> Query.find [ tag "section", errorMessage ]
-                    |> Query.has [ otherErrorMessage ]
+                    otherErrorMessage =
+                        Selector.attribute
+                            (Attributes.attribute
+                                "data-name"
+                                "other-error-message"
+                            )
+                in
+                    model
+                        |> Router.route
+                        |> Html.Styled.toUnstyled
+                        |> Query.fromHtml
+                        |> Query.find [ tag "section", errorMessage ]
+                        |> Query.has [ otherErrorMessage ]
+        ]
