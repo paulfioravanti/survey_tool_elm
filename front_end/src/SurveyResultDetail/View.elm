@@ -32,11 +32,10 @@ import Html.Styled.Events exposing (onWithOptions)
 import Json.Decode as Decode
 import Question.Model exposing (Question)
 import Question.Utils
+import Question.View
 import Routing.Utils
 import Styles
-import SurveyResponse.Utils
 import SurveyResult.Model exposing (SurveyResult)
-import SurveyResultDetail.Tooltip as Tooltip
 import Theme.Model exposing (Theme)
 import Utils
 
@@ -152,102 +151,5 @@ themeView theme =
                 ]
             ]
         , div [ attribute "data-name" "questions" ]
-            (List.map questionView theme.questions)
+            (List.map Question.View.view theme.questions)
         ]
-
-
-questionView : Question -> Html msg
-questionView question =
-    let
-        ratings =
-            [ "1", "2", "3", "4", "5" ]
-
-        histogram =
-            question.surveyResponses
-                |> SurveyResponse.Utils.respondentHistogram
-
-        averageScore =
-            question.surveyResponses
-                |> SurveyResponse.Utils.averageScore
-    in
-        div [ attribute "data-name" "question" ]
-            [ div [ class "flex flex-row justify-between mv2" ]
-                [ h3 [ class "w-70 fw4" ]
-                    [ text question.description ]
-                , div [ class "flex-column" ]
-                    [ h3
-                        [ attribute "data-name" "question-average-score"
-                        , class "tr"
-                        ]
-                        [ span [ class "fw1 mr2" ]
-                            [ text "Average Score " ]
-                        , text averageScore
-                        ]
-                    , div
-                        [ attribute "data-name" "survey-responses"
-                        , class "flex"
-                        ]
-                        (List.map
-                            (surveyResponseView histogram)
-                            ratings
-                        )
-                    ]
-                ]
-            ]
-
-
-surveyResponseView : Dict String (List Int) -> String -> Html msg
-surveyResponseView histogram rating =
-    let
-        surveyResponseClasses =
-            [ "dt"
-            , "mh1"
-            ]
-                |> String.join " "
-
-        responseContentClasses =
-            [ "b--light-silver"
-            , "ba"
-            , "bg-moon-gray"
-            , "br4"
-            , "dtc"
-            , "h2"
-            , "hover-white"
-            , "pointer"
-            , "relative"
-            , "tc"
-            , "v-mid"
-            , "w2"
-            ]
-                |> String.join " "
-    in
-        div
-            [ attribute "data-name" "survey-response"
-            , class surveyResponseClasses
-            , css
-                [ hover
-                    [ children
-                        [ Css.Foreign.class "survey-response-content"
-                            [ Styles.brandBackgroundColor ]
-                        ]
-                    ]
-                ]
-            ]
-            [ div
-                [ attribute "data-name" "survey-response-content"
-                , class responseContentClasses
-                , class "survey-response-content"
-                , css
-                    [ hover
-                        [ Styles.brandBorderColor
-                        , children
-                            [ Css.Foreign.class "survey-response-tooltip"
-                                [ visibility visible ]
-                            ]
-                        ]
-                    ]
-                ]
-                [ text rating
-                , Tooltip.view histogram rating
-                ]
-            ]

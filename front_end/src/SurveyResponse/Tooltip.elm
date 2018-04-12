@@ -1,4 +1,4 @@
-module SurveyResultDetail.Tooltip exposing (view)
+module SurveyResponse.Tooltip exposing (view)
 
 import Dict exposing (Dict)
 import Html.Styled exposing (Html, span, text)
