@@ -23,15 +23,12 @@ suite =
         config =
             Config.fuzzer
 
-        errorMessage =
-            Selector.attribute
-                (Attributes.attribute
-                    "data-name"
-                    "error-message"
-                )
-
         response =
             Response.fuzzer
+
+        errorMessage =
+            Selector.attribute
+                (Attributes.attribute "data-name" "error-message")
     in
         describe "view"
             [ networkErrorTest config errorMessage
