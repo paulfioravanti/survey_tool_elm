@@ -27,7 +27,7 @@ suite =
             [ fuzz2
                 config
                 surveyResultList
-                "displays an error message when page cannot be found"
+                "displays a list of survey results"
               <|
                 \config surveyResultList ->
                     let
