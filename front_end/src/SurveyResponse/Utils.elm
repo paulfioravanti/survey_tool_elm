@@ -12,7 +12,10 @@ import SurveyResponse.Model exposing (SurveyResponse)
 
 
 {-| Adds the integer value of a survey response's responseContent value
-to an accumulator, `acc`, if the responseContent value is valid.
+to an accumulator, `acc`.
+
+Only valid `responseContent` values between values 1-5 add one to the
+accumulator.
 
     import SurveyResponse.Model exposing (SurveyResponse)
 
@@ -20,40 +23,40 @@ to an accumulator, `acc`, if the responseContent value is valid.
     validSurveyResponse =
         SurveyResponse 1 1 1 "2"
 
+    addValidResponse validSurveyResponse 1
+    --> 2
+
     invalidSurveyResponse1 : SurveyResponse
     invalidSurveyResponse1 =
         SurveyResponse 2 2 2 ""
+
+    addValidResponse invalidSurveyResponse1 1
+    --> 1
 
     invalidSurveyResponse2 : SurveyResponse
     invalidSurveyResponse2 =
         SurveyResponse 2 2 2 "0"
 
+    addValidResponse invalidSurveyResponse2 1
+    --> 1
+
     invalidSurveyResponse3 : SurveyResponse
     invalidSurveyResponse3 =
         SurveyResponse 2 2 2 "-1"
+
+    addValidResponse invalidSurveyResponse3 1
+    --> 1
 
     invalidSurveyResponse4 : SurveyResponse
     invalidSurveyResponse4 =
         SurveyResponse 2 2 2 "6"
 
+    addValidResponse invalidSurveyResponse4 1
+    --> 1
+
     invalidSurveyResponse5 : SurveyResponse
     invalidSurveyResponse5 =
         SurveyResponse 2 2 2 "invalid"
-
-    addValidResponse validSurveyResponse 1
-    --> 2
-
-    addValidResponse invalidSurveyResponse1 1
-    --> 1
-
-    addValidResponse invalidSurveyResponse2 1
-    --> 1
-
-    addValidResponse invalidSurveyResponse3 1
-    --> 1
-
-    addValidResponse invalidSurveyResponse4 1
-    --> 1
 
     addValidResponse invalidSurveyResponse5 1
     --> 1
@@ -87,6 +90,9 @@ Only valid `responseContent` values between values 1-5 are counted in the tally.
         , SurveyResponse 5 1 5 "1"
         ]
 
+    averageScore validSurveyResponses
+    --> "3.20"
+
     someInvalidSurveyResponses : List SurveyResponse
     someInvalidSurveyResponses =
         [ SurveyResponse 1 1 1 "4"
@@ -97,9 +103,6 @@ Only valid `responseContent` values between values 1-5 are counted in the tally.
         , SurveyResponse 2 1 2 "6"
         , SurveyResponse 3 1 3 "invalid"
         ]
-
-    averageScore validSurveyResponses
-    --> "3.20"
 
     averageScore someInvalidSurveyResponses
     --> "4.00"
