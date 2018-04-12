@@ -2,6 +2,7 @@
   "root": "../src",
   "tests": [
     "Model",
+    "Question.Utils",
     "Routing.Utils",
     "SurveyResponse.Utils",
     "SurveyResult.Decoder",
