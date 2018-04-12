@@ -1,16 +1,5 @@
 module SurveyResultDetail.View exposing (view)
 
-import Css
-    exposing
-        ( backgroundColor
-        , borderColor
-        , hover
-        , rgb
-        , visible
-        , visibility
-        )
-import Css.Foreign exposing (children)
-import Dict exposing (Dict)
 import Html.Styled
     exposing
         ( Html
@@ -19,24 +8,16 @@ import Html.Styled
         , div
         , footer
         , h1
-        , h2
-        , h3
         , i
         , img
         , main_
-        , span
         , text
         )
 import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import Html.Styled.Events exposing (onWithOptions)
 import Json.Decode as Decode
-import Question.Model exposing (Question)
-import Question.Utils
-import Question.View
-import Routing.Utils
 import Styles
 import SurveyResult.Model exposing (SurveyResult)
-import Theme.Model exposing (Theme)
 import Theme.View
 import Utils
 
@@ -44,26 +25,10 @@ import Utils
 view : msg -> String -> SurveyResult -> Html msg
 view msg path surveyResult =
     let
-        articleClasses =
+        classes =
             [ "center"
             , "flex flex-column"
             , "mw7"
-            ]
-                |> String.join " "
-
-        logoClasses =
-            [ "h2 h4-ns"
-            , "img"
-            , "mh0 mh2-ns"
-            , "mt0 mv3-ns"
-            ]
-                |> String.join " "
-
-        -- NOTE: fa-prefixed classes are from Font Awesome.
-        iconClasses =
-            [ "fa-3x"
-            , "fa-angle-left"
-            , "fas"
             ]
                 |> String.join " "
 
@@ -75,62 +40,191 @@ view msg path surveyResult =
     in
         main_ []
             [ article
-                [ attribute "data-name" "survey-result-detail"
-                , class articleClasses
-                ]
-                [ a [ href path, class "absolute mt4 dim", clickOptions ]
-                    [ i
-                        [ class iconClasses
-                        , css [ Styles.brandColor ]
-                        ]
-                        []
-                    ]
-                , div [ class "flex flex-row center" ]
-                    [ h1 [ class "f1 avenir tc dark-gray" ]
-                        [ text surveyResult.name ]
-                    ]
-                , div [ class "flex flex-row justify-between bg-light-gray br3 pa2 mv2" ]
-                    [ div
-                        [ attribute "data-name" "participation-count"
-                        , class ""
-                        ]
-                        [ div [ class "f3 fw2" ]
-                            [ text "Participants" ]
-                        , div [ class "f3 tc b" ]
-                            [ text (toString surveyResult.participantCount) ]
-                        ]
-                    , div
-                        [ attribute "data-name" "submitted-response-count"
-                        , class ""
-                        ]
-                        [ div [ class "f3 fw2" ]
-                            [ text "Responses" ]
-                        , div [ class "f3 tc b" ]
-                            [ text (toString surveyResult.submittedResponseCount) ]
-                        ]
-                    , div
-                        [ attribute "data-name" "submitted-response-rate"
-                        , class ""
-                        ]
-                        [ div [ class "f3 fw2" ]
-                            [ text "Response Rate" ]
-                        , div [ class "f3 tc b" ]
-                            [ text
-                                (Utils.toFormattedPercentage
-                                    surveyResult.responseRate
-                                )
-                            ]
-                        ]
-                    ]
+                [ attribute "data-name" "survey-result-detail", class classes ]
+                [ backToHomeLink path clickOptions
+                , surveyName surveyResult.name
+                , summary surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
                         Theme.View.view
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]
-            , footer [ class "center tc b--light-gray b--dotted bt bb-0 br-0 bl-0 mw7 mt4" ]
-                [ a [ href path, class "dim", clickOptions ]
-                    [ img [ src "/logo.png", class logoClasses, alt "logo" ] []
-                    ]
-                ]
+            , footerContent path clickOptions
             ]
+
+
+backToHomeLink : String -> Html.Styled.Attribute msg -> Html msg
+backToHomeLink path clickOptions =
+    let
+        classes =
+            [ "absolute"
+            , "dim"
+            , "mt4"
+            ]
+                |> String.join " "
+
+        -- NOTE: fa-prefixed classes are from Font Awesome.
+        iconClasses =
+            [ "fa-3x"
+            , "fa-angle-left"
+            , "fas"
+            ]
+                |> String.join " "
+    in
+        a [ href path, class classes, clickOptions ]
+            [ i [ class iconClasses, css [ Styles.brandColor ] ] [] ]
+
+
+surveyName : String -> Html msg
+surveyName name =
+    let
+        classes =
+            [ "center"
+            , "flex"
+            , "flex-row"
+            ]
+                |> String.join " "
+
+        headingClasses =
+            [ "avenir"
+            , "f1"
+            , "mid-gray"
+            , "tc"
+            ]
+                |> String.join " "
+    in
+        div [ class classes ]
+            [ h1 [ class headingClasses ]
+                [ text name ]
+            ]
+
+
+summary : SurveyResult -> Html msg
+summary surveyResult =
+    let
+        classes =
+            [ "bg-light-gray"
+            , "br3"
+            , "flex"
+            , "flex-row"
+            , "justify-between"
+            , "mv2"
+            , "pa2"
+            ]
+                |> String.join " "
+    in
+        div [ class classes ]
+            [ participationCount surveyResult.participantCount
+            , submittedResponseCount surveyResult.submittedResponseCount
+            , submittedResponseRate surveyResult.responseRate
+            ]
+
+
+participationCount : Int -> Html msg
+participationCount participantCount =
+    let
+        labelClasses =
+            [ "f3"
+            , "fw2"
+            ]
+                |> String.join " "
+
+        valueClasses =
+            [ "b"
+            , "f3"
+            , "tc"
+            ]
+                |> String.join " "
+    in
+        div [ attribute "data-name" "participation-count" ]
+            [ div [ class labelClasses ]
+                [ text "Participants" ]
+            , div [ class valueClasses ]
+                [ text (toString participantCount) ]
+            ]
+
+
+submittedResponseCount : Int -> Html msg
+submittedResponseCount responseCount =
+    let
+        labelClasses =
+            [ "f3"
+            , "fw2"
+            ]
+                |> String.join " "
+
+        valueClasses =
+            [ "b"
+            , "f3"
+            , "tc"
+            ]
+                |> String.join " "
+    in
+        div [ attribute "data-name" "submitted-response-count" ]
+            [ div [ class labelClasses ]
+                [ text "Responses" ]
+            , div [ class valueClasses ]
+                [ text (toString responseCount) ]
+            ]
+
+
+submittedResponseRate : Float -> Html msg
+submittedResponseRate responseRate =
+    let
+        labelClasses =
+            [ "f3"
+            , "fw2"
+            ]
+                |> String.join " "
+
+        valueClasses =
+            [ "b"
+            , "f3"
+            , "tc"
+            ]
+                |> String.join " "
+    in
+        div [ attribute "data-name" "submitted-response-rate" ]
+            [ div [ class labelClasses ]
+                [ text "Response Rate" ]
+            , div [ class valueClasses ]
+                [ text (Utils.toFormattedPercentage responseRate) ]
+            ]
+
+
+footerContent : String -> Html.Styled.Attribute msg -> Html msg
+footerContent path clickOptions =
+    let
+        classes =
+            [ "b--dotted"
+            , "b--light-gray"
+            , "bb-0"
+            , "bl-0"
+            , "br-0"
+            , "bt"
+            , "center"
+            , "mt4"
+            , "mw7"
+            , "tc"
+            ]
+                |> String.join " "
+    in
+        footer [ class classes ]
+            [ a [ href path, class "dim", clickOptions ]
+                [ logo ]
+            ]
+
+
+logo : Html msg
+logo =
+    let
+        classes =
+            [ "h2 h4-ns"
+            , "img"
+            , "mh0 mh2-ns"
+            , "mt0 mv3-ns"
+            ]
+                |> String.join " "
+    in
+        img [ src "/logo.png", class classes, alt "logo" ] []
