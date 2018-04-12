@@ -19,23 +19,22 @@ suite =
             Config.fuzzer
     in
         describe "view"
-            [ fuzz
-                config
-                "displays a blank page when no data has been requested"
-              <|
-                \config ->
-                    let
-                        model =
-                            Model
-                                config
-                                ListSurveyResultsRoute
-                                NotRequested
-                                NotRequested
-                    in
-                        model
-                            |> Router.route
-                            |> Html.Styled.toUnstyled
-                            |> Query.fromHtml
-                            |> Query.children []
-                            |> Query.count (Expect.equal 0)
+            [ describe "when no data has been requested"
+                [ fuzz config "it displays a blank page" <|
+                    \config ->
+                        let
+                            model =
+                                Model
+                                    config
+                                    ListSurveyResultsRoute
+                                    NotRequested
+                                    NotRequested
+                        in
+                            model
+                                |> Router.route
+                                |> Html.Styled.toUnstyled
+                                |> Query.fromHtml
+                                |> Query.children []
+                                |> Query.count (Expect.equal 0)
+                ]
             ]
