@@ -2,7 +2,6 @@ module SurveyResultDetail.ViewTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config
-import Fuzzer.SurveyResult as SurveyResult
 import Html.Attributes as Attributes
 import Html.Styled
 import Model exposing (Model)
@@ -13,7 +12,7 @@ import Routing.Route exposing (Route(SurveyResultDetailRoute))
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils
-import Test exposing (Test, describe, fuzz, fuzz2)
+import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
 import Theme.Model exposing (Theme)
@@ -25,14 +24,13 @@ suite =
         config =
             Config.fuzzer
 
-        surveyResult =
-            SurveyResult.detailFuzzer
+        -- NOTE: Use of this fuzzer in the test would seem to hang the suite,
+        -- so only use it if you explicitly set the fuzz count to a low number.
+        -- surveyResult =
+        --     SurveyResult.detailFuzzer
     in
         describe "view"
-            [ fuzz
-                config
-                "displays a survey result detail page"
-              <|
+            [ fuzz config "displays a survey result detail page" <|
                 \config ->
                     let
                         surveyResult =

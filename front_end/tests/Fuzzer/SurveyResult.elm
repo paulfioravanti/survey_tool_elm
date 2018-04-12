@@ -12,6 +12,9 @@ fuzzer =
     surveyResultFuzzer (constant Nothing)
 
 
+{-| NOTE: Best not to use this unless you do a low fuzz count as it
+would seem that it hangs the test suite at the default fuzz count of 100.
+-}
 detailFuzzer : Fuzzer SurveyResult
 detailFuzzer =
     let
