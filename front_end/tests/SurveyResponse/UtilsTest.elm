@@ -8,10 +8,9 @@ module SurveyResponse.UtilsTest
 
 import Dict exposing (Dict)
 import Expect
-import Fuzz exposing (Fuzzer, float, string)
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResponse.Utils as Utils
-import Test exposing (Test, describe, fuzz, test)
+import Test exposing (Test, describe, test)
 
 
 addValidResponseTests : Test
