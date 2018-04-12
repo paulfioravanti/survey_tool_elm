@@ -37,6 +37,7 @@ import Routing.Utils
 import Styles
 import SurveyResult.Model exposing (SurveyResult)
 import Theme.Model exposing (Theme)
+import Theme.View
 import Utils
 
 
@@ -123,7 +124,7 @@ view msg path surveyResult =
                     ]
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        themeView
+                        Theme.View.view
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]
@@ -133,23 +134,3 @@ view msg path surveyResult =
                     ]
                 ]
             ]
-
-
-themeView : Theme -> Html msg
-themeView theme =
-    div [ attribute "data-name" "theme" ]
-        [ div [ class "flex flex-row justify-between bb b--light-gray mv2" ]
-            [ h2 [ class "dark-gray ttu f3" ]
-                [ text theme.name ]
-            , h2
-                [ attribute "data-name" "theme-average-score"
-                , class "b f3"
-                ]
-                [ span [ class "fw2 mr2" ]
-                    [ text "Average Score " ]
-                , text (Question.Utils.averageScore theme.questions)
-                ]
-            ]
-        , div [ attribute "data-name" "questions" ]
-            (List.map Question.View.view theme.questions)
-        ]
