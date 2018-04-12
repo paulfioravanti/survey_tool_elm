@@ -19,46 +19,26 @@ accumulator.
 
     import SurveyResponse.Model exposing (SurveyResponse)
 
-    validSurveyResponse : SurveyResponse
-    validSurveyResponse =
-        SurveyResponse 1 1 1 "2"
+    surveyResponse : String -> SurveyResponse
+    surveyResponse responseContent =
+        SurveyResponse 1 1 1 responseContent
 
-    addValidResponse validSurveyResponse 1
+    addValidResponse (surveyResponse "2") 1
     --> 2
 
-    invalidSurveyResponse1 : SurveyResponse
-    invalidSurveyResponse1 =
-        SurveyResponse 2 2 2 ""
-
-    addValidResponse invalidSurveyResponse1 1
+    addValidResponse (surveyResponse "") 1
     --> 1
 
-    invalidSurveyResponse2 : SurveyResponse
-    invalidSurveyResponse2 =
-        SurveyResponse 2 2 2 "0"
-
-    addValidResponse invalidSurveyResponse2 1
+    addValidResponse (surveyResponse "0") 1
     --> 1
 
-    invalidSurveyResponse3 : SurveyResponse
-    invalidSurveyResponse3 =
-        SurveyResponse 2 2 2 "-1"
-
-    addValidResponse invalidSurveyResponse3 1
+    addValidResponse (surveyResponse "-1") 1
     --> 1
 
-    invalidSurveyResponse4 : SurveyResponse
-    invalidSurveyResponse4 =
-        SurveyResponse 2 2 2 "6"
-
-    addValidResponse invalidSurveyResponse4 1
+    addValidResponse (surveyResponse "6") 1
     --> 1
 
-    invalidSurveyResponse5 : SurveyResponse
-    invalidSurveyResponse5 =
-        SurveyResponse 2 2 2 "invalid"
-
-    addValidResponse invalidSurveyResponse5 1
+    addValidResponse (surveyResponse "invalid") 1
     --> 1
 -}
 addValidResponse : SurveyResponse -> Int -> Int
