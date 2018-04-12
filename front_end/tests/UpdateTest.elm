@@ -1,6 +1,8 @@
 module UpdateTest exposing (suite)
 
+import Config exposing (Config)
 import Expect
+import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import Model exposing (Model)
 import Msg exposing (Msg(UpdatePage))
@@ -27,87 +29,105 @@ suite =
             UpdatePage ()
     in
         describe "update when UpdatePage msg sent"
-            [ fuzz
-                config
-                """
-                when the route is ListSurveyResultsRoute, it updates the
-                surveyResultsList to Requesting when it is NotRequested.
-                """
-              <|
-                \config ->
-                    let
-                        model =
-                            Model
-                                config
-                                ListSurveyResultsRoute
-                                NotRequested
-                                NotRequested
-                    in
-                        model
-                            |> Update.update msg
-                            |> Tuple.first
-                            |> Expect.equal
-                                { model | surveyResultList = Requesting }
-            , fuzz
-                config
-                """
-                when the route is ListSurveyResultsRoute, it does not update the
-                model if surveyResultsList has already been requested
-                (ie it is not NotRequested).
-                """
-              <|
-                \config ->
-                    let
-                        model =
-                            Model
-                                config
-                                ListSurveyResultsRoute
-                                NotRequested
-                                Requesting
-                    in
-                        model
-                            |> Update.update msg
-                            |> Tuple.first
-                            |> Expect.equal model
-            , fuzz
-                config
-                """
-                when the route is SurveyResultDetailRoute, it updates the
-                surveyResultDetail to Requesting when it is NotRequested.
-                """
-              <|
-                \config ->
-                    let
-                        model =
-                            Model
-                                config
-                                (SurveyResultDetailRoute "10")
-                                NotRequested
-                                NotRequested
-                    in
-                        model
-                            |> Update.update msg
-                            |> Tuple.first
-                            |> Expect.equal
-                                { model | surveyResultDetail = Requesting }
-            , fuzz
-                config
-                """
-                when the route is none of the above routes, it does not update
-                the model.
-                """
-              <|
-                \config ->
-                    let
-                        model =
-                            Model
-                                config
-                                NotFoundRoute
-                                NotRequested
-                                NotRequested
-                    in
-                        model
-                            |> Update.update msg
-                            |> Tuple.first
-                            |> Expect.equal model
+            [ surveyResultsListNotRequestedTest config msg
+            , surveyResultsListAlreadyRequestedTest config msg
+            , surveyResultDetailNotRequestedTest config msg
+            , routeNotFoundTest config msg
             ]
+
+
+surveyResultsListNotRequestedTest : Fuzzer Config -> Msg -> Test
+surveyResultsListNotRequestedTest config msg =
+    describe
+        """
+        when UpdatePage ListSurveyResultsRoute msg sent and
+        surveyResultsList is NotRequested
+        """
+        [ fuzz
+            config
+            "it updates the surveyResultsList to Requesting"
+          <|
+            \config ->
+                let
+                    model =
+                        Model
+                            config
+                            ListSurveyResultsRoute
+                            NotRequested
+                            NotRequested
+                in
+                    model
+                        |> Update.update msg
+                        |> Tuple.first
+                        |> Expect.equal
+                            { model | surveyResultList = Requesting }
+        ]
+
+
+surveyResultsListAlreadyRequestedTest : Fuzzer Config -> Msg -> Test
+surveyResultsListAlreadyRequestedTest config msg =
+    describe
+        """
+        when UpdatePage ListSurveyResultsRoute msg sent and
+        surveyResultsList already requested ie not NotRequested.
+        """
+        [ fuzz config "it does not update the model" <|
+            \config ->
+                let
+                    model =
+                        Model
+                            config
+                            ListSurveyResultsRoute
+                            NotRequested
+                            Requesting
+                in
+                    model
+                        |> Update.update msg
+                        |> Tuple.first
+                        |> Expect.equal model
+        ]
+
+
+surveyResultDetailNotRequestedTest : Fuzzer Config -> Msg -> Test
+surveyResultDetailNotRequestedTest config msg =
+    describe
+        """
+        when UpdatePage SurveyResultDetailRoute msg sent and
+        surveyResultsDetail is NotRequested
+        """
+        [ fuzz config "it updates the surveyResultDetail to Requesting" <|
+            \config ->
+                let
+                    model =
+                        Model
+                            config
+                            (SurveyResultDetailRoute "10")
+                            NotRequested
+                            NotRequested
+                in
+                    model
+                        |> Update.update msg
+                        |> Tuple.first
+                        |> Expect.equal
+                            { model | surveyResultDetail = Requesting }
+        ]
+
+
+routeNotFoundTest : Fuzzer Config -> Msg -> Test
+routeNotFoundTest config msg =
+    describe "when route is unknown"
+        [ fuzz config "it does not update the model." <|
+            \config ->
+                let
+                    model =
+                        Model
+                            config
+                            NotFoundRoute
+                            NotRequested
+                            NotRequested
+                in
+                    model
+                        |> Update.update msg
+                        |> Tuple.first
+                        |> Expect.equal model
+        ]
