@@ -22,14 +22,17 @@ suite =
 
         surveyResultList =
             SurveyResultList.fuzzer
+
+        surveyResults =
+            Selector.attribute
+                (Attributes.attribute "data-name" "survey-results")
     in
         describe "view"
             [ fuzz2
                 config
                 surveyResultList
                 "displays a list of survey results"
-              <|
-                \config surveyResultList ->
+                (\config surveyResultList ->
                     let
                         model =
                             Model
@@ -37,17 +40,11 @@ suite =
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Success surveyResultList)
-
-                        surveyResults =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "survey-results"
-                                )
                     in
                         model
                             |> Router.route
                             |> Html.Styled.toUnstyled
                             |> Query.fromHtml
                             |> Query.has [ tag "section", surveyResults ]
+                )
             ]

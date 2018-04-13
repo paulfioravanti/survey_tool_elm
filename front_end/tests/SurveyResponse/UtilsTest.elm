@@ -125,61 +125,65 @@ averageScoreTests () =
 
 respondentHistogramTests : () -> Test
 respondentHistogramTests () =
-    describe "respondentHistogram"
-        [ test "creates a score/respondent histogram using only valid values" <|
-            \() ->
-                let
-                    surveyResponses =
-                        [ SurveyResponse 100 1 1 "5"
-                        , SurveyResponse 600 1 6 "5"
-                        , SurveyResponse 700 1 7 "5"
-                        , SurveyResponse 800 1 8 "5"
-                        , SurveyResponse 200 1 2 "4"
-                        , SurveyResponse 900 1 9 "4"
-                        , SurveyResponse 1000 1 10 "4"
-                        , SurveyResponse 300 1 3 "3"
-                        , SurveyResponse 1100 1 11 "3"
-                        , SurveyResponse 400 1 4 "2"
-                        , SurveyResponse 500 1 5 "1"
-                        , SurveyResponse 1200 1 12 "0"
-                        , SurveyResponse 1300 1 13 "-1"
-                        , SurveyResponse 1400 1 14 "6"
-                        , SurveyResponse 1500 1 15 "invalid"
-                        ]
+    let
+        surveyResponses =
+            [ SurveyResponse 100 1 1 "5"
+            , SurveyResponse 600 1 6 "5"
+            , SurveyResponse 700 1 7 "5"
+            , SurveyResponse 800 1 8 "5"
+            , SurveyResponse 200 1 2 "4"
+            , SurveyResponse 900 1 9 "4"
+            , SurveyResponse 1000 1 10 "4"
+            , SurveyResponse 300 1 3 "3"
+            , SurveyResponse 1100 1 11 "3"
+            , SurveyResponse 400 1 4 "2"
+            , SurveyResponse 500 1 5 "1"
+            , SurveyResponse 1200 1 12 "0"
+            , SurveyResponse 1300 1 13 "-1"
+            , SurveyResponse 1400 1 14 "6"
+            , SurveyResponse 1500 1 15 "invalid"
+            ]
 
-                    histogram =
-                        Dict.fromList
-                            [ ( "1", [ 5 ] )
-                            , ( "2", [ 4 ] )
-                            , ( "3", [ 11, 3 ] )
-                            , ( "4", [ 10, 9, 2 ] )
-                            , ( "5", [ 8, 7, 6, 1 ] )
-                            ]
-                in
+        histogram =
+            Dict.fromList
+                [ ( "1", [ 5 ] )
+                , ( "2", [ 4 ] )
+                , ( "3", [ 11, 3 ] )
+                , ( "4", [ 10, 9, 2 ] )
+                , ( "5", [ 8, 7, 6, 1 ] )
+                ]
+    in
+        describe "respondentHistogram"
+            [ test
+                "creates a score/respondent histogram using only valid values"
+                (\() ->
                     surveyResponses
                         |> Utils.respondentHistogram
                         |> Expect.equal histogram
-        ]
+                )
+            ]
 
 
 sumResponseContentTests : () -> Test
 sumResponseContentTests () =
-    describe "sumResponseContent"
-        [ test "sums valid responseContent values, ignoring invalid values" <|
-            \() ->
-                let
-                    surveyResponses =
-                        [ SurveyResponse 1 1 1 "4"
-                        , SurveyResponse 5 1 5 "4"
-                        , SurveyResponse 6 1 6 "2"
-                        , SurveyResponse 8 1 8 ""
-                        , SurveyResponse 4 1 4 "-1"
-                        , SurveyResponse 2 1 2 "0"
-                        , SurveyResponse 7 1 7 "6"
-                        , SurveyResponse 3 1 3 "invalid"
-                        ]
-                in
+    let
+        surveyResponses =
+            [ SurveyResponse 1 1 1 "4"
+            , SurveyResponse 5 1 5 "4"
+            , SurveyResponse 6 1 6 "2"
+            , SurveyResponse 8 1 8 ""
+            , SurveyResponse 4 1 4 "-1"
+            , SurveyResponse 2 1 2 "0"
+            , SurveyResponse 7 1 7 "6"
+            , SurveyResponse 3 1 3 "invalid"
+            ]
+    in
+        describe "sumResponseContent"
+            [ test
+                "sums valid responseContent values, ignoring invalid values"
+                (\() ->
                     surveyResponses
                         |> Utils.sumResponseContent
                         |> Expect.equal 10
-        ]
+                )
+            ]

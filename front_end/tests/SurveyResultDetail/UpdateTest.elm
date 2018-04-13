@@ -83,8 +83,7 @@ fetchSurveyResultSuccessTest config surveyResult =
             config
             surveyResult
             "model surveyResultDetail is updated with a Success"
-          <|
-            \config surveyResultDetail ->
+            (\config surveyResultDetail ->
                 let
                     id =
                         surveyResultDetail.url
@@ -109,4 +108,5 @@ fetchSurveyResultSuccessTest config surveyResult =
                                 | surveyResultDetail =
                                     Success surveyResultDetail
                             }
+            )
         ]

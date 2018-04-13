@@ -28,46 +28,27 @@ suite =
         -- so only use it if you explicitly set the fuzz count to a low number.
         -- surveyResult =
         --     SurveyResult.detailFuzzer
+        surveyResult =
+            surveyResultFactory
+
+        id =
+            surveyResult.url
+                |> SurveyResult.Utils.extractId
+
+        surveyResultDetail =
+            Selector.attribute
+                (Attributes.attribute "data-name" "survey-result-detail")
     in
         describe "view"
             [ fuzz config "displays a survey result detail page" <|
                 \config ->
                     let
-                        surveyResult =
-                            SurveyResult
-                                "Simple Survey"
-                                6
-                                0.8333333333333334
-                                5
-                                (Just
-                                    [ Theme
-                                        "The Work"
-                                        [ Question
-                                            "I like the kind of work I do."
-                                            [ SurveyResponse 1 1 1 "5" ]
-                                            "ratingquestion"
-                                        ]
-                                    ]
-                                )
-                                "/survey_results/1.json"
-
-                        id =
-                            surveyResult.url
-                                |> SurveyResult.Utils.extractId
-
                         model =
                             Model
                                 config
                                 (SurveyResultDetailRoute id)
                                 (Success surveyResult)
                                 NotRequested
-
-                        surveyResultDetail =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "survey-result-detail"
-                                )
                     in
                         model
                             |> Router.route
@@ -75,3 +56,23 @@ suite =
                             |> Query.fromHtml
                             |> Query.has [ tag "article", surveyResultDetail ]
             ]
+
+
+surveyResultFactory : SurveyResult
+surveyResultFactory =
+    SurveyResult
+        "Simple Survey"
+        6
+        0.8333333333333334
+        5
+        (Just
+            [ Theme
+                "The Work"
+                [ Question
+                    "I like the kind of work I do."
+                    [ SurveyResponse 1 1 1 "5" ]
+                    "ratingquestion"
+                ]
+            ]
+        )
+        "/survey_results/1.json"

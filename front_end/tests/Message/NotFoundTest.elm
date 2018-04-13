@@ -34,31 +34,29 @@ suite =
 
 unknownRouteTest : Fuzzer Config -> Test
 unknownRouteTest config =
-    describe "when route is unknown and page cannot be found"
-        [ fuzz config "displays an error message" <|
-            \config ->
-                let
-                    model =
-                        Model
-                            config
-                            NotFoundRoute
-                            NotRequested
-                            NotRequested
-
-                    notFoundMessage =
-                        Selector.attribute
-                            (Attributes.attribute
-                                "data-name"
-                                "not-found-message"
-                            )
-                in
-                    model
-                        |> Router.route
-                        |> Html.Styled.toUnstyled
-                        |> Query.fromHtml
-                        |> Query.find [ tag "section" ]
-                        |> Query.has [ notFoundMessage ]
-        ]
+    let
+        notFoundMessage =
+            Selector.attribute
+                (Attributes.attribute "data-name" "not-found-message")
+    in
+        describe "when route is unknown and page cannot be found"
+            [ fuzz config "displays an error message" <|
+                \config ->
+                    let
+                        model =
+                            Model
+                                config
+                                NotFoundRoute
+                                NotRequested
+                                NotRequested
+                    in
+                        model
+                            |> Router.route
+                            |> Html.Styled.toUnstyled
+                            |> Query.fromHtml
+                            |> Query.find [ tag "section" ]
+                            |> Query.has [ notFoundMessage ]
+            ]
 
 
 unknownSurveyResult : Fuzzer Config -> Test
@@ -66,6 +64,10 @@ unknownSurveyResult config =
     let
         response =
             Response.fuzzer
+
+        notFoundMessage =
+            Selector.attribute
+                (Attributes.attribute "data-name" "not-found-message")
     in
         describe "when survey result detail cannot be found"
             [ fuzz2 config response "displays an error message" <|
@@ -85,13 +87,6 @@ unknownSurveyResult config =
                                 (SurveyResultDetailRoute "1")
                                 (Failure (BadStatus notFoundResponse))
                                 NotRequested
-
-                        notFoundMessage =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "not-found-message"
-                                )
                     in
                         model
                             |> Router.route

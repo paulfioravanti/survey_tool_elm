@@ -74,8 +74,7 @@ fetchSurveyResultListSuccessTest config =
                 config
                 surveyResultList
                 "model surveyResultList is updated with a Success"
-              <|
-                \config surveyResultList ->
+                (\config surveyResultList ->
                     let
                         model =
                             Model
@@ -96,4 +95,5 @@ fetchSurveyResultListSuccessTest config =
                                     | surveyResultList =
                                         Success surveyResultList
                                 }
+                )
             ]
