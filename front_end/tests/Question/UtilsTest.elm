@@ -1,4 +1,4 @@
-module Question.UtilsTest exposing (averageScoreTests)
+module Question.UtilsTest exposing (suite)
 
 import Expect
 import Question.Model exposing (Question)
@@ -7,12 +7,18 @@ import SurveyResponse.Model exposing (SurveyResponse)
 import Test exposing (Test, describe, test)
 
 
-averageScoreTests : Test
-averageScoreTests =
+suite : Test
+suite =
+    describe "Question.Utils"
+        [ averageScoreTests () ]
+
+
+averageScoreTests : () -> Test
+averageScoreTests () =
     describe "averageScore"
         [ describe
             """
-              when Question list contains valid responseContent values in the
+            when Question list contains valid responseContent values in the
             SurveyResponses of each individual Question.
             """
             [ test "sums all the values and rounds to two decimal points" <|

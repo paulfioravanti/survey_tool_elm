@@ -1,8 +1,4 @@
-module SurveyResult.UtilsTest
-    exposing
-        ( extractIdTests
-        , toDetailUrlTests
-        )
+module SurveyResult.UtilsTest exposing (suite)
 
 import Expect
 import Fuzz exposing (Fuzzer, float, string)
@@ -12,8 +8,16 @@ import SurveyResult.Utils as Utils
 import Test exposing (Test, describe, fuzz, test)
 
 
-extractIdTests : Test
-extractIdTests =
+suite : Test
+suite =
+    describe "SurveyResult.Utils"
+        [ extractIdTests ()
+        , toDetailUrlTests ()
+        ]
+
+
+extractIdTests : () -> Test
+extractIdTests () =
     let
         surveyResultDetailId =
             SurveyResultDetailId.fuzzer
@@ -31,8 +35,8 @@ extractIdTests =
             ]
 
 
-toDetailUrlTests : Test
-toDetailUrlTests =
+toDetailUrlTests : () -> Test
+toDetailUrlTests () =
     describe "toDetailUrl"
         [ fuzz string "removes .json from any string" <|
             \string ->

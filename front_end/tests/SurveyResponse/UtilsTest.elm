@@ -1,10 +1,4 @@
-module SurveyResponse.UtilsTest
-    exposing
-        ( addValidResponseTests
-        , averageScoreTests
-        , respondentHistogramTests
-        , sumResponseContentTests
-        )
+module SurveyResponse.UtilsTest exposing (suite)
 
 import Dict exposing (Dict)
 import Expect
@@ -13,8 +7,18 @@ import SurveyResponse.Utils as Utils
 import Test exposing (Test, describe, test)
 
 
-addValidResponseTests : Test
-addValidResponseTests =
+suite : Test
+suite =
+    describe "SurveyResponse.Utils"
+        [ addValidResponseTests ()
+        , averageScoreTests ()
+        , respondentHistogramTests ()
+        , sumResponseContentTests ()
+        ]
+
+
+addValidResponseTests : () -> Test
+addValidResponseTests () =
     describe "addValidResponse"
         [ describe "when SurveyResponse responseContent is valid"
             [ test "adds 1 to the accumulator" <|
@@ -79,8 +83,8 @@ addValidResponseTests =
         ]
 
 
-averageScoreTests : Test
-averageScoreTests =
+averageScoreTests : () -> Test
+averageScoreTests () =
     describe "averageScore"
         [ describe
             "when SurveyResponse list contains valid responseContent values"
@@ -119,8 +123,8 @@ averageScoreTests =
         ]
 
 
-respondentHistogramTests : Test
-respondentHistogramTests =
+respondentHistogramTests : () -> Test
+respondentHistogramTests () =
     describe "respondentHistogram"
         [ test "creates a score/respondent histogram using only valid values" <|
             \() ->
@@ -158,8 +162,8 @@ respondentHistogramTests =
         ]
 
 
-sumResponseContentTests : Test
-sumResponseContentTests =
+sumResponseContentTests : () -> Test
+sumResponseContentTests () =
     describe "sumResponseContent"
         [ test "sums valid responseContent values, ignoring invalid values" <|
             \() ->
