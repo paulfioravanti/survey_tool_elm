@@ -6,9 +6,13 @@ import Html.Styled.Attributes exposing (attribute, class, css)
 import Styles
 
 
-view : Dict String (List Int) -> String -> Html msg
-view histogram rating =
+view : String -> Dict String (List Int) -> Html msg
+view rating histogram =
     let
+        ( attributeName, respondents ) =
+            histogram
+                |> respondentsByResponseContent rating
+
         classes =
             [ "absolute"
             , "avenir"
@@ -25,16 +29,19 @@ view histogram rating =
                 |> String.join " "
     in
         span
-            [ attribute "data-name" "survey-response-tooltip"
+            [ attribute "data-name" attributeName
             , class classes
             , class "survey-response-tooltip"
             , css [ Styles.tooltip ]
             ]
-            [ text (respondentsByResponseContent histogram rating) ]
+            [ text respondents ]
 
 
-respondentsByResponseContent : Dict String (List Int) -> String -> String
-respondentsByResponseContent histogram responseContent =
+respondentsByResponseContent :
+    String
+    -> Dict String (List Int)
+    -> ( String, String )
+respondentsByResponseContent responseContent histogram =
     let
         numIdsToDisplay =
             5
@@ -48,15 +55,26 @@ respondentsByResponseContent histogram responseContent =
             ( List.take numIdsToDisplay respondents
             , List.drop numIdsToDisplay respondents
             )
+
+        attributeName =
+            "survey-response-tooltip-"
     in
         if List.isEmpty respondents then
-            "Chosen by no respondents."
+            ( attributeName ++ "no-respondents"
+            , "Chosen by no respondents."
+            )
         else if List.length respondents == 1 then
-            displaySingleRespondent respondents
+            ( attributeName ++ "one-respondent"
+            , (displaySingleRespondent respondents)
+            )
         else if head == respondents then
-            displayAllRespondents head
+            ( attributeName ++ "all-respondents"
+            , (displayAllRespondents head)
+            )
         else
-            displayTruncatedRespondents head tail
+            ( attributeName ++ "truncated-respondents"
+            , (displayTruncatedRespondents head tail)
+            )
 
 
 displaySingleRespondent : List Int -> String

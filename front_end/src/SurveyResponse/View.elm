@@ -71,5 +71,5 @@ content respondents rating =
             , css styles
             ]
             [ text rating
-            , Tooltip.view respondents rating
+            , Tooltip.view rating respondents
             ]
