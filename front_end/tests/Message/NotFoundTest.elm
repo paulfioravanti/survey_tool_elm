@@ -11,13 +11,7 @@ import Http exposing (Error(BadStatus))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Router
-import Routing.Route
-    exposing
-        ( Route
-            ( NotFoundRoute
-            , SurveyResultDetailRoute
-            )
-        )
+import Routing.Route exposing (Route(NotFoundRoute, SurveyResultDetailRoute))
 import Test exposing (Test, describe, fuzz, fuzz2)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
@@ -77,14 +71,13 @@ unknownSurveyResult config =
             [ fuzz2 config response "displays an error message" <|
                 \config response ->
                     let
-                        oldStatus =
-                            response.status
-
-                        notFoundStatus =
-                            { oldStatus | code = 404 }
-
                         notFoundResponse =
-                            { response | status = notFoundStatus }
+                            { response
+                                | status =
+                                    { code = 404
+                                    , message = "Not Found"
+                                    }
+                            }
 
                         model =
                             Model
