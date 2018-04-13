@@ -11,7 +11,13 @@ import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Router
-import Routing.Route exposing (Route(ListSurveyResultsRoute))
+import Routing.Route
+    exposing
+        ( Route
+            ( ListSurveyResultsRoute
+            , SurveyResultDetailRoute
+            )
+        )
 import Test exposing (Test, describe, fuzz, fuzz2)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag, text)
@@ -74,29 +80,56 @@ badStatusTest :
     -> Test
 badStatusTest config response errorMessage =
     describe "when error is a BadStatus"
-        [ fuzz2 config response "displays an error message" <|
-            \config response ->
-                let
-                    model =
-                        Model
-                            config
-                            ListSurveyResultsRoute
-                            NotRequested
-                            (Failure (BadStatus response))
+        [ describe "when requesting the survey results list page"
+            [ fuzz2 config response "displays an error message" <|
+                \config response ->
+                    let
+                        model =
+                            Model
+                                config
+                                ListSurveyResultsRoute
+                                NotRequested
+                                (Failure (BadStatus response))
 
-                    badStatusMessage =
-                        Selector.attribute
-                            (Attributes.attribute
-                                "data-name"
-                                "bad-status-message"
-                            )
-                in
-                    model
-                        |> Router.route
-                        |> Html.Styled.toUnstyled
-                        |> Query.fromHtml
-                        |> Query.find [ tag "section", errorMessage ]
-                        |> Query.has [ badStatusMessage ]
+                        badStatusMessage =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "bad-status-message"
+                                )
+                    in
+                        model
+                            |> Router.route
+                            |> Html.Styled.toUnstyled
+                            |> Query.fromHtml
+                            |> Query.find [ tag "section", errorMessage ]
+                            |> Query.has [ badStatusMessage ]
+            ]
+        , describe "when requesting a survey result detail page"
+            [ fuzz2 config response "displays an error message" <|
+                \config response ->
+                    let
+                        model =
+                            Model
+                                config
+                                (SurveyResultDetailRoute "1")
+                                (Failure (BadStatus response))
+                                NotRequested
+
+                        badStatusMessage =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "bad-status-message"
+                                )
+                    in
+                        model
+                            |> Router.route
+                            |> Html.Styled.toUnstyled
+                            |> Query.fromHtml
+                            |> Query.find [ tag "section", errorMessage ]
+                            |> Query.has [ badStatusMessage ]
+            ]
         ]
 
 
@@ -136,27 +169,54 @@ badPayloadTest config response errorMessage =
 otherErrorTest : Fuzzer Config -> Selector -> Test
 otherErrorTest config errorMessage =
     describe "when error is any other Http error"
-        [ fuzz config "displays an error message" <|
-            \config ->
-                let
-                    model =
-                        Model
-                            config
-                            ListSurveyResultsRoute
-                            NotRequested
-                            (Failure Timeout)
+        [ describe "when requesting the survey results list page"
+            [ fuzz config "displays an error message" <|
+                \config ->
+                    let
+                        model =
+                            Model
+                                config
+                                ListSurveyResultsRoute
+                                NotRequested
+                                (Failure Timeout)
 
-                    otherErrorMessage =
-                        Selector.attribute
-                            (Attributes.attribute
-                                "data-name"
-                                "other-error-message"
-                            )
-                in
-                    model
-                        |> Router.route
-                        |> Html.Styled.toUnstyled
-                        |> Query.fromHtml
-                        |> Query.find [ tag "section", errorMessage ]
-                        |> Query.has [ otherErrorMessage ]
+                        otherErrorMessage =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "other-error-message"
+                                )
+                    in
+                        model
+                            |> Router.route
+                            |> Html.Styled.toUnstyled
+                            |> Query.fromHtml
+                            |> Query.find [ tag "section", errorMessage ]
+                            |> Query.has [ otherErrorMessage ]
+            ]
+        , describe "when requesting a survey result detail page"
+            [ fuzz config "displays an error message" <|
+                \config ->
+                    let
+                        model =
+                            Model
+                                config
+                                (SurveyResultDetailRoute "1")
+                                (Failure Timeout)
+                                NotRequested
+
+                        otherErrorMessage =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "other-error-message"
+                                )
+                    in
+                        model
+                            |> Router.route
+                            |> Html.Styled.toUnstyled
+                            |> Query.fromHtml
+                            |> Query.find [ tag "section", errorMessage ]
+                            |> Query.has [ otherErrorMessage ]
+            ]
         ]
