@@ -4,6 +4,7 @@ module Styles
         , brandBorderColor
         , brandColor
         , brandColorAlpha
+        , overlineText
         , tooltip
         )
 
@@ -24,6 +25,7 @@ import Css
         , hex
         , hidden
         , left
+        , overline
         , pct
         , position
         , property
@@ -31,6 +33,7 @@ import Css
         , rgb
         , rgba
         , solid
+        , textDecoration
         , top
         , transparent
         , visibility
@@ -55,6 +58,11 @@ brandColor =
 brandColorAlpha : Style
 brandColorAlpha =
     color brandAlpha
+
+
+overlineText : Style
+overlineText =
+    textDecoration overline
 
 
 tooltip : Style

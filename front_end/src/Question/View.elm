@@ -1,8 +1,9 @@
 module Question.View exposing (view)
 
 import Html.Styled exposing (Html, div, h3, span, text)
-import Html.Styled.Attributes exposing (attribute, class)
+import Html.Styled.Attributes exposing (attribute, class, css)
 import Question.Model exposing (Question)
+import Styles
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResponse.Utils
 import SurveyResponse.View
@@ -57,13 +58,15 @@ averageScore surveyResponses =
 
         labelClasses =
             [ "fw1"
+            , "i"
             , "mr2"
+            , "times"
             ]
                 |> String.join " "
     in
         h3 [ attribute "data-name" "question-average-score", class classes ]
-            [ span [ class labelClasses ]
-                [ text "Average Score " ]
+            [ span [ class labelClasses, css [ Styles.overlineText ] ]
+                [ text "x" ]
             , text averageScore
             ]
 

@@ -62,6 +62,6 @@ averageScore questions =
     in
         h2 [ attribute "data-name" "theme-average-score", class classes ]
             [ span [ class labelClasses ]
-                [ text "Average Score " ]
+                [ text "Average Score" ]
             , text (Question.Utils.averageScore questions)
             ]
