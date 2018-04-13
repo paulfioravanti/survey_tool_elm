@@ -13,82 +13,108 @@ import Test.Html.Selector as Selector exposing (tag)
 suite : Test
 suite =
     describe "view"
-        [ describe "when response has no respondents"
-            [ test "displays a specific message for no respondents" <|
-                \() ->
-                    let
-                        histogram =
-                            Dict.fromList
-                                [ ( "1", [] ) ]
+        [ noRespondentsTest ()
+        , oneRespondentTest ()
+        , allRespondentsDisplayableTest ()
+        , truncatedRespondentsTest ()
+        ]
 
-                        noRespondents =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "survey-response-tooltip-no-respondents"
-                                )
-                    in
-                        histogram
-                            |> Tooltip.view "1"
-                            |> Html.Styled.toUnstyled
-                            |> Query.fromHtml
-                            |> Query.has [ tag "span", noRespondents ]
-            , test "displays a specific message for one respondent" <|
-                \() ->
-                    let
-                        histogram =
-                            Dict.fromList
-                                [ ( "1", [ 1 ] ) ]
 
-                        oneRespondent =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "survey-response-tooltip-one-respondent"
-                                )
-                    in
-                        histogram
-                            |> Tooltip.view "1"
-                            |> Html.Styled.toUnstyled
-                            |> Query.fromHtml
-                            |> Query.has [ tag "span", oneRespondent ]
-            , test "displays all respondents when they are all displayable" <|
-                \() ->
-                    let
-                        histogram =
-                            Dict.fromList
-                                [ ( "1", [ 1, 2, 3, 4, 5 ] ) ]
+noRespondentsTest : () -> Test
+noRespondentsTest () =
+    describe "when response has no respondents"
+        [ test "displays a specific message for no respondents" <|
+            \() ->
+                let
+                    histogram =
+                        Dict.fromList
+                            [ ( "1", [] ) ]
 
-                        allRespondents =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "survey-response-tooltip-all-respondents"
-                                )
-                    in
-                        histogram
-                            |> Tooltip.view "1"
-                            |> Html.Styled.toUnstyled
-                            |> Query.fromHtml
-                            |> Query.has [ tag "span", allRespondents ]
-            , test "truncates respondents when they are not all displayable" <|
-                \() ->
-                    let
-                        histogram =
-                            Dict.fromList
-                                [ ( "1", [ 1, 2, 3, 4, 5, 6 ] ) ]
+                    noRespondents =
+                        Selector.attribute
+                            (Attributes.attribute
+                                "data-name"
+                                "survey-response-tooltip-no-respondents"
+                            )
+                in
+                    histogram
+                        |> Tooltip.view "1"
+                        |> Html.Styled.toUnstyled
+                        |> Query.fromHtml
+                        |> Query.has [ tag "span", noRespondents ]
+        ]
 
-                        truncatedRespondents =
-                            Selector.attribute
-                                (Attributes.attribute
-                                    "data-name"
-                                    "survey-response-tooltip-truncated-respondents"
-                                )
-                    in
-                        histogram
-                            |> Tooltip.view "1"
-                            |> Html.Styled.toUnstyled
-                            |> Query.fromHtml
-                            |> Query.has [ tag "span", truncatedRespondents ]
-            ]
+
+oneRespondentTest : () -> Test
+oneRespondentTest () =
+    describe "when response has one respondent"
+        [ test "displays a specific message for one respondent" <|
+            \() ->
+                let
+                    histogram =
+                        Dict.fromList
+                            [ ( "1", [ 1 ] ) ]
+
+                    oneRespondent =
+                        Selector.attribute
+                            (Attributes.attribute
+                                "data-name"
+                                "survey-response-tooltip-one-respondent"
+                            )
+                in
+                    histogram
+                        |> Tooltip.view "1"
+                        |> Html.Styled.toUnstyled
+                        |> Query.fromHtml
+                        |> Query.has [ tag "span", oneRespondent ]
+        ]
+
+
+allRespondentsDisplayableTest : () -> Test
+allRespondentsDisplayableTest () =
+    describe "when all respondents are displayable in tooltip"
+        [ test "displays all respondents" <|
+            \() ->
+                let
+                    histogram =
+                        Dict.fromList
+                            [ ( "1", [ 1, 2, 3, 4, 5 ] ) ]
+
+                    allRespondents =
+                        Selector.attribute
+                            (Attributes.attribute
+                                "data-name"
+                                "survey-response-tooltip-all-respondents"
+                            )
+                in
+                    histogram
+                        |> Tooltip.view "1"
+                        |> Html.Styled.toUnstyled
+                        |> Query.fromHtml
+                        |> Query.has [ tag "span", allRespondents ]
+        ]
+
+
+truncatedRespondentsTest : () -> Test
+truncatedRespondentsTest () =
+    describe "when all respondents are not displayable in tooltip"
+        [ test "truncates respondents list" <|
+            \() ->
+                let
+                    histogram =
+                        Dict.fromList
+                            [ ( "1", [ 1, 2, 3, 4, 5, 6 ] ) ]
+
+                    truncatedRespondents =
+                        Selector.attribute
+                            (Attributes.attribute
+                                "data-name"
+                                "survey-response-tooltip-truncated-respondents"
+                            )
+                in
+                    histogram
+                        |> Tooltip.view "1"
+                        |> Html.Styled.toUnstyled
+                        |> Query.fromHtml
+                        |> Query.has [ tag "span", truncatedRespondents ]
         ]
