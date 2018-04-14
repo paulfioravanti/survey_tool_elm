@@ -16,6 +16,7 @@ view { description, surveyResponses } =
             [ "flex"
             , "flex-row"
             , "justify-between"
+            , "mh1 mh0-ns"
             , "mv2"
             ]
                 |> String.join " "
