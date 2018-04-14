@@ -1,7 +1,5 @@
 module SurveyResult.View exposing (view)
 
-import Css exposing (hover)
-import Css.Foreign exposing (descendants)
 import Html.Styled
     exposing
         ( Html
@@ -38,19 +36,8 @@ view msg surveyResult =
             , "pa2"
             ]
                 |> String.join " "
-
-        styles =
-            [ hover
-                [ descendants
-                    [ Css.Foreign.class "response-rate-value"
-                        [ Styles.brandBackgroundColor ]
-                    , Css.Foreign.class "summary-heading"
-                        [ Styles.brandColor ]
-                    ]
-                ]
-            ]
     in
-        article [ class classes, css styles ]
+        article [ class classes, css [ Styles.surveyResultSummary ] ]
             [ summaryLink msg surveyResult ]
 
 
@@ -156,7 +143,7 @@ statisticLabel label =
     let
         classes =
             [ "f3 f1-ns"
-            , "fw2"
+            , "fw4 fw2-ns"
             ]
                 |> String.join " "
     in
@@ -201,7 +188,7 @@ responseRateLabel =
     let
         classes =
             [ "f2-ns"
-            , "fw3"
+            , "fw4 fw3-ns"
             , "ttu"
             ]
                 |> String.join " "

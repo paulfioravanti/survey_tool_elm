@@ -5,15 +5,16 @@ module Styles
         , brandColor
         , brandColorAlpha
         , overlineText
+        , surveyResultSummary
         , tooltip
         )
 
-import Css exposing (Color, Style, backgroundColor, color, rgb, rgba)
 import Css
     exposing
         ( Color
         , Style
         , absolute
+        , active
         , after
         , backgroundColor
         , borderColor
@@ -24,6 +25,7 @@ import Css
         , color
         , hex
         , hidden
+        , hover
         , left
         , overline
         , pct
@@ -38,6 +40,7 @@ import Css
         , transparent
         , visibility
         )
+import Css.Foreign exposing (descendants)
 
 
 brandBackgroundColor : Style
@@ -63,6 +66,25 @@ brandColorAlpha =
 overlineText : Style
 overlineText =
     textDecoration overline
+
+
+surveyResultSummary : Style
+surveyResultSummary =
+    let
+        styleHeadingAndResponseRate =
+            Css.batch
+                [ descendants
+                    [ Css.Foreign.class "summary-heading"
+                        [ brandColor ]
+                    , Css.Foreign.class "response-rate-value"
+                        [ brandBackgroundColor ]
+                    ]
+                ]
+    in
+        Css.batch
+            [ hover [ styleHeadingAndResponseRate ]
+            , active [ styleHeadingAndResponseRate ]
+            ]
 
 
 tooltip : Style
