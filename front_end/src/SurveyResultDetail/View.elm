@@ -28,7 +28,7 @@ view msg path surveyResult =
         classes =
             [ "center"
             , "flex flex-column"
-            , "mw7"
+            , "mw7-ns"
             ]
                 |> String.join " "
 
@@ -60,7 +60,9 @@ backToHomeLink path clickOptions =
         classes =
             [ "absolute"
             , "dim"
-            , "mt4"
+            , "mt3 mt4-ns"
+            , "pt2 pt1-ns"
+            , "ml2 ml0-ns"
             ]
                 |> String.join " "
 
@@ -68,7 +70,7 @@ backToHomeLink path clickOptions =
         iconClasses =
             [ "fa-angle-left"
             , "fas"
-            , "f1"
+            , "f2 f1-ns"
             ]
                 |> String.join " "
     in
@@ -88,8 +90,9 @@ surveyName name =
 
         headingClasses =
             [ "avenir"
-            , "f1"
+            , "f2 f1-ns"
             , "mid-gray"
+            , "mw5 mw7-ns"
             , "tc"
             ]
                 |> String.join " "
