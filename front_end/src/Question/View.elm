@@ -24,7 +24,7 @@ view { description, surveyResponses } =
         scoresClasses =
             [ "flex"
             , "flex-row-reverse flex-column-ns"
-            , "justify-between"
+            , "justify-between-ns"
             ]
                 |> String.join " "
     in
@@ -60,8 +60,9 @@ averageScore surveyResponses =
                 |> SurveyResponse.Utils.averageScore
 
         classes =
-            [ "tr"
-            , "fw5"
+            [ "fw5"
+            , "mt2 mt3-ns"
+            , "tr"
             ]
                 |> String.join " "
 
@@ -93,6 +94,7 @@ responses surveyResponses =
         classes =
             [ "flex"
             , "flex-row"
+            , "mr3 mr0-ns"
             ]
                 |> String.join " "
     in
