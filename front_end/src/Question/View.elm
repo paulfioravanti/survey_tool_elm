@@ -53,6 +53,7 @@ averageScore surveyResponses =
 
         classes =
             [ "tr"
+            , "fw5"
             ]
                 |> String.join " "
 

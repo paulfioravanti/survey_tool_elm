@@ -66,9 +66,9 @@ backToHomeLink path clickOptions =
 
         -- NOTE: fa-prefixed classes are from Font Awesome.
         iconClasses =
-            [ "fa-3x"
-            , "fa-angle-left"
+            [ "fa-angle-left"
             , "fas"
+            , "f1"
             ]
                 |> String.join " "
     in
