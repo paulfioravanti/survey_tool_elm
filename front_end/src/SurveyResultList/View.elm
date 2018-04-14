@@ -28,6 +28,7 @@ surveyResultList msg surveyResults =
         classes =
             [ "flex"
             , "justify-around"
+            , "mt1 mt4-ns"
             ]
                 |> String.join " "
     in
@@ -60,8 +61,8 @@ logo =
         logoClasses =
             [ "h2 h3-ns"
             , "img"
-            , "mh0 mh2-ns"
-            , "mt0 mt4-ns"
+            , "mh1 mh2-ns"
+            , "mt0"
             ]
                 |> String.join " "
     in
