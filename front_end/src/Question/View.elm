@@ -14,17 +14,24 @@ view { description, surveyResponses } =
     let
         classes =
             [ "flex"
-            , "flex-row"
-            , "justify-between"
+            , "flex-column flex-row-ns"
+            , "justify-between-ns"
             , "mh1 mh0-ns"
             , "mv2"
+            ]
+                |> String.join " "
+
+        scoresClasses =
+            [ "flex"
+            , "flex-row-reverse flex-column-ns"
+            , "justify-between"
             ]
                 |> String.join " "
     in
         div [ attribute "data-name" "question" ]
             [ div [ class classes ]
                 [ descriptionText description
-                , div []
+                , div [ class scoresClasses ]
                     [ averageScore surveyResponses
                     , responses surveyResponses
                     ]
@@ -37,7 +44,7 @@ descriptionText description =
     let
         classes =
             [ "fw4"
-            , "w-70"
+            , "w-70-ns"
             ]
                 |> String.join " "
     in
