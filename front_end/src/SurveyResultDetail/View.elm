@@ -108,12 +108,13 @@ summary surveyResult =
     let
         classes =
             [ "bg-light-gray"
-            , "br3"
+            , "br3-ns"
             , "flex"
             , "flex-row"
             , "justify-between"
             , "mv2"
             , "pa2"
+            , "tc"
             ]
                 |> String.join " "
     in
@@ -128,14 +129,14 @@ participationCount : Int -> Html msg
 participationCount participantCount =
     let
         labelClasses =
-            [ "f3"
+            [ "f4 f3-ns"
             , "fw2"
             ]
                 |> String.join " "
 
         valueClasses =
             [ "b"
-            , "f3"
+            , "f4 f3-ns"
             , "tc"
             ]
                 |> String.join " "
@@ -152,14 +153,14 @@ submittedResponseCount : Int -> Html msg
 submittedResponseCount responseCount =
     let
         labelClasses =
-            [ "f3"
+            [ "f4 f3-ns"
             , "fw2"
             ]
                 |> String.join " "
 
         valueClasses =
             [ "b"
-            , "f3"
+            , "f4 f3-ns"
             , "tc"
             ]
                 |> String.join " "
@@ -176,14 +177,14 @@ submittedResponseRate : Float -> Html msg
 submittedResponseRate responseRate =
     let
         labelClasses =
-            [ "f3"
+            [ "f4 f3-ns"
             , "fw2"
             ]
                 |> String.join " "
 
         valueClasses =
             [ "b"
-            , "f3"
+            , "f4 f3-ns"
             , "tc"
             ]
                 |> String.join " "
@@ -223,7 +224,7 @@ logo : Html msg
 logo =
     let
         classes =
-            [ "h2 h4-ns"
+            [ "h3 h4-ns"
             , "img"
             , "mh0 mh2-ns"
             , "mt0 mv3-ns"

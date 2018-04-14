@@ -18,12 +18,13 @@ view { name, questions } =
             , "flex-row"
             , "justify-between"
             , "mv2"
+            , "mh1 mh0-ns"
             ]
                 |> String.join " "
     in
         div [ attribute "data-name" "theme" ]
             [ div [ class classes ]
-                [ nameText name
+                [ themeName name
                 , averageScore questions
                 ]
             , div [ attribute "data-name" "questions" ]
@@ -31,12 +32,12 @@ view { name, questions } =
             ]
 
 
-nameText : String -> Html msg
-nameText name =
+themeName : String -> Html msg
+themeName name =
     let
         classes =
             [ "dark-gray"
-            , "f3"
+            , "f4 f3-ns"
             , "ttu"
             ]
                 |> String.join " "
@@ -50,7 +51,7 @@ averageScore questions =
     let
         classes =
             [ "b"
-            , "f3"
+            , "f4 f3-ns"
             ]
                 |> String.join " "
 
