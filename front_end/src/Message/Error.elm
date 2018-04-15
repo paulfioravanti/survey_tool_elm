@@ -18,6 +18,7 @@ view error =
             , "flex-column"
             , "justify-center"
             , "items-center"
+            , "tc"
             , "vh-75"
             ]
                 |> String.join " "
