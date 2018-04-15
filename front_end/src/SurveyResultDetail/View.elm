@@ -33,16 +33,10 @@ view surveyResultsListMsg noOpMsg path surveyResult =
                 |> String.join " "
 
         surveyResultsListClickOptions =
-            onWithOptions
-                "click"
-                { preventDefault = True, stopPropagation = False }
-                (Decode.succeed surveyResultsListMsg)
+            msgClickOptions surveyResultsListMsg
 
         noOpClickOptions =
-            onWithOptions
-                "click"
-                { preventDefault = True, stopPropagation = True }
-                (Decode.succeed noOpMsg)
+            msgClickOptions noOpMsg
     in
         main_ [ noOpClickOptions ]
             [ article
@@ -238,3 +232,11 @@ logo =
                 |> String.join " "
     in
         img [ src "/logo.png", class classes, alt "logo" ] []
+
+
+msgClickOptions : msg -> Html.Styled.Attribute msg
+msgClickOptions msg =
+    onWithOptions
+        "click"
+        { preventDefault = True, stopPropagation = True }
+        (Decode.succeed msg)
