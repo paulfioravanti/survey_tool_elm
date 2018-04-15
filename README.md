@@ -1,3 +1,188 @@
+# Survey Tool Front End Developer Coding Test
+
+An [Elm][] application that retrieves survey result information from a [JSON][]
+[API][], and displays the results.
+
+## Setup
+
+    git clone https://github.com/paulfioravanti/survey_tool_elm.git
+    cd survey_tool_elm
+
+## Back end
+
+The back end is an [Elixir][] app that uses [Plug][]'s [Cowboy2 adapter][] to
+serve the JSON files expected by the front end.
+
+### Dependencies
+
+- [Elixir][] 1.6.4
+- [Erlang][] 20.3.2
+
+I personally recommend [asdf][] to install the languages and their dependencies.
+
+### Setup
+
+    cd back_end
+    mix deps.get
+
+### Run Server
+
+    iex -S mix
+
+Now, you should be able to open the following links and get the appropriate
+JSON response:
+
+- <http://localhost:4000/survey_results>
+- <http://localhost:4000/survey_results/1>
+- <http://localhost:4000/survey_results/2>
+
+Other addresses should return an error JSON object.
+
+For easy reading of JSON objects in a browser, I recommend the
+[JSON Formatter][] extension for Google Chrome.
+
+### Run Tests
+
+The back end server has a small suite of tests, written with [ExUnit][], that
+can be run with:
+
+    mix test
+
+[`mix test.watch`][] was used during development, so that can also be used here
+to continuously run tests on file changes.
+
+## Front end
+
+The front end is an [Elm][] application that displays the survey result data.
+It uses [Tachyons][] for functional CSS styling, making this front/back end
+combo one "P" short of the [PETE stack][] (I figured making the back end a
+[Phoenix][] application would have been overkill).
+
+### Dependencies
+
+- [Elm][] 0.18.0
+- [NodeJS][] 9.9.0
+
+I personally recommend [asdf][] to install the languages and their dependencies.
+
+### Setup
+
+#### Global Setup
+
+I used the following global npm packages during development, so I recommend
+installing them to be able to run all application and testing commands:
+
+- [elm-test][]
+- [Create Elm App][]
+- [elm-verify-examples][]
+- [Elm Coverage][]
+
+Install:
+
+    npm install -g elm-test create-elm-app elm-verify-examples elm-coverage
+
+In order to get `mix test.watch`-like functionality with Elm, I used:
+
+- [`just`][]
+- [watchexec][]
+
+They can both be installed with [Homebrew][]:
+
+    brew install just watchexec
+
+#### Application Setup
+
+    cd front_end
+    npm install
+    elm-package install
+    cp .env.example .env
+
+### Run Server
+
+    elm-app start
+
+Now, you should be able to use the app at the following address:
+
+- <http://localhost:3000>
+
+(Make sure you also have the back end server running to actually see the
+survey results).
+
+### Run Tests
+
+Straight tests:
+
+    elm-test
+
+Verified examples (doctests):
+
+    elm-verified-examples
+
+Run tests and generate code coverage report:
+
+    elm-coverage
+    open .coverage/coverage.html
+
+#### Development Mode (optional)
+
+If you're using this app in development, you could do the following:
+
+Use `just` and `watchexec` to run both `elm-verify-examples` and `elm-test`
+when any `src` code is modified:
+
+    watchexec --watch src --clear just test
+
+Use `just` and `watchexec` to run both `elm-verify-examples` and `elm-coverage`
+(which runs `elm-test`) when any tests are modified. The `src` directory is not
+included here because `elm-coverage` ends up touching every `src` file during
+its instrumentation phase, leading to infinite loops:
+
+    watchexec --watch tests --ignore tests/elm-package.json --clear just coverage
+
+## Other
+
+I also wrote implementations of the companion back-end developer test to this
+front-end test in [Elixir][] and [Ruby][], which can be found at the following:
+
+- <https://github.com/paulfioravanti/survey_tool_elixir>
+- <https://github.com/paulfioravanti/survey_tool_ruby>
+
+## Social
+
+[![Contact][twitter-badge]][twitter-url]<br />
+[![Stack Overflow][stackoverflow-badge]][stackoverflow-url]
+
+[API]: https://en.wikipedia.org/wiki/Application_programming_interface
+[asdf]: https://github.com/asdf-vm/asdf
+[Cowboy2 adapter]: https://github.com/elixir-plug/plug/blob/master/lib/plug/adapters/cowboy2.ex
+[Create Elm App]: https://github.com/halfzebra/create-elm-app
+[Elixir]: https://github.com/elixir-lang/elixir
+[Elm]: http://elm-lang.org/
+[Elm Coverage]: https://github.com/zwilias/elm-coverage
+[elm-test]: https://github.com/elm-community/elm-test
+[elm-verify-examples]: https://github.com/stoeffel/elm-verify-examples
+[Erlang]: https://www.erlang.org/
+[ExUnit]: https://hexdocs.pm/ex_unit/ExUnit.html
+[Homebrew]: https://brew.sh/
+[JSON]: https://www.json.org/
+[JSON Formatter]: https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa
+[`just`]: https://github.com/casey/just
+[`mix test.watch`]: https://github.com/lpil/mix-test.watch
+[NodeJS]: https://nodejs.org/en/
+[PETE stack]: https://github.com/dwyl/technology-stack#the-pete-stack
+[Phoenix]: http://phoenixframework.org/
+[Plug]: https://github.com/elixir-plug/plug
+[Ruby]: https://github.com/ruby/ruby
+[stackoverflow-badge]: http://stackoverflow.com/users/flair/567863.png
+[stackoverflow-url]: http://stackoverflow.com/users/567863/paul-fioravanti
+[survey-tool-ruby]: https://github.com/paulfioravanti/survey_tool_ruby
+[Tachyons]: http://tachyons.io/
+[twitter-badge]: https://img.shields.io/badge/contact-%40paulfioravanti-blue.svg
+[twitter-url]: https://twitter.com/paulfioravanti
+[watchexec]: https://github.com/mattgreen/watchexec
+
+---
+
 # Culture Amp’s Front End Developer Coding Test
 
 This repository contains a small number of static JSON files, which represent the responses from an HTTP API that offers access to a database of survey results.
