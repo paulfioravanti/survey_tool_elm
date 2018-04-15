@@ -111,6 +111,11 @@ survey results).
 
 ### Run Tests
 
+Install the elm packages in the `tests` directory first:
+
+    cd tests
+    elm-package install
+
 Straight tests:
 
     elm-test
