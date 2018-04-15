@@ -9,8 +9,8 @@ import SurveyResponse.Utils
 import SurveyResponse.View
 
 
-view : Question -> Html msg
-view { description, surveyResponses } =
+view : msg -> Question -> Html msg
+view msg { description, surveyResponses } =
     let
         classes =
             [ "flex"
@@ -33,7 +33,7 @@ view { description, surveyResponses } =
                 [ descriptionText description
                 , div [ class scoresClasses ]
                     [ averageScore surveyResponses
-                    , responses surveyResponses
+                    , responses msg surveyResponses
                     ]
                 ]
             ]
@@ -81,8 +81,8 @@ averageScore surveyResponses =
             ]
 
 
-responses : List SurveyResponse -> Html msg
-responses surveyResponses =
+responses : msg -> List SurveyResponse -> Html msg
+responses msg surveyResponses =
     let
         ratings =
             [ "1", "2", "3", "4", "5" ]
@@ -99,4 +99,4 @@ responses surveyResponses =
                 |> String.join " "
     in
         div [ attribute "data-name" "survey-responses", class classes ]
-            (List.map (SurveyResponse.View.view respondents) ratings)
+            (List.map (SurveyResponse.View.view msg respondents) ratings)

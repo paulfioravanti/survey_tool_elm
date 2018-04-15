@@ -22,8 +22,8 @@ import Theme.View
 import Utils
 
 
-view : msg -> String -> SurveyResult -> Html msg
-view msg path surveyResult =
+view : msg -> msg -> String -> SurveyResult -> Html msg
+view msg noOpMsg path surveyResult =
     let
         classes =
             [ "center"
@@ -46,7 +46,7 @@ view msg path surveyResult =
                 , summary surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        Theme.View.view
+                        (Theme.View.view noOpMsg)
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]

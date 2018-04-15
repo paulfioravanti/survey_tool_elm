@@ -4,7 +4,7 @@ import Html.Styled as Html exposing (Html)
 import Message.NotFound as NotFound
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
-import Routing.Msg exposing (Msg(ChangeLocation))
+import Routing.Msg exposing (Msg(ChangeLocation, NoOp))
 import Routing.Route
     exposing
         ( Route
@@ -35,11 +35,14 @@ route { route, surveyResultList, surveyResultDetail } =
                 msg =
                     (ChangeLocation ListSurveyResultsRoute)
 
+                noOpMsg =
+                    (NoOp (SurveyResultDetailRoute id))
+
                 path =
                     Utils.toPath ListSurveyResultsRoute
             in
                 surveyResultDetail
-                    |> SurveyResult.Controller.render msg path
+                    |> SurveyResult.Controller.render msg noOpMsg path
                     |> Html.map RoutingMsg
 
         NotFoundRoute ->

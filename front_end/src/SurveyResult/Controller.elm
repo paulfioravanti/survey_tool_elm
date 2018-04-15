@@ -19,8 +19,8 @@ import SurveyResult.Model exposing (SurveyResult)
 import SurveyResultDetail.View
 
 
-render : msg -> String -> WebData SurveyResult -> Html msg
-render msg path surveyResult =
+render : msg -> msg -> String -> WebData SurveyResult -> Html msg
+render msg noOpMsg path surveyResult =
     case surveyResult of
         NotRequested ->
             text ""
@@ -42,4 +42,4 @@ render msg path surveyResult =
                     Error.view error
 
         Success surveyResult ->
-            SurveyResultDetail.View.view msg path surveyResult
+            SurveyResultDetail.View.view msg noOpMsg path surveyResult

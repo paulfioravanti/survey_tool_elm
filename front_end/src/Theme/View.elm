@@ -8,8 +8,8 @@ import Question.View
 import Theme.Model exposing (Theme)
 
 
-view : Theme -> Html msg
-view { name, questions } =
+view : msg -> Theme -> Html msg
+view msg { name, questions } =
     let
         classes =
             [ "b--light-gray"
@@ -28,7 +28,7 @@ view { name, questions } =
                 , averageScore questions
                 ]
             , div [ attribute "data-name" "questions" ]
-                (List.map Question.View.view questions)
+                (List.map (Question.View.view msg) questions)
             ]
 
 
