@@ -9,10 +9,10 @@ import Fuzzer.Routing.Route as Route
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Navigation
-import Routing.Msg exposing (Msg(ChangeLocation, OnLocationChange))
+import Routing.Msg exposing (Msg(ChangeLocation, NoOp, OnLocationChange))
 import Routing.Route exposing (Route(ListSurveyResultsRoute))
 import Routing.Utils as Utils
-import Test exposing (Test, describe, fuzz3, fuzz4)
+import Test exposing (Test, describe, fuzz2, fuzz3, fuzz4)
 import Update
 
 
@@ -30,6 +30,7 @@ suite =
     in
         describe "update"
             [ changeLocationTest config route newRoute
+            , noOpTest config route
             , onLocationChangeTest config route newRoute
             ]
 
@@ -50,6 +51,25 @@ changeLocationTest config route newRoute =
                         |> Update.update msg
                         |> Tuple.first
                         |> Expect.equal { model | route = newRoute }
+        ]
+
+
+noOpTest : Fuzzer Config -> Fuzzer Route -> Test
+noOpTest config route =
+    describe "when msg is NoOp"
+        [ fuzz2 config route "no Cmd is run" <|
+            \config route ->
+                let
+                    model =
+                        Model.initialModel config route
+
+                    msg =
+                        RoutingMsg (NoOp route)
+                in
+                    model
+                        |> Update.update msg
+                        |> Tuple.second
+                        |> Expect.equal Cmd.none
         ]
 
 
