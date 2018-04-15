@@ -23,7 +23,7 @@ import Utils
 
 
 view : msg -> msg -> String -> SurveyResult -> Html msg
-view msg noOpMsg path surveyResult =
+view surveyResultsListMsg noOpMsg path surveyResult =
     let
         classes =
             [ "center"
@@ -32,25 +32,31 @@ view msg noOpMsg path surveyResult =
             ]
                 |> String.join " "
 
-        clickOptions =
+        surveyResultsListClickOptions =
             onWithOptions
                 "click"
                 { preventDefault = True, stopPropagation = False }
-                (Decode.succeed msg)
+                (Decode.succeed surveyResultsListMsg)
+
+        noOpClickOptions =
+            onWithOptions
+                "click"
+                { preventDefault = True, stopPropagation = True }
+                (Decode.succeed noOpMsg)
     in
-        main_ []
+        main_ [ noOpClickOptions ]
             [ article
                 [ attribute "data-name" "survey-result-detail", class classes ]
-                [ backToHomeLink path clickOptions
+                [ backToHomeLink path surveyResultsListClickOptions
                 , surveyName surveyResult.name
                 , summary surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        (Theme.View.view noOpMsg)
+                        (Theme.View.view)
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]
-            , footerContent path clickOptions
+            , footerContent path surveyResultsListClickOptions
             ]
 
 

@@ -1,6 +1,6 @@
 module SurveyResponse.View exposing (view)
 
-import Css exposing (color, hex, hover, visible, visibility)
+import Css exposing (hover, visible, visibility)
 import Css.Foreign exposing (children)
 import Dict exposing (Dict)
 import Html.Styled exposing (Html, a, div, text)
@@ -11,8 +11,8 @@ import Styles
 import SurveyResponse.Tooltip as Tooltip
 
 
-view : msg -> Dict String (List Int) -> String -> Html msg
-view msg respondents rating =
+view : Dict String (List Int) -> String -> Html msg
+view respondents rating =
     let
         classes =
             [ "dt"
@@ -28,22 +28,12 @@ view msg respondents rating =
                         [ Styles.brandBackgroundColor ]
                     ]
                 ]
-            , color (hex "000")
             ]
-
-        clickOptions =
-            onWithOptions
-                "click"
-                { preventDefault = True, stopPropagation = False }
-                (Decode.succeed msg)
     in
-        a
+        div
             [ attribute "data-name" "survey-response"
             , class classes
             , css styles
-            , href "#"
-            , clickOptions
-              -- , doubleClickOptions
             ]
             [ content respondents rating ]
 
