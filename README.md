@@ -54,9 +54,10 @@ to continuously run tests on file changes.
 ## Front end
 
 The front end is an [Elm][] application that displays the survey result data.
-It uses [Tachyons][] for functional CSS styling, making this front/back end
-combo one "P" short of the [PETE stack][] (I figured making the back end a
-[Phoenix][] application would have been overkill).
+It uses [Tachyons][] for functional CSS styling and responsive layouts for
+mobile and desktop screens, making this front/back end combo one "P" short of
+the [PETE stack][] (I figured making the back end a [Phoenix][] application
+would have been overkill).
 
 ### Dependencies
 
