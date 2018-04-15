@@ -1,5 +1,8 @@
 module Message.NotFound exposing (view)
 
+{-| Displays a not found message for 404 errors.
+-}
+
 import Html.Styled exposing (Html, a, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)

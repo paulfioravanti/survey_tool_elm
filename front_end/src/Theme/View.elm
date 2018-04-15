@@ -1,5 +1,8 @@
 module Theme.View exposing (view)
 
+{-| Display the contents of a theme.
+-}
+
 import Html.Styled exposing (Html, div, h2, span, text)
 import Html.Styled.Attributes exposing (attribute, class)
 import Question.Model exposing (Question)

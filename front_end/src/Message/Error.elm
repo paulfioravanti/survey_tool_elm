@@ -1,5 +1,8 @@
 module Message.Error exposing (view)
 
+{-| Displays a message for a non-404 error.
+-}
+
 import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed

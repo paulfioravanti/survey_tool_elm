@@ -1,5 +1,8 @@
 module SurveyResultList.Update exposing (update)
 
+{-| Updates the content of a survey result list.
+-}
+
 import RemoteData exposing (RemoteData(Failure, Success), WebData)
 import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
 import SurveyResultList.Model exposing (SurveyResultList)

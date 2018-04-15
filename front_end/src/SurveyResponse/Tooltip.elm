@@ -1,5 +1,9 @@
 module SurveyResponse.Tooltip exposing (view)
 
+{-| Creates content for a tooltip on a survey response from a histogram
+of respondent IDs and their responses.
+-}
+
 import Dict exposing (Dict)
 import Html.Styled exposing (Html, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)

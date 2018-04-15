@@ -1,13 +1,14 @@
 module Question.Decoder exposing (decoder)
 
+{-| Decodes a JSON survey question.
+-}
+
 import Json.Decode as Decode exposing (field, list, string)
 import Json.Decode.Extra exposing ((|:))
 import Question.Model exposing (Question)
 import SurveyResponse.Decoder
 
 
-{-| Decodes a JSON question.
--}
 decoder : Decode.Decoder Question
 decoder =
     let

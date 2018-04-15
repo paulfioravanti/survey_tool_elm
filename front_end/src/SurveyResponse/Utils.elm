@@ -6,6 +6,9 @@ module SurveyResponse.Utils
         , sumResponseContent
         )
 
+{-| Utility functions for survey responses
+-}
+
 import Dict exposing (Dict)
 import Round
 import SurveyResponse.Model exposing (SurveyResponse)

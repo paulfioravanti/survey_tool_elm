@@ -1,5 +1,8 @@
 module SurveyResult.Decoder exposing (decoder)
 
+{-| Decoder for a JSON survey result.
+-}
+
 import Json.Decode as Decode exposing (field, float, int, list, maybe, string)
 import Json.Decode.Extra exposing ((|:))
 import SurveyResult.Model exposing (SurveyResult)

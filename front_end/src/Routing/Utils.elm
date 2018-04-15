@@ -1,5 +1,8 @@
 module Routing.Utils exposing (toRoute, toPath)
 
+{-| Utility functions for routing.
+-}
+
 import Navigation
 import Routing.Route
     exposing

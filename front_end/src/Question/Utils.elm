@@ -1,5 +1,8 @@
 module Question.Utils exposing (averageScore)
 
+{-| Utility functions for Questions.
+-}
+
 import Question.Model exposing (Question)
 import SurveyResponse.Utils
 import Round

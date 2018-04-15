@@ -9,6 +9,9 @@ module Styles
         , tooltip
         )
 
+{-| Elm replacement for a CSS stylesheet of re-usable styles.
+-}
+
 import Css
     exposing
         ( Color

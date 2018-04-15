@@ -1,5 +1,8 @@
 module SurveyResultList.View exposing (view)
 
+{-| Display a survey result list
+-}
+
 import Html.Styled exposing (Html, div, h1, h4, img, main_, section, span, text)
 import Html.Styled.Attributes exposing (alt, attribute, class, src)
 import SurveyResult.View

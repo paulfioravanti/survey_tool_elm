@@ -1,5 +1,8 @@
 module Page.Update exposing (update)
 
+{-| Updates the content of a page depending primarily on the current route.
+-}
+
 import Msg exposing (Msg(SurveyResultMsg, SurveyResultListMsg))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))

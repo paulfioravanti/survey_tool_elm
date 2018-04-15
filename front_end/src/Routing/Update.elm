@@ -1,5 +1,8 @@
 module Routing.Update exposing (update)
 
+{-| Updates the content of a route.
+-}
+
 import Navigation
 import Routing.Msg exposing (Msg(ChangeLocation, NoOp, OnLocationChange))
 import Routing.Route exposing (Route)

@@ -1,5 +1,8 @@
 module SurveyResult.Utils exposing (extractId, toDetailUrl)
 
+{-| Utility functions for a survey result.
+-}
+
 import Regex exposing (HowMany(AtMost))
 
 

@@ -1,5 +1,8 @@
 module SurveyResult.View exposing (view)
 
+{-| Display for a survey result within a survey result list.
+-}
+
 import Html.Styled
     exposing
         ( Html

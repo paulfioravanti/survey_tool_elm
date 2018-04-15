@@ -1,5 +1,8 @@
 module SurveyResponse.View exposing (view)
 
+{-| Display a survey response.
+-}
+
 import Css exposing (hover, visible, visibility)
 import Css.Foreign exposing (children)
 import Dict exposing (Dict)

@@ -1,5 +1,9 @@
 module SurveyResult.Controller exposing (render)
 
+{-| Determines what view should be rendered for a survey result depending
+on the status of the data fetched from the remote API point.
+-}
+
 import Html.Styled exposing (Html, text)
 import Http
 import Message.Loading as Loading
