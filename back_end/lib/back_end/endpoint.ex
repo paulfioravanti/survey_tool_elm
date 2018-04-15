@@ -9,7 +9,7 @@ defmodule BackEnd.Endpoint do
   This function called by `Supervisor.start_link/2`
   """
   def start_link(opts) do
-    {:ok, _} = Plug.Adapters.Cowboy.http(BackEnd.Router, [], opts)
+    {:ok, _} = Plug.Adapters.Cowboy2.http(BackEnd.Router, [], opts)
   end
 
   @doc """
