@@ -2,6 +2,7 @@ sudo: false
 dist: trusty
 matrix:
   include:
+    # Elixir back end
     - language: elixir
       elixir: 1.6.4
       otp_release: 20.3.2
@@ -14,3 +15,40 @@ matrix:
         - cd back_end
       script:
         - mix test
+    # Elm front end
+    # Elm is installed from npm (see install below)
+    - language: node_js
+      # use "latest" version of Node.js
+      node_js: node
+      env:
+        - ELM_VERSION=0.18.0 ELM_TEST=0.18.12
+      cache:
+        directories:
+          - elm-stuff/build-artifacts
+          - elm-stuff/packages
+          - tests/elm-stuff/build-artifacts
+          - tests/elm-stuff/packages
+          - sysconfcpus
+          # https://stackoverflow.com/a/42523517/567863
+          - $HOME/.npm
+      before_install:
+        - cd front_end
+        - | # build time improvement see: https://git.io/vQcqz
+          if [ ! -d sysconfcpus/bin ]; then
+            git clone https://github.com/obmarg/libsysconfcpus.git;
+            cd libsysconfcpus;
+            ./configure --prefix=$TRAVIS_BUILD_DIR/sysconfcpus;
+            make && make install;
+            cd ..;
+          fi
+      # install specific versions of elm & elm-test
+      install:
+        - npm install -g elm@$ELM_VERSION elm-test@$ELM_TEST elm-verify-examples
+        # the next 3 lines are courtesy of @rtfeldman https://git.io/vbj0j
+        - mv $(npm config get prefix)/bin/elm-make $(npm config get prefix)/bin/elm-make-old
+        - printf "#\041/bin/bash\n\necho \"Running elm-make with sysconfcpus -n 2\"\n\n$TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-make-old \"\$@\"" > $(npm config get prefix)/bin/elm-make
+        - chmod +x $(npm config get prefix)/bin/elm-make
+        - travis_retry elm package install --yes
+      script:
+        - elm-test --verbose
+        - elm-verify-examples --fail-on-warn
