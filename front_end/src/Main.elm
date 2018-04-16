@@ -6,6 +6,7 @@ unable to figure out a way to test init through main.
 -}
 
 import Config exposing (Config)
+import Flags exposing (Flags)
 import Html.Styled as Html
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg, UpdatePage))
@@ -17,7 +18,7 @@ import Task
 import Update
 
 
-main : Program Config Model Msg.Msg
+main : Program Flags Model Msg.Msg
 main =
     Navigation.programWithFlags
         (RoutingMsg << OnLocationChange)
@@ -28,9 +29,12 @@ main =
         }
 
 
-init : Config -> Navigation.Location -> ( Model, Cmd Msg.Msg )
-init config location =
+init : Flags -> Navigation.Location -> ( Model, Cmd Msg.Msg )
+init flags location =
     let
+        config =
+            Config.init flags
+
         model =
             location
                 |> Routing.Utils.toRoute
