@@ -3,7 +3,6 @@ module ConfigTest exposing (suite)
 import Config exposing (Config)
 import Expect
 import Flags exposing (Flags)
-import Fuzz exposing (Fuzzer, string)
 import Test exposing (Test, describe, test)
 
 
