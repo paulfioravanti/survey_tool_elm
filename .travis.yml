@@ -10,7 +10,7 @@ matrix:
           - _build
           - deps
       env: MIX_ENV=test
-      before_script:
+      before_install:
         - cd back_end
       script:
         - mix test
