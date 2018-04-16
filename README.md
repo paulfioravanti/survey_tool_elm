@@ -1,3 +1,5 @@
+[![Build Status][travis-badge]][travis-url]
+
 # Survey Tool Front End Developer Coding Test
 
 An [Elm][] application that retrieves survey result information from a [JSON][]
@@ -178,6 +180,8 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [stackoverflow-url]: http://stackoverflow.com/users/567863/paul-fioravanti
 [survey-tool-ruby]: https://github.com/paulfioravanti/survey_tool_ruby
 [Tachyons]: http://tachyons.io/
+[travis-badge]: https://travis-ci.org/paulfioravanti/survey_tool_elm.svg?branch=master
+[travis-url]: https://travis-ci.org/paulfioravanti/survey_tool_elm
 [twitter-badge]: https://img.shields.io/badge/contact-%40paulfioravanti-blue.svg
 [twitter-url]: https://twitter.com/paulfioravanti
 [watchexec]: https://github.com/mattgreen/watchexec
