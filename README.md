@@ -27,7 +27,7 @@ serve the JSON files expected by the front end.
 
 ### Run Server
 
-    iex -S mix
+    mix run --no-halt
 
 Now, you should be able to open the following links and get the appropriate
 JSON response:
