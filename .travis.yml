@@ -1,0 +1,16 @@
+sudo: false
+dist: trusty
+matrix:
+  include:
+    - language: elixir
+      elixir: 1.6.4
+      otp_release: 20.3.2
+      cache:
+        directories:
+          - _build
+          - deps
+      env: MIX_ENV=test
+      before_script:
+        - cd back_end
+      script:
+        - mix test
