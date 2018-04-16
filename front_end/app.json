@@ -1,9 +1,6 @@
 {
   "name": "Survey Tool front end app",
   "repository": "https://github.com/paulfioravanti/survey_tool_elm",
-  "env": {
-    "ELM_COMPILE": "elm-app build"
-  },
   "buildpacks": [
     {
       "url": "https://github.com/srid/heroku-buildpack-elm.git"
