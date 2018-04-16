@@ -7,8 +7,10 @@ An [Elm][] application that retrieves survey result information from a [JSON][]
 
 ## Setup
 
-    git clone https://github.com/paulfioravanti/survey_tool_elm.git
-    cd survey_tool_elm
+```sh
+git clone https://github.com/paulfioravanti/survey_tool_elm.git
+cd survey_tool_elm
+```
 
 ## Back end
 
@@ -22,12 +24,16 @@ serve the JSON files expected by the front end.
 
 ### Setup
 
-    cd back_end
-    mix deps.get
+```sh
+cd back_end
+mix deps.get
+```
 
 ### Run Server
 
-    mix run --no-halt
+```sh
+mix run --no-halt
+```
 
 Now, you should be able to open the following links and get the appropriate
 JSON response:
@@ -46,7 +52,9 @@ For easy reading of JSON objects in a browser, I recommend the
 The back end server has a small suite of tests, written with [ExUnit][], that
 can be run with:
 
-    mix test
+```sh
+mix test
+```
 
 [`mix test.watch`][] was used during development, so that can also be used here
 to continuously run tests on file changes.
@@ -78,7 +86,9 @@ installing them to be able to run all application and testing commands:
 
 Install:
 
-    npm install -g elm-test create-elm-app elm-verify-examples elm-coverage
+```sh
+npm install -g elm-test create-elm-app elm-verify-examples elm-coverage
+```
 
 In order to get `mix test.watch`-like functionality with Elm, I used:
 
@@ -87,18 +97,24 @@ In order to get `mix test.watch`-like functionality with Elm, I used:
 
 They can both be installed with [Homebrew][]:
 
-    brew install just watchexec
+```sh
+brew install just watchexec
+```
 
 #### Application Setup
 
-    cd front_end
-    npm install
-    elm-package install
-    cp .env.example .env
+```sh
+cd front_end
+npm install
+elm-package install
+cp .env.example .env
+```
 
 ### Run Server
 
-    elm-app start
+```sh
+elm-app start
+```
 
 Now, you should be able to use the app at the following address:
 
@@ -111,21 +127,29 @@ survey results).
 
 Install the elm packages in the `tests` directory first:
 
-    cd tests
-    elm-package install
+```sh
+cd tests
+elm-package install
+```
 
 Straight tests:
 
-    elm-test
+```sh
+elm-test
+```
 
 Verified examples (doctests):
 
-    elm-verified-examples
+```sh
+elm-verified-examples
+```
 
 Run tests and generate code coverage report:
 
-    elm-coverage
-    open .coverage/coverage.html
+```sh
+elm-coverage
+open .coverage/coverage.html
+```
 
 #### Development Mode (optional)
 
@@ -134,14 +158,71 @@ If you're using this app in development, you could do the following:
 Use `just` and `watchexec` to run both `elm-verify-examples` and `elm-test`
 when any `src` code is modified:
 
-    watchexec --watch src --clear just test
+```sh
+watchexec --watch src --clear just test
+```
 
 Use `just` and `watchexec` to run both `elm-verify-examples` and `elm-coverage`
 (which runs `elm-test`) when any tests are modified. The `src` directory is not
 included here because `elm-coverage` ends up touching every `src` file during
 its instrumentation phase, leading to infinite loops:
 
-    watchexec --watch tests --ignore tests/elm-package.json --clear just coverage
+```sh
+watchexec --watch tests --ignore tests/elm-package.json --clear just coverage
+```
+
+## Deployment
+
+Both the front end and back end applications have been deployed to [Heroku][],
+and can be found at the following links:
+
+- Front end: <https://survey-tool-front-end.herokuapp.com/survey_results>
+- Back end: <https://survey-tool-back-end.herokuapp.com/survey_results>
+
+### Deployment Notes
+
+The git remotes for the application look like the following:
+
+```sh
+➜ [survey_tool_elm (master)]$ git remote -v
+heroku-survey-tool-back-end     https://git.heroku.com/survey-tool-back-end.git (fetch)
+heroku-survey-tool-back-end     https://git.heroku.com/survey-tool-back-end.git (push)
+heroku-survey-tool-front-end    https://git.heroku.com/survey-tool-front-end.git (fetch)
+heroku-survey-tool-front-end    https://git.heroku.com/survey-tool-front-end.git (push)
+origin  git@github.com:paulfioravanti/survey_tool_elm.git (fetch)
+origin  git@github.com:paulfioravanti/survey_tool_elm.git (push)
+```
+
+Both applications share the same Github repository, but are deployed to separate
+Heroku instance using `git subtree`:
+
+```sh
+git subtree push --prefix back_end heroku-survey-tool-back-end master
+git subtree push --prefix front_end heroku-survey-tool-front-end master
+```
+
+The back end application uses the [Heroku Buildpack for Elixir][], and when it
+gets deployed, the `mix run --no-halt` command in the `Procfile` gets run to
+start the Cowboy server to serve up the JSON.
+
+The front end application uses [heroku-buildpack-static][] for deployment, with
+a `static.json` file that points the `root` folder of the application at
+the `build` directory.
+
+There is a [Heroku buildpack for Elm apps][], but since the application was
+created with [Create Elm App][], the command to generate a production app is
+[`elm-app build`][] (and not `elm make` as the buildpack expects), which, along
+with other Create Elm App commands, are not available during the deployment
+process.
+
+Therefore, a new build of this application must be generated manually and
+locally before every Heroku deployment. Hence, the `build` directory has been
+put under version control (by default it is `.gitignore`d). This means the
+deployment steps are:
+
+- Run `elm-app build`
+- Commit the changes to the `build` directory to the repository
+- Deploy to Heroku
 
 ## Other
 
@@ -162,10 +243,15 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [Elixir]: https://github.com/elixir-lang/elixir
 [Elm]: http://elm-lang.org/
 [Elm Coverage]: https://github.com/zwilias/elm-coverage
+[`elm-app build`]: https://github.com/halfzebra/create-elm-app#elm-app-build
 [elm-test]: https://github.com/elm-community/elm-test
 [elm-verify-examples]: https://github.com/stoeffel/elm-verify-examples
 [Erlang]: https://www.erlang.org/
 [ExUnit]: https://hexdocs.pm/ex_unit/ExUnit.html
+[Heroku]: https://www.heroku.com/
+[Heroku buildpack for Elm apps]: https://github.com/srid/heroku-buildpack-elm
+[heroku-buildpack-static]: https://github.com/heroku/heroku-buildpack-static
+[Heroku Buildpack for Elixir]: https://github.com/HashNuke/heroku-buildpack-elixir
 [Homebrew]: https://brew.sh/
 [JSON]: https://www.json.org/
 [JSON Formatter]: https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa
