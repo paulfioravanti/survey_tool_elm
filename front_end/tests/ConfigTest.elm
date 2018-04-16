@@ -10,7 +10,8 @@ suite : Test
 suite =
     describe "init"
         [ productionEnvironmentTest ()
-        , otherEnvironmentTest ()
+        , otherEnvironmentWithApiUrlGivenTest ()
+        , otherEnvironmentWithApiUrlNotGivenTest ()
         ]
 
 
@@ -18,12 +19,12 @@ productionEnvironmentTest : () -> Test
 productionEnvironmentTest () =
     let
         flags =
-            Flags "production"
+            Flags "production" "http://localhost:4000/survey_results"
 
         config =
             Config "https://survey-tool-back-end.herokuapp.com/survey_results"
     in
-        describe "when running environment is production"
+        describe "when environment is production"
             [ test "apiUrl is set to be the production url" <|
                 \() ->
                     flags
@@ -32,16 +33,37 @@ productionEnvironmentTest () =
             ]
 
 
-otherEnvironmentTest : () -> Test
-otherEnvironmentTest () =
+otherEnvironmentWithApiUrlGivenTest : () -> Test
+otherEnvironmentWithApiUrlGivenTest () =
+    let
+        apiUrl =
+            "http://example.com/survey_results"
+
+        flags =
+            Flags "someEnvironment" apiUrl
+
+        config =
+            Config apiUrl
+    in
+        describe "when environment is not production and apiUrl given"
+            [ test "apiUrl is set to be the given url" <|
+                \() ->
+                    flags
+                        |> Config.init
+                        |> Expect.equal config
+            ]
+
+
+otherEnvironmentWithApiUrlNotGivenTest : () -> Test
+otherEnvironmentWithApiUrlNotGivenTest () =
     let
         flags =
-            Flags "someEnvironment"
+            Flags "someEnvironment" ""
 
         config =
             Config "http://localhost:4000/survey_results"
     in
-        describe "when running environment is not production"
+        describe "when environment is not production and apiUrl not given"
             [ test "apiUrl is set to be the localhost url" <|
                 \() ->
                     flags

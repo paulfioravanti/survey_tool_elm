@@ -7,3 +7,4 @@ import Flags exposing (Flags)
 fuzzer : Fuzzer Flags
 fuzzer =
     Fuzz.map Flags string
+        |> Fuzz.andMap string

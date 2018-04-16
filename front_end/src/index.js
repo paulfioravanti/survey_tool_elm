@@ -5,5 +5,6 @@ import "tachyons";
 import { Main } from "./Main.elm";
 
 Main.embed(document.getElementById("root"), {
-  environment: process.env.NODE_ENV
+  environment: process.env.NODE_ENV,
+  apiUrl: process.env.ELM_APP_API_URL
 });

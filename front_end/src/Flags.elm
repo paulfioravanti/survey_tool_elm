@@ -2,4 +2,6 @@ module Flags exposing (Flags)
 
 
 type alias Flags =
-    { environment : String }
+    { environment : String
+    , apiUrl : String
+    }

@@ -17,6 +17,9 @@ init flags =
                     "https://survey-tool-back-end.herokuapp.com/survey_results"
 
                 _ ->
-                    "http://localhost:4000/survey_results"
+                    if String.isEmpty flags.apiUrl then
+                        "http://localhost:4000/survey_results"
+                    else
+                        flags.apiUrl
     in
         { apiUrl = apiUrl }
