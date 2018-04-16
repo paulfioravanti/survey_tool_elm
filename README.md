@@ -185,10 +185,10 @@ The git remotes for the application look like the following:
 
 ```sh
 ➜ [survey_tool_elm (master)]$ git remote -v
-heroku-survey-tool-back-end     https://git.heroku.com/survey-tool-back-end.git (fetch)
-heroku-survey-tool-back-end     https://git.heroku.com/survey-tool-back-end.git (push)
-heroku-survey-tool-front-end    https://git.heroku.com/survey-tool-front-end.git (fetch)
-heroku-survey-tool-front-end    https://git.heroku.com/survey-tool-front-end.git (push)
+heroku-survey-tool-back-end  https://git.heroku.com/survey-tool-back-end.git (fetch)
+heroku-survey-tool-back-end  https://git.heroku.com/survey-tool-back-end.git (push)
+heroku-survey-tool-front-end https://git.heroku.com/survey-tool-front-end.git (fetch)
+heroku-survey-tool-front-end https://git.heroku.com/survey-tool-front-end.git (push)
 origin  git@github.com:paulfioravanti/survey_tool_elm.git (fetch)
 origin  git@github.com:paulfioravanti/survey_tool_elm.git (push)
 ```
