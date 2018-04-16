@@ -18,8 +18,6 @@ serve the JSON files expected by the front end.
 - [Elixir][] 1.6.4
 - [Erlang][] 20.3.2
 
-I personally recommend [asdf][] to install the languages and their dependencies.
-
 ### Setup
 
     cd back_end
@@ -63,8 +61,6 @@ would have been overkill).
 
 - [Elm][] 0.18.0
 - [NodeJS][] 9.9.0
-
-I personally recommend [asdf][] to install the languages and their dependencies.
 
 ### Setup
 
@@ -159,7 +155,6 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [![Stack Overflow][stackoverflow-badge]][stackoverflow-url]
 
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
-[asdf]: https://github.com/asdf-vm/asdf
 [Cowboy2 adapter]: https://github.com/elixir-plug/plug/blob/master/lib/plug/adapters/cowboy2.ex
 [Create Elm App]: https://github.com/halfzebra/create-elm-app
 [Elixir]: https://github.com/elixir-lang/elixir
