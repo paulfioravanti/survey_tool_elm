@@ -1,7 +1,5 @@
 # Distribution
-# NOTE: Checking this in for now since I can't seem to figure out how to
-# have `elm-app build` when deploying to Heroku.
-# build/
+build/
 
 # elm-package generated files
 elm-stuff
