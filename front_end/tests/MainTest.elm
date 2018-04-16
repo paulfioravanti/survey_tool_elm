@@ -2,8 +2,9 @@ module MainTest exposing (suite)
 
 import Config exposing (Config)
 import Expect
+import Flags exposing (Flags)
 import Fuzz exposing (Fuzzer)
-import Fuzzer.Config as Config
+import Fuzzer.Flags as Flags
 import Fuzzer.Navigation.Location as Location
 import Main
 import Model exposing (Model)
@@ -20,25 +21,28 @@ http://package.elm-lang.org/packages/elm-lang/core/latest/Basics#==
 suite : Test
 suite =
     let
-        config =
-            Config.fuzzer
+        flags =
+            Flags.fuzzer
 
         location =
             Location.fuzzer
     in
         describe "Main"
-            [ initTest config location
-            , subscriptionsTest config location
+            [ initTest flags location
+            , subscriptionsTest flags location
             ]
 
 
-initTest : Fuzzer Config -> Fuzzer Navigation.Location -> Test
-initTest config location =
-    fuzz2 config location "init" <|
-        \config location ->
+initTest : Fuzzer Flags -> Fuzzer Navigation.Location -> Test
+initTest flags location =
+    fuzz2 flags location "init" <|
+        \flags location ->
             let
                 rootLocation =
                     { location | pathname = "/" }
+
+                config =
+                    Config.init flags
 
                 model =
                     rootLocation
@@ -46,16 +50,19 @@ initTest config location =
                         |> Model.initialModel config
             in
                 rootLocation
-                    |> Main.init config
+                    |> Main.init flags
                     |> Tuple.first
                     |> Expect.equal model
 
 
-subscriptionsTest : Fuzzer Config -> Fuzzer Navigation.Location -> Test
-subscriptionsTest config location =
-    fuzz2 config location "subscriptions" <|
-        \config location ->
+subscriptionsTest : Fuzzer Flags -> Fuzzer Navigation.Location -> Test
+subscriptionsTest flags location =
+    fuzz2 flags location "subscriptions" <|
+        \flags location ->
             let
+                config =
+                    Config.init flags
+
                 model =
                     { location | pathname = "/" }
                         |> Routing.Utils.toRoute
