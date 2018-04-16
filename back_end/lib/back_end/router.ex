@@ -23,18 +23,18 @@ defmodule BackEnd.Router do
     only: ~w(favicon.ico)
   )
 
-  # plug(CORSPlug)
+  plug(CORSPlug)
   plug(:match)
   plug(:dispatch)
 
   get "/survey_results" do
-    "survey_results/index.json"
+    "lib/back_end/survey_results/index.json"
     |> read_file()
     |> send_response(conn)
   end
 
   get "/survey_results/:id" do
-    "survey_results/#{id}.json"
+    "lib/back_end/survey_results/#{id}.json"
     |> read_file()
     |> send_response(conn)
   end
@@ -45,7 +45,7 @@ defmodule BackEnd.Router do
 
   defp read_file(path) do
     path
-    |> Path.expand(__DIR__)
+    |> Path.expand(File.cwd!())
     |> File.read()
   end
 
