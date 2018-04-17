@@ -5,7 +5,6 @@ module SurveyResultList.View exposing (view)
 
 import Html.Styled exposing (Html, div, h1, h4, img, main_, section, span, text)
 import Html.Styled.Attributes exposing (alt, attribute, class, src)
-import SurveyResult.View
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Model exposing (SurveyResultList)
 
@@ -38,7 +37,7 @@ surveyResultList msg surveyResults =
         div [ class classes ]
             [ heading ]
             :: (surveyResults
-                    |> List.map (SurveyResult.View.view msg)
+                    |> List.map (SurveyResult.view msg)
                )
 
 
