@@ -3,8 +3,8 @@ module Model exposing (Model, initialModel)
 import Config exposing (Config)
 import RemoteData exposing (RemoteData(NotRequested), WebData)
 import Routing.Route exposing (Route)
+import SurveyResult exposing (SurveyResult)
 import SurveyResultList exposing (SurveyResultList)
-import SurveyResult.Model exposing (SurveyResult)
 
 
 type alias Model =

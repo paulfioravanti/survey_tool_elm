@@ -20,7 +20,7 @@ import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import Html.Styled.Events exposing (onWithOptions)
 import Json.Decode as Decode
 import Styles
-import SurveyResult.Model exposing (SurveyResult)
+import SurveyResult exposing (SurveyResult)
 import Theme.View
 import Utils
 
