@@ -25,7 +25,7 @@ init flags =
 
 productionApiUrl : String
 productionApiUrl =
-    "https://survey-tool-back-end.herokuapp.com/survey_results"
+    "https://survey-tool-back-end.herokuapp.com"
 
 
 nonProductionApiUrl : Decode.Value -> String
@@ -40,4 +40,4 @@ nonProductionApiUrl apiUrlFlag =
                 url
 
             Err _ ->
-                "http://localhost:4000/survey_results"
+                "http://localhost:4000"
