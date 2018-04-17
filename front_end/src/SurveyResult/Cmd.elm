@@ -12,7 +12,7 @@ fetchSurveyResult : String -> String -> Cmd Msg
 fetchSurveyResult id apiUrl =
     let
         url =
-            apiUrl ++ "/survey_results/" ++ id
+            apiUrl ++ id
     in
         Decoder.decoder
             |> Http.get url

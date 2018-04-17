@@ -7,10 +7,6 @@ import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
 
 fetchSurveyResultList : String -> Cmd Msg
 fetchSurveyResultList apiUrl =
-    let
-        url =
-            apiUrl ++ "/survey_results"
-    in
-        Decoder.decoder
-            |> Http.get url
-            |> Http.send FetchSurveyResultList
+    Decoder.decoder
+        |> Http.get apiUrl
+        |> Http.send FetchSurveyResultList

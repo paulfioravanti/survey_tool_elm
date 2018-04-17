@@ -22,10 +22,10 @@ productionEnvironmentTest () =
         flags =
             Flags
                 "production"
-                (Encode.string "http://localhost:4000")
+                (Encode.string "http://localhost:4000/survey_results/")
 
         config =
-            Config "https://survey-tool-back-end.herokuapp.com"
+            Config "https://survey-tool-back-end.herokuapp.com/survey_results/"
     in
         describe "when environment is production"
             [ test "apiUrl is set to be the production url" <|
@@ -40,7 +40,7 @@ otherEnvironmentWithApiUrlGivenTest : () -> Test
 otherEnvironmentWithApiUrlGivenTest () =
     let
         apiUrl =
-            "http://example.com"
+            "http://example.com/survey_results/"
 
         apiUrlFlag =
             Encode.string apiUrl
@@ -70,7 +70,7 @@ otherEnvironmentWithApiUrlNotGivenTest () =
             Flags "someEnvironment" Encode.null
 
         config =
-            Config "http://localhost:4000"
+            Config "http://localhost:4000/survey_results/"
     in
         describe "when environment is not production and apiUrl not given"
             [ test "apiUrl is set to be the localhost url" <|
