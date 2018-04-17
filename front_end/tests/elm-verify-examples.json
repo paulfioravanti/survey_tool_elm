@@ -2,14 +2,17 @@
   "root": "../src",
   "tests": [
     "Model",
+    "Question.Decoder",
     "Question.Utils",
     "Routing.Utils",
+    "SurveyResponse.Decoder",
     "SurveyResponse.RespondentHistogram",
     "SurveyResponse.Utils",
     "SurveyResult.Decoder",
     "SurveyResult.Utils",
     "SurveyResultDetail.Decoder",
     "SurveyResultList.Decoder",
+    "Theme.Decoder",
     "Utils"
   ]
 }

@@ -9,6 +9,40 @@ import Question.Model exposing (Question)
 import SurveyResponse.Decoder
 
 
+{-| Decodes a JSON question from a survey result
+
+    import Json.Decode as Decode
+    import Question.Model exposing (Question)
+    import SurveyResponse.Model exposing (SurveyResponse)
+
+    json : String
+    json =
+        """
+        {
+          "description": "I like the kind of work I do.",
+          "question_type": "ratingquestion",
+          "survey_responses": [
+            {
+              "response_content": "5",
+              "respondent_id": 1,
+              "question_id": 1,
+              "id": 1
+            }
+          ]
+        }
+        """
+
+    question : Question
+    question =
+        Question
+           "I like the kind of work I do."
+           [ SurveyResponse 1 1 1 "5" ]
+           "ratingquestion"
+
+    Decode.decodeString decoder json
+    --> Ok question
+
+-}
 decoder : Decode.Decoder Question
 decoder =
     let
