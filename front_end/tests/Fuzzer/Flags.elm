@@ -1,10 +1,11 @@
 module Fuzzer.Flags exposing (fuzzer)
 
-import Fuzz exposing (Fuzzer, string)
+import Fuzz exposing (Fuzzer, constant, string)
 import Flags exposing (Flags)
+import Json.Encode as Encode
 
 
 fuzzer : Fuzzer Flags
 fuzzer =
     Fuzz.map Flags string
-        |> Fuzz.andMap string
+        |> Fuzz.andMap (constant (Encode.string "http://www.example.com/"))

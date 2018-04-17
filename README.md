@@ -110,6 +110,10 @@ elm-package install
 cp .env.example .env
 ```
 
+In development, if you want to serve up the back end JSON application from a
+location other than <http://localhost:4000/survey_results>, then you can
+configure that in the `.env` file.
+
 ### Run Server
 
 ```sh

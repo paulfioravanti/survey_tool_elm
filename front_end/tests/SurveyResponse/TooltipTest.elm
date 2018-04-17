@@ -16,7 +16,8 @@ suite =
         [ noRespondentsTest ()
         , oneRespondentTest ()
         , allRespondentsDisplayableTest ()
-        , truncatedRespondentsTest ()
+        , truncatedRespondentsOneExtraTest ()
+        , truncatedRespondentsMultipleExtraTest ()
         ]
 
 
@@ -95,8 +96,8 @@ allRespondentsDisplayableTest () =
             ]
 
 
-truncatedRespondentsTest : () -> Test
-truncatedRespondentsTest () =
+truncatedRespondentsOneExtraTest : () -> Test
+truncatedRespondentsOneExtraTest () =
     let
         histogram =
             Dict.fromList
@@ -106,10 +107,35 @@ truncatedRespondentsTest () =
             Selector.attribute
                 (Attributes.attribute
                     "data-name"
-                    "survey-response-tooltip-truncated-respondents"
+                    "survey-response-tooltip-one-truncated-respondent"
                 )
     in
-        describe "when all respondents are not displayable in tooltip"
+        describe "when one respondent is not displayable in tooltip"
+            [ test "truncates respondents list" <|
+                \() ->
+                    histogram
+                        |> Tooltip.view "1"
+                        |> Html.Styled.toUnstyled
+                        |> Query.fromHtml
+                        |> Query.has [ tag "span", truncatedRespondents ]
+            ]
+
+
+truncatedRespondentsMultipleExtraTest : () -> Test
+truncatedRespondentsMultipleExtraTest () =
+    let
+        histogram =
+            Dict.fromList
+                [ ( "1", [ 1, 2, 3, 4, 5, 6, 7 ] ) ]
+
+        truncatedRespondents =
+            Selector.attribute
+                (Attributes.attribute
+                    "data-name"
+                    "survey-response-tooltip-multiple-truncated-respondents"
+                )
+    in
+        describe "when multiple respondents are not displayable in tooltip"
             [ test "truncates respondents list" <|
                 \() ->
                     histogram

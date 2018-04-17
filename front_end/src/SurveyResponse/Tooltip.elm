@@ -76,9 +76,7 @@ respondentsByResponseContent responseContent histogram =
             , (displayAllRespondents head)
             )
         else
-            ( attributeName ++ "truncated-respondents"
-            , (displayTruncatedRespondents head tail)
-            )
+            truncatedRespondents head tail
 
 
 displaySingleRespondent : List Int -> String
@@ -118,8 +116,8 @@ displayAllRespondents respondents =
         "Chosen by respondent IDs " ++ headIds ++ ", and " ++ tailId ++ "."
 
 
-displayTruncatedRespondents : List Int -> List Int -> String
-displayTruncatedRespondents respondentsToDisplay truncatedRespondents =
+truncatedRespondents : List Int -> List Int -> ( String, String )
+truncatedRespondents respondentsToDisplay truncatedRespondents =
     let
         idsToDisplay =
             respondentsToDisplay
@@ -134,9 +132,17 @@ displayTruncatedRespondents respondentsToDisplay truncatedRespondents =
                 " other."
             else
                 " others."
+
+        attribute =
+            if numTruncated == 1 then
+                "survey-response-tooltip-one-truncated-respondent"
+            else
+                "survey-response-tooltip-multiple-truncated-respondents"
     in
-        "Chosen by respondent IDs "
+        ( attribute
+        , "Chosen by respondent IDs "
             ++ idsToDisplay
             ++ ", and "
             ++ toString numTruncated
             ++ others
+        )

@@ -1,6 +1,7 @@
 module ConfigTest exposing (suite)
 
 import Config exposing (Config)
+import Json.Encode as Encode
 import Expect
 import Flags exposing (Flags)
 import Test exposing (Test, describe, test)
@@ -19,7 +20,9 @@ productionEnvironmentTest : () -> Test
 productionEnvironmentTest () =
     let
         flags =
-            Flags "production" "http://localhost:4000/survey_results"
+            Flags
+                "production"
+                (Encode.string "http://localhost:4000/survey_results")
 
         config =
             Config "https://survey-tool-back-end.herokuapp.com/survey_results"
@@ -39,8 +42,11 @@ otherEnvironmentWithApiUrlGivenTest () =
         apiUrl =
             "http://example.com/survey_results"
 
+        apiUrlFlag =
+            Encode.string apiUrl
+
         flags =
-            Flags "someEnvironment" apiUrl
+            Flags "someEnvironment" apiUrlFlag
 
         config =
             Config apiUrl
@@ -57,8 +63,11 @@ otherEnvironmentWithApiUrlGivenTest () =
 otherEnvironmentWithApiUrlNotGivenTest : () -> Test
 otherEnvironmentWithApiUrlNotGivenTest () =
     let
+        -- If no value is given for the apiUrl flag, then this will be
+        -- undefined, but inserting null will make the decoding fail in the
+        -- same way that is desired to fall back to the default apiUrl value.
         flags =
-            Flags "someEnvironment" ""
+            Flags "someEnvironment" Encode.null
 
         config =
             Config "http://localhost:4000/survey_results"
