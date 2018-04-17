@@ -5,7 +5,6 @@ for the survey result detail pages.
 -}
 
 import Json.Decode as Decode
-import SurveyResult.Decoder
 import SurveyResult exposing (SurveyResult)
 
 
@@ -77,7 +76,7 @@ decoder : Decode.Decoder SurveyResult
 decoder =
     let
         surveyResult =
-            SurveyResult.Decoder.decoder
+            SurveyResult.decoder
     in
         surveyResult
             |> Decode.at [ "survey_result_detail" ]
