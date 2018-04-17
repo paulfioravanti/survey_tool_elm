@@ -14,7 +14,7 @@ import Routing.Route
             )
         )
 import SurveyResult.Cmd
-import SurveyResultList.Cmd
+import SurveyResultList
 
 
 update : Model -> ( Model, Cmd Msg )
@@ -25,7 +25,7 @@ update model =
                 NotRequested ->
                     ( { model | surveyResultList = Requesting }
                     , model.config.apiUrl
-                        |> SurveyResultList.Cmd.fetchSurveyResultList
+                        |> SurveyResultList.fetchSurveyResultList
                         |> Cmd.map SurveyResultListMsg
                     )
 

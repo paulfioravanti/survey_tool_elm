@@ -13,7 +13,7 @@ import Model exposing (Model)
 import Page.Update
 import Routing.Update
 import SurveyResult.Update
-import SurveyResultList.Update
+import SurveyResultList
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -31,7 +31,7 @@ update msg model =
         SurveyResultListMsg msg ->
             let
                 ( surveyResultList, cmd ) =
-                    SurveyResultList.Update.update msg
+                    SurveyResultList.update msg
             in
                 ( { model | surveyResultList = surveyResultList }
                 , Cmd.map SurveyResultListMsg cmd

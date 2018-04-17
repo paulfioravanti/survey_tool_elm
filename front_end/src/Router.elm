@@ -15,7 +15,7 @@ import Routing.Route
         )
 import Routing.Utils as Utils
 import SurveyResult.Controller
-import SurveyResultList.Controller
+import SurveyResultList
 
 
 route : Model -> Html Msg.Msg
@@ -27,7 +27,7 @@ route { route, surveyResultList, surveyResultDetail } =
                     (ChangeLocation << SurveyResultDetailRoute)
             in
                 surveyResultList
-                    |> SurveyResultList.Controller.render msg
+                    |> SurveyResultList.view msg
                     |> Html.map RoutingMsg
 
         SurveyResultDetailRoute id ->
