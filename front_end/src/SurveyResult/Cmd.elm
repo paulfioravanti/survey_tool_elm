@@ -4,7 +4,7 @@ module SurveyResult.Cmd exposing (fetchSurveyResult)
 -}
 
 import Http
-import SurveyResultDetail.Decoder as Decoder
+import SurveyResultDetail
 import SurveyResult.Msg exposing (Msg(FetchSurveyResult))
 
 
@@ -14,6 +14,6 @@ fetchSurveyResult id apiUrl =
         url =
             apiUrl ++ id
     in
-        Decoder.decoder
+        SurveyResultDetail.decoder
             |> Http.get url
             |> Http.send FetchSurveyResult
