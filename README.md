@@ -70,7 +70,7 @@ would have been overkill).
 ### Dependencies
 
 - [Elm][] 0.18.0
-- [NodeJS][] 9.9.0
+- [NodeJS][] 9.11.1
 
 ### Setup
 
