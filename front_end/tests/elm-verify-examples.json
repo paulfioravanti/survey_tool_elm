@@ -4,6 +4,7 @@
     "Model",
     "Question.Utils",
     "Routing.Utils",
+    "SurveyResponse.RespondentHistogram",
     "SurveyResponse.Utils",
     "SurveyResult.Decoder",
     "SurveyResult.Utils",

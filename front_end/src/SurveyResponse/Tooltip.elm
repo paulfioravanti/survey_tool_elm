@@ -8,9 +8,10 @@ import Dict exposing (Dict)
 import Html.Styled exposing (Html, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Styles
+import SurveyResponse.RespondentHistogram exposing (RespondentHistogram)
 
 
-view : String -> Dict String (List Int) -> Html msg
+view : String -> RespondentHistogram -> Html msg
 view rating histogram =
     let
         ( attributeName, respondents ) =
@@ -43,7 +44,7 @@ view rating histogram =
 
 respondentsByResponseContent :
     String
-    -> Dict String (List Int)
+    -> RespondentHistogram
     -> ( String, String )
 respondentsByResponseContent responseContent histogram =
     let

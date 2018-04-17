@@ -5,6 +5,7 @@ import Html.Styled.Attributes exposing (attribute, class, css)
 import Question.Model exposing (Question)
 import Styles
 import SurveyResponse.Model exposing (SurveyResponse)
+import SurveyResponse.RespondentHistogram as RespondentHistogram
 import SurveyResponse.Utils
 import SurveyResponse.View
 
@@ -89,7 +90,7 @@ responses surveyResponses =
 
         respondents =
             surveyResponses
-                |> SurveyResponse.Utils.respondentHistogram
+                |> RespondentHistogram.fromSurveyResponseList
 
         classes =
             [ "flex"
