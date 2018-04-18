@@ -7,7 +7,7 @@ import Fuzzer.Config as Config
 import Fuzzer.SurveyResult as SurveyResult
 import Http exposing (Error(NetworkError))
 import Model exposing (Model)
-import Msg exposing (Msg(SurveyResultMsg))
+import Msg exposing (Msg(SurveyResultDetailMsg))
 import RemoteData
     exposing
         ( RemoteData
@@ -18,10 +18,10 @@ import RemoteData
             )
         )
 import Result exposing (Result)
-import Routing.Route exposing (Route(SurveyResultDetailRoute))
+import Router.Route exposing (Route(SurveyResultDetailRoute))
 import SurveyResult.Model exposing (SurveyResult)
-import SurveyResult.Msg exposing (Msg(FetchSurveyResult))
 import SurveyResult.Utils as Utils
+import SurveyResultDetail.Msg exposing (Msg(FetchSurveyResultDetail))
 import Test exposing (Test, describe, fuzz2)
 import Update
 
@@ -43,7 +43,7 @@ suite =
 
 fetchSurveyResultFailureTest : Fuzzer Config -> Fuzzer SurveyResult -> Test
 fetchSurveyResultFailureTest config surveyResult =
-    describe "when SurveyResultMsg FetchSurveyResult request fails"
+    describe "when SurveyResultDetailMsg FetchSurveyResultDetail request fails"
         [ fuzz2
             config
             surveyResult
@@ -63,8 +63,8 @@ fetchSurveyResultFailureTest config surveyResult =
                             NotRequested
 
                     msg =
-                        SurveyResultMsg
-                            (FetchSurveyResult (Err NetworkError))
+                        SurveyResultDetailMsg
+                            (FetchSurveyResultDetail (Err NetworkError))
                 in
                     model
                         |> Update.update msg
@@ -78,7 +78,8 @@ fetchSurveyResultFailureTest config surveyResult =
 
 fetchSurveyResultSuccessTest : Fuzzer Config -> Fuzzer SurveyResult -> Test
 fetchSurveyResultSuccessTest config surveyResult =
-    describe "when SurveyResultMsg FetchSurveyResult request succeeds"
+    describe
+        "when SurveyResultDetailMsg FetchSurveyResultDetail request succeeds"
         [ fuzz2
             config
             surveyResult
@@ -97,8 +98,8 @@ fetchSurveyResultSuccessTest config surveyResult =
                             Requesting
 
                     msg =
-                        SurveyResultMsg
-                            (FetchSurveyResult (Ok surveyResultDetail))
+                        SurveyResultDetailMsg
+                            (FetchSurveyResultDetail (Ok surveyResultDetail))
                 in
                     model
                         |> Update.update msg

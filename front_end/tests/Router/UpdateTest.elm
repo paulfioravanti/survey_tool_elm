@@ -1,17 +1,17 @@
-module Routing.UpdateTest exposing (suite)
+module Router.UpdateTest exposing (suite)
 
 import Config exposing (Config)
 import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import Fuzzer.Navigation.Location as Location
-import Fuzzer.Routing.Route as Route
+import Fuzzer.Router.Route as Route
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Navigation
-import Routing.Msg exposing (Msg(ChangeLocation, NoOp, OnLocationChange))
-import Routing.Route exposing (Route(ListSurveyResultsRoute))
-import Routing.Utils as Utils
+import Router.Msg exposing (Msg(ChangeLocation, NoOp, OnLocationChange))
+import Router.Route exposing (Route(ListSurveyResultsRoute))
+import Router.Utils as Utils
 import Test exposing (Test, describe, fuzz2, fuzz3, fuzz4)
 import Update
 

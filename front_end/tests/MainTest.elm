@@ -9,7 +9,7 @@ import Fuzzer.Navigation.Location as Location
 import Main
 import Model exposing (Model)
 import Navigation
-import Routing.Utils
+import Router.Utils
 import Test exposing (Test, describe, fuzz2)
 
 
@@ -46,7 +46,7 @@ initTest flags location =
 
                 model =
                     rootLocation
-                        |> Routing.Utils.toRoute
+                        |> Router.Utils.toRoute
                         |> Model.initialModel config
             in
                 rootLocation
@@ -65,7 +65,7 @@ subscriptionsTest flags location =
 
                 model =
                     { location | pathname = "/" }
-                        |> Routing.Utils.toRoute
+                        |> Router.Utils.toRoute
                         |> Model.initialModel config
             in
                 model

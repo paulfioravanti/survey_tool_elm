@@ -7,7 +7,7 @@ import Fuzzer.Config as Config
 import Model exposing (Model)
 import Msg exposing (Msg(UpdatePage))
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
-import Routing.Route
+import Router.Route
     exposing
         ( Route
             ( ListSurveyResultsRoute

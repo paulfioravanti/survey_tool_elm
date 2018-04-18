@@ -8,7 +8,7 @@ import Html.Styled
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Success))
 import Router
-import Routing.Route exposing (Route(ListSurveyResultsRoute))
+import Router.Route exposing (Route(ListSurveyResultsRoute))
 import Test exposing (Test, describe, fuzz2)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)

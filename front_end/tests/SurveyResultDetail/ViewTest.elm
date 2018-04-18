@@ -8,14 +8,14 @@ import Model exposing (Model)
 import Question.Model exposing (Question)
 import RemoteData exposing (RemoteData(NotRequested, Success))
 import Router
-import Routing.Route exposing (Route(SurveyResultDetailRoute))
+import Router.Route exposing (Route(SurveyResultDetailRoute))
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
-import Theme exposing (Theme)
+import Theme.Model exposing (Theme)
 
 
 suite : Test

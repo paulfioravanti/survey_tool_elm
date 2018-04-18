@@ -9,7 +9,7 @@ import Html.Styled
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Router
-import Routing.Route
+import Router.Route
     exposing
         ( Route
             ( ListSurveyResultsRoute

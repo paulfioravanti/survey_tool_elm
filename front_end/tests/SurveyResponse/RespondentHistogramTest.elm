@@ -49,7 +49,7 @@ fromSurveyResponseListTests () =
                 "creates a score/respondent histogram using only valid values"
                 (\() ->
                     surveyResponses
-                        |> RespondentHistogram.fromSurveyResponseList
+                        |> RespondentHistogram.init
                         |> Expect.equal histogram
                 )
             ]

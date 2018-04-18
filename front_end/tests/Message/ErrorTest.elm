@@ -11,7 +11,7 @@ import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Router
-import Routing.Route
+import Router.Route
     exposing
         ( Route
             ( ListSurveyResultsRoute
