@@ -12,8 +12,8 @@ import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg, UpdatePage))
 import Navigation
 import Router
-import Routing.Msg exposing (Msg(OnLocationChange))
-import Routing.Utils
+import Router.Msg exposing (Msg(OnLocationChange))
+import Router.Utils
 import Task
 import Update
 
@@ -37,7 +37,7 @@ init flags location =
 
         model =
             location
-                |> Routing.Utils.toRoute
+                |> Router.Utils.toRoute
                 |> Model.initialModel config
     in
         ( model

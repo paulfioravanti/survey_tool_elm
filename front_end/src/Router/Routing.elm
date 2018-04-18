@@ -2,13 +2,9 @@ module Router.Routing exposing (route)
 
 import Html.Styled as Html exposing (Html)
 import Message.NotFound as NotFound
-
-
--- import Model exposing (Model)
-
 import RemoteData exposing (WebData)
-import Routing.Msg exposing (Msg(ChangeLocation, NoOp))
-import Routing.Route as Route
+import Router.Msg exposing (Msg(ChangeLocation, NoOp))
+import Router.Route as Route
     exposing
         ( Route
             ( ListSurveyResultsRoute

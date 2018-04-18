@@ -1,6 +1,6 @@
 module Msg exposing (Msg(..))
 
-import Routing.Msg
+import Router.Msg
 import SurveyResultDetail
 import SurveyResultList
 
@@ -8,5 +8,5 @@ import SurveyResultList
 type Msg
     = SurveyResultDetailMsg SurveyResultDetail.Msg
     | SurveyResultListMsg SurveyResultList.Msg
-    | RoutingMsg Routing.Msg.Msg
+    | RoutingMsg Router.Msg.Msg
     | UpdatePage ()

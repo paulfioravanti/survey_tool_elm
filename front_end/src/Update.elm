@@ -11,7 +11,7 @@ import Msg
         )
 import Model exposing (Model)
 import Page.Update
-import Routing.Update
+import Router.Update
 import SurveyResultDetail
 import SurveyResultList
 
@@ -40,7 +40,7 @@ update msg model =
         RoutingMsg msg ->
             let
                 ( route, cmd ) =
-                    Routing.Update.update msg UpdatePage
+                    Router.Update.update msg UpdatePage
             in
                 ( { model | route = route }
                 , cmd
