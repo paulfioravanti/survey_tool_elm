@@ -1,4 +1,4 @@
-module Router exposing (Msg, route, toRoute)
+module Router exposing (Msg, onLocationChangeMsg, route, toRoute)
 
 import Html.Styled as Html exposing (Html)
 import Model exposing (Model)
@@ -11,6 +11,11 @@ import Router.Utils as Utils
 
 type alias Msg =
     Msg.Msg
+
+
+onLocationChangeMsg : Navigation.Location -> Msg
+onLocationChangeMsg =
+    Msg.OnLocationChange
 
 
 route : Model -> Html Msg

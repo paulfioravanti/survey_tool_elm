@@ -12,15 +12,14 @@ import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg, UpdatePage))
 import Navigation
 import Router
-import Router.Msg
 import Task
 import Update
 
 
-main : Program Flags Model Msg.Msg
+main : Program Flags Model Msg
 main =
     Navigation.programWithFlags
-        (RoutingMsg << Router.Msg.OnLocationChange)
+        (RoutingMsg << Router.onLocationChangeMsg)
         { init = init
         , view = Router.route >> Html.map RoutingMsg >> Html.toUnstyled
         , update = Update.update
@@ -28,7 +27,7 @@ main =
         }
 
 
-init : Flags -> Navigation.Location -> ( Model, Cmd Msg.Msg )
+init : Flags -> Navigation.Location -> ( Model, Cmd Msg )
 init flags location =
     let
         config =
@@ -45,6 +44,6 @@ init flags location =
         )
 
 
-subscriptions : Model -> Sub Msg.Msg
+subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
