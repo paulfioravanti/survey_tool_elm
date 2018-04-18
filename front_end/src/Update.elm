@@ -10,7 +10,7 @@ import Msg
             )
         )
 import Model exposing (Model)
-import Page.Update
+import Page
 import Router.Update
 import SurveyResultDetail
 import SurveyResultList
@@ -47,4 +47,4 @@ update msg model =
                 )
 
         UpdatePage _ ->
-            Page.Update.update model
+            Page.update model

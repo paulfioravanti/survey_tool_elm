@@ -1,4 +1,4 @@
-module Page.Update exposing (update)
+module Page exposing (update)
 
 {-| Updates the content of a page depending primarily on the current route.
 -}
