@@ -2,7 +2,7 @@ module Model exposing (Model, initialModel)
 
 import Config exposing (Config)
 import RemoteData exposing (RemoteData(NotRequested), WebData)
-import Router.Route exposing (Route)
+import Router exposing (Route)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList exposing (SurveyResultList)
 
