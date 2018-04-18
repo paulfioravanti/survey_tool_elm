@@ -1,8 +1,8 @@
-module Question.UtilsTest exposing (suite)
+module QuestionTest exposing (suite)
 
 import Expect
+import Question
 import Question.Model exposing (Question)
-import Question.Utils as Utils
 import SurveyResponse.Model exposing (SurveyResponse)
 import Test exposing (Test, describe, test)
 
@@ -45,7 +45,7 @@ averageScoreTests () =
                                 "ratingQuestion"
                             ]
                     in
-                        Utils.averageScore questions
+                        Question.averageScore questions
                             |> Expect.equal "3.00"
             ]
         , describe
@@ -74,7 +74,7 @@ averageScoreTests () =
                                 "ratingQuestion"
                             ]
                     in
-                        Utils.averageScore questions
+                        Question.averageScore questions
                             |> Expect.equal "2.40"
             ]
         ]
