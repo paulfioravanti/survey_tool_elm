@@ -14,6 +14,7 @@ import Navigation
 import Router
 import Task
 import Update
+import VirtualDom
 
 
 main : Program Flags Model Msg
@@ -21,7 +22,7 @@ main =
     Navigation.programWithFlags
         (RoutingMsg << Router.onLocationChangeMsg)
         { init = init
-        , view = Router.route >> Html.map RoutingMsg >> Html.toUnstyled
+        , view = view
         , update = Update.update
         , subscriptions = subscriptions
         }
@@ -42,6 +43,11 @@ init flags location =
         , Task.succeed ()
             |> Task.perform UpdatePage
         )
+
+
+view : Model -> VirtualDom.Node Msg
+view =
+    Router.route >> Html.map RoutingMsg >> Html.toUnstyled
 
 
 subscriptions : Model -> Sub Msg
