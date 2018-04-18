@@ -12,8 +12,8 @@ import SurveyResultList.Model exposing (SurveyResultList)
 {-| Decodes a JSON survey result list.
 
     import Json.Decode
-    import SurveyResult exposing (SurveyResult)
-    import SurveyResultList exposing (SurveyResultList)
+    import SurveyResult.Model exposing (SurveyResult)
+    import SurveyResultList.Model exposing (SurveyResultList)
 
     json : String
     json =

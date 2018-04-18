@@ -22,7 +22,7 @@ question.
 Only valid responses from 1-5 are included in the histogram.
 
     import Dict exposing (Dict)
-    import SurveyResponse exposing (SurveyResponse)
+    import SurveyResponse.Model exposing (SurveyResponse)
 
     surveyResponses : List SurveyResponse
     surveyResponses =

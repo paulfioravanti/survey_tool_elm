@@ -11,6 +11,4 @@ fuzzer =
         surveyResult =
             SurveyResult.fuzzer
     in
-        Fuzz.map
-            SurveyResultList
-            (list surveyResult)
+        Fuzz.map SurveyResultList (list surveyResult)

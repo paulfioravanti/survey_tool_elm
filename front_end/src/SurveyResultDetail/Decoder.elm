@@ -11,10 +11,10 @@ import SurveyResult exposing (SurveyResult)
 {-| Decodes a JSON survey result with details.
 
     import Json.Decode as Decode
-    import Question exposing (Question)
-    import SurveyResponse exposing (SurveyResponse)
-    import SurveyResult exposing (SurveyResult)
-    import Theme exposing (Theme)
+    import Question.Model exposing (Question)
+    import SurveyResponse.Model exposing (SurveyResponse)
+    import SurveyResult.Model exposing (SurveyResult)
+    import Theme.Model exposing (Theme)
 
     json : String
     json =

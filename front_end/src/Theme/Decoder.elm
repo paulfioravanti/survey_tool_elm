@@ -12,8 +12,8 @@ import Theme.Model exposing (Theme)
 {-| Decodes a JSON theme from a survey result
 
     import Json.Decode as Decode
-    import Question exposing (Question)
-    import SurveyResponse exposing (SurveyResponse)
+    import Question.Model exposing (Question)
+    import SurveyResponse.Model exposing (SurveyResponse)
     import Theme.Model exposing (Theme)
 
     json : String

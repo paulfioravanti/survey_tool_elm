@@ -13,8 +13,8 @@ of `Question`s and returns an average score, rounded to two decimal places.
 
 Only valid `responseContent` values between values 1-5 are counted in the tally.
 
-    import Question exposing (Question)
-    import SurveyResponse exposing (SurveyResponse)
+    import Question.Model exposing (Question)
+    import SurveyResponse.Model exposing (SurveyResponse)
 
     validQuestions : List Question
     validQuestions =
