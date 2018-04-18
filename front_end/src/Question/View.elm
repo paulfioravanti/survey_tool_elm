@@ -2,13 +2,12 @@ module Question.View exposing (view)
 
 import Html.Styled exposing (Html, div, h3, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
-import Question.Model exposing (Question)
 import Styles
 import SurveyResponse exposing (RespondentHistogram, SurveyResponse)
 
 
-view : Question -> Html msg
-view { description, surveyResponses } =
+view : String -> List SurveyResponse -> Html msg
+view description surveyResponses =
     let
         classes =
             [ "flex"

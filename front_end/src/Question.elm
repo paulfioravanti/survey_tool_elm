@@ -23,5 +23,5 @@ decoder =
 
 
 view : Question -> Html msg
-view question =
-    View.view question
+view { description, surveyResponses } =
+    View.view description surveyResponses
