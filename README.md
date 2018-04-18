@@ -5,6 +5,11 @@
 An [Elm][] application that retrieves survey result information from a [JSON][]
 [API][], and displays the results.
 
+### Demo
+
+- [Front end application][]
+- [Back end JSON API][]
+
 ## Setup
 
 ```sh
@@ -219,8 +224,8 @@ created with [Create Elm App][], the command to generate a production app is
 with other Create Elm App commands, are not available during the deployment
 process.
 
-Therefore, a new build of this application must be generated manually and
-locally before every Heroku deployment. Hence, the `build` directory has been
+Therefore, a new build of this application must be manually generated locally
+before every Heroku deployment. Hence, the `build` directory has been
 put under version control (by default it is `.gitignore`d). This means the
 deployment steps are:
 
@@ -242,6 +247,7 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [![Stack Overflow][stackoverflow-badge]][stackoverflow-url]
 
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
+[Back end JSON API]: https://survey-tool-back-end.herokuapp.com/survey_results
 [Cowboy2 adapter]: https://github.com/elixir-plug/plug/blob/master/lib/plug/adapters/cowboy2.ex
 [Create Elm App]: https://github.com/halfzebra/create-elm-app
 [Elixir]: https://github.com/elixir-lang/elixir
@@ -252,6 +258,7 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [elm-verify-examples]: https://github.com/stoeffel/elm-verify-examples
 [Erlang]: https://www.erlang.org/
 [ExUnit]: https://hexdocs.pm/ex_unit/ExUnit.html
+[Front end application]: https://survey-tool-front-end.herokuapp.com/survey_results
 [Heroku]: https://www.heroku.com/
 [Heroku buildpack for Elm apps]: https://github.com/srid/heroku-buildpack-elm
 [heroku-buildpack-static]: https://github.com/heroku/heroku-buildpack-static
