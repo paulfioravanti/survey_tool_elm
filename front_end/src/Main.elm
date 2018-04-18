@@ -7,13 +7,12 @@ unable to figure out a way to test init through main.
 
 import Config exposing (Config)
 import Flags exposing (Flags)
-import Html.Styled as Html
+import Html.Styled as Html exposing (Html)
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg, UpdatePage))
 import Navigation
 import Router
-import Router.Msg exposing (Msg(OnLocationChange))
-import Router.Utils
+import Router.Msg
 import Task
 import Update
 
@@ -21,7 +20,7 @@ import Update
 main : Program Flags Model Msg.Msg
 main =
     Navigation.programWithFlags
-        (RoutingMsg << OnLocationChange)
+        (RoutingMsg << Router.Msg.OnLocationChange)
         { init = init
         , view = Router.route >> Html.toUnstyled
         , update = Update.update
@@ -37,7 +36,7 @@ init flags location =
 
         model =
             location
-                |> Router.Utils.toRoute
+                |> Router.toRoute
                 |> Model.initialModel config
     in
         ( model
