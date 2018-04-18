@@ -12,9 +12,9 @@ import SurveyResult exposing (SurveyResult)
 
     import Json.Decode as Decode
     import Question exposing (Question)
-    import SurveyResponse.Model exposing (SurveyResponse)
+    import SurveyResponse exposing (SurveyResponse)
     import SurveyResult exposing (SurveyResult)
-    import Theme.Model exposing (Theme)
+    import Theme exposing (Theme)
 
     json : String
     json =

@@ -6,7 +6,7 @@ module SurveyResult.Decoder exposing (decoder)
 import Json.Decode as Decode exposing (field, float, int, list, maybe, string)
 import Json.Decode.Extra exposing ((|:))
 import SurveyResult.Model exposing (SurveyResult)
-import Theme.Decoder
+import Theme
 
 
 {-| Decodes a JSON survey result.
@@ -44,7 +44,7 @@ decoder : Decode.Decoder SurveyResult
 decoder =
     let
         theme =
-            Theme.Decoder.decoder
+            Theme.decoder
     in
         Decode.succeed
             SurveyResult

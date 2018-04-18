@@ -1,6 +1,6 @@
 module SurveyResult.Model exposing (SurveyResult)
 
-import Theme.Model exposing (Theme)
+import Theme exposing (Theme)
 
 
 type alias SurveyResult =

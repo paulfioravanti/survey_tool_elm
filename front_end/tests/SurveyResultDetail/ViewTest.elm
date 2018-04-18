@@ -15,7 +15,7 @@ import SurveyResult.Utils
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
-import Theme.Model exposing (Theme)
+import Theme exposing (Theme)
 
 
 suite : Test

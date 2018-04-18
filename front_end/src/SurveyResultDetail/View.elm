@@ -21,7 +21,7 @@ import Html.Styled.Events exposing (onWithOptions)
 import Json.Decode as Decode
 import Styles
 import SurveyResult exposing (SurveyResult)
-import Theme.View
+import Theme
 import Utils
 
 
@@ -49,7 +49,7 @@ view surveyResultsListMsg noOpMsg path surveyResult =
                 , summary surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        (Theme.View.view)
+                        (Theme.view)
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]
