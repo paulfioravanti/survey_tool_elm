@@ -3,8 +3,6 @@ module Utils exposing (toFormattedPercentage)
 {-| Utility functions not specifically tied to an application concern.
 -}
 
-import Regex exposing (HowMany(AtMost))
-
 
 {-| Formats a float into a displayable percentage
 

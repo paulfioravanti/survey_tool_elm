@@ -46,4 +46,5 @@ render msg noOpMsg path surveyResult =
                     Error.view error
 
         Success surveyResult ->
-            SurveyResultDetail.View.view msg noOpMsg path surveyResult
+            surveyResult
+                |> SurveyResultDetail.View.view msg noOpMsg path
