@@ -22,7 +22,7 @@ main =
     Navigation.programWithFlags
         (RoutingMsg << Router.Msg.OnLocationChange)
         { init = init
-        , view = Router.route >> Html.toUnstyled
+        , view = Router.route >> Html.map RoutingMsg >> Html.toUnstyled
         , update = Update.update
         , subscriptions = subscriptions
         }
