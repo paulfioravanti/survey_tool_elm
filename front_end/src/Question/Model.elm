@@ -1,6 +1,6 @@
 module Question.Model exposing (Question)
 
-import SurveyResponse.Model exposing (SurveyResponse)
+import SurveyResponse exposing (SurveyResponse)
 
 
 type alias Question =

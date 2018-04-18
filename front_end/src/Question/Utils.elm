@@ -4,7 +4,7 @@ module Question.Utils exposing (averageScore)
 -}
 
 import Question.Model exposing (Question)
-import SurveyResponse.Utils
+import SurveyResponse
 import Round
 
 
@@ -13,8 +13,8 @@ of `Question`s and returns an average score, rounded to two decimal places.
 
 Only valid `responseContent` values between values 1-5 are counted in the tally.
 
-    import Question.Model exposing (Question)
-    import SurveyResponse.Model exposing (SurveyResponse)
+    import Question exposing (Question)
+    import SurveyResponse exposing (SurveyResponse)
 
     validQuestions : List Question
     validQuestions =
@@ -90,7 +90,7 @@ countValidResponses questions =
         addQuestionSurveyResponsesCount =
             (\question acc ->
                 question.surveyResponses
-                    |> List.foldl SurveyResponse.Utils.addValidResponse 0
+                    |> List.foldl SurveyResponse.addValidResponse 0
                     |> (+) acc
             )
     in
@@ -104,7 +104,7 @@ sumResponseContent questions =
         addQuestionsSum =
             (\question acc ->
                 question.surveyResponses
-                    |> SurveyResponse.Utils.sumResponseContent
+                    |> SurveyResponse.sumResponseContent
                     |> (+) acc
             )
     in

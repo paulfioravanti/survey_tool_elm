@@ -6,14 +6,14 @@ module Question.Decoder exposing (decoder)
 import Json.Decode as Decode exposing (field, list, string)
 import Json.Decode.Extra exposing ((|:))
 import Question.Model exposing (Question)
-import SurveyResponse.Decoder
+import SurveyResponse
 
 
 {-| Decodes a JSON question from a survey result
 
     import Json.Decode as Decode
     import Question exposing (Question)
-    import SurveyResponse.Model exposing (SurveyResponse)
+    import SurveyResponse exposing (SurveyResponse)
 
     json : String
     json =
@@ -47,7 +47,7 @@ decoder : Decode.Decoder Question
 decoder =
     let
         surveyResponse =
-            SurveyResponse.Decoder.decoder
+            SurveyResponse.decoder
     in
         Decode.succeed
             Question

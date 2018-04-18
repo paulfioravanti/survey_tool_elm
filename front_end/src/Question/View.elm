@@ -4,10 +4,7 @@ import Html.Styled exposing (Html, div, h3, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Question.Model exposing (Question)
 import Styles
-import SurveyResponse.Model exposing (SurveyResponse)
-import SurveyResponse.RespondentHistogram as RespondentHistogram
-import SurveyResponse.Utils
-import SurveyResponse.View
+import SurveyResponse exposing (RespondentHistogram, SurveyResponse)
 
 
 view : Question -> Html msg
@@ -58,7 +55,7 @@ averageScore surveyResponses =
     let
         averageScore =
             surveyResponses
-                |> SurveyResponse.Utils.averageScore
+                |> SurveyResponse.averageScore
 
         classes =
             [ "fw5"
@@ -90,7 +87,7 @@ responses surveyResponses =
 
         respondents =
             surveyResponses
-                |> RespondentHistogram.fromSurveyResponseList
+                |> SurveyResponse.respondentHistogram
 
         classes =
             [ "flex"
@@ -100,4 +97,4 @@ responses surveyResponses =
                 |> String.join " "
     in
         div [ attribute "data-name" "survey-responses", class classes ]
-            (List.map (SurveyResponse.View.view respondents) ratings)
+            (List.map (SurveyResponse.view respondents) ratings)

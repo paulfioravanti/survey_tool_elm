@@ -13,7 +13,7 @@ import Theme.Model exposing (Theme)
 
     import Json.Decode as Decode
     import Question exposing (Question)
-    import SurveyResponse.Model exposing (SurveyResponse)
+    import SurveyResponse exposing (SurveyResponse)
     import Theme.Model exposing (Theme)
 
     json : String
