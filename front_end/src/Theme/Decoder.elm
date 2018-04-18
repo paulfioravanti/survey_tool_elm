@@ -5,14 +5,14 @@ module Theme.Decoder exposing (decoder)
 
 import Json.Decode as Decode exposing (field, list, string)
 import Json.Decode.Extra exposing ((|:))
-import Question.Decoder
+import Question
 import Theme.Model exposing (Theme)
 
 
 {-| Decodes a JSON theme from a survey result
 
     import Json.Decode as Decode
-    import Question.Model exposing (Question)
+    import Question exposing (Question)
     import SurveyResponse.Model exposing (SurveyResponse)
     import Theme.Model exposing (Theme)
 
@@ -56,7 +56,7 @@ decoder : Decode.Decoder Theme
 decoder =
     let
         question =
-            Question.Decoder.decoder
+            Question.decoder
     in
         Decode.succeed
             Theme

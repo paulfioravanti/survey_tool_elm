@@ -5,9 +5,7 @@ module Theme.View exposing (view)
 
 import Html.Styled exposing (Html, div, h2, span, text)
 import Html.Styled.Attributes exposing (attribute, class)
-import Question.Model exposing (Question)
-import Question.Utils
-import Question.View
+import Question exposing (Question)
 import Theme.Model exposing (Theme)
 
 
@@ -31,7 +29,7 @@ view { name, questions } =
                 , averageScore questions
                 ]
             , div [ attribute "data-name" "questions" ]
-                (List.map Question.View.view questions)
+                (List.map Question.view questions)
             ]
 
 
@@ -67,5 +65,5 @@ averageScore questions =
         h2 [ attribute "data-name" "theme-average-score", class classes ]
             [ span [ class labelClasses ]
                 [ text "Average Score" ]
-            , text (Question.Utils.averageScore questions)
+            , text (Question.averageScore questions)
             ]

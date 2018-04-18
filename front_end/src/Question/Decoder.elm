@@ -12,7 +12,7 @@ import SurveyResponse.Decoder
 {-| Decodes a JSON question from a survey result
 
     import Json.Decode as Decode
-    import Question.Model exposing (Question)
+    import Question exposing (Question)
     import SurveyResponse.Model exposing (SurveyResponse)
 
     json : String

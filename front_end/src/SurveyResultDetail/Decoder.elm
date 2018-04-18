@@ -11,7 +11,7 @@ import SurveyResult exposing (SurveyResult)
 {-| Decodes a JSON survey result with details.
 
     import Json.Decode as Decode
-    import Question.Model exposing (Question)
+    import Question exposing (Question)
     import SurveyResponse.Model exposing (SurveyResponse)
     import SurveyResult exposing (SurveyResult)
     import Theme.Model exposing (Theme)

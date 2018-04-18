@@ -1,6 +1,6 @@
 module Theme.Model exposing (Theme)
 
-import Question.Model exposing (Question)
+import Question exposing (Question)
 
 
 type alias Theme =
