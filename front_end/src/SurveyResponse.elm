@@ -23,6 +23,10 @@ type alias SurveyResponse =
     Model.SurveyResponse
 
 
+type alias Rating =
+    Model.Rating
+
+
 type alias RespondentHistogram =
     RespondentHistogram.RespondentHistogram
 
@@ -44,7 +48,7 @@ decoder =
 
 respondentHistogram : List SurveyResponse -> RespondentHistogram
 respondentHistogram surveyResponses =
-    RespondentHistogram.fromSurveyResponseList surveyResponses
+    RespondentHistogram.init surveyResponses
 
 
 sumResponseContent : List SurveyResponse -> Int
@@ -52,6 +56,6 @@ sumResponseContent surveyResponses =
     Utils.sumResponseContent surveyResponses
 
 
-view : RespondentHistogram -> String -> Html msg
+view : RespondentHistogram -> Rating -> Html msg
 view respondents rating =
     View.view respondents rating

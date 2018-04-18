@@ -8,10 +8,11 @@ import Dict exposing (Dict)
 import Html.Styled exposing (Html, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Styles
+import SurveyResponse.Model exposing (Rating, RespondentId)
 import SurveyResponse.RespondentHistogram exposing (RespondentHistogram)
 
 
-view : String -> RespondentHistogram -> Html msg
+view : Rating -> RespondentHistogram -> Html msg
 view rating histogram =
     let
         ( attributeName, respondents ) =
@@ -43,17 +44,17 @@ view rating histogram =
 
 
 respondentsByResponseContent :
-    String
+    Rating
     -> RespondentHistogram
     -> ( String, String )
-respondentsByResponseContent responseContent histogram =
+respondentsByResponseContent rating histogram =
     let
         numIdsToDisplay =
             5
 
         respondents =
             histogram
-                |> Dict.get responseContent
+                |> Dict.get rating
                 |> Maybe.withDefault []
 
         ( head, tail ) =
@@ -80,7 +81,7 @@ respondentsByResponseContent responseContent histogram =
             truncatedRespondents head tail
 
 
-displaySingleRespondent : List Int -> String
+displaySingleRespondent : List RespondentId -> String
 displaySingleRespondent respondents =
     let
         id =
@@ -92,7 +93,7 @@ displaySingleRespondent respondents =
         "Chosen by respondent ID " ++ id ++ "."
 
 
-displayAllRespondents : List Int -> String
+displayAllRespondents : List RespondentId -> String
 displayAllRespondents respondents =
     let
         allExceptLast =
@@ -117,7 +118,10 @@ displayAllRespondents respondents =
         "Chosen by respondent IDs " ++ headIds ++ ", and " ++ tailId ++ "."
 
 
-truncatedRespondents : List Int -> List Int -> ( String, String )
+truncatedRespondents :
+    List RespondentId
+    -> List RespondentId
+    -> ( String, String )
 truncatedRespondents respondentsToDisplay truncatedRespondents =
     let
         idsToDisplay =

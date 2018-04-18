@@ -1,17 +1,17 @@
 module SurveyResponse.RespondentHistogram
     exposing
         ( RespondentHistogram
-        , fromSurveyResponseList
+        , init
         )
 
 import Dict exposing (Dict)
-import SurveyResponse.Model exposing (SurveyResponse)
+import SurveyResponse.Model exposing (Rating, RespondentId, SurveyResponse)
 
 
 {-| A histogram of response scores and the respondent IDs who chose them.
 -}
 type alias RespondentHistogram =
-    Dict String (List Int)
+    Dict Rating (List RespondentId)
 
 
 {-| Creates a histogram of survey respondents and their response scores for
@@ -22,7 +22,7 @@ question.
 Only valid responses from 1-5 are included in the histogram.
 
     import Dict exposing (Dict)
-    import SurveyResponse.Model exposing (SurveyResponse)
+    import SurveyResponse exposing (SurveyResponse)
 
     surveyResponses : List SurveyResponse
     surveyResponses =
@@ -53,22 +53,13 @@ Only valid responses from 1-5 are included in the histogram.
             , ( "5", [8, 7, 6, 1] )
             ]
 
-    fromSurveyResponseList surveyResponses
+    init surveyResponses
     --> histogram
 
 -}
-fromSurveyResponseList : List SurveyResponse -> RespondentHistogram
-fromSurveyResponseList surveyResponses =
+init : List SurveyResponse -> RespondentHistogram
+init surveyResponses =
     let
-        histogram =
-            Dict.fromList
-                [ ( "1", [] )
-                , ( "2", [] )
-                , ( "3", [] )
-                , ( "4", [] )
-                , ( "5", [] )
-                ]
-
         prependRatingToList { respondentId, responseContent } histogram =
             if Dict.member responseContent histogram then
                 Dict.update
@@ -78,4 +69,15 @@ fromSurveyResponseList surveyResponses =
             else
                 histogram
     in
-        List.foldl prependRatingToList histogram surveyResponses
+        List.foldl prependRatingToList initialHistogram surveyResponses
+
+
+initialHistogram : RespondentHistogram
+initialHistogram =
+    Dict.fromList
+        [ ( "1", [] )
+        , ( "2", [] )
+        , ( "3", [] )
+        , ( "4", [] )
+        , ( "5", [] )
+        ]

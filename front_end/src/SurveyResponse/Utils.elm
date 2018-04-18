@@ -8,9 +8,8 @@ module SurveyResponse.Utils
 {-| Utility functions for survey responses
 -}
 
-import Dict exposing (Dict)
 import Round
-import SurveyResponse.Model exposing (SurveyResponse)
+import SurveyResponse.Model exposing (Rating, SurveyResponse)
 
 
 {-| Adds the integer value of a survey response's responseContent value
@@ -149,11 +148,11 @@ countValidResponses surveyResponses =
         |> List.foldl addValidResponse 0
 
 
-toIntValue : String -> Int
-toIntValue responseContent =
+toIntValue : Rating -> Int
+toIntValue rating =
     let
         score =
-            responseContent
+            rating
                 |> String.toInt
                 |> Result.withDefault 0
     in

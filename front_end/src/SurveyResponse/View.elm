@@ -11,10 +11,12 @@ import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)
 import Json.Decode as Decode
 import Styles
+import SurveyResponse.Model exposing (Rating)
+import SurveyResponse.RespondentHistogram exposing (RespondentHistogram)
 import SurveyResponse.Tooltip as Tooltip
 
 
-view : Dict String (List Int) -> String -> Html msg
+view : RespondentHistogram -> Rating -> Html msg
 view respondents rating =
     let
         classes =
@@ -41,7 +43,7 @@ view respondents rating =
             [ content respondents rating ]
 
 
-content : Dict String (List Int) -> String -> Html msg
+content : RespondentHistogram -> Rating -> Html msg
 content respondents rating =
     let
         classes =
