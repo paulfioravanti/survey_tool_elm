@@ -1,8 +1,8 @@
-module Fuzzer.Router.Route exposing (fuzzer)
+module Fuzzer.Route exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer)
 import Random.Pcg as Random
-import Router.Route
+import Route
     exposing
         ( Route
             ( ListSurveyResultsRoute

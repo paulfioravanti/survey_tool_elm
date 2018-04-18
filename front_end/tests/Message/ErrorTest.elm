@@ -10,14 +10,14 @@ import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
-import Router
-import Router.Route
+import Route
     exposing
         ( Route
             ( ListSurveyResultsRoute
             , SurveyResultDetailRoute
             )
         )
+import Router
 import Test exposing (Test, describe, fuzz, fuzz2)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag, text)

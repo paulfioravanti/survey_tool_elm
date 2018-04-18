@@ -5,7 +5,7 @@ module Router.Update exposing (update)
 
 import Navigation
 import Router.Msg exposing (Msg(ChangeLocation, NoOp, OnLocationChange))
-import Router.Route exposing (Route)
+import Route exposing (Route)
 import Router.Utils
 import Task
 

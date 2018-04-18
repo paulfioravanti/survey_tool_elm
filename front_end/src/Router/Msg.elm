@@ -1,7 +1,7 @@
 module Router.Msg exposing (Msg(..))
 
 import Navigation
-import Router.Route exposing (Route)
+import Route exposing (Route)
 
 
 type Msg

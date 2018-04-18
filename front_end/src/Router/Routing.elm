@@ -3,8 +3,7 @@ module Router.Routing exposing (route)
 import Html.Styled as Html exposing (Html)
 import Message.NotFound as NotFound
 import RemoteData exposing (WebData)
-import Router.Msg exposing (Msg(ChangeLocation, NoOp))
-import Router.Route as Route
+import Route
     exposing
         ( Route
             ( ListSurveyResultsRoute
@@ -12,6 +11,7 @@ import Router.Route as Route
             , NotFoundRoute
             )
         )
+import Router.Msg exposing (Msg(ChangeLocation, NoOp))
 import Router.Utils as Utils
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail

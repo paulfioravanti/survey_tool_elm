@@ -7,8 +7,8 @@ import Html.Styled
 import Model exposing (Model)
 import Question.Model exposing (Question)
 import RemoteData exposing (RemoteData(NotRequested, Success))
+import Route exposing (Route(SurveyResultDetailRoute))
 import Router
-import Router.Route exposing (Route(SurveyResultDetailRoute))
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils

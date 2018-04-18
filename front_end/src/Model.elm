@@ -19,7 +19,7 @@ type alias Model =
 
     import Config exposing (Config)
     import RemoteData exposing (RemoteData(NotRequested))
-    import Router.Route exposing (Route(ListSurveyResultsRoute))
+    import Route exposing (Route(ListSurveyResultsRoute))
 
     config : Config
     config =

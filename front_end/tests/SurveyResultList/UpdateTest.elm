@@ -18,7 +18,7 @@ import RemoteData
             )
         )
 import Result exposing (Result)
-import Router.Route exposing (Route(ListSurveyResultsRoute))
+import Route exposing (Route(ListSurveyResultsRoute))
 import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
 import Test exposing (Test, describe, fuzz, fuzz2)
 import Update

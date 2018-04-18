@@ -4,7 +4,7 @@ module Router.Utils exposing (toRoute, toPath)
 -}
 
 import Navigation
-import Router.Route
+import Route
     exposing
         ( Route
             ( ListSurveyResultsRoute
@@ -18,7 +18,7 @@ import UrlParser exposing (Parser, (</>), map, oneOf, s, string, top)
 {-| Translates a Navigation.Location into a Route
 
     import Navigation
-    import Router.Route exposing (Route(..))
+    import Route exposing (Route(..))
 
     location : String -> Navigation.Location
     location path =
@@ -65,7 +65,7 @@ toRoute location =
 
 {-| Translates a Route into a URL
 
-    import Router.Route exposing (Route(..))
+    import Route exposing (Route(..))
 
     toPath ListSurveyResultsRoute
     --> "/survey_results"

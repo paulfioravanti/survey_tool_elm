@@ -3,8 +3,8 @@ module Router exposing (Msg, Route, onLocationChangeMsg, route, toRoute)
 import Html.Styled as Html exposing (Html)
 import Navigation
 import RemoteData exposing (WebData)
+import Route as Route
 import Router.Msg as Msg
-import Router.Route as Route
 import Router.Routing as Routing
 import Router.Utils as Utils
 import SurveyResult exposing (SurveyResult)

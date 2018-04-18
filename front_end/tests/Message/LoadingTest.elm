@@ -8,14 +8,14 @@ import Html.Attributes as Attributes
 import Html.Styled
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
-import Router
-import Router.Route
+import Route
     exposing
         ( Route
             ( ListSurveyResultsRoute
             , SurveyResultDetailRoute
             )
         )
+import Router
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag)

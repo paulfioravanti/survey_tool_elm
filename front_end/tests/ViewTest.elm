@@ -6,14 +6,14 @@ import Html exposing (Html, text)
 import Html.Styled
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested))
-import Router
-import Router.Route
+import Route
     exposing
         ( Route
             ( ListSurveyResultsRoute
             , SurveyResultDetailRoute
             )
         )
+import Router
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
 
