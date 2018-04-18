@@ -3,7 +3,7 @@ module Page.Update exposing (update)
 {-| Updates the content of a page depending primarily on the current route.
 -}
 
-import Msg exposing (Msg(SurveyResultMsg, SurveyResultListMsg))
+import Msg exposing (Msg(SurveyResultDetailMsg, SurveyResultListMsg))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Routing.Route
@@ -13,7 +13,7 @@ import Routing.Route
             , SurveyResultDetailRoute
             )
         )
-import SurveyResult.Cmd
+import SurveyResultDetail
 import SurveyResultList
 
 
@@ -35,8 +35,8 @@ update model =
         SurveyResultDetailRoute id ->
             ( { model | surveyResultDetail = Requesting }
             , model.config.apiUrl
-                |> SurveyResult.Cmd.fetchSurveyResult id
-                |> Cmd.map SurveyResultMsg
+                |> SurveyResultDetail.fetchSurveyResult id
+                |> Cmd.map SurveyResultDetailMsg
             )
 
         _ ->

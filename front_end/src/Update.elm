@@ -3,7 +3,7 @@ module Update exposing (update)
 import Msg
     exposing
         ( Msg
-            ( SurveyResultMsg
+            ( SurveyResultDetailMsg
             , SurveyResultListMsg
             , RoutingMsg
             , UpdatePage
@@ -12,20 +12,20 @@ import Msg
 import Model exposing (Model)
 import Page.Update
 import Routing.Update
-import SurveyResult
+import SurveyResultDetail
 import SurveyResultList
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        SurveyResultMsg msg ->
+        SurveyResultDetailMsg msg ->
             let
                 ( surveyResultDetail, cmd ) =
-                    SurveyResult.update msg
+                    SurveyResultDetail.update msg
             in
                 ( { model | surveyResultDetail = surveyResultDetail }
-                , Cmd.map SurveyResultMsg cmd
+                , Cmd.map SurveyResultDetailMsg cmd
                 )
 
         SurveyResultListMsg msg ->

@@ -1,4 +1,4 @@
-module SurveyResult.Controller exposing (render)
+module SurveyResultDetail.Controller exposing (render)
 
 {-| Determines what view should be rendered for a survey result depending
 on the status of the data fetched from the remote API point.
@@ -19,7 +19,7 @@ import RemoteData
             )
         , WebData
         )
-import SurveyResult.Model exposing (SurveyResult)
+import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.View
 
 

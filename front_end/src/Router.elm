@@ -14,7 +14,7 @@ import Routing.Route
             )
         )
 import Routing.Utils as Utils
-import SurveyResult.Controller
+import SurveyResultDetail
 import SurveyResultList
 
 
@@ -42,7 +42,7 @@ route { route, surveyResultList, surveyResultDetail } =
                     Utils.toPath ListSurveyResultsRoute
             in
                 surveyResultDetail
-                    |> SurveyResult.Controller.render msg noOpMsg path
+                    |> SurveyResultDetail.view msg noOpMsg path
                     |> Html.map RoutingMsg
 
         NotFoundRoute ->
