@@ -3,6 +3,7 @@ module Page exposing (update)
 {-| Updates the content of a page depending primarily on the current route.
 -}
 
+import I18Next exposing (Translations)
 import Msg exposing (Msg(SurveyResultDetailMsg, SurveyResultListMsg))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
@@ -29,7 +30,8 @@ update model =
                         [ model.config.apiUrl
                             |> SurveyResultList.fetchSurveyResultList
                             |> Cmd.map SurveyResultListMsg
-                        , Window.updateTitle "Loading..."
+                        , Window.updateTitle
+                            (I18Next.t model.translations "loading")
                         ]
                     )
 
@@ -42,7 +44,8 @@ update model =
                 [ model.config.apiUrl
                     |> SurveyResultDetail.fetchSurveyResult id
                     |> Cmd.map SurveyResultDetailMsg
-                , Window.updateTitle "Loading..."
+                , Window.updateTitle
+                    (I18Next.t model.translations "loading")
                 ]
             )
 

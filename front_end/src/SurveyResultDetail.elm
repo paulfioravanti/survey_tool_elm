@@ -33,9 +33,9 @@ fetchSurveyResult id apiUrl =
     Cmd.fetchSurveyResult id apiUrl
 
 
-update : Msg -> ( WebData SurveyResult, Cmd Msg )
-update msg =
-    Update.update msg
+update : Msg -> Translations -> ( WebData SurveyResult, Cmd Msg )
+update msg translations =
+    Update.update msg translations
 
 
 view : msg -> msg -> String -> Translations -> WebData SurveyResult -> Html msg

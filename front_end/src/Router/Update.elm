@@ -3,6 +3,7 @@ module Router.Update exposing (update)
 {-| Updates the content of a route.
 -}
 
+import I18Next exposing (Translations)
 import Navigation
 import Router.Msg exposing (Msg(ChangeLocation, NoOp, OnLocationChange))
 import Route exposing (Route)
@@ -11,8 +12,8 @@ import Task
 import Window
 
 
-update : Msg -> (() -> msg) -> ( Route, Cmd msg )
-update msg cmdMsg =
+update : Msg -> (() -> msg) -> Translations -> ( Route, Cmd msg )
+update msg cmdMsg translations =
     case msg of
         ChangeLocation route ->
             ( route
@@ -20,7 +21,7 @@ update msg cmdMsg =
                 [ route
                     |> Utils.toPath
                     |> Navigation.newUrl
-                , Window.updateRouteTitle route
+                , Window.updateRouteTitle route translations
                 ]
             )
 

@@ -23,7 +23,7 @@ update msg model =
         SurveyResultDetailMsg msg ->
             let
                 ( surveyResultDetail, cmd ) =
-                    SurveyResultDetail.update msg
+                    SurveyResultDetail.update msg model.translations
             in
                 ( { model | surveyResultDetail = surveyResultDetail }
                 , Cmd.map SurveyResultDetailMsg cmd
@@ -32,7 +32,7 @@ update msg model =
         SurveyResultListMsg msg ->
             let
                 ( surveyResultList, cmd ) =
-                    SurveyResultList.update msg
+                    SurveyResultList.update msg model.translations
             in
                 ( { model | surveyResultList = surveyResultList }
                 , Cmd.map SurveyResultListMsg cmd
@@ -41,7 +41,7 @@ update msg model =
         RoutingMsg msg ->
             let
                 ( route, cmd ) =
-                    Router.Update.update msg UpdatePage
+                    Router.Update.update msg UpdatePage model.translations
             in
                 ( { model | route = route }
                 , cmd
