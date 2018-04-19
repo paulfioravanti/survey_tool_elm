@@ -20,7 +20,7 @@ import VirtualDom
 main : Program Flags Model Msg
 main =
     Navigation.programWithFlags
-        (RoutingMsg << Router.onLocationChangeMsg)
+        (Router.onLocationChangeMsg >> RoutingMsg)
         { init = init
         , view = view
         , update = Update.update
@@ -47,7 +47,9 @@ init flags location =
 
 view : Model -> VirtualDom.Node Msg
 view =
-    Router.route >> Html.map RoutingMsg >> Html.toUnstyled
+    Router.route
+        >> Html.map RoutingMsg
+        >> Html.toUnstyled
 
 
 subscriptions : Model -> Sub Msg
