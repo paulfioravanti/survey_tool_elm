@@ -47,10 +47,10 @@ render msg noOpMsg path translations surveyResult =
                             NotFound.view msg path translations
 
                         _ ->
-                            Error.view error
+                            Error.view error translations
 
                 _ ->
-                    Error.view error
+                    Error.view error translations
 
         Success surveyResult ->
             surveyResult

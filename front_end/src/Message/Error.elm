@@ -7,11 +7,12 @@ import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed
 import Http
+import I18Next exposing (Translations)
 import Styles
 
 
-view : Http.Error -> Html msg
-view error =
+view : Http.Error -> Translations -> Html msg
+view error translations =
     let
         classes =
             [ "flex"
@@ -27,7 +28,7 @@ view error =
             [ section [ attribute "data-name" "error-message", class classes ]
                 [ Keyed.node "div" [] [ ( "error-icon", icon ) ]
                 , div []
-                    [ errorContent error ]
+                    [ errorContent error translations ]
                 ]
             ]
 
@@ -46,8 +47,8 @@ icon =
         i [ class classes, css [ Styles.brandColorAlpha ] ] []
 
 
-errorContent : Http.Error -> Html msg
-errorContent error =
+errorContent : Http.Error -> Translations -> Html msg
+errorContent error translations =
     let
         classes =
             [ "avenir"
@@ -57,13 +58,13 @@ errorContent error =
                 |> String.join " "
     in
         h1 [ class classes ]
-            [ errorHeading
-            , errorMessage error
+            [ errorHeading (I18Next.t translations "errorRetrievingData")
+            , errorMessage error translations
             ]
 
 
-errorHeading : Html msg
-errorHeading =
+errorHeading : String -> Html msg
+errorHeading label =
     let
         classes =
             [ "f2 f1-ns"
@@ -72,14 +73,14 @@ errorHeading =
                 |> String.join " "
     in
         div [ class classes ]
-            [ text "Error retrieving data" ]
+            [ text label ]
 
 
-errorMessage : Http.Error -> Html msg
-errorMessage error =
+errorMessage : Http.Error -> Translations -> Html msg
+errorMessage error translations =
     let
         ( name, message ) =
-            errorToMessage error
+            errorToMessage error translations
 
         classes =
             [ "f6"
@@ -91,17 +92,21 @@ errorMessage error =
             [ text ("(" ++ message ++ ")") ]
 
 
-errorToMessage : Http.Error -> ( String, String )
-errorToMessage error =
+errorToMessage : Http.Error -> Translations -> ( String, String )
+errorToMessage error translations =
     case error of
         Http.NetworkError ->
-            ( "network-error-message", "Is the server running?" )
+            ( "network-error-message"
+            , I18Next.t translations "networkErrorMessage"
+            )
 
         Http.BadStatus response ->
             ( "bad-status-message", toString response.status.message )
 
         Http.BadPayload message response ->
-            ( "bad-payload-message", "Decoding Failed: " ++ message )
+            ( "bad-payload-message"
+            , I18Next.t translations "badPayloadMessage"
+            )
 
         _ ->
             ( "other-error-message", toString error )

@@ -32,7 +32,7 @@ render msg translations surveyResultList =
             Loading.view translations
 
         Failure error ->
-            Error.view error
+            Error.view error translations
 
         Success surveyResultList ->
             SurveyResultList.View.view msg translations surveyResultList
