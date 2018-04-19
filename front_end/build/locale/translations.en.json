@@ -1,0 +1,22 @@
+{
+  "allRespondents": "Chosen by respondent IDs {{headIds}}, and {{tailId}}.",
+  "averageScore": "Average Score",
+  "averageSymbol": "x",
+  "backToSurveyResults": "←  Back to survey results",
+  "badPayloadMessage": "Decoding Failed: {{message}}",
+  "errorRetrievingData": "Error retrieving data",
+  "loading": "Loading",
+  "networkErrorMessage": "Is the server running?",
+  "noRespondents": "Chosen by no respondents.",
+  "notFound": "Not Found",
+  "oneRespondent": "Chosen by respondent ID {{id}}.",
+  "other": "other",
+  "others": "others",
+  "participants": "Participants",
+  "responses": "Responses",
+  "responseRate": "Response Rate",
+  "results": "Results",
+  "survey": "Survey",
+  "surveyResults": "Survey Results",
+  "truncatedRespondents": "Chosen by respondent IDs {{idsToDisplay}}, and {{numTruncated}} {{other}}."
+}
