@@ -60,4 +60,4 @@ route route surveyResultList surveyResultDetail translations =
                 path =
                     Utils.toPath ListSurveyResultsRoute
             in
-                NotFound.view msg path
+                NotFound.view msg path translations

@@ -3,6 +3,7 @@ module Message.NotFound exposing (view)
 {-| Displays a not found message for 404 errors.
 -}
 
+import I18Next exposing (Translations)
 import Html.Styled exposing (Html, a, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)
@@ -11,8 +12,8 @@ import Json.Decode as Decode
 import Styles
 
 
-view : msg -> String -> Html msg
-view msg path =
+view : msg -> String -> Translations -> Html msg
+view msg path translations =
     let
         classes =
             [ "flex"
@@ -28,8 +29,11 @@ view msg path =
                 [ attribute "data-name" "not-found-message", class classes ]
                 [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
                 , div []
-                    [ heading ]
-                , backToHomeLink msg path
+                    [ heading (I18Next.t translations "notFound") ]
+                , backToHomeLink
+                    msg
+                    path
+                    (I18Next.t translations "backToSurveyResults")
                 ]
             ]
 
@@ -48,8 +52,8 @@ icon =
         i [ class classes, css [ Styles.brandColorAlpha ] ] []
 
 
-heading : Html msg
-heading =
+heading : String -> Html msg
+heading label =
     let
         classes =
             [ "avenir"
@@ -61,11 +65,11 @@ heading =
                 |> String.join " "
     in
         h1 [ class classes ]
-            [ text "Not Found" ]
+            [ text label ]
 
 
-backToHomeLink : msg -> String -> Html msg
-backToHomeLink msg path =
+backToHomeLink : msg -> String -> String -> Html msg
+backToHomeLink msg path label =
     let
         classes =
             [ "avenir"
@@ -86,4 +90,4 @@ backToHomeLink msg path =
                 }
                 (Decode.succeed msg)
             ]
-            [ text "←  Back to survey results" ]
+            [ text label ]

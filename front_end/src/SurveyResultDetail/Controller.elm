@@ -44,7 +44,7 @@ render msg noOpMsg path translations surveyResult =
                 Http.BadStatus response ->
                     case response.status.code of
                         404 ->
-                            NotFound.view msg path
+                            NotFound.view msg path translations
 
                         _ ->
                             Error.view error
