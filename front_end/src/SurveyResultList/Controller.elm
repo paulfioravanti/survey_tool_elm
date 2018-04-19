@@ -29,7 +29,7 @@ render msg translations surveyResultList =
             text ""
 
         Requesting ->
-            Loading.view
+            Loading.view translations
 
         Failure error ->
             Error.view error

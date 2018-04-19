@@ -4,14 +4,15 @@ module Message.Loading exposing (view)
 from an API endpoint.
 -}
 
+import I18Next exposing (Translations)
 import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed
 import Styles
 
 
-view : Html msg
-view =
+view : Translations -> Html msg
+view translations =
     let
         classes =
             [ "flex"
@@ -26,7 +27,7 @@ view =
             [ section [ attribute "data-name" "loading-message", class classes ]
                 [ Keyed.node "div" [] [ ( "loading-icon", icon ) ]
                 , div []
-                    [ heading ]
+                    [ heading (I18Next.t translations "loading") ]
                 ]
             ]
 
@@ -46,8 +47,8 @@ icon =
         i [ class classes, css [ Styles.brandColorAlpha ] ] []
 
 
-heading : Html msg
-heading =
+heading : String -> Html msg
+heading label =
     let
         classes =
             [ "avenir"
@@ -59,4 +60,4 @@ heading =
                 |> String.join " "
     in
         h1 [ class classes ]
-            [ text "Loading" ]
+            [ text label ]

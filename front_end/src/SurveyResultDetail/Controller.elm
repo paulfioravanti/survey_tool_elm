@@ -37,7 +37,7 @@ render msg noOpMsg path translations surveyResult =
             text ""
 
         Requesting ->
-            Loading.view
+            Loading.view translations
 
         Failure error ->
             case error of
