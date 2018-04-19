@@ -25,7 +25,7 @@ onLocationChangeMsg =
 
 
 route :
-    { model
+    { a
         | route : Route
         , surveyResultDetail : WebData SurveyResult
         , surveyResultList : WebData SurveyResultList
