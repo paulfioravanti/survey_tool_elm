@@ -8,6 +8,7 @@ module SurveyResultDetail
         )
 
 import Html.Styled exposing (Html)
+import I18Next exposing (Translations)
 import Json.Decode as Decode
 import RemoteData exposing (WebData)
 import SurveyResult exposing (SurveyResult)
@@ -37,6 +38,6 @@ update msg =
     Update.update msg
 
 
-view : msg -> msg -> String -> WebData SurveyResult -> Html msg
-view msg noOpMsg path surveyResult =
-    Controller.render msg noOpMsg path surveyResult
+view : msg -> msg -> String -> Translations -> WebData SurveyResult -> Html msg
+view msg noOpMsg path translations surveyResult =
+    Controller.render msg noOpMsg path translations surveyResult

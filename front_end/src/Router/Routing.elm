@@ -45,7 +45,12 @@ route route surveyResultList surveyResultDetail translations =
                 path =
                     Utils.toPath ListSurveyResultsRoute
             in
-                SurveyResultDetail.view msg noOpMsg path surveyResultDetail
+                SurveyResultDetail.view
+                    msg
+                    noOpMsg
+                    path
+                    translations
+                    surveyResultDetail
 
         NotFoundRoute ->
             let

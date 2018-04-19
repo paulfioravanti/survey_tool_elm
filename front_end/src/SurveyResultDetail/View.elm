@@ -18,6 +18,7 @@ import Html.Styled
         )
 import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import Html.Styled.Events exposing (onWithOptions)
+import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Styles
 import SurveyResult exposing (SurveyResult)
@@ -25,8 +26,8 @@ import Theme
 import Utils
 
 
-view : msg -> msg -> String -> SurveyResult -> Html msg
-view surveyResultsListMsg noOpMsg path surveyResult =
+view : msg -> msg -> String -> Translations -> SurveyResult -> Html msg
+view surveyResultsListMsg noOpMsg path translations surveyResult =
     let
         classes =
             [ "center"
@@ -46,7 +47,7 @@ view surveyResultsListMsg noOpMsg path surveyResult =
                 [ attribute "data-name" "survey-result-detail", class classes ]
                 [ backToHomeLink path surveyResultsListClickOptions
                 , surveyName surveyResult.name
-                , summary surveyResult
+                , summary translations surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
                         (Theme.view)
@@ -106,8 +107,8 @@ surveyName name =
             ]
 
 
-summary : SurveyResult -> Html msg
-summary surveyResult =
+summary : Translations -> SurveyResult -> Html msg
+summary translations surveyResult =
     let
         classes =
             [ "bg-light-gray"
@@ -122,14 +123,20 @@ summary surveyResult =
                 |> String.join " "
     in
         div [ class classes ]
-            [ participationCount surveyResult.participantCount
-            , submittedResponseCount surveyResult.submittedResponseCount
-            , submittedResponseRate surveyResult.responseRate
+            [ participationCount
+                (I18Next.t translations "participants")
+                surveyResult.participantCount
+            , submittedResponseCount
+                (I18Next.t translations "responses")
+                surveyResult.submittedResponseCount
+            , submittedResponseRate
+                (I18Next.t translations "responseRate")
+                surveyResult.responseRate
             ]
 
 
-participationCount : Int -> Html msg
-participationCount participantCount =
+participationCount : String -> Int -> Html msg
+participationCount label participantCount =
     let
         labelClasses =
             [ "f4 f3-ns"
@@ -146,14 +153,14 @@ participationCount participantCount =
     in
         div [ attribute "data-name" "participation-count" ]
             [ div [ class labelClasses ]
-                [ text "Participants" ]
+                [ text label ]
             , div [ class valueClasses ]
                 [ text (toString participantCount) ]
             ]
 
 
-submittedResponseCount : Int -> Html msg
-submittedResponseCount responseCount =
+submittedResponseCount : String -> Int -> Html msg
+submittedResponseCount label responseCount =
     let
         labelClasses =
             [ "f4 f3-ns"
@@ -170,14 +177,14 @@ submittedResponseCount responseCount =
     in
         div [ attribute "data-name" "submitted-response-count" ]
             [ div [ class labelClasses ]
-                [ text "Responses" ]
+                [ text label ]
             , div [ class valueClasses ]
                 [ text (toString responseCount) ]
             ]
 
 
-submittedResponseRate : Float -> Html msg
-submittedResponseRate responseRate =
+submittedResponseRate : String -> Float -> Html msg
+submittedResponseRate label responseRate =
     let
         labelClasses =
             [ "f4 f3-ns"
@@ -194,7 +201,7 @@ submittedResponseRate responseRate =
     in
         div [ attribute "data-name" "submitted-response-rate" ]
             [ div [ class labelClasses ]
-                [ text "Response Rate" ]
+                [ text label ]
             , div [ class valueClasses ]
                 [ text (Utils.toFormattedPercentage responseRate) ]
             ]
