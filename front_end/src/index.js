@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const app =
       Main.embed(appContainer, {
         environment: process.env.NODE_ENV,
-        apiUrl: process.env.ELM_APP_API_URL
+        apiUrl: process.env.ELM_APP_API_URL,
+        locale: navigator.language || navigator.userLanguage
       });
 
     app.ports.updateTitle.subscribe((newTitle) => {

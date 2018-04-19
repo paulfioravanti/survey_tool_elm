@@ -9,6 +9,7 @@ import Config exposing (Config)
 import Flags exposing (Flags)
 import Html.Styled as Html exposing (Html)
 import I18Next
+import Locale
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg, TranslationsLoaded, UpdatePage))
 import Navigation
@@ -35,10 +36,13 @@ init flags location =
         config =
             Config.init flags
 
+        locale =
+            Locale.init flags.locale
+
         model =
             location
                 |> Router.toRoute
-                |> Model.initialModel config
+                |> Model.initialModel config locale
     in
         ( model
         , Cmd.batch
