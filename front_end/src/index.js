@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const appContainer = document.querySelector("#root");
 
   if (appContainer) {
-    const app = Main.embed(document.getElementById("root"), {
-      environment: process.env.NODE_ENV,
-      apiUrl: process.env.ELM_APP_API_URL
-    });
+    const app =
+      Main.embed(appContainer, {
+        environment: process.env.NODE_ENV,
+        apiUrl: process.env.ELM_APP_API_URL
+      });
 
     app.ports.updateTitle.subscribe((newTitle) => {
       window.document.title = newTitle;
