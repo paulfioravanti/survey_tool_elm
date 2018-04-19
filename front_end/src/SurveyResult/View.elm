@@ -40,8 +40,9 @@ view msg translations surveyResult =
             , "pa2"
             ]
                 |> String.join " "
+                |> class
     in
-        article [ class classes, css [ Styles.surveyResultSummary ] ]
+        article [ classes, css [ Styles.surveyResultSummary ] ]
             [ summaryLink msg translations surveyResult ]
 
 
@@ -58,6 +59,7 @@ summaryLink msg translations surveyResult =
             , "pv1"
             ]
                 |> String.join " "
+                |> class
 
         clickOptions =
             onWithOptions
@@ -70,7 +72,7 @@ summaryLink msg translations surveyResult =
                 )
     in
         a
-            [ href url, class classes, clickOptions ]
+            [ href url, classes, clickOptions ]
             [ summaryHeading surveyResult.name
             , summaryContent
                 translations
@@ -91,8 +93,9 @@ summaryHeading name =
             , "tc"
             ]
                 |> String.join " "
+                |> class
     in
-        h1 [ class classes, class "summary-heading" ]
+        h1 [ classes, class "summary-heading" ]
             [ text name ]
 
 
@@ -106,8 +109,9 @@ summaryContent translations participantCount submittedResponseCount responseRate
             , "ph4 ph0-ns"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
+        div [ classes ]
             [ statistics translations participantCount submittedResponseCount
             , responseRatePercentage
                 (I18Next.t translations "responseRate")
@@ -121,8 +125,9 @@ statistics translations participantCount submittedResponseCount =
         classes =
             [ "w-50-ns" ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
+        div [ classes ]
             [ statistic
                 (I18Next.t translations "participants")
                 participantCount
@@ -142,8 +147,9 @@ statistic label value =
             , "mid-gray"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
+        div [ classes ]
             [ statisticLabel label
             , statisticValue value
             ]
@@ -157,8 +163,9 @@ statisticLabel label =
             , "fw4 fw2-ns"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
+        div [ classes ]
             [ text label ]
 
 
@@ -168,8 +175,9 @@ statisticValue value =
         classes =
             [ "f3 f1-ns" ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
+        div [ classes ]
             [ text (toString value) ]
 
 
@@ -203,8 +211,9 @@ responseRateLabel label =
             , "ttu"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
+        div [ classes ]
             [ text label ]
 
 
@@ -216,10 +225,11 @@ responseRateValue responseRate =
             , "f1-ns"
             ]
                 |> String.join " "
+                |> class
 
         responsePercentage =
             responseRate
                 |> Utils.toFormattedPercentage
     in
-        div [ class classes, class "response-rate-value" ]
+        div [ classes, class "response-rate-value" ]
             [ text responsePercentage ]

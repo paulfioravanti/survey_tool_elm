@@ -23,9 +23,10 @@ view error translations =
             , "vh-75"
             ]
                 |> String.join " "
+                |> class
     in
         main_ []
-            [ section [ attribute "data-name" "error-message", class classes ]
+            [ section [ attribute "data-name" "error-message", classes ]
                 [ Keyed.node "div" [] [ ( "error-icon", icon ) ]
                 , div []
                     [ errorContent error translations ]
@@ -43,8 +44,9 @@ icon =
             , "far"
             ]
                 |> String.join " "
+                |> class
     in
-        i [ class classes, css [ Styles.brandColorAlpha ] ] []
+        i [ classes, css [ Styles.brandColorAlpha ] ] []
 
 
 errorContent : Http.Error -> Translations -> Html msg
@@ -56,8 +58,9 @@ errorContent error translations =
             , "mv2"
             ]
                 |> String.join " "
+                |> class
     in
-        h1 [ class classes ]
+        h1 [ classes ]
             [ errorHeading (I18Next.t translations "errorRetrievingData")
             , errorMessage error translations
             ]
@@ -71,8 +74,9 @@ errorHeading label =
             , "ttu"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
+        div [ classes ]
             [ text label ]
 
 
@@ -87,8 +91,9 @@ errorMessage error translations =
             , "tc"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ attribute "data-name" name, class classes ]
+        div [ attribute "data-name" name, classes ]
             [ text ("(" ++ message ++ ")") ]
 
 

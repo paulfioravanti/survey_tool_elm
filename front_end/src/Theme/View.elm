@@ -23,9 +23,10 @@ view translations { name, questions } =
             , "mh1 mh0-ns"
             ]
                 |> String.join " "
+                |> class
     in
         div [ attribute "data-name" "theme" ]
-            [ div [ class classes ]
+            [ div [ classes ]
                 [ themeName name
                 , averageScore
                     (I18Next.t translations "averageScore")
@@ -45,8 +46,9 @@ themeName name =
             , "ttu"
             ]
                 |> String.join " "
+                |> class
     in
-        h2 [ class classes ]
+        h2 [ classes ]
             [ text name ]
 
 
@@ -58,15 +60,17 @@ averageScore label questions =
             , "f4 f3-ns"
             ]
                 |> String.join " "
+                |> class
 
         labelClasses =
             [ "fw2"
             , "mr2"
             ]
                 |> String.join " "
+                |> class
     in
-        h2 [ attribute "data-name" "theme-average-score", class classes ]
-            [ span [ class labelClasses ]
+        h2 [ attribute "data-name" "theme-average-score", classes ]
+            [ span [ labelClasses ]
                 [ text label ]
             , text (Question.averageScore questions)
             ]

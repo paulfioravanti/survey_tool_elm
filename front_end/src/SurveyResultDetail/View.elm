@@ -35,6 +35,7 @@ view surveyResultsListMsg noOpMsg path translations surveyResult =
             , "mw7-ns"
             ]
                 |> String.join " "
+                |> class
 
         surveyResultsListClickOptions =
             msgClickOptions surveyResultsListMsg
@@ -44,7 +45,7 @@ view surveyResultsListMsg noOpMsg path translations surveyResult =
     in
         main_ [ noOpClickOptions ]
             [ article
-                [ attribute "data-name" "survey-result-detail", class classes ]
+                [ attribute "data-name" "survey-result-detail", classes ]
                 [ backToHomeLink path surveyResultsListClickOptions
                 , surveyName surveyResult.name
                 , summary translations surveyResult
@@ -69,6 +70,7 @@ backToHomeLink path clickOptions =
             , "ml2 ml0-ns"
             ]
                 |> String.join " "
+                |> class
 
         -- NOTE: fa-prefixed classes are from Font Awesome.
         iconClasses =
@@ -77,9 +79,10 @@ backToHomeLink path clickOptions =
             , "f2 f1-ns"
             ]
                 |> String.join " "
+                |> class
     in
-        a [ href path, class classes, clickOptions ]
-            [ i [ class iconClasses, css [ Styles.brandColor ] ] [] ]
+        a [ href path, classes, clickOptions ]
+            [ i [ iconClasses, css [ Styles.brandColor ] ] [] ]
 
 
 surveyName : String -> Html msg
@@ -91,6 +94,7 @@ surveyName name =
             , "flex-row"
             ]
                 |> String.join " "
+                |> class
 
         headingClasses =
             [ "avenir"
@@ -100,9 +104,10 @@ surveyName name =
             , "tc"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
-            [ h1 [ class headingClasses ]
+        div [ classes ]
+            [ h1 [ headingClasses ]
                 [ text name ]
             ]
 
@@ -223,8 +228,9 @@ footerContent path clickOptions =
             , "tc"
             ]
                 |> String.join " "
+                |> class
     in
-        footer [ class classes ]
+        footer [ classes ]
             [ a [ href path, class "dim", clickOptions ]
                 [ logo ]
             ]
@@ -240,8 +246,9 @@ logo =
             , "mt0 mv3-ns"
             ]
                 |> String.join " "
+                |> class
     in
-        img [ src "/logo.png", class classes, alt "logo" ] []
+        img [ src "/logo.png", classes, alt "logo" ] []
 
 
 msgClickOptions : msg -> Html.Styled.Attribute msg

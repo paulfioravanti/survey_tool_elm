@@ -23,6 +23,7 @@ view translations respondents rating =
             , "no-underline"
             ]
                 |> String.join " "
+                |> class
 
         styles =
             [ hover
@@ -32,11 +33,12 @@ view translations respondents rating =
                     ]
                 ]
             ]
+                |> css
     in
         div
             [ attribute "data-name" "survey-response"
-            , class classes
-            , css styles
+            , classes
+            , styles
             ]
             [ content translations respondents rating ]
 
@@ -59,6 +61,7 @@ content translations respondents rating =
             , "w2"
             ]
                 |> String.join " "
+                |> class
 
         styles =
             [ hover
@@ -69,12 +72,13 @@ content translations respondents rating =
                     ]
                 ]
             ]
+                |> css
     in
         div
             [ attribute "data-name" "survey-response-content"
-            , class classes
+            , classes
             , class "survey-response-content"
-            , css styles
+            , styles
             ]
             [ text rating
             , Tooltip.view translations rating respondents

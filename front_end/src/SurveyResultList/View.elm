@@ -18,9 +18,10 @@ view msg translations { surveyResults } =
             , "mw7"
             ]
                 |> String.join " "
+                |> class
     in
         main_ []
-            [ section [ attribute "data-name" "survey-results", class classes ]
+            [ section [ attribute "data-name" "survey-results", classes ]
                 (surveyResultList msg translations surveyResults)
             ]
 
@@ -38,8 +39,9 @@ surveyResultList msg translations surveyResults =
             , "mt1 mt4-ns"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
+        div [ classes ]
             [ heading translations ]
             :: (surveyResults
                     |> List.map (SurveyResult.view msg translations)

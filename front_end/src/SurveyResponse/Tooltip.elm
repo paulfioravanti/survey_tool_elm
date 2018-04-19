@@ -34,10 +34,11 @@ view translations rating histogram =
             , "z-1"
             ]
                 |> String.join " "
+                |> class
     in
         span
             [ attribute "data-name" attributeName
-            , class classes
+            , classes
             , class "survey-response-tooltip"
             , css [ Styles.tooltip ]
             ]

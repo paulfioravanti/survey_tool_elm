@@ -22,9 +22,10 @@ view translations =
             , "vh-75"
             ]
                 |> String.join " "
+                |> class
     in
         main_ []
-            [ section [ attribute "data-name" "loading-message", class classes ]
+            [ section [ attribute "data-name" "loading-message", classes ]
                 [ Keyed.node "div" [] [ ( "loading-icon", icon ) ]
                 , div []
                     [ heading (I18Next.t translations "loading") ]
@@ -43,8 +44,9 @@ icon =
             , "fas"
             ]
                 |> String.join " "
+                |> class
     in
-        i [ class classes, css [ Styles.brandColorAlpha ] ] []
+        i [ classes, css [ Styles.brandColorAlpha ] ] []
 
 
 heading : String -> Html msg
@@ -58,6 +60,7 @@ heading label =
             , "ttu"
             ]
                 |> String.join " "
+                |> class
     in
-        h1 [ class classes ]
+        h1 [ classes ]
             [ text label ]

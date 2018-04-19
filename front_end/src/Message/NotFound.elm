@@ -23,10 +23,11 @@ view msg path translations =
             , "vh-75"
             ]
                 |> String.join " "
+                |> class
     in
         main_ []
             [ section
-                [ attribute "data-name" "not-found-message", class classes ]
+                [ attribute "data-name" "not-found-message", classes ]
                 [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
                 , div []
                     [ heading (I18Next.t translations "notFound") ]
@@ -48,8 +49,9 @@ icon =
             , "far"
             ]
                 |> String.join " "
+                |> class
     in
-        i [ class classes, css [ Styles.brandColorAlpha ] ] []
+        i [ classes, css [ Styles.brandColorAlpha ] ] []
 
 
 heading : String -> Html msg
@@ -63,8 +65,9 @@ heading label =
             , "ttu"
             ]
                 |> String.join " "
+                |> class
     in
-        h1 [ class classes ]
+        h1 [ classes ]
             [ text label ]
 
 
@@ -79,10 +82,11 @@ backToHomeLink msg path label =
             , "link"
             ]
                 |> String.join " "
+                |> class
     in
         a
             [ href path
-            , class classes
+            , classes
             , onWithOptions
                 "click"
                 { preventDefault = True

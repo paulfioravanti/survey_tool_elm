@@ -18,6 +18,7 @@ view translations description surveyResponses =
             , "mv2"
             ]
                 |> String.join " "
+                |> class
 
         scoresClasses =
             [ "flex"
@@ -25,11 +26,12 @@ view translations description surveyResponses =
             , "justify-between-ns"
             ]
                 |> String.join " "
+                |> class
     in
         div [ attribute "data-name" "question" ]
-            [ div [ class classes ]
+            [ div [ classes ]
                 [ descriptionText description
-                , div [ class scoresClasses ]
+                , div [ scoresClasses ]
                     [ averageScore
                         (I18Next.t translations "averageSymbol")
                         surveyResponses
@@ -47,8 +49,9 @@ descriptionText description =
             , "w-70-ns"
             ]
                 |> String.join " "
+                |> class
     in
-        h3 [ attribute "data-name" "question-description", class classes ]
+        h3 [ attribute "data-name" "question-description", classes ]
             [ text description ]
 
 
@@ -65,6 +68,7 @@ averageScore label surveyResponses =
             , "tr"
             ]
                 |> String.join " "
+                |> class
 
         labelClasses =
             [ "fw1"
@@ -73,9 +77,10 @@ averageScore label surveyResponses =
             , "times"
             ]
                 |> String.join " "
+                |> class
     in
-        h3 [ attribute "data-name" "question-average-score", class classes ]
-            [ span [ class labelClasses, css [ Styles.overlineText ] ]
+        h3 [ attribute "data-name" "question-average-score", classes ]
+            [ span [ labelClasses, css [ Styles.overlineText ] ]
                 [ text label ]
             , text averageScore
             ]
@@ -97,6 +102,7 @@ responses translations surveyResponses =
             , "mr3 mr0-ns"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ attribute "data-name" "survey-responses", class classes ]
+        div [ attribute "data-name" "survey-responses", classes ]
             (List.map (SurveyResponse.view translations respondents) ratings)
