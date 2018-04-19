@@ -16,9 +16,6 @@ view translations description surveyResponses =
             , "justify-between-ns"
             , "mh1 mh0-ns"
             , "mv2"
-            , "pb2"
-            , "ph2"
-            , "striped--near-white"
             ]
                 |> String.join " "
                 |> class

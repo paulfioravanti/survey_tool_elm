@@ -150,8 +150,8 @@ participationCount label participantCount =
                 |> String.join " "
 
         valueClasses =
-            [ "b"
-            , "f4 f3-ns"
+            [ "f4 f3-ns"
+            , "fw8"
             , "tc"
             ]
                 |> String.join " "
@@ -174,8 +174,8 @@ submittedResponseCount label responseCount =
                 |> String.join " "
 
         valueClasses =
-            [ "b"
-            , "f4 f3-ns"
+            [ "f4 f3-ns"
+            , "fw8"
             , "tc"
             ]
                 |> String.join " "
@@ -198,8 +198,8 @@ submittedResponseRate label responseRate =
                 |> String.join " "
 
         valueClasses =
-            [ "b"
-            , "f4 f3-ns"
+            [ "f4 f3-ns"
+            , "fw8"
             , "tc"
             ]
                 |> String.join " "

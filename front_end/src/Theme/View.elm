@@ -19,7 +19,8 @@ view translations { name, questions } =
             , "flex"
             , "flex-row"
             , "justify-between"
-            , "mv2"
+            , "mb3"
+            , "mt4"
             , "mh1 mh0-ns"
             ]
                 |> String.join " "
@@ -41,8 +42,8 @@ themeName : String -> Html msg
 themeName name =
     let
         classes =
-            [ "dark-gray"
-            , "f4 f3-ns"
+            [ "f4 f3-ns"
+            , "mid-gray"
             , "ttu"
             ]
                 |> String.join " "
@@ -58,6 +59,7 @@ averageScore label questions =
         classes =
             [ "b"
             , "f4 f3-ns"
+            , "mid-gray"
             ]
                 |> String.join " "
                 |> class
@@ -68,9 +70,15 @@ averageScore label questions =
             ]
                 |> String.join " "
                 |> class
+
+        valueClasses =
+            [ "dark-gray" ]
+                |> String.join " "
+                |> class
     in
         h2 [ attribute "data-name" "theme-average-score", classes ]
             [ span [ labelClasses ]
                 [ text label ]
-            , text (Question.averageScore questions)
+            , span [ valueClasses ]
+                [ text (Question.averageScore questions) ]
             ]
