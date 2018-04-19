@@ -15,6 +15,7 @@ import Route
         )
 import SurveyResultDetail
 import SurveyResultList
+import Window
 
 
 update : Model -> ( Model, Cmd Msg )
@@ -24,9 +25,12 @@ update model =
             case model.surveyResultList of
                 NotRequested ->
                     ( { model | surveyResultList = Requesting }
-                    , model.config.apiUrl
-                        |> SurveyResultList.fetchSurveyResultList
-                        |> Cmd.map SurveyResultListMsg
+                    , Cmd.batch
+                        [ model.config.apiUrl
+                            |> SurveyResultList.fetchSurveyResultList
+                            |> Cmd.map SurveyResultListMsg
+                        , Window.updateTitle "Loading..."
+                        ]
                     )
 
                 _ ->
@@ -34,9 +38,12 @@ update model =
 
         SurveyResultDetailRoute id ->
             ( { model | surveyResultDetail = Requesting }
-            , model.config.apiUrl
-                |> SurveyResultDetail.fetchSurveyResult id
-                |> Cmd.map SurveyResultDetailMsg
+            , Cmd.batch
+                [ model.config.apiUrl
+                    |> SurveyResultDetail.fetchSurveyResult id
+                    |> Cmd.map SurveyResultDetailMsg
+                , Window.updateTitle "Loading..."
+                ]
             )
 
         _ ->
