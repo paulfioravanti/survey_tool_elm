@@ -16,6 +16,9 @@ view translations description surveyResponses =
             , "justify-between-ns"
             , "mh1 mh0-ns"
             , "mv2"
+            , "pb2"
+            , "ph2"
+            , "striped--near-white"
             ]
                 |> String.join " "
                 |> class
@@ -28,15 +31,13 @@ view translations description surveyResponses =
                 |> String.join " "
                 |> class
     in
-        div [ attribute "data-name" "question" ]
-            [ div [ classes ]
-                [ descriptionText description
-                , div [ scoresClasses ]
-                    [ averageScore
-                        (I18Next.t translations "averageSymbol")
-                        surveyResponses
-                    , responses translations surveyResponses
-                    ]
+        div [ attribute "data-name" "question", classes ]
+            [ descriptionText description
+            , div [ scoresClasses ]
+                [ averageScore
+                    (I18Next.t translations "averageSymbol")
+                    surveyResponses
+                , responses translations surveyResponses
                 ]
             ]
 
