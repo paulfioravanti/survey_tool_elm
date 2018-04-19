@@ -1,4 +1,4 @@
-module Locale exposing (Locale, init, translationsUrl)
+module Locale exposing (Locale(..), init, translationsUrl)
 
 import Flags exposing (Flags)
 import Json.Decode as Decode

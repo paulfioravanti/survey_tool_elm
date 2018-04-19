@@ -9,6 +9,7 @@ import Html.Attributes as Attributes
 import Html.Styled
 import Http exposing (Error(BadStatus))
 import I18Next exposing (Translations)
+import Locale exposing (Locale(En))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Route exposing (Route(NotFoundRoute, SurveyResultDetailRoute))
@@ -47,6 +48,7 @@ unknownRouteTest config =
                         model =
                             Model
                                 config
+                                En
                                 NotFoundRoute
                                 NotRequested
                                 NotRequested
@@ -86,6 +88,7 @@ unknownSurveyResult config =
                         model =
                             Model
                                 config
+                                En
                                 (SurveyResultDetailRoute "1")
                                 (Failure (BadStatus notFoundResponse))
                                 NotRequested

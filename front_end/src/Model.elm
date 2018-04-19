@@ -24,6 +24,7 @@ type alias Model =
     import Config exposing (Config)
     import Dict exposing (Dict)
     import I18Next exposing (Translations)
+    import Locale exposing (Locale(En))
     import RemoteData exposing (RemoteData(NotRequested))
     import Route exposing (Route(ListSurveyResultsRoute))
 
@@ -35,9 +36,10 @@ type alias Model =
     translations =
         I18Next.initialTranslations
 
-    initialModel config ListSurveyResultsRoute
+    initialModel config En ListSurveyResultsRoute
     --> Model
     -->     config
+    -->     En
     -->     ListSurveyResultsRoute
     -->     NotRequested
     -->     NotRequested

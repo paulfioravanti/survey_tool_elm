@@ -6,6 +6,7 @@ import Flags exposing (Flags)
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Flags as Flags
 import Fuzzer.Navigation.Location as Location
+import Locale exposing (Locale(En))
 import Main
 import Model exposing (Model)
 import Navigation
@@ -47,7 +48,7 @@ initTest flags location =
                 model =
                     rootLocation
                         |> Router.Utils.toRoute
-                        |> Model.initialModel config
+                        |> Model.initialModel config En
             in
                 rootLocation
                     |> Main.init flags
@@ -66,7 +67,7 @@ subscriptionsTest flags location =
                 model =
                     { location | pathname = "/" }
                         |> Router.Utils.toRoute
-                        |> Model.initialModel config
+                        |> Model.initialModel config En
             in
                 model
                     |> Main.subscriptions

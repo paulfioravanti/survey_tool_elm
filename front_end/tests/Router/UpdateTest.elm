@@ -6,6 +6,7 @@ import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import Fuzzer.Navigation.Location as Location
 import Fuzzer.Route as Route
+import Locale exposing (Locale(En))
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Navigation
@@ -42,7 +43,7 @@ changeLocationTest config route newRoute =
             \config route newRoute ->
                 let
                     model =
-                        Model.initialModel config route
+                        Model.initialModel config En route
 
                     msg =
                         RoutingMsg (ChangeLocation newRoute)
@@ -61,7 +62,7 @@ noOpTest config route =
             \config route ->
                 let
                     model =
-                        Model.initialModel config route
+                        Model.initialModel config En route
 
                     msg =
                         RoutingMsg (NoOp route)
@@ -84,7 +85,7 @@ onLocationChangeTest config route newRoute =
                 \config route newRoute location ->
                     let
                         model =
-                            Model.initialModel config route
+                            Model.initialModel config En route
 
                         newLocation =
                             { location | pathname = Utils.toPath newRoute }

@@ -5,8 +5,7 @@ import Json.Decode as Decode
 
 
 type alias Config =
-    { apiUrl : String
-    }
+    { apiUrl : String }
 
 
 init : Flags -> Config

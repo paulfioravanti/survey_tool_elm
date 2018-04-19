@@ -5,6 +5,7 @@ import Fuzzer.Config as Config
 import Html exposing (Html, text)
 import Html.Styled
 import I18Next exposing (Translations)
+import Locale exposing (Locale(En))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested))
 import Route
@@ -34,6 +35,7 @@ suite =
                             model =
                                 Model
                                     config
+                                    En
                                     ListSurveyResultsRoute
                                     NotRequested
                                     NotRequested
@@ -54,6 +56,7 @@ suite =
                             model =
                                 Model
                                     config
+                                    En
                                     (SurveyResultDetailRoute "10")
                                     NotRequested
                                     NotRequested

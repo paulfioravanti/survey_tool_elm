@@ -9,3 +9,4 @@ fuzzer : Fuzzer Flags
 fuzzer =
     Fuzz.map Flags string
         |> Fuzz.andMap (constant (Encode.string "http://www.example.com/"))
+        |> Fuzz.andMap (constant (Encode.string "en"))

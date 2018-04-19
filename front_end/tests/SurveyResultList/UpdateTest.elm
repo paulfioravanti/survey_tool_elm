@@ -7,6 +7,7 @@ import Fuzzer.Config as Config
 import Fuzzer.SurveyResultList as SurveyResultList
 import Http exposing (Error(NetworkError))
 import I18Next exposing (Translations)
+import Locale exposing (Locale(En))
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultListMsg))
 import RemoteData
@@ -46,6 +47,7 @@ fetchSurveyResultListFailureTest config =
                     model =
                         Model
                             config
+                            En
                             ListSurveyResultsRoute
                             NotRequested
                             Requesting
@@ -81,6 +83,7 @@ fetchSurveyResultListSuccessTest config =
                         model =
                             Model
                                 config
+                                En
                                 ListSurveyResultsRoute
                                 NotRequested
                                 Requesting

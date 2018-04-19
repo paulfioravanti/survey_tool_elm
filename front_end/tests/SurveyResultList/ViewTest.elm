@@ -6,6 +6,7 @@ import Fuzzer.SurveyResultList as SurveyResultList
 import Html.Attributes as Attributes
 import Html.Styled
 import I18Next exposing (Translations)
+import Locale exposing (Locale(En))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Success))
 import Route exposing (Route(ListSurveyResultsRoute))
@@ -38,6 +39,7 @@ suite =
                         model =
                             Model
                                 config
+                                En
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Success surveyResultList)
