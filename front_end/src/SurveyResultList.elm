@@ -8,14 +8,12 @@ module SurveyResultList
         )
 
 import Html.Styled exposing (Html)
-import Json.Decode as Decode
 import RemoteData exposing (WebData)
 import SurveyResultList.Cmd as Cmd
 import SurveyResultList.Controller as Controller
 import SurveyResultList.Model as Model
 import SurveyResultList.Msg as Msg
 import SurveyResultList.Update as Update
-import SurveyResultList.View as View
 
 
 type alias SurveyResultList =
