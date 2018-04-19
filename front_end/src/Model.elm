@@ -20,6 +20,8 @@ type alias Model =
 {-| Initialises Model attributes
 
     import Config exposing (Config)
+    import Dict exposing (Dict)
+    import I18Next exposing (Translations)
     import RemoteData exposing (RemoteData(NotRequested))
     import Route exposing (Route(ListSurveyResultsRoute))
 
@@ -27,12 +29,17 @@ type alias Model =
     config =
         Config "http://www.example.com/survey_results"
 
+    translations : Translations
+    translations =
+        I18Next.initialTranslations
+
     initialModel config ListSurveyResultsRoute
     --> Model
     -->     config
     -->     ListSurveyResultsRoute
     -->     NotRequested
     -->     NotRequested
+    -->     translations
 
 -}
 initialModel : Config -> Route -> Model

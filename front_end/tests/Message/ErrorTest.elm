@@ -8,6 +8,7 @@ import Fuzzer.Config as Config
 import Html.Attributes as Attributes
 import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
+import I18Next exposing (Translations)
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Route
@@ -61,6 +62,7 @@ networkErrorTest config errorMessage =
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Failure NetworkError)
+                                I18Next.initialTranslations
                     in
                         model
                             |> Router.route
@@ -93,6 +95,7 @@ badStatusTest config response errorMessage =
                                     ListSurveyResultsRoute
                                     NotRequested
                                     (Failure (BadStatus response))
+                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route
@@ -111,6 +114,7 @@ badStatusTest config response errorMessage =
                                     (SurveyResultDetailRoute "1")
                                     (Failure (BadStatus response))
                                     NotRequested
+                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route
@@ -143,6 +147,7 @@ badPayloadTest config response errorMessage =
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Failure (BadPayload "BadPayload" response))
+                                I18Next.initialTranslations
                     in
                         model
                             |> Router.route
@@ -171,6 +176,7 @@ otherErrorTest config errorMessage =
                                     ListSurveyResultsRoute
                                     NotRequested
                                     (Failure Timeout)
+                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route
@@ -189,6 +195,7 @@ otherErrorTest config errorMessage =
                                     (SurveyResultDetailRoute "1")
                                     (Failure Timeout)
                                     NotRequested
+                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route

@@ -4,6 +4,7 @@ import Expect
 import Fuzzer.Config as Config
 import Html exposing (Html, text)
 import Html.Styled
+import I18Next exposing (Translations)
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested))
 import Route
@@ -36,6 +37,7 @@ suite =
                                     ListSurveyResultsRoute
                                     NotRequested
                                     NotRequested
+                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route
@@ -55,6 +57,7 @@ suite =
                                     (SurveyResultDetailRoute "10")
                                     NotRequested
                                     NotRequested
+                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route

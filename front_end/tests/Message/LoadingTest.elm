@@ -4,6 +4,7 @@ import Config exposing (Config)
 import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
+import I18Next exposing (Translations)
 import Html.Attributes as Attributes
 import Html.Styled
 import Model exposing (Model)
@@ -49,6 +50,7 @@ surveyResultsListPageTest config loadingMessage =
                             ListSurveyResultsRoute
                             NotRequested
                             Requesting
+                            I18Next.initialTranslations
                 in
                     model
                         |> Router.route
@@ -71,6 +73,7 @@ surveyResultDetailPageTest config loadingMessage =
                             (SurveyResultDetailRoute "10")
                             Requesting
                             NotRequested
+                            I18Next.initialTranslations
                 in
                     model
                         |> Router.route

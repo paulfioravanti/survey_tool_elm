@@ -8,6 +8,7 @@ import Fuzzer.Http.Response as Response
 import Html.Attributes as Attributes
 import Html.Styled
 import Http exposing (Error(BadStatus))
+import I18Next exposing (Translations)
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Route exposing (Route(NotFoundRoute, SurveyResultDetailRoute))
@@ -49,6 +50,7 @@ unknownRouteTest config =
                                 NotFoundRoute
                                 NotRequested
                                 NotRequested
+                                I18Next.initialTranslations
                     in
                         model
                             |> Router.route
@@ -87,6 +89,7 @@ unknownSurveyResult config =
                                 (SurveyResultDetailRoute "1")
                                 (Failure (BadStatus notFoundResponse))
                                 NotRequested
+                                I18Next.initialTranslations
                     in
                         model
                             |> Router.route
