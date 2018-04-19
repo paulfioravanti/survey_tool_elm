@@ -8,8 +8,9 @@ unable to figure out a way to test init through main.
 import Config exposing (Config)
 import Flags exposing (Flags)
 import Html.Styled as Html exposing (Html)
+import I18Next
 import Model exposing (Model)
-import Msg exposing (Msg(RoutingMsg, UpdatePage))
+import Msg exposing (Msg(RoutingMsg, TranslationsLoaded, UpdatePage))
 import Navigation
 import Router
 import Task
@@ -40,8 +41,13 @@ init flags location =
                 |> Model.initialModel config
     in
         ( model
-        , Task.succeed ()
-            |> Task.perform UpdatePage
+        , Cmd.batch
+            [ Task.succeed ()
+                |> Task.perform UpdatePage
+            , I18Next.fetchTranslations
+                TranslationsLoaded
+                "/locale/translations.en.json"
+            ]
         )
 
 

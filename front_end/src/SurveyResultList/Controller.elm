@@ -5,6 +5,7 @@ on the status of the data fetched from the remote API point.
 -}
 
 import Html.Styled exposing (Html, text)
+import I18Next exposing (Translations)
 import Message.Loading as Loading
 import Message.Error as Error
 import RemoteData
@@ -21,8 +22,8 @@ import SurveyResultList.Model exposing (SurveyResultList)
 import SurveyResultList.View
 
 
-render : (String -> msg) -> WebData SurveyResultList -> Html msg
-render msg surveyResultList =
+render : (String -> msg) -> Translations -> WebData SurveyResultList -> Html msg
+render msg translations surveyResultList =
     case surveyResultList of
         NotRequested ->
             text ""
@@ -34,4 +35,4 @@ render msg surveyResultList =
             Error.view error
 
         Success surveyResultList ->
-            SurveyResultList.View.view msg surveyResultList
+            SurveyResultList.View.view msg translations surveyResultList

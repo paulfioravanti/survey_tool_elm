@@ -5,12 +5,13 @@ module SurveyResultList.View exposing (view)
 
 import Html.Styled exposing (Html, div, h1, h4, img, main_, section, span, text)
 import Html.Styled.Attributes exposing (alt, attribute, class, src)
+import I18Next exposing (Translations)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
-view : (String -> msg) -> SurveyResultList -> Html msg
-view msg { surveyResults } =
+view : (String -> msg) -> Translations -> SurveyResultList -> Html msg
+view msg translations { surveyResults } =
     let
         classes =
             [ "center"
@@ -20,12 +21,16 @@ view msg { surveyResults } =
     in
         main_ []
             [ section [ attribute "data-name" "survey-results", class classes ]
-                (surveyResultList msg surveyResults)
+                (surveyResultList msg translations surveyResults)
             ]
 
 
-surveyResultList : (String -> msg) -> List SurveyResult -> List (Html msg)
-surveyResultList msg surveyResults =
+surveyResultList :
+    (String -> msg)
+    -> Translations
+    -> List SurveyResult
+    -> List (Html msg)
+surveyResultList msg translations surveyResults =
     let
         classes =
             [ "flex"
@@ -35,14 +40,14 @@ surveyResultList msg surveyResults =
                 |> String.join " "
     in
         div [ class classes ]
-            [ heading ]
+            [ heading translations ]
             :: (surveyResults
-                    |> List.map (SurveyResult.view msg)
+                    |> List.map (SurveyResult.view msg translations)
                )
 
 
-heading : Html msg
-heading =
+heading : Translations -> Html msg
+heading translations =
     let
         headingClasses =
             [ "avenir"
@@ -54,7 +59,10 @@ heading =
                 |> String.join " "
     in
         h1 [ class headingClasses ]
-            [ text "Survey", logo, text "Results" ]
+            [ text (I18Next.t translations "survey")
+            , logo
+            , text (I18Next.t translations "results")
+            ]
 
 
 logo : Html msg

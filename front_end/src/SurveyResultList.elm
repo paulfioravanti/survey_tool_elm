@@ -8,6 +8,7 @@ module SurveyResultList
         )
 
 import Html.Styled exposing (Html)
+import I18Next exposing (Translations)
 import RemoteData exposing (WebData)
 import SurveyResultList.Cmd as Cmd
 import SurveyResultList.Controller as Controller
@@ -34,6 +35,6 @@ update msg =
     Update.update msg
 
 
-view : (String -> msg) -> WebData SurveyResultList -> Html msg
-view msg surveyResultList =
-    Controller.render msg surveyResultList
+view : (String -> msg) -> Translations -> WebData SurveyResultList -> Html msg
+view msg translations surveyResultList =
+    Controller.render msg translations surveyResultList

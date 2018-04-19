@@ -1,6 +1,7 @@
 module Model exposing (Model, initialModel)
 
 import Config exposing (Config)
+import I18Next exposing (Translations)
 import RemoteData exposing (RemoteData(NotRequested), WebData)
 import Router exposing (Route)
 import SurveyResult exposing (SurveyResult)
@@ -12,6 +13,7 @@ type alias Model =
     , route : Route
     , surveyResultDetail : WebData SurveyResult
     , surveyResultList : WebData SurveyResultList
+    , translations : Translations
     }
 
 
@@ -39,4 +41,5 @@ initialModel config route =
     , route = route
     , surveyResultDetail = NotRequested
     , surveyResultList = NotRequested
+    , translations = I18Next.initialTranslations
     }

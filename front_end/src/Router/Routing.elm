@@ -1,6 +1,7 @@
 module Router.Routing exposing (route)
 
 import Html.Styled as Html exposing (Html)
+import I18Next exposing (Translations)
 import Message.NotFound as NotFound
 import RemoteData exposing (WebData)
 import Route
@@ -18,15 +19,20 @@ import SurveyResultDetail
 import SurveyResultList exposing (SurveyResultList)
 
 
-route : Route -> WebData SurveyResultList -> WebData SurveyResult -> Html Msg
-route route surveyResultList surveyResultDetail =
+route :
+    Route
+    -> WebData SurveyResultList
+    -> WebData SurveyResult
+    -> Translations
+    -> Html Msg
+route route surveyResultList surveyResultDetail translations =
     case route of
         ListSurveyResultsRoute ->
             let
                 msg =
                     (ChangeLocation << SurveyResultDetailRoute)
             in
-                SurveyResultList.view msg surveyResultList
+                SurveyResultList.view msg translations surveyResultList
 
         SurveyResultDetailRoute id ->
             let

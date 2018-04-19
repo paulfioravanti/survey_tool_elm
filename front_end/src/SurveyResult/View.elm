@@ -19,6 +19,7 @@ import Html.Styled
         )
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)
+import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Styles
 import SurveyResult.Model exposing (SurveyResult)
@@ -26,8 +27,8 @@ import SurveyResult.Utils
 import Utils
 
 
-view : (String -> msg) -> SurveyResult -> Html msg
-view msg surveyResult =
+view : (String -> msg) -> Translations -> SurveyResult -> Html msg
+view msg translations surveyResult =
     let
         classes =
             [ "avenir"
@@ -41,11 +42,11 @@ view msg surveyResult =
                 |> String.join " "
     in
         article [ class classes, css [ Styles.surveyResultSummary ] ]
-            [ summaryLink msg surveyResult ]
+            [ summaryLink msg translations surveyResult ]
 
 
-summaryLink : (String -> msg) -> SurveyResult -> Html msg
-summaryLink msg surveyResult =
+summaryLink : (String -> msg) -> Translations -> SurveyResult -> Html msg
+summaryLink msg translations surveyResult =
     let
         url =
             surveyResult.url
@@ -72,6 +73,7 @@ summaryLink msg surveyResult =
             [ href url, class classes, clickOptions ]
             [ summaryHeading surveyResult.name
             , summaryContent
+                translations
                 surveyResult.participantCount
                 surveyResult.submittedResponseCount
                 surveyResult.responseRate
@@ -94,8 +96,8 @@ summaryHeading name =
             [ text name ]
 
 
-summaryContent : Int -> Int -> Float -> Html msg
-summaryContent participantCount submittedResponseCount responseRate =
+summaryContent : Translations -> Int -> Int -> Float -> Html msg
+summaryContent translations participantCount submittedResponseCount responseRate =
     let
         classes =
             [ "flex"
@@ -106,21 +108,27 @@ summaryContent participantCount submittedResponseCount responseRate =
                 |> String.join " "
     in
         div [ class classes ]
-            [ statistics participantCount submittedResponseCount
-            , responseRatePercentage responseRate
+            [ statistics translations participantCount submittedResponseCount
+            , responseRatePercentage
+                (I18Next.t translations "responseRate")
+                responseRate
             ]
 
 
-statistics : Int -> Int -> Html msg
-statistics participantCount submittedResponseCount =
+statistics : Translations -> Int -> Int -> Html msg
+statistics translations participantCount submittedResponseCount =
     let
         classes =
             [ "w-50-ns" ]
                 |> String.join " "
     in
         div [ class classes ]
-            [ statistic "Participants" participantCount
-            , statistic "Responses" submittedResponseCount
+            [ statistic
+                (I18Next.t translations "participants")
+                participantCount
+            , statistic
+                (I18Next.t translations "responses")
+                submittedResponseCount
             ]
 
 
@@ -165,8 +173,8 @@ statisticValue value =
             [ text (toString value) ]
 
 
-responseRatePercentage : Float -> Html msg
-responseRatePercentage responseRate =
+responseRatePercentage : String -> Float -> Html msg
+responseRatePercentage label responseRate =
     let
         responseRateClasses =
             [ "b"
@@ -181,13 +189,13 @@ responseRatePercentage responseRate =
                 |> String.join " "
     in
         div [ class responseRateClasses ]
-            [ responseRateLabel
+            [ responseRateLabel label
             , responseRateValue responseRate
             ]
 
 
-responseRateLabel : Html msg
-responseRateLabel =
+responseRateLabel : String -> Html msg
+responseRateLabel label =
     let
         classes =
             [ "f2-ns"
@@ -197,7 +205,7 @@ responseRateLabel =
                 |> String.join " "
     in
         div [ class classes ]
-            [ text "Response Rate" ]
+            [ text label ]
 
 
 responseRateValue : Float -> Html msg

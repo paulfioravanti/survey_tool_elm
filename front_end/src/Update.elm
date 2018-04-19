@@ -7,6 +7,7 @@ import Msg
             , SurveyResultListMsg
             , RoutingMsg
             , UpdatePage
+            , TranslationsLoaded
             )
         )
 import Model exposing (Model)
@@ -48,3 +49,9 @@ update msg model =
 
         UpdatePage _ ->
             Page.update model
+
+        TranslationsLoaded (Ok translations) ->
+            ( { model | translations = translations }, Cmd.none )
+
+        TranslationsLoaded (Err msg) ->
+            ( model, Cmd.none )
