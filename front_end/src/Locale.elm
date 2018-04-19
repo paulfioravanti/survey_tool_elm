@@ -6,6 +6,7 @@ import Json.Decode as Decode
 
 type Locale
     = En
+    | Ja
 
 
 init : Decode.Value -> Locale
@@ -19,6 +20,8 @@ init localeFlag =
             Ok locale ->
                 if String.startsWith "en" locale then
                     En
+                else if String.startsWith "ja" locale then
+                    Ja
                 else
                     En
 
