@@ -4,15 +4,17 @@ import "@fortawesome/fontawesome-free-regular";
 import "tachyons";
 import { Main } from "./Main.elm";
 
-const appContainer = document.querySelector("#root");
+document.addEventListener("DOMContentLoaded", () => {
+  const appContainer = document.querySelector("#root");
 
-if (appContainer) {
-  const app = Main.embed(document.getElementById("root"), {
-    environment: process.env.NODE_ENV,
-    apiUrl: process.env.ELM_APP_API_URL
-  });
+  if (appContainer) {
+    const app = Main.embed(document.getElementById("root"), {
+      environment: process.env.NODE_ENV,
+      apiUrl: process.env.ELM_APP_API_URL
+    });
 
-  app.ports.updateTitle.subscribe((newTitle) => {
-    window.document.title = newTitle;
-  });
-}
+    app.ports.updateTitle.subscribe((newTitle) => {
+      window.document.title = newTitle;
+    });
+  }
+});
