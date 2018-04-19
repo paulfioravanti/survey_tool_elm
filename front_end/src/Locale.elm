@@ -1,4 +1,4 @@
-module Locale exposing (Locale, init)
+module Locale exposing (Locale, init, translationsUrl)
 
 import Flags exposing (Flags)
 import Json.Decode as Decode
@@ -24,3 +24,14 @@ init localeFlag =
 
             Err _ ->
                 En
+
+
+translationsUrl : Locale -> String
+translationsUrl locale =
+    let
+        translationLocale =
+            locale
+                |> toString
+                |> String.toLower
+    in
+        "/locale/translations." ++ translationLocale ++ ".json"

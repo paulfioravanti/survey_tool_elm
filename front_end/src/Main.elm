@@ -50,7 +50,7 @@ init flags location =
                 |> Task.perform UpdatePage
             , I18Next.fetchTranslations
                 TranslationsLoaded
-                "/locale/translations.en.json"
+                (Locale.translationsUrl locale)
             ]
         )
 
