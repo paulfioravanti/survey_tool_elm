@@ -11,6 +11,7 @@ module SurveyResponse
         )
 
 import Html.Styled exposing (Html)
+import I18Next exposing (Translations)
 import Json.Decode as Decode
 import SurveyResponse.Decoder as Decoder
 import SurveyResponse.Model as Model
@@ -56,6 +57,6 @@ sumResponseContent surveyResponses =
     Utils.sumResponseContent surveyResponses
 
 
-view : RespondentHistogram -> Rating -> Html msg
-view respondents rating =
-    View.view respondents rating
+view : Translations -> RespondentHistogram -> Rating -> Html msg
+view translations respondents rating =
+    View.view translations respondents rating

@@ -1,7 +1,15 @@
 {
+  "allRespondents": "Chosen by respondent IDs {{headIds}}, and {{tailId}}.",
+  "averageScore": "Average Score",
+  "averageSymbol": "x",
   "participants": "Participants",
+  "noRespondents": "Chosen by no respondents.",
+  "oneRespondent": "Chosen by respondent ID {{id}}.",
+  "other": "other",
+  "others": "others",
   "responses": "Responses",
   "responseRate": "Response Rate",
   "results": "Results",
-  "survey": "Survey"
+  "survey": "Survey",
+  "truncatedRespondents": "Chosen by respondent IDs {{idsToDisplay}}, and {{numTruncated}} {{other}}."
 }

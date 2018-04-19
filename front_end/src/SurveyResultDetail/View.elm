@@ -50,7 +50,7 @@ view surveyResultsListMsg noOpMsg path translations surveyResult =
                 , summary translations surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        (Theme.view)
+                        (Theme.view translations)
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]

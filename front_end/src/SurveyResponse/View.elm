@@ -5,19 +5,17 @@ module SurveyResponse.View exposing (view)
 
 import Css exposing (hover, visible, visibility)
 import Css.Foreign exposing (children)
-import Dict exposing (Dict)
 import Html.Styled exposing (Html, a, div, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
-import Html.Styled.Events exposing (onWithOptions)
-import Json.Decode as Decode
+import I18Next exposing (Translations)
 import Styles
 import SurveyResponse.Model exposing (Rating)
 import SurveyResponse.RespondentHistogram exposing (RespondentHistogram)
 import SurveyResponse.Tooltip as Tooltip
 
 
-view : RespondentHistogram -> Rating -> Html msg
-view respondents rating =
+view : Translations -> RespondentHistogram -> Rating -> Html msg
+view translations respondents rating =
     let
         classes =
             [ "dt"
@@ -40,11 +38,11 @@ view respondents rating =
             , class classes
             , css styles
             ]
-            [ content respondents rating ]
+            [ content translations respondents rating ]
 
 
-content : RespondentHistogram -> Rating -> Html msg
-content respondents rating =
+content : Translations -> RespondentHistogram -> Rating -> Html msg
+content translations respondents rating =
     let
         classes =
             [ "b--light-silver"
@@ -79,5 +77,5 @@ content respondents rating =
             , css styles
             ]
             [ text rating
-            , Tooltip.view rating respondents
+            , Tooltip.view translations rating respondents
             ]

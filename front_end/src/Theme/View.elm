@@ -5,12 +5,13 @@ module Theme.View exposing (view)
 
 import Html.Styled exposing (Html, div, h2, span, text)
 import Html.Styled.Attributes exposing (attribute, class)
+import I18Next exposing (Translations)
 import Question exposing (Question)
 import Theme.Model exposing (Theme)
 
 
-view : Theme -> Html msg
-view { name, questions } =
+view : Translations -> Theme -> Html msg
+view translations { name, questions } =
     let
         classes =
             [ "b--light-gray"
@@ -26,10 +27,12 @@ view { name, questions } =
         div [ attribute "data-name" "theme" ]
             [ div [ class classes ]
                 [ themeName name
-                , averageScore questions
+                , averageScore
+                    (I18Next.t translations "averageScore")
+                    questions
                 ]
             , div [ attribute "data-name" "questions" ]
-                (List.map Question.view questions)
+                (List.map (Question.view translations) questions)
             ]
 
 
@@ -47,8 +50,8 @@ themeName name =
             [ text name ]
 
 
-averageScore : List Question -> Html msg
-averageScore questions =
+averageScore : String -> List Question -> Html msg
+averageScore label questions =
     let
         classes =
             [ "b"
@@ -64,6 +67,6 @@ averageScore questions =
     in
         h2 [ attribute "data-name" "theme-average-score", class classes ]
             [ span [ class labelClasses ]
-                [ text "Average Score" ]
+                [ text label ]
             , text (Question.averageScore questions)
             ]

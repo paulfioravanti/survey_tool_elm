@@ -1,6 +1,7 @@
 module Question exposing (Question, averageScore, decoder, view)
 
 import Html.Styled exposing (Html)
+import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Question.Decoder as Decoder
 import Question.Model as Model
@@ -22,6 +23,6 @@ decoder =
     Decoder.decoder
 
 
-view : Question -> Html msg
-view { description, surveyResponses } =
-    View.view description surveyResponses
+view : Translations -> Question -> Html msg
+view translations { description, surveyResponses } =
+    View.view translations description surveyResponses

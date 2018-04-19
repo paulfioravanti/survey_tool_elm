@@ -2,12 +2,13 @@ module Question.View exposing (view)
 
 import Html.Styled exposing (Html, div, h3, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
+import I18Next exposing (Translations)
 import Styles
 import SurveyResponse exposing (RespondentHistogram, SurveyResponse)
 
 
-view : String -> List SurveyResponse -> Html msg
-view description surveyResponses =
+view : Translations -> String -> List SurveyResponse -> Html msg
+view translations description surveyResponses =
     let
         classes =
             [ "flex"
@@ -29,8 +30,10 @@ view description surveyResponses =
             [ div [ class classes ]
                 [ descriptionText description
                 , div [ class scoresClasses ]
-                    [ averageScore surveyResponses
-                    , responses surveyResponses
+                    [ averageScore
+                        (I18Next.t translations "averageSymbol")
+                        surveyResponses
+                    , responses translations surveyResponses
                     ]
                 ]
             ]
@@ -49,8 +52,8 @@ descriptionText description =
             [ text description ]
 
 
-averageScore : List SurveyResponse -> Html msg
-averageScore surveyResponses =
+averageScore : String -> List SurveyResponse -> Html msg
+averageScore label surveyResponses =
     let
         averageScore =
             surveyResponses
@@ -73,13 +76,13 @@ averageScore surveyResponses =
     in
         h3 [ attribute "data-name" "question-average-score", class classes ]
             [ span [ class labelClasses, css [ Styles.overlineText ] ]
-                [ text "x" ]
+                [ text label ]
             , text averageScore
             ]
 
 
-responses : List SurveyResponse -> Html msg
-responses surveyResponses =
+responses : Translations -> List SurveyResponse -> Html msg
+responses translations surveyResponses =
     let
         ratings =
             [ "1", "2", "3", "4", "5" ]
@@ -96,4 +99,4 @@ responses surveyResponses =
                 |> String.join " "
     in
         div [ attribute "data-name" "survey-responses", class classes ]
-            (List.map (SurveyResponse.view respondents) ratings)
+            (List.map (SurveyResponse.view translations respondents) ratings)
