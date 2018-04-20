@@ -77,9 +77,9 @@ surveyResultSummary =
         styleHeadingAndResponseRate =
             Css.batch
                 [ descendants
-                    [ Css.Foreign.class "summary-heading"
+                    [ Css.Foreign.selector "[data-name='summary-heading']"
                         [ brandColor ]
-                    , Css.Foreign.class "response-rate-value"
+                    , Css.Foreign.selector "[data-name='response-rate-value']"
                         [ brandBackgroundColor ]
                     ]
                 ]

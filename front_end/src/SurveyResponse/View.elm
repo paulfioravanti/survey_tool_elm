@@ -28,7 +28,8 @@ view translations respondents rating =
         styles =
             [ hover
                 [ children
-                    [ Css.Foreign.class "survey-response-content"
+                    [ Css.Foreign.selector
+                        "[data-name='survey-response-content']"
                         [ Styles.brandBackgroundColor ]
                     ]
                 ]
@@ -67,7 +68,8 @@ content translations respondents rating =
             [ hover
                 [ Styles.brandBorderColor
                 , children
-                    [ Css.Foreign.class "survey-response-tooltip"
+                    [ Css.Foreign.selector
+                        "[data-name*='survey-response-tooltip']"
                         [ visibility visible ]
                     ]
                 ]
@@ -77,7 +79,6 @@ content translations respondents rating =
         div
             [ attribute "data-name" "survey-response-content"
             , classes
-            , class "survey-response-content"
             , styles
             ]
             [ text rating

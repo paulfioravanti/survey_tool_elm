@@ -39,7 +39,6 @@ view translations rating histogram =
         span
             [ attribute "data-name" attributeName
             , classes
-            , class "survey-response-tooltip"
             , css [ Styles.tooltip ]
             ]
             [ text respondents ]

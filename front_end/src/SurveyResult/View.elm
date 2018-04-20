@@ -95,7 +95,7 @@ summaryHeading name =
                 |> String.join " "
                 |> class
     in
-        h1 [ classes, class "summary-heading" ]
+        h1 [ attribute "data-name" "summary-heading", classes ]
             [ text name ]
 
 
@@ -231,5 +231,5 @@ responseRateValue responseRate =
             responseRate
                 |> Utils.toFormattedPercentage
     in
-        div [ classes, class "response-rate-value" ]
+        div [ attribute "data-name" "response-rate-value", classes ]
             [ text responsePercentage ]
