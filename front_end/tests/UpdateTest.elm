@@ -5,7 +5,6 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import I18Next exposing (Translations)
-import Locale exposing (Language(En))
 import Model exposing (Model)
 import Msg exposing (Msg(UpdatePage))
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
@@ -54,7 +53,6 @@ surveyResultsListNotRequestedTest config msg =
                     model =
                         Model
                             config
-                            En
                             ListSurveyResultsRoute
                             NotRequested
                             NotRequested
@@ -81,7 +79,6 @@ surveyResultsListAlreadyRequestedTest config msg =
                     model =
                         Model
                             config
-                            En
                             ListSurveyResultsRoute
                             NotRequested
                             Requesting
@@ -107,7 +104,6 @@ surveyResultDetailNotRequestedTest config msg =
                     model =
                         Model
                             config
-                            En
                             (SurveyResultDetailRoute "10")
                             NotRequested
                             NotRequested
@@ -130,7 +126,6 @@ routeNotFoundTest config msg =
                     model =
                         Model
                             config
-                            En
                             NotFoundRoute
                             NotRequested
                             NotRequested

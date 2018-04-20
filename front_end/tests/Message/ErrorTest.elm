@@ -9,7 +9,6 @@ import Html.Attributes as Attributes
 import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import I18Next exposing (Translations)
-import Locale exposing (Language(En))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Route
@@ -60,7 +59,6 @@ networkErrorTest config errorMessage =
                         model =
                             Model
                                 config
-                                En
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Failure NetworkError)
@@ -94,7 +92,6 @@ badStatusTest config response errorMessage =
                             model =
                                 Model
                                     config
-                                    En
                                     ListSurveyResultsRoute
                                     NotRequested
                                     (Failure (BadStatus response))
@@ -114,7 +111,6 @@ badStatusTest config response errorMessage =
                             model =
                                 Model
                                     config
-                                    En
                                     (SurveyResultDetailRoute "1")
                                     (Failure (BadStatus response))
                                     NotRequested
@@ -148,7 +144,6 @@ badPayloadTest config response errorMessage =
                         model =
                             Model
                                 config
-                                En
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Failure (BadPayload "BadPayload" response))
@@ -178,7 +173,6 @@ otherErrorTest config errorMessage =
                             model =
                                 Model
                                     config
-                                    En
                                     ListSurveyResultsRoute
                                     NotRequested
                                     (Failure Timeout)
@@ -198,7 +192,6 @@ otherErrorTest config errorMessage =
                             model =
                                 Model
                                     config
-                                    En
                                     (SurveyResultDetailRoute "1")
                                     (Failure Timeout)
                                     NotRequested

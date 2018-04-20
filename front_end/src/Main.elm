@@ -36,13 +36,10 @@ init flags location =
         config =
             Config.init flags
 
-        language =
-            Locale.init flags.language
-
         model =
             location
                 |> Router.toRoute
-                |> Model.initialModel config language
+                |> Model.initialModel config
     in
         ( model
         , Cmd.batch
@@ -50,7 +47,7 @@ init flags location =
                 |> Task.perform UpdatePage
             , I18Next.fetchTranslations
                 TranslationsLoaded
-                (Locale.translationsUrl language)
+                (Locale.translationsUrl config.language)
             ]
         )
 

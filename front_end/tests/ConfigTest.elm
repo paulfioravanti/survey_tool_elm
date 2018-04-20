@@ -4,6 +4,7 @@ import Config exposing (Config)
 import Json.Encode as Encode
 import Expect
 import Flags exposing (Flags)
+import Locale exposing (Language(En))
 import Test exposing (Test, describe, test)
 
 
@@ -26,7 +27,9 @@ productionEnvironmentTest () =
                 (Encode.string "en")
 
         config =
-            Config "https://survey-tool-back-end.herokuapp.com/survey_results/"
+            Config
+                "https://survey-tool-back-end.herokuapp.com/survey_results/"
+                En
     in
         describe "when environment is production"
             [ test "apiUrl is set to be the production url" <|
@@ -53,7 +56,7 @@ otherEnvironmentWithApiUrlGivenTest () =
                 (Encode.string "en")
 
         config =
-            Config apiUrl
+            Config apiUrl En
     in
         describe "when environment is not production and apiUrl given"
             [ test "apiUrl is set to be the given url" <|
@@ -74,7 +77,7 @@ otherEnvironmentWithApiUrlNotGivenTest () =
             Flags "someEnvironment" Encode.null (Encode.string "en")
 
         config =
-            Config "http://localhost:4000/survey_results/"
+            Config "http://localhost:4000/survey_results/" En
     in
         describe "when environment is not production and apiUrl not given"
             [ test "apiUrl is set to be the localhost url" <|

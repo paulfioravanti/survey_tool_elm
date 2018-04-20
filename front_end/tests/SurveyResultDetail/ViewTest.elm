@@ -5,7 +5,6 @@ import Fuzzer.Config as Config
 import Html.Attributes as Attributes
 import Html.Styled
 import I18Next exposing (Translations)
-import Locale exposing (Language(En))
 import Model exposing (Model)
 import Question.Model exposing (Question)
 import RemoteData exposing (RemoteData(NotRequested, Success))
@@ -48,7 +47,6 @@ suite =
                         model =
                             Model
                                 config
-                                En
                                 (SurveyResultDetailRoute id)
                                 (Success surveyResult)
                                 NotRequested

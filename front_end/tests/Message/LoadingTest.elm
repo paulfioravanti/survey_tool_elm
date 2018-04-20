@@ -7,7 +7,6 @@ import Fuzzer.Config as Config
 import I18Next exposing (Translations)
 import Html.Attributes as Attributes
 import Html.Styled
-import Locale exposing (Language(En))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Route
@@ -48,7 +47,6 @@ surveyResultsListPageTest config loadingMessage =
                     model =
                         Model
                             config
-                            En
                             ListSurveyResultsRoute
                             NotRequested
                             Requesting
@@ -72,7 +70,6 @@ surveyResultDetailPageTest config loadingMessage =
                     model =
                         Model
                             config
-                            En
                             (SurveyResultDetailRoute "10")
                             Requesting
                             NotRequested

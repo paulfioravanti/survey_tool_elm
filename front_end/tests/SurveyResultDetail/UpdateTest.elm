@@ -8,7 +8,6 @@ import Fuzzer.Http.Response as Response
 import Fuzzer.SurveyResult as SurveyResult
 import Http exposing (Error(BadStatus, NetworkError))
 import I18Next exposing (Translations)
-import Locale exposing (Language(En))
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultDetailMsg))
 import RemoteData
@@ -70,7 +69,6 @@ fetchSurveyResultNetworkErrorFailureTest config surveyResult =
                     model =
                         Model
                             config
-                            En
                             (SurveyResultDetailRoute id)
                             Requesting
                             NotRequested
@@ -119,7 +117,6 @@ fetchSurveyResultBadStatusFailureTest config surveyResult =
                         model =
                             Model
                                 config
-                                En
                                 (SurveyResultDetailRoute id)
                                 Requesting
                                 NotRequested
@@ -179,7 +176,6 @@ fetchSurveyResultBadStatusNotFoundFailureTest config surveyResult =
                         model =
                             Model
                                 config
-                                En
                                 (SurveyResultDetailRoute id)
                                 Requesting
                                 NotRequested
@@ -227,7 +223,6 @@ fetchSurveyResultSuccessTest config surveyResult =
                     model =
                         Model
                             config
-                            En
                             (SurveyResultDetailRoute id)
                             NotRequested
                             Requesting

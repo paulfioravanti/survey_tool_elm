@@ -1,11 +1,14 @@
 module Config exposing (Config, init)
 
+import ApiUrl
 import Flags exposing (Flags)
-import Json.Decode as Decode
+import Locale exposing (Language)
 
 
 type alias Config =
-    { apiUrl : String }
+    { apiUrl : String
+    , language : Language
+    }
 
 
 init : Flags -> Config
@@ -14,29 +17,14 @@ init flags =
         apiUrl =
             case flags.environment of
                 "production" ->
-                    productionApiUrl
+                    ApiUrl.productionUrl
 
                 _ ->
-                    nonProductionApiUrl flags.apiUrl
+                    ApiUrl.nonProductionUrl flags.apiUrl
+
+        language =
+            Locale.init flags.language
     in
-        { apiUrl = apiUrl }
-
-
-productionApiUrl : String
-productionApiUrl =
-    "https://survey-tool-back-end.herokuapp.com/survey_results/"
-
-
-nonProductionApiUrl : Decode.Value -> String
-nonProductionApiUrl apiUrlFlag =
-    let
-        apiUrl =
-            apiUrlFlag
-                |> Decode.decodeValue Decode.string
-    in
-        case apiUrl of
-            Ok url ->
-                url
-
-            Err _ ->
-                "http://localhost:4000/survey_results/"
+        { apiUrl = apiUrl
+        , language = language
+        }
