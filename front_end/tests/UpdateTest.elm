@@ -5,7 +5,7 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import I18Next exposing (Translations)
-import Locale exposing (Locale(En))
+import Locale exposing (Language(En))
 import Model exposing (Model)
 import Msg exposing (Msg(UpdatePage))
 import RemoteData exposing (RemoteData(NotRequested, Requesting))

@@ -6,7 +6,7 @@ import Flags exposing (Flags)
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Flags as Flags
 import Fuzzer.Navigation.Location as Location
-import Locale exposing (Locale(En))
+import Locale exposing (Language(En))
 import Main
 import Model exposing (Model)
 import Navigation

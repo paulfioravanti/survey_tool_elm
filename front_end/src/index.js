@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Main.embed(appContainer, {
         environment: process.env.NODE_ENV,
         apiUrl: process.env.ELM_APP_API_URL,
-        locale: navigator.language || navigator.userLanguage
+        language: navigator.language || navigator.userLanguage
       });
 
     app.ports.updateTitle.subscribe((newTitle) => {

@@ -7,7 +7,7 @@ import Fuzzer.Config as Config
 import I18Next exposing (Translations)
 import Html.Attributes as Attributes
 import Html.Styled
-import Locale exposing (Locale(En))
+import Locale exposing (Language(En))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Route

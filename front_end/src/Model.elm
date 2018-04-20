@@ -2,7 +2,7 @@ module Model exposing (Model, initialModel)
 
 import Config exposing (Config)
 import I18Next exposing (Translations)
-import Locale exposing (Locale)
+import Locale exposing (Language)
 import RemoteData exposing (RemoteData(NotRequested), WebData)
 import Router exposing (Route)
 import SurveyResult exposing (SurveyResult)
@@ -11,7 +11,7 @@ import SurveyResultList exposing (SurveyResultList)
 
 type alias Model =
     { config : Config
-    , locale : Locale
+    , language : Language
     , route : Route
     , surveyResultDetail : WebData SurveyResult
     , surveyResultList : WebData SurveyResultList
@@ -24,7 +24,7 @@ type alias Model =
     import Config exposing (Config)
     import Dict exposing (Dict)
     import I18Next exposing (Translations)
-    import Locale exposing (Locale(En))
+    import Locale exposing (Language(En))
     import RemoteData exposing (RemoteData(NotRequested))
     import Route exposing (Route(ListSurveyResultsRoute))
 
@@ -46,10 +46,10 @@ type alias Model =
     -->     translations
 
 -}
-initialModel : Config -> Locale -> Route -> Model
-initialModel config locale route =
+initialModel : Config -> Language -> Route -> Model
+initialModel config language route =
     { config = config
-    , locale = locale
+    , language = language
     , route = route
     , surveyResultDetail = NotRequested
     , surveyResultList = NotRequested

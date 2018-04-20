@@ -6,7 +6,7 @@ import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import Fuzzer.Navigation.Location as Location
 import Fuzzer.Route as Route
-import Locale exposing (Locale(En))
+import Locale exposing (Language(En))
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Navigation

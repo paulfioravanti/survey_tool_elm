@@ -9,7 +9,7 @@ import Html.Attributes as Attributes
 import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import I18Next exposing (Translations)
-import Locale exposing (Locale(En))
+import Locale exposing (Language(En))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Route

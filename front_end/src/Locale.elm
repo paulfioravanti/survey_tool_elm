@@ -1,26 +1,26 @@
-module Locale exposing (Locale(..), init, translationsUrl)
+module Locale exposing (Language(..), init, translationsUrl)
 
 import Flags exposing (Flags)
 import Json.Decode as Decode
 
 
-type Locale
+type Language
     = En
     | Ja
 
 
-init : Decode.Value -> Locale
-init localeFlag =
+init : Decode.Value -> Language
+init languageFlag =
     let
-        locale =
-            localeFlag
+        language =
+            languageFlag
                 |> Decode.decodeValue Decode.string
     in
-        case locale of
-            Ok locale ->
-                if String.startsWith "en" locale then
+        case language of
+            Ok language ->
+                if String.startsWith "en" language then
                     En
-                else if String.startsWith "ja" locale then
+                else if String.startsWith "ja" language then
                     Ja
                 else
                     En
@@ -29,12 +29,12 @@ init localeFlag =
                 En
 
 
-translationsUrl : Locale -> String
-translationsUrl locale =
+translationsUrl : Language -> String
+translationsUrl language =
     let
-        translationLocale =
-            locale
+        translationLanguage =
+            language
                 |> toString
                 |> String.toLower
     in
-        "/locale/translations." ++ translationLocale ++ ".json"
+        "/locale/translations." ++ translationLanguage ++ ".json"

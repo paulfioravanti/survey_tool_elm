@@ -7,7 +7,7 @@ import Fuzzer.Config as Config
 import Fuzzer.SurveyResultList as SurveyResultList
 import Http exposing (Error(NetworkError))
 import I18Next exposing (Translations)
-import Locale exposing (Locale(En))
+import Locale exposing (Language(En))
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultListMsg))
 import RemoteData

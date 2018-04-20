@@ -8,7 +8,7 @@ import Fuzzer.Http.Response as Response
 import Fuzzer.SurveyResult as SurveyResult
 import Http exposing (Error(BadStatus, NetworkError))
 import I18Next exposing (Translations)
-import Locale exposing (Locale(En))
+import Locale exposing (Language(En))
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultDetailMsg))
 import RemoteData
