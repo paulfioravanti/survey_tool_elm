@@ -3,8 +3,25 @@ module SurveyResultList.View exposing (view)
 {-| Display a survey result list
 -}
 
-import Html.Styled exposing (Html, div, h1, h4, img, main_, section, span, text)
-import Html.Styled.Attributes exposing (alt, attribute, class, src)
+import Css exposing (..)
+import Css.Foreign
+import Html.Styled
+    exposing
+        ( Html
+        , a
+        , div
+        , h1
+        , h4
+        , img
+        , li
+        , main_
+        , nav
+        , section
+        , span
+        , text
+        , ul
+        )
+import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import I18Next exposing (Translations)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Model exposing (SurveyResultList)
@@ -21,9 +38,41 @@ view msg translations { surveyResults } =
                 |> class
     in
         main_ []
-            [ section [ attribute "data-name" "survey-results", classes ]
+            [ navigation
+            , section [ attribute "data-name" "survey-results", classes ]
                 (surveyResultList msg translations surveyResults)
             ]
+
+
+navigation : Html msg
+navigation =
+    nav [ class "flex flex-row-reverse h3 mw8 center" ]
+        [ ul [ class "list pa0" ]
+            [ li
+                [ class "pv2 ph4 b--white ba"
+                , css
+                    [ hover
+                        [ borderColor (rgba 0 0 0 0.1)
+                          -- , Css.Foreign.children
+                          --     [ Css.Foreign.class "locale-list"
+                          --         [ display block ]
+                          --     ]
+                        ]
+                    ]
+                ]
+                [ div [ class "flag-icon flag-icon-au f3" ]
+                    []
+                , div [ class "dn locale-list" ]
+                    [ ul [ class "list pa0" ]
+                        [ li []
+                            [ div [ class "flag-icon flag-icon-jp f3" ]
+                                []
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
 
 
 surveyResultList :
@@ -36,7 +85,7 @@ surveyResultList msg translations surveyResults =
         classes =
             [ "flex"
             , "justify-around"
-            , "mt1 mt4-ns"
+            , "mt1"
             ]
                 |> String.join " "
                 |> class

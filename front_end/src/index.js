@@ -1,6 +1,7 @@
 import "@fortawesome/fontawesome";
 import "@fortawesome/fontawesome-free-solid";
 import "@fortawesome/fontawesome-free-regular";
+import "flag-icon-css/css/flag-icon.css"
 import "tachyons";
 import { Main } from "./Main.elm";
 
