@@ -2,12 +2,10 @@ module Config exposing (Config, init)
 
 import ApiUrl
 import Flags exposing (Flags)
-import Locale exposing (Language)
 
 
 type alias Config =
     { apiUrl : String
-    , language : Language
     }
 
 
@@ -21,10 +19,5 @@ init flags =
 
                 _ ->
                     ApiUrl.nonProductionUrl flags.apiUrl
-
-        language =
-            Locale.init flags.language
     in
-        { apiUrl = apiUrl
-        , language = language
-        }
+        { apiUrl = apiUrl }

@@ -1,13 +1,14 @@
 module Update exposing (update)
 
+import Locale
 import Msg
     exposing
         ( Msg
-            ( SurveyResultDetailMsg
+            ( LocaleMsg
+            , SurveyResultDetailMsg
             , SurveyResultListMsg
             , RoutingMsg
             , UpdatePage
-            , TranslationsLoaded
             )
         )
 import Model exposing (Model)
@@ -20,10 +21,19 @@ import SurveyResultList
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        LocaleMsg msg ->
+            let
+                ( locale, cmd ) =
+                    Locale.update msg model.locale
+            in
+                ( { model | locale = locale }
+                , Cmd.map LocaleMsg cmd
+                )
+
         SurveyResultDetailMsg msg ->
             let
                 ( surveyResultDetail, cmd ) =
-                    SurveyResultDetail.update msg model.translations
+                    SurveyResultDetail.update msg model.locale.translations
             in
                 ( { model | surveyResultDetail = surveyResultDetail }
                 , Cmd.map SurveyResultDetailMsg cmd
@@ -32,7 +42,7 @@ update msg model =
         SurveyResultListMsg msg ->
             let
                 ( surveyResultList, cmd ) =
-                    SurveyResultList.update msg model.translations
+                    SurveyResultList.update msg model.locale.translations
             in
                 ( { model | surveyResultList = surveyResultList }
                 , Cmd.map SurveyResultListMsg cmd
@@ -41,7 +51,7 @@ update msg model =
         RoutingMsg msg ->
             let
                 ( route, cmd ) =
-                    Router.Update.update msg UpdatePage model.translations
+                    Router.Update.update msg UpdatePage model.locale.translations
             in
                 ( { model | route = route }
                 , cmd
@@ -49,9 +59,3 @@ update msg model =
 
         UpdatePage _ ->
             Page.update model
-
-        TranslationsLoaded (Ok translations) ->
-            ( { model | translations = translations }, Cmd.none )
-
-        TranslationsLoaded (Err msg) ->
-            ( model, Cmd.none )

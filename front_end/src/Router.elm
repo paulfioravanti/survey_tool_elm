@@ -1,7 +1,7 @@
 module Router exposing (Msg, Route, onLocationChangeMsg, route, toRoute)
 
 import Html.Styled as Html exposing (Html)
-import I18Next exposing (Translations)
+import Locale exposing (Locale)
 import Navigation
 import RemoteData exposing (WebData)
 import Route as Route
@@ -27,14 +27,14 @@ onLocationChangeMsg =
 
 route :
     { a
-        | route : Route
+        | locale : Locale
+        , route : Route
         , surveyResultDetail : WebData SurveyResult
         , surveyResultList : WebData SurveyResultList
-        , translations : Translations
     }
     -> Html Msg
-route { route, surveyResultList, surveyResultDetail, translations } =
-    Routing.route route surveyResultList surveyResultDetail translations
+route { locale, route, surveyResultList, surveyResultDetail } =
+    Routing.route locale route surveyResultList surveyResultDetail
 
 
 toRoute : Navigation.Location -> Route

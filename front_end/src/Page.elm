@@ -31,7 +31,7 @@ update model =
                             |> SurveyResultList.fetchSurveyResultList
                             |> Cmd.map SurveyResultListMsg
                         , Window.updateTitle
-                            (I18Next.t model.translations "loading")
+                            (I18Next.t model.locale.translations "loading")
                         ]
                     )
 
@@ -45,7 +45,7 @@ update model =
                     |> SurveyResultDetail.fetchSurveyResult id
                     |> Cmd.map SurveyResultDetailMsg
                 , Window.updateTitle
-                    (I18Next.t model.translations "loading")
+                    (I18Next.t model.locale.translations "loading")
                 ]
             )
 
