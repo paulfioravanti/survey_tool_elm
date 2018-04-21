@@ -21,7 +21,7 @@ productionEnvironmentTest () =
     let
         flags =
             Flags
-                "production"
+                (Encode.string "production")
                 (Encode.string "http://localhost:4000/survey_results/")
                 (Encode.string "en")
 
@@ -49,7 +49,7 @@ otherEnvironmentWithApiUrlGivenTest () =
 
         flags =
             Flags
-                "someEnvironment"
+                (Encode.string "someEnvironment")
                 apiUrlFlag
                 (Encode.string "en")
 
@@ -72,7 +72,8 @@ otherEnvironmentWithApiUrlNotGivenTest () =
         -- undefined, but inserting null will make the decoding fail in the
         -- same way that is desired to fall back to the default apiUrl value.
         flags =
-            Flags "someEnvironment"
+            Flags
+                (Encode.string "someEnvironment")
                 Encode.null
                 (Encode.string "en")
 

@@ -2,9 +2,10 @@ module ViewTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config
+import Fuzzer.Locale as Locale
 import Html exposing (Html, text)
 import Html.Styled
-import I18Next exposing (Translations)
+import Locale exposing (Locale)
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested))
 import Route
@@ -15,7 +16,7 @@ import Route
             )
         )
 import Router
-import Test exposing (Test, describe, fuzz)
+import Test exposing (Test, describe, fuzz2)
 import Test.Html.Query as Query
 
 
@@ -24,20 +25,23 @@ suite =
     let
         config =
             Config.fuzzer
+
+        locale =
+            Locale.fuzzer
     in
         describe "view"
             [ describe
                 "when no data has been requested on the SurveyResultsList page"
-                [ fuzz config "it displays a blank page" <|
-                    \config ->
+                [ fuzz2 config locale "it displays a blank page" <|
+                    \config locale ->
                         let
                             model =
                                 Model
                                     config
+                                    locale
                                     ListSurveyResultsRoute
                                     NotRequested
                                     NotRequested
-                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route
@@ -48,16 +52,16 @@ suite =
                 ]
             , describe
                 "when no data has been requested on a SurveyResultDetail page"
-                [ fuzz config "it displays a blank page" <|
-                    \config ->
+                [ fuzz2 config locale "it displays a blank page" <|
+                    \config locale ->
                         let
                             model =
                                 Model
                                     config
+                                    locale
                                     (SurveyResultDetailRoute "10")
                                     NotRequested
                                     NotRequested
-                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route

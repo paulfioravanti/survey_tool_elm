@@ -7,6 +7,6 @@ import Json.Encode as Encode
 
 fuzzer : Fuzzer Flags
 fuzzer =
-    Fuzz.map Flags string
+    Fuzz.map Flags (constant (Encode.string "production"))
         |> Fuzz.andMap (constant (Encode.string "http://www.example.com/"))
         |> Fuzz.andMap (constant (Encode.string "en"))

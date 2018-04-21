@@ -17,11 +17,11 @@ init flags =
 
         apiUrl =
             case environment of
-                "development" ->
-                    ApiUrl.nonProductionUrl flags.apiUrl
+                "production" ->
+                    ApiUrl.productionUrl
 
                 _ ->
-                    ApiUrl.productionUrl
+                    ApiUrl.nonProductionUrl flags.apiUrl
     in
         { apiUrl = apiUrl }
 
