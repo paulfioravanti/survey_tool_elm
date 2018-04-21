@@ -5,4 +5,4 @@ import I18Next exposing (Translations)
 
 
 type Msg
-    = TranslationsLoaded (Result Http.Error Translations)
+    = FetchTranslations (Result Http.Error Translations)
