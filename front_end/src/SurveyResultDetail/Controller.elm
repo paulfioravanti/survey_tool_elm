@@ -21,17 +21,12 @@ import RemoteData
         , WebData
         )
 import SurveyResult exposing (SurveyResult)
+import SurveyResultDetail.Model exposing (Config)
 import SurveyResultDetail.View
 
 
-render :
-    msg
-    -> msg
-    -> String
-    -> Translations
-    -> WebData SurveyResult
-    -> Html msg
-render msg blurMsg path translations surveyResult =
+render : Config msg -> Translations -> WebData SurveyResult -> Html msg
+render ({ backToHomeMsg, path } as config) translations surveyResult =
     case surveyResult of
         NotRequested ->
             text ""
@@ -44,7 +39,7 @@ render msg blurMsg path translations surveyResult =
                 Http.BadStatus response ->
                     case response.status.code of
                         404 ->
-                            NotFound.view msg path translations
+                            NotFound.view backToHomeMsg path translations
 
                         _ ->
                             Error.view error translations
@@ -54,4 +49,4 @@ render msg blurMsg path translations surveyResult =
 
         Success surveyResult ->
             surveyResult
-                |> SurveyResultDetail.View.view msg blurMsg path translations
+                |> SurveyResultDetail.View.view config translations

@@ -36,19 +36,14 @@ route locale route surveyResultList surveyResultDetail =
 
         SurveyResultDetailRoute id ->
             let
-                msg =
-                    (ChangeLocation ListSurveyResultsRoute)
-
-                blurMsg =
-                    (Blur (SurveyResultDetailRoute id))
-
-                path =
-                    Utils.toPath ListSurveyResultsRoute
+                config =
+                    { backToHomeMsg = ChangeLocation ListSurveyResultsRoute
+                    , blurMsg = Blur (SurveyResultDetailRoute id)
+                    , path = Utils.toPath ListSurveyResultsRoute
+                    }
             in
                 SurveyResultDetail.view
-                    msg
-                    blurMsg
-                    path
+                    config
                     locale.translations
                     surveyResultDetail
 

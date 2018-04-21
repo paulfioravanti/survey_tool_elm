@@ -15,6 +15,7 @@ import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Cmd as Cmd
 import SurveyResultDetail.Controller as Controller
 import SurveyResultDetail.Decoder as Decoder
+import SurveyResultDetail.Model exposing (Config)
 import SurveyResultDetail.Msg as Msg
 import SurveyResultDetail.Update as Update
 
@@ -38,6 +39,6 @@ update msg translations =
     Update.update msg translations
 
 
-view : msg -> msg -> String -> Translations -> WebData SurveyResult -> Html msg
-view msg blurMsg path translations surveyResult =
-    Controller.render msg blurMsg path translations surveyResult
+view : Config msg -> Translations -> WebData SurveyResult -> Html msg
+view config translations surveyResult =
+    Controller.render config translations surveyResult

@@ -22,12 +22,13 @@ import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Styles
 import SurveyResult exposing (SurveyResult)
+import SurveyResultDetail.Model exposing (Config)
 import Theme
 import Utils
 
 
-view : msg -> msg -> String -> Translations -> SurveyResult -> Html msg
-view surveyResultsListMsg blurMsg path translations surveyResult =
+view : Config msg -> Translations -> SurveyResult -> Html msg
+view { backToHomeMsg, blurMsg, path } translations surveyResult =
     let
         classes =
             [ "center"
@@ -37,8 +38,8 @@ view surveyResultsListMsg blurMsg path translations surveyResult =
                 |> String.join " "
                 |> class
 
-        surveyResultsListClickOptions =
-            msgClickOptions surveyResultsListMsg
+        backtoHomeClickOptions =
+            msgClickOptions backToHomeMsg
 
         blurClickOptions =
             msgClickOptions blurMsg
@@ -46,7 +47,7 @@ view surveyResultsListMsg blurMsg path translations surveyResult =
         main_ [ blurClickOptions ]
             [ article
                 [ attribute "data-name" "survey-result-detail", classes ]
-                [ backToHomeLink path surveyResultsListClickOptions
+                [ backToHomeLink path backtoHomeClickOptions
                 , surveyName surveyResult.name
                 , summary translations surveyResult
                 , div [ attribute "data-name" "themes" ]
@@ -55,7 +56,7 @@ view surveyResultsListMsg blurMsg path translations surveyResult =
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]
-            , footerContent path surveyResultsListClickOptions
+            , footerContent path backtoHomeClickOptions
             ]
 
 
