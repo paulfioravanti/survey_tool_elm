@@ -5,14 +5,16 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import Fuzzer.Navigation.Location as Location
+import Fuzzer.Locale as Locale
 import Fuzzer.Route as Route
+import Locale exposing (Locale)
 import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Navigation
 import Route exposing (Route(ListSurveyResultsRoute))
 import Router.Msg exposing (Msg(ChangeLocation, NoOp, OnLocationChange))
 import Router.Utils as Utils
-import Test exposing (Test, describe, fuzz2, fuzz3, fuzz4)
+import Test exposing (Test, describe, fuzz3, fuzz4, fuzz5)
 import Update
 
 
@@ -22,6 +24,9 @@ suite =
         config =
             Config.fuzzer
 
+        locale =
+            Locale.fuzzer
+
         route =
             Route.fuzzer
 
@@ -29,20 +34,25 @@ suite =
             Route.fuzzer
     in
         describe "update"
-            [ changeLocationTest config route newRoute
-            , noOpTest config route
-            , onLocationChangeTest config route newRoute
+            [ changeLocationTest config locale route newRoute
+            , noOpTest config locale route
+            , onLocationChangeTest config locale route newRoute
             ]
 
 
-changeLocationTest : Fuzzer Config -> Fuzzer Route -> Fuzzer Route -> Test
-changeLocationTest config route newRoute =
+changeLocationTest :
+    Fuzzer Config
+    -> Fuzzer Locale
+    -> Fuzzer Route
+    -> Fuzzer Route
+    -> Test
+changeLocationTest config locale route newRoute =
     describe "when msg is ChangeLocation"
-        [ fuzz3 config route newRoute "updates the model route" <|
-            \config route newRoute ->
+        [ fuzz4 config locale route newRoute "updates the model route" <|
+            \config locale route newRoute ->
                 let
                     model =
-                        Model.initialModel config route
+                        Model.initialModel config locale route
 
                     msg =
                         RoutingMsg (ChangeLocation newRoute)
@@ -54,14 +64,14 @@ changeLocationTest config route newRoute =
         ]
 
 
-noOpTest : Fuzzer Config -> Fuzzer Route -> Test
-noOpTest config route =
+noOpTest : Fuzzer Config -> Fuzzer Locale -> Fuzzer Route -> Test
+noOpTest config locale route =
     describe "when msg is NoOp"
-        [ fuzz2 config route "no Cmd is run" <|
-            \config route ->
+        [ fuzz3 config locale route "no Cmd is run" <|
+            \config locale route ->
                 let
                     model =
-                        Model.initialModel config route
+                        Model.initialModel config locale route
 
                     msg =
                         RoutingMsg (NoOp route)
@@ -73,18 +83,28 @@ noOpTest config route =
         ]
 
 
-onLocationChangeTest : Fuzzer Config -> Fuzzer Route -> Fuzzer Route -> Test
-onLocationChangeTest config route newRoute =
+onLocationChangeTest :
+    Fuzzer Config
+    -> Fuzzer Locale
+    -> Fuzzer Route
+    -> Fuzzer Route
+    -> Test
+onLocationChangeTest config locale route newRoute =
     let
         location =
             Location.fuzzer
     in
         describe "when msg is OnLocationChange"
-            [ fuzz4 config route newRoute location "updates the model route" <|
-                \config route newRoute location ->
+            [ fuzz5 config
+                locale
+                route
+                newRoute
+                location
+                "updates the model route"
+                (\config locale route newRoute location ->
                     let
                         model =
-                            Model.initialModel config route
+                            Model.initialModel config locale route
 
                         newLocation =
                             { location | pathname = Utils.toPath newRoute }
@@ -96,4 +116,5 @@ onLocationChangeTest config route newRoute =
                             |> Update.update msg
                             |> Tuple.first
                             |> Expect.equal { model | route = newRoute }
+                )
             ]
