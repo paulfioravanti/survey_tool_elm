@@ -1,9 +1,9 @@
 module ConfigTest exposing (suite)
 
 import Config exposing (Config)
-import Json.Encode as Encode
 import Expect
 import Flags exposing (Flags)
+import Json.Encode as Encode
 import Test exposing (Test, describe, test)
 
 
@@ -11,6 +11,7 @@ suite : Test
 suite =
     describe "init"
         [ productionEnvironmentTest ()
+        , environmentNotProvidedTest ()
         , otherEnvironmentWithApiUrlGivenTest ()
         , otherEnvironmentWithApiUrlNotGivenTest ()
         ]
@@ -30,6 +31,28 @@ productionEnvironmentTest () =
                 "https://survey-tool-back-end.herokuapp.com/survey_results/"
     in
         describe "when environment is production"
+            [ test "apiUrl is set to be the production url" <|
+                \() ->
+                    flags
+                        |> Config.init
+                        |> Expect.equal config
+            ]
+
+
+environmentNotProvidedTest : () -> Test
+environmentNotProvidedTest () =
+    let
+        flags =
+            Flags
+                (Encode.null)
+                (Encode.string "http://localhost:4000/survey_results/")
+                (Encode.string "en")
+
+        config =
+            Config
+                "https://survey-tool-back-end.herokuapp.com/survey_results/"
+    in
+        describe "when environment is not provided"
             [ test "apiUrl is set to be the production url" <|
                 \() ->
                     flags

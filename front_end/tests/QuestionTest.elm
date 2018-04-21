@@ -9,7 +9,7 @@ import Test exposing (Test, describe, test)
 
 suite : Test
 suite =
-    describe "Question.Utils"
+    describe "Question"
         [ averageScoreTests () ]
 
 
