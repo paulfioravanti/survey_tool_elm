@@ -5,8 +5,7 @@ import Flags exposing (Flags)
 
 
 type alias Config =
-    { apiUrl : String
-    }
+    { apiUrl : String }
 
 
 init : Flags -> Config

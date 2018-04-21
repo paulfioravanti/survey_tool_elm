@@ -20,9 +20,8 @@ type alias Model =
 {-| Initialises Model attributes
 
     import Config exposing (Config)
-    import Dict exposing (Dict)
-    import I18Next exposing (Translations)
-    import Locale exposing (Language(En))
+    import Json.Encode as Encode
+    import Locale exposing (Locale)
     import RemoteData exposing (RemoteData(NotRequested))
     import Route exposing (Route(ListSurveyResultsRoute))
 
@@ -30,17 +29,17 @@ type alias Model =
     config =
         Config "http://www.example.com/survey_results"
 
-    translations : Translations
-    translations =
-        I18Next.initialTranslations
+    locale : Locale
+    locale =
+        Locale.init (Encode.string "en")
 
-    initialModel config En ListSurveyResultsRoute
+    initialModel config locale ListSurveyResultsRoute
     --> Model
     -->     config
+    -->     locale
     -->     ListSurveyResultsRoute
     -->     NotRequested
     -->     NotRequested
-    -->     translations
 
 -}
 initialModel : Config -> Locale -> Route -> Model
