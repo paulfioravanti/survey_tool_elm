@@ -4,7 +4,7 @@ import Json.Decode
 
 
 type alias Flags =
-    { environment : String
+    { environment : Json.Decode.Value
     , apiUrl : Json.Decode.Value
     , language : Json.Decode.Value
     }

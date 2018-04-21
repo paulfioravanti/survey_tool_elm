@@ -3,11 +3,6 @@ module ApiUrl exposing (productionUrl, nonProductionUrl)
 import Json.Decode as Decode
 
 
-productionUrl : String
-productionUrl =
-    "https://survey-tool-back-end.herokuapp.com/survey_results/"
-
-
 nonProductionUrl : Decode.Value -> String
 nonProductionUrl apiUrlFlag =
     let
@@ -21,3 +16,8 @@ nonProductionUrl apiUrlFlag =
 
             Err _ ->
                 "http://localhost:4000/survey_results/"
+
+
+productionUrl : String
+productionUrl =
+    "https://survey-tool-back-end.herokuapp.com/survey_results/"
