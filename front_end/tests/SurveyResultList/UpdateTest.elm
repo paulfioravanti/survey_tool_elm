@@ -4,9 +4,10 @@ import Config exposing (Config)
 import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
+import Fuzzer.Locale as Locale
 import Fuzzer.SurveyResultList as SurveyResultList
 import Http exposing (Error(NetworkError))
-import I18Next exposing (Translations)
+import Locale exposing (Locale)
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultListMsg))
 import RemoteData
@@ -21,7 +22,7 @@ import RemoteData
 import Result exposing (Result)
 import Route exposing (Route(ListSurveyResultsRoute))
 import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
-import Test exposing (Test, describe, fuzz, fuzz2)
+import Test exposing (Test, describe, fuzz2, fuzz3)
 import Update
 
 
@@ -30,26 +31,32 @@ suite =
     let
         config =
             Config.fuzzer
+
+        locale =
+            Locale.fuzzer
     in
         describe "update"
-            [ fetchSurveyResultListFailureTest config
-            , fetchSurveyResultListSuccessTest config
+            [ fetchSurveyResultListFailureTest config locale
+            , fetchSurveyResultListSuccessTest config locale
             ]
 
 
-fetchSurveyResultListFailureTest : Fuzzer Config -> Test
-fetchSurveyResultListFailureTest config =
+fetchSurveyResultListFailureTest : Fuzzer Config -> Fuzzer Locale -> Test
+fetchSurveyResultListFailureTest config locale =
     describe "when SurveyResultListMsg FetchSurveyResultList request fails"
-        [ fuzz config "model surveyResultList is updated with a Failure" <|
-            \config ->
+        [ fuzz2
+            config
+            locale
+            "model surveyResultList is updated with a Failure"
+            (\config locale ->
                 let
                     model =
                         Model
                             config
+                            locale
                             ListSurveyResultsRoute
                             NotRequested
                             Requesting
-                            I18Next.initialTranslations
 
                     msg =
                         SurveyResultListMsg
@@ -62,29 +69,31 @@ fetchSurveyResultListFailureTest config =
                             { model
                                 | surveyResultList = Failure NetworkError
                             }
+            )
         ]
 
 
-fetchSurveyResultListSuccessTest : Fuzzer Config -> Test
-fetchSurveyResultListSuccessTest config =
+fetchSurveyResultListSuccessTest : Fuzzer Config -> Fuzzer Locale -> Test
+fetchSurveyResultListSuccessTest config locale =
     let
         surveyResultList =
             SurveyResultList.fuzzer
     in
         describe "SurveyResultListMsg FetchSurveyResultList request succeeds"
-            [ fuzz2
+            [ fuzz3
                 config
+                locale
                 surveyResultList
                 "model surveyResultList is updated with a Success"
-                (\config surveyResultList ->
+                (\config locale surveyResultList ->
                     let
                         model =
                             Model
                                 config
+                                locale
                                 ListSurveyResultsRoute
                                 NotRequested
                                 Requesting
-                                I18Next.initialTranslations
 
                         msg =
                             SurveyResultListMsg
