@@ -4,7 +4,6 @@ import Config exposing (Config)
 import Json.Encode as Encode
 import Expect
 import Flags exposing (Flags)
-import Locale exposing (Language(En))
 import Test exposing (Test, describe, test)
 
 
@@ -29,7 +28,6 @@ productionEnvironmentTest () =
         config =
             Config
                 "https://survey-tool-back-end.herokuapp.com/survey_results/"
-                En
     in
         describe "when environment is production"
             [ test "apiUrl is set to be the production url" <|
@@ -56,7 +54,7 @@ otherEnvironmentWithApiUrlGivenTest () =
                 (Encode.string "en")
 
         config =
-            Config apiUrl En
+            Config apiUrl
     in
         describe "when environment is not production and apiUrl given"
             [ test "apiUrl is set to be the given url" <|
@@ -74,10 +72,12 @@ otherEnvironmentWithApiUrlNotGivenTest () =
         -- undefined, but inserting null will make the decoding fail in the
         -- same way that is desired to fall back to the default apiUrl value.
         flags =
-            Flags "someEnvironment" Encode.null (Encode.string "en")
+            Flags "someEnvironment"
+                Encode.null
+                (Encode.string "en")
 
         config =
-            Config "http://localhost:4000/survey_results/" En
+            Config "http://localhost:4000/survey_results/"
     in
         describe "when environment is not production and apiUrl not given"
             [ test "apiUrl is set to be the localhost url" <|
