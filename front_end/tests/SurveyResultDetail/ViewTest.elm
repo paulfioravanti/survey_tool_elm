@@ -2,9 +2,10 @@ module SurveyResultDetail.ViewTest exposing (suite)
 
 import Expect
 import Fuzzer.Config as Config
+import Fuzzer.Locale as Locale
 import Html.Attributes as Attributes
 import Html.Styled
-import I18Next exposing (Translations)
+import Locale exposing (Locale)
 import Model exposing (Model)
 import Question.Model exposing (Question)
 import RemoteData exposing (RemoteData(NotRequested, Success))
@@ -13,7 +14,7 @@ import Router
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils
-import Test exposing (Test, describe, fuzz)
+import Test exposing (Test, describe, fuzz2)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
 import Theme.Model exposing (Theme)
@@ -24,6 +25,9 @@ suite =
     let
         config =
             Config.fuzzer
+
+        locale =
+            Locale.fuzzer
 
         -- NOTE: Use of this fuzzer in the test would seem to hang the suite,
         -- so only use it if you explicitly set the fuzz count to a low number.
@@ -41,16 +45,16 @@ suite =
                 (Attributes.attribute "data-name" "survey-result-detail")
     in
         describe "view"
-            [ fuzz config "displays a survey result detail page" <|
-                \config ->
+            [ fuzz2 config locale "displays a survey result detail page" <|
+                \config locale ->
                     let
                         model =
                             Model
                                 config
+                                locale
                                 (SurveyResultDetailRoute id)
                                 (Success surveyResult)
                                 NotRequested
-                                I18Next.initialTranslations
                     in
                         model
                             |> Router.route

@@ -1,7 +1,7 @@
 module SurveyResult.Encoder exposing (encoder)
 
 import Json.Encode as Encode
-import SurveyResult.Model exposing (SurveyResult)
+import SurveyResult exposing (SurveyResult)
 
 
 encoder : SurveyResult -> Encode.Value
