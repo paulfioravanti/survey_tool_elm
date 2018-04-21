@@ -12,7 +12,7 @@ import Route
             , NotFoundRoute
             )
         )
-import Router.Msg exposing (Msg(ChangeLocation, NoOp))
+import Router.Msg exposing (Msg(Blur, ChangeLocation))
 import Router.Utils as Utils
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail
@@ -40,7 +40,7 @@ route locale route surveyResultList surveyResultDetail =
                     (ChangeLocation ListSurveyResultsRoute)
 
                 noOpMsg =
-                    (NoOp (SurveyResultDetailRoute id))
+                    (Blur (SurveyResultDetailRoute id))
 
                 path =
                     Utils.toPath ListSurveyResultsRoute

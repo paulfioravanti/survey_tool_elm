@@ -7,4 +7,4 @@ import Route exposing (Route)
 type Msg
     = ChangeLocation Route
     | OnLocationChange Navigation.Location
-    | NoOp Route
+    | Blur Route

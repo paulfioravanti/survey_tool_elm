@@ -12,7 +12,7 @@ import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Navigation
 import Route exposing (Route(ListSurveyResultsRoute))
-import Router.Msg exposing (Msg(ChangeLocation, NoOp, OnLocationChange))
+import Router.Msg exposing (Msg(Blur, ChangeLocation, OnLocationChange))
 import Router.Utils as Utils
 import Test exposing (Test, describe, fuzz3, fuzz4, fuzz5)
 import Update
@@ -66,7 +66,7 @@ changeLocationTest config locale route newRoute =
 
 noOpTest : Fuzzer Config -> Fuzzer Locale -> Fuzzer Route -> Test
 noOpTest config locale route =
-    describe "when msg is NoOp"
+    describe "when msg is Blur"
         [ fuzz3 config locale route "no Cmd is run" <|
             \config locale route ->
                 let
@@ -74,7 +74,7 @@ noOpTest config locale route =
                         Model.initialModel config locale route
 
                     msg =
-                        RoutingMsg (NoOp route)
+                        RoutingMsg (Blur route)
                 in
                     model
                         |> Update.update msg
