@@ -39,7 +39,7 @@ route locale route surveyResultList surveyResultDetail =
                 msg =
                     (ChangeLocation ListSurveyResultsRoute)
 
-                noOpMsg =
+                blurMsg =
                     (Blur (SurveyResultDetailRoute id))
 
                 path =
@@ -47,7 +47,7 @@ route locale route surveyResultList surveyResultDetail =
             in
                 SurveyResultDetail.view
                     msg
-                    noOpMsg
+                    blurMsg
                     path
                     locale.translations
                     surveyResultDetail

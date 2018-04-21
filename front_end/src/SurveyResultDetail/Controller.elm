@@ -31,7 +31,7 @@ render :
     -> Translations
     -> WebData SurveyResult
     -> Html msg
-render msg noOpMsg path translations surveyResult =
+render msg blurMsg path translations surveyResult =
     case surveyResult of
         NotRequested ->
             text ""
@@ -54,4 +54,4 @@ render msg noOpMsg path translations surveyResult =
 
         Success surveyResult ->
             surveyResult
-                |> SurveyResultDetail.View.view msg noOpMsg path translations
+                |> SurveyResultDetail.View.view msg blurMsg path translations

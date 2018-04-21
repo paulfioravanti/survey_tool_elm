@@ -35,7 +35,7 @@ suite =
     in
         describe "update"
             [ changeLocationTest config locale route newRoute
-            , noOpTest config locale route
+            , blurTest config locale route
             , onLocationChangeTest config locale route newRoute
             ]
 
@@ -64,8 +64,8 @@ changeLocationTest config locale route newRoute =
         ]
 
 
-noOpTest : Fuzzer Config -> Fuzzer Locale -> Fuzzer Route -> Test
-noOpTest config locale route =
+blurTest : Fuzzer Config -> Fuzzer Locale -> Fuzzer Route -> Test
+blurTest config locale route =
     describe "when msg is Blur"
         [ fuzz3 config locale route "no Cmd is run" <|
             \config locale route ->

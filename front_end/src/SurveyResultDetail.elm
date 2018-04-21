@@ -39,5 +39,5 @@ update msg translations =
 
 
 view : msg -> msg -> String -> Translations -> WebData SurveyResult -> Html msg
-view msg noOpMsg path translations surveyResult =
-    Controller.render msg noOpMsg path translations surveyResult
+view msg blurMsg path translations surveyResult =
+    Controller.render msg blurMsg path translations surveyResult

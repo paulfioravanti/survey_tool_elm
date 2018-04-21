@@ -27,7 +27,7 @@ import Utils
 
 
 view : msg -> msg -> String -> Translations -> SurveyResult -> Html msg
-view surveyResultsListMsg noOpMsg path translations surveyResult =
+view surveyResultsListMsg blurMsg path translations surveyResult =
     let
         classes =
             [ "center"
@@ -40,10 +40,10 @@ view surveyResultsListMsg noOpMsg path translations surveyResult =
         surveyResultsListClickOptions =
             msgClickOptions surveyResultsListMsg
 
-        noOpClickOptions =
-            msgClickOptions noOpMsg
+        blurClickOptions =
+            msgClickOptions blurMsg
     in
-        main_ [ noOpClickOptions ]
+        main_ [ blurClickOptions ]
             [ article
                 [ attribute "data-name" "survey-result-detail", classes ]
                 [ backToHomeLink path surveyResultsListClickOptions
