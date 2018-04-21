@@ -39,7 +39,13 @@ render ({ backToHomeMsg, path } as config) translations surveyResult =
                 Http.BadStatus response ->
                     case response.status.code of
                         404 ->
-                            NotFound.view backToHomeMsg path translations
+                            let
+                                config =
+                                    { backToHomeMsg = backToHomeMsg
+                                    , path = path
+                                    }
+                            in
+                                NotFound.view config translations
 
                         _ ->
                             Error.view error translations

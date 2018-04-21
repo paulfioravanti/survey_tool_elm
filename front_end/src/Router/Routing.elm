@@ -49,10 +49,9 @@ route locale route surveyResultList surveyResultDetail =
 
         NotFoundRoute ->
             let
-                msg =
-                    (ChangeLocation ListSurveyResultsRoute)
-
-                path =
-                    Utils.toPath ListSurveyResultsRoute
+                config =
+                    { backToHomeMsg = ChangeLocation ListSurveyResultsRoute
+                    , path = Utils.toPath ListSurveyResultsRoute
+                    }
             in
-                NotFound.view msg path locale.translations
+                NotFound.view config locale.translations

@@ -12,8 +12,14 @@ import Json.Decode as Decode
 import Styles
 
 
-view : msg -> String -> Translations -> Html msg
-view msg path translations =
+type alias Config msg =
+    { backToHomeMsg : msg
+    , path : String
+    }
+
+
+view : Config msg -> Translations -> Html msg
+view config translations =
     let
         classes =
             [ "flex"
@@ -32,8 +38,7 @@ view msg path translations =
                 , div []
                     [ heading (I18Next.t translations "notFound") ]
                 , backToHomeLink
-                    msg
-                    path
+                    config
                     (I18Next.t translations "backToSurveyResults")
                 ]
             ]
@@ -71,8 +76,8 @@ heading label =
             [ text label ]
 
 
-backToHomeLink : msg -> String -> String -> Html msg
-backToHomeLink msg path label =
+backToHomeLink : Config msg -> String -> Html msg
+backToHomeLink { backToHomeMsg, path } label =
     let
         classes =
             [ "avenir"
@@ -92,6 +97,6 @@ backToHomeLink msg path label =
                 { preventDefault = True
                 , stopPropagation = False
                 }
-                (Decode.succeed msg)
+                (Decode.succeed backToHomeMsg)
             ]
             [ text label ]
