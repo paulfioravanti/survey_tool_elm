@@ -4,9 +4,11 @@ import Config exposing (Config)
 import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
+import Fuzzer.Locale as Locale
 import I18Next exposing (Translations)
 import Html.Attributes as Attributes
 import Html.Styled
+import Locale exposing (Locale)
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Route
@@ -17,7 +19,7 @@ import Route
             )
         )
 import Router
-import Test exposing (Test, describe, fuzz)
+import Test exposing (Test, describe, fuzz2)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag)
 
@@ -28,29 +30,32 @@ suite =
         config =
             Config.fuzzer
 
+        locale =
+            Locale.fuzzer
+
         loadingMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "loading-message")
     in
         describe "view"
-            [ surveyResultsListPageTest config loadingMessage
-            , surveyResultDetailPageTest config loadingMessage
+            [ surveyResultsListPageTest config locale loadingMessage
+            , surveyResultDetailPageTest config locale loadingMessage
             ]
 
 
-surveyResultsListPageTest : Fuzzer Config -> Selector -> Test
-surveyResultsListPageTest config loadingMessage =
+surveyResultsListPageTest : Fuzzer Config -> Fuzzer Locale -> Selector -> Test
+surveyResultsListPageTest config locale loadingMessage =
     describe "when data has been requested on the SurveyResultsList page"
-        [ fuzz config "displays a loading message" <|
-            \config ->
+        [ fuzz2 config locale "displays a loading message" <|
+            \config locale ->
                 let
                     model =
                         Model
                             config
+                            locale
                             ListSurveyResultsRoute
                             NotRequested
                             Requesting
-                            I18Next.initialTranslations
                 in
                     model
                         |> Router.route
@@ -61,19 +66,19 @@ surveyResultsListPageTest config loadingMessage =
         ]
 
 
-surveyResultDetailPageTest : Fuzzer Config -> Selector -> Test
-surveyResultDetailPageTest config loadingMessage =
+surveyResultDetailPageTest : Fuzzer Config -> Fuzzer Locale -> Selector -> Test
+surveyResultDetailPageTest config locale loadingMessage =
     describe "when data has been requested on a SurveyResultDetail page"
-        [ fuzz config "displays a loading message" <|
-            \config ->
+        [ fuzz2 config locale "displays a loading message" <|
+            \config locale ->
                 let
                     model =
                         Model
                             config
+                            locale
                             (SurveyResultDetailRoute "10")
                             Requesting
                             NotRequested
-                            I18Next.initialTranslations
                 in
                     model
                         |> Router.route

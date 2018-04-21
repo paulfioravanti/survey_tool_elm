@@ -8,12 +8,12 @@ import Locale.Msg as Msg
 import Locale.Update as Update
 
 
-type alias Locale =
-    Model.Locale
-
-
 type alias Language =
     Model.Language
+
+
+type alias Locale =
+    Model.Locale
 
 
 type alias Msg =

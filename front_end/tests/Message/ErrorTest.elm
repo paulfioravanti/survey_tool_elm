@@ -5,10 +5,12 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Http.Response as Response
 import Fuzzer.Config as Config
+import Fuzzer.Locale as Locale
 import Html.Attributes as Attributes
 import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import I18Next exposing (Translations)
+import Locale exposing (Locale)
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Route
@@ -19,7 +21,7 @@ import Route
             )
         )
 import Router
-import Test exposing (Test, describe, fuzz, fuzz2)
+import Test exposing (Test, describe, fuzz2, fuzz3)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag, text)
 
@@ -30,6 +32,9 @@ suite =
         config =
             Config.fuzzer
 
+        locale =
+            Locale.fuzzer
+
         response =
             Response.fuzzer
 
@@ -38,31 +43,31 @@ suite =
                 (Attributes.attribute "data-name" "error-message")
     in
         describe "view"
-            [ networkErrorTest config errorMessage
-            , badStatusTest config response errorMessage
-            , badPayloadTest config response errorMessage
-            , otherErrorTest config errorMessage
+            [ networkErrorTest config locale errorMessage
+            , badStatusTest config locale response errorMessage
+            , badPayloadTest config locale response errorMessage
+            , otherErrorTest config locale errorMessage
             ]
 
 
-networkErrorTest : Fuzzer Config -> Selector -> Test
-networkErrorTest config errorMessage =
+networkErrorTest : Fuzzer Config -> Fuzzer Locale -> Selector -> Test
+networkErrorTest config locale errorMessage =
     let
         networkErrorMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "network-error-message")
     in
         describe "when error is a NetworkError"
-            [ fuzz config "displays an error message" <|
-                \config ->
+            [ fuzz2 config locale "displays an error message" <|
+                \config locale ->
                     let
                         model =
                             Model
                                 config
+                                locale
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Failure NetworkError)
-                                I18Next.initialTranslations
                     in
                         model
                             |> Router.route
@@ -75,10 +80,11 @@ networkErrorTest config errorMessage =
 
 badStatusTest :
     Fuzzer Config
+    -> Fuzzer Locale
     -> Fuzzer (Http.Response String)
     -> Selector
     -> Test
-badStatusTest config response errorMessage =
+badStatusTest config locale response errorMessage =
     let
         badStatusMessage =
             Selector.attribute
@@ -86,16 +92,16 @@ badStatusTest config response errorMessage =
     in
         describe "when error is a BadStatus"
             [ describe "when requesting the survey results list page"
-                [ fuzz2 config response "displays an error message" <|
-                    \config response ->
+                [ fuzz3 config locale response "displays an error message" <|
+                    \config locale response ->
                         let
                             model =
                                 Model
                                     config
+                                    locale
                                     ListSurveyResultsRoute
                                     NotRequested
                                     (Failure (BadStatus response))
-                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route
@@ -105,16 +111,16 @@ badStatusTest config response errorMessage =
                                 |> Query.has [ badStatusMessage ]
                 ]
             , describe "when requesting a survey result detail page"
-                [ fuzz2 config response "displays an error message" <|
-                    \config response ->
+                [ fuzz3 config locale response "displays an error message" <|
+                    \config locale response ->
                         let
                             model =
                                 Model
                                     config
+                                    locale
                                     (SurveyResultDetailRoute "1")
                                     (Failure (BadStatus response))
                                     NotRequested
-                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route
@@ -128,26 +134,27 @@ badStatusTest config response errorMessage =
 
 badPayloadTest :
     Fuzzer Config
+    -> Fuzzer Locale
     -> Fuzzer (Http.Response String)
     -> Selector
     -> Test
-badPayloadTest config response errorMessage =
+badPayloadTest config locale response errorMessage =
     let
         badPayloadMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "bad-payload-message")
     in
         describe "when error is a BadPayload"
-            [ fuzz2 config response "displays an error message" <|
-                \config response ->
+            [ fuzz3 config locale response "displays an error message" <|
+                \config locale response ->
                     let
                         model =
                             Model
                                 config
+                                locale
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Failure (BadPayload "BadPayload" response))
-                                I18Next.initialTranslations
                     in
                         model
                             |> Router.route
@@ -158,8 +165,8 @@ badPayloadTest config response errorMessage =
             ]
 
 
-otherErrorTest : Fuzzer Config -> Selector -> Test
-otherErrorTest config errorMessage =
+otherErrorTest : Fuzzer Config -> Fuzzer Locale -> Selector -> Test
+otherErrorTest config locale errorMessage =
     let
         otherErrorMessage =
             Selector.attribute
@@ -167,16 +174,16 @@ otherErrorTest config errorMessage =
     in
         describe "when error is any other Http error"
             [ describe "when requesting the survey results list page"
-                [ fuzz config "displays an error message" <|
-                    \config ->
+                [ fuzz2 config locale "displays an error message" <|
+                    \config locale ->
                         let
                             model =
                                 Model
                                     config
+                                    locale
                                     ListSurveyResultsRoute
                                     NotRequested
                                     (Failure Timeout)
-                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route
@@ -186,16 +193,16 @@ otherErrorTest config errorMessage =
                                 |> Query.has [ otherErrorMessage ]
                 ]
             , describe "when requesting a survey result detail page"
-                [ fuzz config "displays an error message" <|
-                    \config ->
+                [ fuzz2 config locale "displays an error message" <|
+                    \config locale ->
                         let
                             model =
                                 Model
                                     config
+                                    locale
                                     (SurveyResultDetailRoute "1")
                                     (Failure Timeout)
                                     NotRequested
-                                    I18Next.initialTranslations
                         in
                             model
                                 |> Router.route
