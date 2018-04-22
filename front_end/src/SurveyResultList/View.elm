@@ -26,11 +26,11 @@ import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import I18Next exposing (Translations)
 import Styles
 import SurveyResult exposing (SurveyResult)
-import SurveyResultList.Model exposing (SurveyResultList)
+import SurveyResultList.Model exposing (Config, SurveyResultList)
 
 
-view : (String -> msg) -> Translations -> SurveyResultList -> Html msg
-view msg translations { surveyResults } =
+view : Config msg -> Translations -> SurveyResultList -> Html msg
+view config translations { surveyResults } =
     let
         classes =
             [ "center"
@@ -42,7 +42,7 @@ view msg translations { surveyResults } =
         main_ []
             [ navigation
             , section [ attribute "data-name" "survey-results", classes ]
-                (surveyResultList msg translations surveyResults)
+                (surveyResultList config translations surveyResults)
             ]
 
 
@@ -106,11 +106,11 @@ navigation =
 
 
 surveyResultList :
-    (String -> msg)
+    Config msg
     -> Translations
     -> List SurveyResult
     -> List (Html msg)
-surveyResultList msg translations surveyResults =
+surveyResultList config translations surveyResults =
     let
         classes =
             [ "flex"
@@ -123,7 +123,7 @@ surveyResultList msg translations surveyResults =
         div [ classes ]
             [ heading translations ]
             :: (surveyResults
-                    |> List.map (SurveyResult.view msg translations)
+                    |> List.map (SurveyResult.view config translations)
                )
 
 

@@ -18,12 +18,12 @@ import RemoteData
             )
         , WebData
         )
-import SurveyResultList.Model exposing (SurveyResultList)
+import SurveyResultList.Model exposing (Config, SurveyResultList)
 import SurveyResultList.View
 
 
-render : (String -> msg) -> Translations -> WebData SurveyResultList -> Html msg
-render msg translations surveyResultList =
+render : Config msg -> Translations -> WebData SurveyResultList -> Html msg
+render config translations surveyResultList =
     case surveyResultList of
         NotRequested ->
             text ""
@@ -35,4 +35,4 @@ render msg translations surveyResultList =
             Error.view error translations
 
         Success surveyResultList ->
-            SurveyResultList.View.view msg translations surveyResultList
+            SurveyResultList.View.view config translations surveyResultList

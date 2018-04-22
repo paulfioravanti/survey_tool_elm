@@ -1,6 +1,10 @@
-module SurveyResultList.Model exposing (SurveyResultList)
+module SurveyResultList.Model exposing (Config, SurveyResultList)
 
 import SurveyResult exposing (SurveyResult)
+
+
+type alias Config msg =
+    { surveyResultDetailMsg : String -> msg }
 
 
 type alias SurveyResultList =

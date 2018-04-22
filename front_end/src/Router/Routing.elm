@@ -29,10 +29,15 @@ route locale route surveyResultList surveyResultDetail =
     case route of
         ListSurveyResultsRoute ->
             let
-                msg =
-                    (ChangeLocation << SurveyResultDetailRoute)
+                config =
+                    { surveyResultDetailMsg =
+                        (ChangeLocation << SurveyResultDetailRoute)
+                    }
             in
-                SurveyResultList.view msg locale.translations surveyResultList
+                SurveyResultList.view
+                    config
+                    locale.translations
+                    surveyResultList
 
         SurveyResultDetailRoute id ->
             let

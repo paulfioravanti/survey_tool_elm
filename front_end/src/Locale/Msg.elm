@@ -2,7 +2,9 @@ module Locale.Msg exposing (Msg(..))
 
 import Http
 import I18Next exposing (Translations)
+import Locale.Model exposing (Language)
 
 
 type Msg
-    = FetchTranslations (Result Http.Error Translations)
+    = ChangeLanguage Language
+    | FetchTranslations (Result Http.Error Translations)
