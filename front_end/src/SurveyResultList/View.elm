@@ -50,7 +50,7 @@ navigation : Html msg
 navigation =
     nav [ class "flex flex-row-reverse mw8 center" ]
         [ div
-            [ class "relative w4 pointer"
+            [ class "relative w3 pointer"
             , css
                 [ hover
                     [ Css.Foreign.children
@@ -77,33 +77,29 @@ navigation =
                 [ attribute "data-name" "locale-dropdown-menu"
                 , class "tc pa2 bg-white flex items-center b--white ba light-silver"
                 ]
-                [ span [ class "flex-auto" ] [ text "English" ]
+                [ span [ class "flex-auto flag-icon flag-icon-au" ] []
                 , span
                     [ attribute "data-name" "locale-dropdown-caret"
                     , class "white absolute"
-                    , css [ left (pct 88) ]
+                    , css [ left (pct 80) ]
                     ]
                     [ text "▾" ]
                 ]
             , ul
                 [ attribute "data-name" "locale-dropdown-list"
-                , class "dn absolute list ma0 pa0 tc top-2 w4 b--black-10 bb bl br"
-                , css [ marginTop (Css.rem 1.27) ]
+                , class "dn absolute list ma0 pa0 tc top-2 w3 b--black-10 bb bl br items-center"
+                , css [ marginTop (Css.rem 1.12) ]
                 ]
                 [ li
-                    [ class "pa2 mid-gray hover-white"
-                    , css
-                        [ hover [ Styles.brandBackgroundColor ]
-                        ]
+                    [ class "pa2 w-100"
+                    , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
                     ]
-                    [ text "Italiano" ]
+                    [ span [ class "flag-icon flag-icon-it" ] [] ]
                 , li
-                    [ class "pa2 mid-gray hover-white"
-                    , css
-                        [ hover [ Styles.brandBackgroundColor ]
-                        ]
+                    [ class "pa2 w-100"
+                    , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
                     ]
-                    [ text "日本語" ]
+                    [ span [ class "flag-icon flag-icon-jp" ] [] ]
                 ]
             ]
         ]

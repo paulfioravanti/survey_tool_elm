@@ -1,6 +1,7 @@
 module Styles
     exposing
         ( brandBackgroundColor
+        , brandBackgroundColorAlpha
         , brandBorderColor
         , brandColor
         , brandColorAlpha
@@ -49,6 +50,11 @@ import Css.Foreign exposing (descendants)
 brandBackgroundColor : Style
 brandBackgroundColor =
     backgroundColor brand
+
+
+brandBackgroundColorAlpha : Style
+brandBackgroundColorAlpha =
+    backgroundColor brandAlpha
 
 
 brandBorderColor : Style
