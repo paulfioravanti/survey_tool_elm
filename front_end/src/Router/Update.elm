@@ -4,9 +4,18 @@ module Router.Update exposing (update)
 -}
 
 import I18Next exposing (Translations)
+import Locale
 import Navigation
 import Route exposing (Route)
-import Router.Msg exposing (Msg(Blur, ChangeLocation, LocationChanged))
+import Router.Msg
+    exposing
+        ( Msg
+            ( Blur
+            , ChangeLanguage
+            , ChangeLocation
+            , LocationChanged
+            )
+        )
 import Router.Utils as Utils
 import Task
 import Window
@@ -16,6 +25,9 @@ update : Msg -> (() -> msg) -> Translations -> ( Route, Cmd msg )
 update msg updatePageMsg translations =
     case msg of
         Blur route ->
+            ( route, Cmd.none )
+
+        ChangeLanguage route language ->
             ( route, Cmd.none )
 
         ChangeLocation route ->

@@ -4,7 +4,7 @@ import Html.Styled as Html exposing (Html)
 import I18Next exposing (Translations)
 import Navigation exposing (Location)
 import Route as Route
-import Router.Model exposing (Config)
+import Router.Model exposing (Context)
 import Router.Msg as Msg
 import Router.Routing as Routing
 import Router.Update as Update
@@ -24,9 +24,9 @@ locationChangedMsg =
     Msg.LocationChanged
 
 
-route : Config -> Html Msg
-route config =
-    Routing.route config
+route : Context -> Html Msg
+route context =
+    Routing.route context
 
 
 toRoute : Location -> Route

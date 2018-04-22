@@ -1,4 +1,4 @@
-module Router.Model exposing (Config)
+module Router.Model exposing (Context)
 
 import Locale exposing (Locale)
 import Route exposing (Route)
@@ -7,7 +7,7 @@ import SurveyResultList exposing (SurveyResultList)
 import RemoteData exposing (WebData)
 
 
-type alias Config =
+type alias Context =
     { locale : Locale
     , route : Route
     , surveyResultDetail : WebData SurveyResult

@@ -10,14 +10,15 @@ import Route
             , NotFoundRoute
             )
         )
-import Router.Model exposing (Config)
-import Router.Msg exposing (Msg(Blur, ChangeLocation))
+import Router.Model exposing (Context)
+import Router.Msg exposing (Msg(Blur, ChangeLanguage, ChangeLocation))
 import Router.Utils as Utils
 import SurveyResultDetail
 import SurveyResultList exposing (SurveyResultList)
+import Locale.Model exposing (Language(Ja))
 
 
-route : Config -> Html Msg
+route : Context -> Html Msg
 route { locale, route, surveyResultList, surveyResultDetail } =
     case route of
         ListSurveyResultsRoute ->
@@ -25,6 +26,7 @@ route { locale, route, surveyResultList, surveyResultDetail } =
                 config =
                     { surveyResultDetailMsg =
                         (ChangeLocation << SurveyResultDetailRoute)
+                    , changeLanguageMsg = ChangeLanguage route Ja
                     }
             in
                 SurveyResultList.view

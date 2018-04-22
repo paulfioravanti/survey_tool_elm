@@ -1,4 +1,4 @@
-module Locale exposing (Locale, Msg, init, fetchTranslations, update)
+module Locale exposing (Language, Locale, Msg, init, fetchTranslations, update)
 
 import I18Next
 import Json.Decode as Decode exposing (Value)

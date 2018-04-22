@@ -23,6 +23,7 @@ import Html.Styled
         , ul
         )
 import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
+import Html.Styled.Events exposing (onClick)
 import I18Next exposing (Translations)
 import Styles
 import SurveyResult exposing (SurveyResult)
@@ -40,14 +41,14 @@ view config translations { surveyResults } =
                 |> class
     in
         main_ []
-            [ navigation
+            [ navigation config
             , section [ attribute "data-name" "survey-results", classes ]
                 (surveyResultList config translations surveyResults)
             ]
 
 
-navigation : Html msg
-navigation =
+navigation : Config msg -> Html msg
+navigation { changeLanguageMsg } =
     nav [ class "flex flex-row-reverse mw8 center mt1" ]
         [ div
             [ class "relative w3 pointer"
@@ -93,11 +94,13 @@ navigation =
                 [ li
                     [ class "pa2 w-100"
                     , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
+                    , onClick changeLanguageMsg
                     ]
                     [ span [ class "flag-icon flag-icon-it" ] [] ]
                 , li
                     [ class "pa2 w-100"
                     , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
+                    , onClick changeLanguageMsg
                     ]
                     [ span [ class "flag-icon flag-icon-jp" ] [] ]
                 ]
@@ -119,11 +122,15 @@ surveyResultList config translations surveyResults =
             ]
                 |> String.join " "
                 |> class
+
+        surveyResultConfig =
+            { surveyResultDetailMsg = config.surveyResultDetailMsg }
     in
         div [ classes ]
             [ heading translations ]
             :: (surveyResults
-                    |> List.map (SurveyResult.view config translations)
+                    |> List.map
+                        (SurveyResult.view surveyResultConfig translations)
                )
 
 
