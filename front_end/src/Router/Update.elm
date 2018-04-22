@@ -13,7 +13,7 @@ import Window
 
 
 update : Msg -> (() -> msg) -> Translations -> ( Route, Cmd msg )
-update msg cmdMsg translations =
+update msg updatePageMsg translations =
     case msg of
         Blur route ->
             ( route, Cmd.none )
@@ -30,6 +30,5 @@ update msg cmdMsg translations =
 
         OnLocationChange location ->
             ( Utils.toRoute location
-            , Task.succeed ()
-                |> Task.perform cmdMsg
+            , Task.perform updatePageMsg (Task.succeed ())
             )
