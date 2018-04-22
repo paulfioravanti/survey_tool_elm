@@ -57,5 +57,5 @@ update msg model =
                 , cmd
                 )
 
-        UpdatePage _ ->
+        UpdatePage () ->
             Page.update model
