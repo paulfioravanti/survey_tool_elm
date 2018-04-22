@@ -24,6 +24,7 @@ import Html.Styled
         )
 import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import I18Next exposing (Translations)
+import Styles
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Model exposing (SurveyResultList)
 
@@ -49,13 +50,15 @@ navigation : Html msg
 navigation =
     nav [ class "flex flex-row-reverse mw8 center" ]
         [ div
-            [ class "relative w4 pointer light-silver"
+            [ class "relative w4 pointer"
             , css
                 [ hover
                     [ Css.Foreign.children
                         [ Css.Foreign.selector
                             "[data-name='locale-dropdown-menu']"
-                            [ borderColor (rgba 0 0 0 0.1) ]
+                            [ borderColor (rgba 0 0 0 0.1)
+                            , color (hex "555")
+                            ]
                         , Css.Foreign.selector
                             "[data-name='locale-dropdown-list']"
                             [ displayFlex
@@ -72,7 +75,7 @@ navigation =
             ]
             [ p
                 [ attribute "data-name" "locale-dropdown-menu"
-                , class "tc pa2 bg-white flex items-center b--white ba"
+                , class "tc pa2 bg-white flex items-center b--white ba light-silver"
                 ]
                 [ span [ class "flex-auto" ] [ text "English" ]
                 , span
@@ -84,13 +87,23 @@ navigation =
                 ]
             , ul
                 [ attribute "data-name" "locale-dropdown-list"
-                , class "dn absolute list ma0 pa2 tc top-2 w4 b--black-10 bb bl br"
+                , class "dn absolute list ma0 pa0 tc top-2 w4 b--black-10 bb bl br"
                 , css [ marginTop (Css.rem 1.27) ]
                 ]
-                [ li [ class "pa2" ]
-                    [ text "Italian" ]
-                , li [ class "pa2" ]
-                    [ text "Japanese" ]
+                [ li
+                    [ class "pa2 mid-gray hover-white"
+                    , css
+                        [ hover [ Styles.brandBackgroundColor ]
+                        ]
+                    ]
+                    [ text "Italiano" ]
+                , li
+                    [ class "pa2 mid-gray hover-white"
+                    , css
+                        [ hover [ Styles.brandBackgroundColor ]
+                        ]
+                    ]
+                    [ text "日本語" ]
                 ]
             ]
         ]
