@@ -55,10 +55,20 @@ init flags location =
 
 
 view : Model -> VirtualDom.Node Msg
-view =
-    Router.route
-        >> Html.map RoutingMsg
-        >> Html.toUnstyled
+view { locale, route, surveyResultList, surveyResultDetail } =
+    let
+        config =
+            { locale = locale
+            , route = route
+            , surveyResultList = surveyResultList
+            , surveyResultDetail = surveyResultDetail
+            }
+    in
+        (Router.route
+            >> Html.map RoutingMsg
+            >> Html.toUnstyled
+        )
+            config
 
 
 subscriptions : Model -> Sub Msg

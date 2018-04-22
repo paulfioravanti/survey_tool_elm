@@ -2,16 +2,13 @@ module Router exposing (Msg, Route, onLocationChangeMsg, route, toRoute, update)
 
 import Html.Styled as Html exposing (Html)
 import I18Next exposing (Translations)
-import Locale exposing (Locale)
 import Navigation
-import RemoteData exposing (WebData)
 import Route as Route
+import Router.Model exposing (Config)
 import Router.Msg as Msg
 import Router.Routing as Routing
 import Router.Update as Update
 import Router.Utils as Utils
-import SurveyResult exposing (SurveyResult)
-import SurveyResultList exposing (SurveyResultList)
 
 
 type alias Msg =
@@ -27,14 +24,7 @@ onLocationChangeMsg =
     Msg.OnLocationChange
 
 
-route :
-    { a
-        | locale : Locale
-        , route : Route
-        , surveyResultDetail : WebData SurveyResult
-        , surveyResultList : WebData SurveyResultList
-    }
-    -> Html Msg
+route : Config -> Html Msg
 route { locale, route, surveyResultList, surveyResultDetail } =
     Routing.route locale route surveyResultList surveyResultDetail
 
