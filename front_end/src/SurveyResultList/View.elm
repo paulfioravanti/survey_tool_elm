@@ -49,26 +49,28 @@ navigation : Html msg
 navigation =
     nav [ class "flex flex-row-reverse mw8 center" ]
         [ div
-            [ class "relative w4 pointer" ]
-            [ p
-                [ class "tc pa2 bg-white flex items-center b--white ba"
-                , css
-                    [ hover
-                        [ borderColor (rgba 0 0 0 0.1)
-                        , Css.Foreign.children
-                            [ Css.Foreign.selector
-                                "[data-name='locale-dropdown-caret']"
-                                [ color (rgba 0 0 0 0.2) ]
-                            ]
-                        , Css.Foreign.adjacentSiblings
-                            [ Css.Foreign.selector
-                                "[data-name='locale-dropdown-list']"
-                                [ displayFlex
-                                , flexDirection column
-                                ]
+            [ class "relative w4 pointer"
+            , css
+                [ hover
+                    [ Css.Foreign.descendants
+                        [ Css.Foreign.selector
+                            "[data-name='locale-dropdown-menu']"
+                            [ borderColor (rgba 0 0 0 0.1) ]
+                        , Css.Foreign.selector
+                            "[data-name='locale-dropdown-caret']"
+                            [ color (rgba 0 0 0 0.2) ]
+                        , Css.Foreign.selector
+                            "[data-name='locale-dropdown-list']"
+                            [ displayFlex
+                            , flexDirection column
                             ]
                         ]
                     ]
+                ]
+            ]
+            [ p
+                [ attribute "data-name" "locale-dropdown-menu"
+                , class "tc pa2 bg-white flex items-center b--white ba"
                 ]
                 [ span [ class "flex-auto" ] [ text "English" ]
                 , span
