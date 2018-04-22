@@ -1,4 +1,4 @@
-module Router exposing (Msg, Route, onLocationChangeMsg, route, toRoute, update)
+module Router exposing (Msg, Route, locationChangedMsg, route, toRoute, update)
 
 import Html.Styled as Html exposing (Html)
 import I18Next exposing (Translations)
@@ -19,9 +19,9 @@ type alias Route =
     Route.Route
 
 
-onLocationChangeMsg : Location -> Msg
-onLocationChangeMsg =
-    Msg.OnLocationChange
+locationChangedMsg : Location -> Msg
+locationChangedMsg =
+    Msg.LocationChanged
 
 
 route : Config -> Html Msg

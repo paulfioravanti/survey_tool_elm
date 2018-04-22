@@ -21,7 +21,7 @@ import VirtualDom exposing (Node)
 main : Program Flags Model Msg
 main =
     Navigation.programWithFlags
-        (RoutingMsg << Router.onLocationChangeMsg)
+        (RoutingMsg << Router.locationChangedMsg)
         { init = init
         , view = view
         , update = Update.update

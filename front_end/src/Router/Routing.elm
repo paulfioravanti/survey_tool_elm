@@ -1,9 +1,7 @@
 module Router.Routing exposing (route)
 
 import Html.Styled as Html exposing (Html)
-import Locale exposing (Locale)
 import Message.NotFound as NotFound
-import RemoteData exposing (WebData)
 import Route
     exposing
         ( Route
@@ -15,7 +13,6 @@ import Route
 import Router.Model exposing (Config)
 import Router.Msg exposing (Msg(Blur, ChangeLocation))
 import Router.Utils as Utils
-import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail
 import SurveyResultList exposing (SurveyResultList)
 

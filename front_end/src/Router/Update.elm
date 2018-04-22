@@ -6,7 +6,7 @@ module Router.Update exposing (update)
 import I18Next exposing (Translations)
 import Navigation
 import Route exposing (Route)
-import Router.Msg exposing (Msg(Blur, ChangeLocation, OnLocationChange))
+import Router.Msg exposing (Msg(Blur, ChangeLocation, LocationChanged))
 import Router.Utils as Utils
 import Task
 import Window
@@ -28,7 +28,7 @@ update msg updatePageMsg translations =
                 ]
             )
 
-        OnLocationChange location ->
+        LocationChanged location ->
             ( Utils.toRoute location
             , Task.perform updatePageMsg (Task.succeed ())
             )
