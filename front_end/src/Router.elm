@@ -25,8 +25,8 @@ onLocationChangeMsg =
 
 
 route : Config -> Html Msg
-route { locale, route, surveyResultList, surveyResultDetail } =
-    Routing.route locale route surveyResultList surveyResultDetail
+route config =
+    Routing.route config
 
 
 toRoute : Location -> Route
