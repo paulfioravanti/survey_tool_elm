@@ -2,7 +2,7 @@ module Router exposing (Msg, Route, onLocationChangeMsg, route, toRoute, update)
 
 import Html.Styled as Html exposing (Html)
 import I18Next exposing (Translations)
-import Navigation
+import Navigation exposing (Location)
 import Route as Route
 import Router.Model exposing (Config)
 import Router.Msg as Msg
@@ -19,7 +19,7 @@ type alias Route =
     Route.Route
 
 
-onLocationChangeMsg : Navigation.Location -> Msg
+onLocationChangeMsg : Location -> Msg
 onLocationChangeMsg =
     Msg.OnLocationChange
 
@@ -29,7 +29,7 @@ route { locale, route, surveyResultList, surveyResultDetail } =
     Routing.route locale route surveyResultList surveyResultDetail
 
 
-toRoute : Navigation.Location -> Route
+toRoute : Location -> Route
 toRoute location =
     Utils.toRoute location
 
