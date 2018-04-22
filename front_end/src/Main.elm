@@ -21,7 +21,7 @@ import VirtualDom exposing (Node)
 main : Program Flags Model Msg
 main =
     Navigation.programWithFlags
-        (Router.onLocationChangeMsg >> RoutingMsg)
+        (RoutingMsg << Router.onLocationChangeMsg)
         { init = init
         , view = view
         , update = Update.update
@@ -64,11 +64,7 @@ view { locale, route, surveyResultList, surveyResultDetail } =
             , surveyResultDetail = surveyResultDetail
             }
     in
-        (Router.route
-            >> Html.map RoutingMsg
-            >> Html.toUnstyled
-        )
-            config
+        (Html.toUnstyled << Html.map RoutingMsg << Router.route) config
 
 
 subscriptions : Model -> Sub Msg
