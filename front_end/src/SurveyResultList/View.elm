@@ -16,6 +16,7 @@ import Html.Styled
         , li
         , main_
         , nav
+        , p
         , section
         , span
         , text
@@ -46,33 +47,67 @@ view msg translations { surveyResults } =
 
 navigation : Html msg
 navigation =
-    nav [ class "flex flex-row-reverse h3 mw8 center" ]
-        [ ul [ class "list pa0" ]
-            [ li
-                [ class "pv2 ph4 b--white ba"
+    nav [ class "flex flex-row-reverse mw8 center" ]
+        [ div
+            [ class "relative w4 pointer" ]
+            [ p
+                [ class "tc pa2 bg-white flex items-center b--white ba"
                 , css
                     [ hover
                         [ borderColor (rgba 0 0 0 0.1)
-                          -- , Css.Foreign.children
-                          --     [ Css.Foreign.class "locale-list"
-                          --         [ display block ]
-                          --     ]
-                        ]
-                    ]
-                ]
-                [ div [ class "flag-icon flag-icon-au f3" ]
-                    []
-                , div [ class "dn locale-list" ]
-                    [ ul [ class "list pa0" ]
-                        [ li []
-                            [ div [ class "flag-icon flag-icon-jp f3" ]
-                                []
+                        , Css.Foreign.children
+                            [ Css.Foreign.selector
+                                "[data-name='locale-dropdown-caret']"
+                                [ color (rgba 0 0 0 0.2) ]
                             ]
                         ]
                     ]
                 ]
+                [ span [ class "flex-auto" ] [ text "English" ]
+                , span
+                    [ attribute "data-name" "locale-dropdown-caret"
+                    , class "white absolute"
+                    , css [ left (pct 88) ]
+                    ]
+                    [ text "▾" ]
+                ]
+            , ul [ class "absolute list ma0 pa2 tc flex flex-column top-2 mt3 w4" ]
+                [ li []
+                    [ text "Italian" ]
+                , li []
+                    [ text "Japanese" ]
+                ]
             ]
         ]
+
+
+
+-- [ ul [ class "list pa0" ]
+--     [ li
+--         [ class "pv2 ph4 b--white ba"
+--         , css
+--             [ hover
+--                 [ borderColor (rgba 0 0 0 0.1)
+--                   -- , Css.Foreign.children
+--                   --     [ Css.Foreign.class "locale-list"
+--                   --         [ display block ]
+--                   --     ]
+--                 ]
+--             ]
+--         ]
+--         [ div [ class "flag-icon flag-icon-au f3" ]
+--             []
+--         , div [ class "dn locale-list" ]
+--             [ ul [ class "list pa0" ]
+--                 [ li []
+--                     [ div [ class "flag-icon flag-icon-jp f3" ]
+--                         []
+--                     ]
+--                 ]
+--             ]
+--         ]
+--     ]
+-- ]
 
 
 surveyResultList :
