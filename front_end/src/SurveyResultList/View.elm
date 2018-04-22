@@ -60,6 +60,13 @@ navigation =
                                 "[data-name='locale-dropdown-caret']"
                                 [ color (rgba 0 0 0 0.2) ]
                             ]
+                        , Css.Foreign.adjacentSiblings
+                            [ Css.Foreign.selector
+                                "[data-name='locale-dropdown-list']"
+                                [ displayFlex
+                                , flexDirection column
+                                ]
+                            ]
                         ]
                     ]
                 ]
@@ -71,43 +78,18 @@ navigation =
                     ]
                     [ text "▾" ]
                 ]
-            , ul [ class "absolute list ma0 pa2 tc flex flex-column top-2 mt3 w4" ]
-                [ li []
+            , ul
+                [ attribute "data-name" "locale-dropdown-list"
+                , class "dn absolute list ma0 pa2 tc top-2 w4 b--black-10 bb bl br"
+                , css [ marginTop (Css.rem 1.27) ]
+                ]
+                [ li [ class "pa2" ]
                     [ text "Italian" ]
-                , li []
+                , li [ class "pa2" ]
                     [ text "Japanese" ]
                 ]
             ]
         ]
-
-
-
--- [ ul [ class "list pa0" ]
---     [ li
---         [ class "pv2 ph4 b--white ba"
---         , css
---             [ hover
---                 [ borderColor (rgba 0 0 0 0.1)
---                   -- , Css.Foreign.children
---                   --     [ Css.Foreign.class "locale-list"
---                   --         [ display block ]
---                   --     ]
---                 ]
---             ]
---         ]
---         [ div [ class "flag-icon flag-icon-au f3" ]
---             []
---         , div [ class "dn locale-list" ]
---             [ ul [ class "list pa0" ]
---                 [ li []
---                     [ div [ class "flag-icon flag-icon-jp f3" ]
---                         []
---                     ]
---                 ]
---             ]
---         ]
---     ]
--- ]
 
 
 surveyResultList :
