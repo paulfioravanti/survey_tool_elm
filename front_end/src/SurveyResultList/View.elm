@@ -48,7 +48,7 @@ view msg translations { surveyResults } =
 
 navigation : Html msg
 navigation =
-    nav [ class "flex flex-row-reverse mw8 center" ]
+    nav [ class "flex flex-row-reverse mw8 center mt1" ]
         [ div
             [ class "relative w3 pointer"
             , css
@@ -75,7 +75,7 @@ navigation =
             ]
             [ p
                 [ attribute "data-name" "locale-dropdown-menu"
-                , class "tc pa2 bg-white flex items-center b--white ba light-silver"
+                , class "tc pa2 bg-white flex items-center b--white ba light-silver mv0"
                 ]
                 [ span [ class "flex-auto flag-icon flag-icon-au" ] []
                 , span
@@ -88,7 +88,7 @@ navigation =
             , ul
                 [ attribute "data-name" "locale-dropdown-list"
                 , class "dn absolute list ma0 pa0 tc top-2 w3 b--black-10 bb bl br items-center"
-                , css [ marginTop (Css.rem 1.12) ]
+                , css [ marginTop (Css.rem 0.12) ]
                 ]
                 [ li
                     [ class "pa2 w-100"
