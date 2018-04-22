@@ -3,7 +3,7 @@ module Router.Utils exposing (toRoute, toPath)
 {-| Utility functions for routing.
 -}
 
-import Navigation
+import Navigation exposing (Location)
 import Route
     exposing
         ( Route
@@ -17,12 +17,12 @@ import UrlParser exposing (Parser, (</>), map, oneOf, s, string, top)
 
 {-| Translates a Navigation.Location into a Route
 
-    import Navigation
+    import Navigation exposing (Location)
     import Route exposing (Route(..))
 
-    location : String -> Navigation.Location
+    location : String -> Location
     location path =
-        Navigation.Location
+        Location
             ""
             ""
             ""
@@ -48,7 +48,7 @@ import UrlParser exposing (Parser, (</>), map, oneOf, s, string, top)
     --> NotFoundRoute
 
 -}
-toRoute : Navigation.Location -> Route
+toRoute : Location -> Route
 toRoute location =
     let
         route =

@@ -1,6 +1,6 @@
 port module Window exposing (updateErrorTitle, updateRouteTitle, updateTitle)
 
-import Http
+import Http exposing (Error(BadStatus))
 import I18Next exposing (Translations)
 import Route exposing (Route(ListSurveyResultsRoute))
 
@@ -8,12 +8,12 @@ import Route exposing (Route(ListSurveyResultsRoute))
 port updateTitle : String -> Cmd msg
 
 
-updateErrorTitle : Http.Error -> Translations -> Cmd msg
+updateErrorTitle : Error -> Translations -> Cmd msg
 updateErrorTitle error translations =
     let
         title =
             case error of
-                Http.BadStatus response ->
+                BadStatus response ->
                     case response.status.code of
                         404 ->
                             I18Next.t translations "notFound"

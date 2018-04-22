@@ -2,7 +2,7 @@ module Question exposing (Question, averageScore, decoder, view)
 
 import Html.Styled exposing (Html)
 import I18Next exposing (Translations)
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Decoder)
 import Question.Decoder as Decoder
 import Question.Model as Model
 import Question.Utils as Utils
@@ -18,7 +18,7 @@ averageScore questions =
     Utils.averageScore questions
 
 
-decoder : Decode.Decoder Question
+decoder : Decoder Question
 decoder =
     Decoder.decoder
 

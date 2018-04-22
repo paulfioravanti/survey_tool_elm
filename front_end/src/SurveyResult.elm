@@ -7,7 +7,7 @@ module SurveyResult
 
 import Html.Styled exposing (Html)
 import I18Next exposing (Translations)
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Decoder)
 import SurveyResult.Decoder as Decoder
 import SurveyResult.Model as Model exposing (Config)
 import SurveyResult.View as View
@@ -17,7 +17,7 @@ type alias SurveyResult =
     Model.SurveyResult
 
 
-decoder : Decode.Decoder SurveyResult
+decoder : Decoder SurveyResult
 decoder =
     Decoder.decoder
 

@@ -11,11 +11,11 @@ import Html.Styled as Html exposing (Html)
 import Locale
 import Model exposing (Model)
 import Msg exposing (Msg(LocaleMsg, RoutingMsg, UpdatePage))
-import Navigation
+import Navigation exposing (Location)
 import Router
 import Task
 import Update
-import VirtualDom
+import VirtualDom exposing (Node)
 
 
 main : Program Flags Model Msg
@@ -29,7 +29,7 @@ main =
         }
 
 
-init : Flags -> Navigation.Location -> ( Model, Cmd Msg )
+init : Flags -> Location -> ( Model, Cmd Msg )
 init flags location =
     let
         config =
@@ -54,7 +54,7 @@ init flags location =
         )
 
 
-view : Model -> VirtualDom.Node Msg
+view : Model -> Node Msg
 view { locale, route, surveyResultList, surveyResultDetail } =
     let
         config =

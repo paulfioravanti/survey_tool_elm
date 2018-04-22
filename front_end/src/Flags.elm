@@ -1,10 +1,10 @@
 module Flags exposing (Flags)
 
-import Json.Decode
+import Json.Decode exposing (Value)
 
 
 type alias Flags =
-    { environment : Json.Decode.Value
-    , apiUrl : Json.Decode.Value
-    , language : Json.Decode.Value
+    { environment : Value
+    , apiUrl : Value
+    , language : Value
     }

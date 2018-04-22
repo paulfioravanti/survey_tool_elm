@@ -1,6 +1,6 @@
 module RemoteData exposing (RemoteData(..), WebData)
 
-import Http
+import Http exposing (Error)
 
 
 type RemoteData error data
@@ -11,4 +11,4 @@ type RemoteData error data
 
 
 type alias WebData data =
-    RemoteData Http.Error data
+    RemoteData Error data

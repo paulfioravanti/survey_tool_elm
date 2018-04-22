@@ -12,7 +12,7 @@ module SurveyResponse
 
 import Html.Styled exposing (Html)
 import I18Next exposing (Translations)
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Decoder)
 import SurveyResponse.Decoder as Decoder
 import SurveyResponse.Model as Model
 import SurveyResponse.RespondentHistogram as RespondentHistogram
@@ -42,7 +42,7 @@ averageScore surveyResponses =
     Utils.averageScore surveyResponses
 
 
-decoder : Decode.Decoder SurveyResponse
+decoder : Decoder SurveyResponse
 decoder =
     Decoder.decoder
 

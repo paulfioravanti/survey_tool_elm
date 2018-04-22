@@ -3,7 +3,7 @@ module SurveyResultList.Decoder exposing (decoder)
 {-| Decoder for a JSON survey result list.
 -}
 
-import Json.Decode as Decode exposing (field, list)
+import Json.Decode as Decode exposing (Decoder, field, list)
 import Json.Decode.Extra exposing ((|:))
 import SurveyResult
 import SurveyResultList.Model exposing (SurveyResultList)
@@ -61,7 +61,7 @@ import SurveyResultList.Model exposing (SurveyResultList)
     --> Ok surveyResultList
 
 -}
-decoder : Decode.Decoder SurveyResultList
+decoder : Decoder SurveyResultList
 decoder =
     let
         surveyResult =

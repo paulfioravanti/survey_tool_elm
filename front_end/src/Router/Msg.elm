@@ -1,10 +1,10 @@
 module Router.Msg exposing (Msg(..))
 
-import Navigation
+import Navigation exposing (Location)
 import Route exposing (Route)
 
 
 type Msg
     = ChangeLocation Route
-    | OnLocationChange Navigation.Location
+    | OnLocationChange Location
     | Blur Route

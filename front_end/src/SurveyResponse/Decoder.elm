@@ -3,7 +3,7 @@ module SurveyResponse.Decoder exposing (decoder)
 {-| Decodes a JSON survey response.
 -}
 
-import Json.Decode as Decode exposing (field, int, string)
+import Json.Decode as Decode exposing (Decoder, field, int, string)
 import Json.Decode.Extra exposing ((|:))
 import SurveyResponse.Model exposing (SurveyResponse)
 
@@ -32,7 +32,7 @@ import SurveyResponse.Model exposing (SurveyResponse)
     --> Ok surveyResponse
 
 -}
-decoder : Decode.Decoder SurveyResponse
+decoder : Decoder SurveyResponse
 decoder =
     Decode.succeed
         SurveyResponse

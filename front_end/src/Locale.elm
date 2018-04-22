@@ -1,7 +1,7 @@
 module Locale exposing (Locale, Msg, init, fetchTranslations, update)
 
 import I18Next
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Value)
 import Locale.Cmd as Cmd
 import Locale.Model as Model exposing (Language(En, Ja))
 import Locale.Msg as Msg
@@ -20,7 +20,7 @@ type alias Msg =
     Msg.Msg
 
 
-init : Decode.Value -> Locale
+init : Value -> Locale
 init languageFlag =
     let
         language =

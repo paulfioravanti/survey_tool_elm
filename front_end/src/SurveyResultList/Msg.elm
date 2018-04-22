@@ -1,8 +1,8 @@
 module SurveyResultList.Msg exposing (Msg(..))
 
-import Http
+import Http exposing (Error)
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
 type Msg
-    = FetchSurveyResultList (Result Http.Error SurveyResultList)
+    = FetchSurveyResultList (Result Error SurveyResultList)

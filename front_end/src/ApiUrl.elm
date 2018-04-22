@@ -1,9 +1,9 @@
 module ApiUrl exposing (productionUrl, nonProductionUrl)
 
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Value)
 
 
-nonProductionUrl : Decode.Value -> String
+nonProductionUrl : Value -> String
 nonProductionUrl apiUrlFlag =
     let
         apiUrl =

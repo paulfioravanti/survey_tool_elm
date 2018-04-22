@@ -4,7 +4,7 @@ module SurveyResultDetail.Decoder exposing (decoder)
 for the survey result detail pages.
 -}
 
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Decoder)
 import SurveyResult exposing (SurveyResult)
 
 
@@ -72,7 +72,7 @@ import SurveyResult exposing (SurveyResult)
     --> Ok surveyResult
 
 -}
-decoder : Decode.Decoder SurveyResult
+decoder : Decoder SurveyResult
 decoder =
     let
         surveyResult =

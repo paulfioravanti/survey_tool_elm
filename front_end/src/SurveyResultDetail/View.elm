@@ -5,7 +5,8 @@ module SurveyResultDetail.View exposing (view)
 
 import Html.Styled
     exposing
-        ( Html
+        ( Attribute
+        , Html
         , a
         , article
         , div
@@ -16,7 +17,15 @@ import Html.Styled
         , main_
         , text
         )
-import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
+import Html.Styled.Attributes
+    exposing
+        ( alt
+        , attribute
+        , class
+        , css
+        , href
+        , src
+        )
 import Html.Styled.Events exposing (onWithOptions)
 import I18Next exposing (Translations)
 import Json.Decode as Decode
@@ -60,7 +69,7 @@ view { backToHomeMsg, blurMsg, path } translations surveyResult =
             ]
 
 
-backToHomeLink : String -> Html.Styled.Attribute msg -> Html msg
+backToHomeLink : String -> Attribute msg -> Html msg
 backToHomeLink path clickOptions =
     let
         classes =
@@ -213,7 +222,7 @@ submittedResponseRate label responseRate =
             ]
 
 
-footerContent : String -> Html.Styled.Attribute msg -> Html msg
+footerContent : String -> Attribute msg -> Html msg
 footerContent path clickOptions =
     let
         classes =
@@ -252,7 +261,7 @@ logo =
         img [ src "/logo.png", classes, alt "logo" ] []
 
 
-msgClickOptions : msg -> Html.Styled.Attribute msg
+msgClickOptions : msg -> Attribute msg
 msgClickOptions msg =
     onWithOptions
         "click"

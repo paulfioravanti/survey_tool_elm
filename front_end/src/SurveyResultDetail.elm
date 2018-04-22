@@ -9,7 +9,7 @@ module SurveyResultDetail
 
 import Html.Styled exposing (Html)
 import I18Next exposing (Translations)
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Decoder)
 import RemoteData exposing (WebData)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Cmd as Cmd
@@ -24,7 +24,7 @@ type alias Msg =
     Msg.Msg
 
 
-decoder : Decode.Decoder SurveyResult
+decoder : Decoder SurveyResult
 decoder =
     Decoder.decoder
 

@@ -3,7 +3,7 @@ module Theme.Decoder exposing (decoder)
 {-| Decodes a JSON theme.
 -}
 
-import Json.Decode as Decode exposing (field, list, string)
+import Json.Decode as Decode exposing (Decoder, field, list, string)
 import Json.Decode.Extra exposing ((|:))
 import Question
 import Theme.Model exposing (Theme)
@@ -52,7 +52,7 @@ import Theme.Model exposing (Theme)
     --> Ok theme
 
 -}
-decoder : Decode.Decoder Theme
+decoder : Decoder Theme
 decoder =
     let
         question =

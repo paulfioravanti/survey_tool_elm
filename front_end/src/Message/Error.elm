@@ -6,12 +6,12 @@ module Message.Error exposing (view)
 import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed
-import Http
+import Http exposing (Error, Error(BadPayload, BadStatus, NetworkError))
 import I18Next exposing (Translations)
 import Styles
 
 
-view : Http.Error -> Translations -> Html msg
+view : Error -> Translations -> Html msg
 view error translations =
     let
         classes =
@@ -49,7 +49,7 @@ icon =
         i [ classes, css [ Styles.brandColorAlpha ] ] []
 
 
-errorContent : Http.Error -> Translations -> Html msg
+errorContent : Error -> Translations -> Html msg
 errorContent error translations =
     let
         classes =
@@ -80,7 +80,7 @@ errorHeading label =
             [ text label ]
 
 
-errorMessage : Http.Error -> Translations -> Html msg
+errorMessage : Error -> Translations -> Html msg
 errorMessage error translations =
     let
         ( name, message ) =
@@ -97,18 +97,18 @@ errorMessage error translations =
             [ text ("(" ++ message ++ ")") ]
 
 
-errorToMessage : Http.Error -> Translations -> ( String, String )
+errorToMessage : Error -> Translations -> ( String, String )
 errorToMessage error translations =
     case error of
-        Http.NetworkError ->
+        NetworkError ->
             ( "network-error-message"
             , I18Next.t translations "networkErrorMessage"
             )
 
-        Http.BadStatus response ->
+        BadStatus response ->
             ( "bad-status-message", toString response.status.message )
 
-        Http.BadPayload message response ->
+        BadPayload message response ->
             ( "bad-payload-message"
             , I18Next.t translations "badPayloadMessage"
             )

@@ -2,7 +2,7 @@ module Config exposing (Config, init)
 
 import ApiUrl
 import Flags exposing (Flags)
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Value)
 
 
 type alias Config =
@@ -26,7 +26,7 @@ init flags =
         { apiUrl = apiUrl }
 
 
-elmEnvironment : Decode.Value -> String
+elmEnvironment : Value -> String
 elmEnvironment environmentFlag =
     let
         environment =
