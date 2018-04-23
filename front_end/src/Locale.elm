@@ -14,8 +14,9 @@ import I18Next
 import Html.Styled exposing (Html)
 import Json.Decode as Decode exposing (Value)
 import Locale.Cmd as Cmd
+import Locale.Config exposing (Config)
 import Locale.Dropdown as Dropdown
-import Locale.Model as Model exposing (Config, Language(En, It, Ja))
+import Locale.Model as Model exposing (Language(En, It, Ja))
 import Locale.Msg as Msg
 import Locale.Update as Update
 

@@ -5,7 +5,8 @@ import Css.Foreign
 import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onMouseOver)
-import Locale.Model as Model exposing (Config, Language(En, It, Ja))
+import Locale.Config exposing (Config)
+import Locale.Model as Model exposing (Language(En, It, Ja))
 import Locale.Utils as Utils
 import Styles
 

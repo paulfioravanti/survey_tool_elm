@@ -1,10 +1,4 @@
-module Locale.Model
-    exposing
-        ( Config
-        , Language(..)
-        , Locale
-        , availableLanguages
-        )
+module Locale.Model exposing (Language(..), Locale, availableLanguages)
 
 import I18Next exposing (Translations)
 
@@ -13,10 +7,6 @@ type Language
     = En
     | It
     | Ja
-
-
-type alias Config msg =
-    { changeLanguageMsg : Language -> msg }
 
 
 type alias Locale =
