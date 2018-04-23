@@ -22,7 +22,8 @@ import Html.Styled.Events exposing (onWithOptions)
 import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Styles
-import SurveyResult.Model exposing (Config, SurveyResult)
+import SurveyResult.Config exposing (Config)
+import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils
 import Utils
 

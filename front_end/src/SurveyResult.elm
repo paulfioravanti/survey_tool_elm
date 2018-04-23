@@ -8,8 +8,9 @@ module SurveyResult
 import Html.Styled exposing (Html)
 import I18Next exposing (Translations)
 import Json.Decode as Decode exposing (Decoder)
+import SurveyResult.Config exposing (Config)
 import SurveyResult.Decoder as Decoder
-import SurveyResult.Model as Model exposing (Config)
+import SurveyResult.Model as Model
 import SurveyResult.View as View
 
 

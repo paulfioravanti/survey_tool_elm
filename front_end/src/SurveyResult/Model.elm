@@ -1,10 +1,6 @@
-module SurveyResult.Model exposing (Config, SurveyResult)
+module SurveyResult.Model exposing (SurveyResult)
 
 import Theme exposing (Theme)
-
-
-type alias Config msg =
-    { surveyResultDetailMsg : String -> msg }
 
 
 type alias SurveyResult =
