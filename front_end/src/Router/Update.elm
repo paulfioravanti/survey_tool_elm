@@ -29,7 +29,10 @@ update msg config translations =
 
         ChangeLanguage route language ->
             ( route
-            , Task.perform config.changeLanguageMsg (Task.succeed language)
+            , Cmd.batch
+                [ Task.perform config.changeLanguageMsg (Task.succeed language)
+                , Window.updateRouteTitle route translations
+                ]
             )
 
         ChangeLocation route ->
