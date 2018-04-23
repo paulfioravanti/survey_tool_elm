@@ -25,6 +25,7 @@ import Html.Styled
 import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import Html.Styled.Events exposing (onClick)
 import I18Next exposing (Translations)
+import Locale exposing (Language)
 import Styles
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Model exposing (Config, SurveyResultList)
@@ -91,21 +92,22 @@ navigation { changeLanguageMsg } =
                 , class "dn absolute list ma0 pa0 tc top-2 w3 b--black-10 bb bl br items-center"
                 , css [ marginTop (Css.rem 0.12) ]
                 ]
-                [ li
-                    [ class "pa2 w-100"
-                    , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
-                    , onClick changeLanguageMsg
-                    ]
-                    [ span [ class "flag-icon flag-icon-it" ] [] ]
-                , li
-                    [ class "pa2 w-100"
-                    , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
-                    , onClick changeLanguageMsg
-                    ]
-                    [ span [ class "flag-icon flag-icon-jp" ] [] ]
-                ]
+                (List.map
+                    (dropdownListItemView changeLanguageMsg)
+                    Locale.availableLanguages
+                )
             ]
         ]
+
+
+dropdownListItemView : (Language -> msg) -> Language -> Html msg
+dropdownListItemView changeLanguageMsg language =
+    li
+        [ class "pa2 w-100"
+        , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
+        , onClick (changeLanguageMsg language)
+        ]
+        [ span [ class (Locale.languageToFlagClass language) ] [] ]
 
 
 surveyResultList :

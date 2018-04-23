@@ -3,16 +3,18 @@ module Locale
         ( Language
         , Locale
         , Msg
+        , availableLanguages
         , changeLanguageMsg
         , init
         , fetchTranslations
+        , languageToFlagClass
         , update
         )
 
 import I18Next
 import Json.Decode as Decode exposing (Value)
 import Locale.Cmd as Cmd
-import Locale.Model as Model exposing (Language(En, Ja))
+import Locale.Model as Model exposing (Language(En, It, Ja))
 import Locale.Msg as Msg
 import Locale.Update as Update
 
@@ -27,6 +29,11 @@ type alias Locale =
 
 type alias Msg =
     Msg.Msg
+
+
+availableLanguages : List Language
+availableLanguages =
+    [ En, It, Ja ]
 
 
 changeLanguageMsg : Language -> Msg
@@ -48,6 +55,23 @@ init languageFlag =
         { language = language
         , translations = translations
         }
+
+
+languageToFlagClass : Language -> String
+languageToFlagClass language =
+    let
+        flagIconLanguage =
+            case language of
+                En ->
+                    "au"
+
+                It ->
+                    "it"
+
+                Ja ->
+                    "jp"
+    in
+        "flag-icon flag-icon-" ++ flagIconLanguage
 
 
 fetchTranslations : Language -> Cmd Msg

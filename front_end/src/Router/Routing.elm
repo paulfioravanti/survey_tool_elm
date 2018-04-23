@@ -26,7 +26,7 @@ route { locale, route, surveyResultList, surveyResultDetail } =
                 config =
                     { surveyResultDetailMsg =
                         (ChangeLocation << SurveyResultDetailRoute)
-                    , changeLanguageMsg = ChangeLanguage route Ja
+                    , changeLanguageMsg = ChangeLanguage route
                     }
             in
                 SurveyResultList.view

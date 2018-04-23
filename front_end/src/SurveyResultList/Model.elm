@@ -7,7 +7,7 @@ import SurveyResult exposing (SurveyResult)
 
 type alias Config msg =
     { surveyResultDetailMsg : String -> msg
-    , changeLanguageMsg : msg
+    , changeLanguageMsg : Language -> msg
     }
 
 
