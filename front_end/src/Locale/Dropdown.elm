@@ -65,7 +65,7 @@ view config =
             ]
         , ul
             [ attribute "data-name" "locale-dropdown-list"
-            , class "dn absolute list ma0 pa0 tc top-2 w3 b--black-10 bb bl br items-center"
+            , class "bg-white dn absolute list ma0 pa0 tc top-2 w3 b--black-10 bb bl br items-center"
             , css [ marginTop (Css.rem 0.12) ]
             ]
             (List.map

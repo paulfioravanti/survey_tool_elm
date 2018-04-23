@@ -96,10 +96,7 @@ heading translations =
                 |> String.join " "
     in
         h1 [ class headingClasses, css [ fontSize (Css.rem 4.0) ] ]
-            [ text (I18Next.t translations "surveyResults")
-              -- , logo
-              -- , text (I18Next.t translations "results")
-            ]
+            [ text (I18Next.t translations "surveyResults") ]
 
 
 logo : Html msg
