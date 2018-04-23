@@ -49,9 +49,10 @@ view config translations { surveyResults } =
 
 
 navigation : Config msg -> Html msg
-navigation { changeLanguageMsg } =
-    nav [ class "flex flex-row-reverse mw8 center mt1" ]
-        [ div
+navigation config =
+    nav [ class "flex flex-row justify-between mw8 center mt1" ]
+        [ logo
+        , div
             [ class "relative w3 pointer"
             , css
                 [ hover
@@ -159,7 +160,7 @@ logo : Html msg
 logo =
     let
         logoClasses =
-            [ "h2 h3-ns"
+            [ "h2 h2-ns"
             , "img"
             , "mh1 mh2-ns"
             , "mt0"
