@@ -15,6 +15,7 @@ import Html.Styled
         , i
         , img
         , main_
+        , nav
         , text
         )
 import Html.Styled.Attributes
@@ -29,6 +30,7 @@ import Html.Styled.Attributes
 import Html.Styled.Events exposing (onWithOptions)
 import I18Next exposing (Translations)
 import Json.Decode as Decode
+import Locale
 import Styles
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Model exposing (Config)
@@ -37,7 +39,7 @@ import Utils
 
 
 view : Config msg -> Translations -> SurveyResult -> Html msg
-view { backToHomeMsg, blurMsg, path } translations surveyResult =
+view ({ backToHomeMsg, blurMsg, path } as config) translations surveyResult =
     let
         classes =
             [ "center"
@@ -54,7 +56,8 @@ view { backToHomeMsg, blurMsg, path } translations surveyResult =
             msgClickOptions blurMsg
     in
         main_ [ blurClickOptions ]
-            [ article
+            [ header config
+            , article
                 [ attribute "data-name" "survey-result-detail", classes ]
                 [ backToHomeLink path backtoHomeClickOptions
                 , surveyName surveyResult.name
@@ -67,6 +70,32 @@ view { backToHomeMsg, blurMsg, path } translations surveyResult =
                 ]
             , footerContent path backtoHomeClickOptions
             ]
+
+
+header : Config msg -> Html msg
+header config =
+    let
+        dropdownConfig =
+            { changeLanguageMsg = config.changeLanguageMsg }
+    in
+        nav [ class "flex flex-row justify-between mw8 center mt1" ]
+            [ logo
+            , Locale.dropdown dropdownConfig
+            ]
+
+
+logo : Html msg
+logo =
+    let
+        logoClasses =
+            [ "h2 h2-ns"
+            , "img"
+            , "mh1 mh2-ns"
+            , "mt0"
+            ]
+                |> String.join " "
+    in
+        img [ src "/logo.png", class logoClasses, alt "logo" ] []
 
 
 backToHomeLink : String -> Attribute msg -> Html msg
@@ -242,12 +271,12 @@ footerContent path clickOptions =
     in
         footer [ classes ]
             [ a [ href path, class "dim", clickOptions ]
-                [ logo ]
+                [ footerLogo ]
             ]
 
 
-logo : Html msg
-logo =
+footerLogo : Html msg
+footerLogo =
     let
         classes =
             [ "h3 h4-ns"

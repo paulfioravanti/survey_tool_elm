@@ -15,7 +15,6 @@ import Router.Msg exposing (Msg(Blur, ChangeLanguage, ChangeLocation))
 import Router.Utils as Utils
 import SurveyResultDetail
 import SurveyResultList exposing (SurveyResultList)
-import Locale.Model exposing (Language(Ja))
 
 
 route : Context -> Html Msg
@@ -39,6 +38,7 @@ route { locale, route, surveyResultList, surveyResultDetail } =
                 config =
                     { backToHomeMsg = ChangeLocation ListSurveyResultsRoute
                     , blurMsg = Blur (SurveyResultDetailRoute id)
+                    , changeLanguageMsg = ChangeLanguage route
                     , path = Utils.toPath ListSurveyResultsRoute
                     }
             in
