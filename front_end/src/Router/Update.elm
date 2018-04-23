@@ -13,7 +13,6 @@ import Router.Msg
             ( Blur
             , ChangeLanguage
             , ChangeLocation
-            , LocationChanged
             )
         )
 import Router.Utils as Utils
@@ -43,9 +42,4 @@ update msg config translations =
                     |> Navigation.newUrl
                 , Window.updateRouteTitle route translations
                 ]
-            )
-
-        LocationChanged location ->
-            ( Utils.toRoute location
-            , Cmd.none
             )
