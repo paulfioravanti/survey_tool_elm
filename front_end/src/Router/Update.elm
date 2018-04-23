@@ -7,14 +7,7 @@ import I18Next exposing (Translations)
 import Navigation
 import Route exposing (Route)
 import Router.Config exposing (Config)
-import Router.Msg
-    exposing
-        ( Msg
-            ( Blur
-            , ChangeLanguage
-            , ChangeLocation
-            )
-        )
+import Router.Msg exposing (Msg(Blur, ChangeLanguage, ChangeLocation))
 import Router.Utils as Utils
 import Task
 import Window
