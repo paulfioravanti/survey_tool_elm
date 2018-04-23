@@ -45,11 +45,11 @@ init flags location =
     in
         ( model
         , Cmd.batch
-            [ Task.succeed ()
-                |> Task.perform UpdatePage
-            , model.locale.language
+            [ model.locale.language
                 |> Locale.fetchTranslations
                 |> Cmd.map LocaleMsg
+            , Task.succeed ()
+                |> Task.perform UpdatePage
             ]
         )
 
