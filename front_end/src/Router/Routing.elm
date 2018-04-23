@@ -10,7 +10,7 @@ import Route
             , NotFoundRoute
             )
         )
-import Router.Model exposing (Context)
+import Router.Context exposing (Context)
 import Router.Msg exposing (Msg(Blur, ChangeLanguage, ChangeLocation))
 import Router.Utils as Utils
 import SurveyResultDetail

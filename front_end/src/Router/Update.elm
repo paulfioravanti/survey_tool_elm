@@ -6,7 +6,7 @@ module Router.Update exposing (update)
 import I18Next exposing (Translations)
 import Navigation
 import Route exposing (Route)
-import Router.Model exposing (Config)
+import Router.Config exposing (Config)
 import Router.Msg
     exposing
         ( Msg

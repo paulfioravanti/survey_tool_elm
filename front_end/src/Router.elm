@@ -4,7 +4,8 @@ import Html.Styled as Html exposing (Html)
 import I18Next exposing (Translations)
 import Navigation exposing (Location)
 import Route as Route
-import Router.Model exposing (Config, Context)
+import Router.Config exposing (Config)
+import Router.Context exposing (Context)
 import Router.Msg as Msg
 import Router.Routing as Routing
 import Router.Update as Update

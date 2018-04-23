@@ -1,16 +1,10 @@
-module Router.Model exposing (Config, Context)
+module Router.Context exposing (Context)
 
-import Locale exposing (Language, Locale)
+import Locale exposing (Locale)
 import Route exposing (Route)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList exposing (SurveyResultList)
 import RemoteData exposing (WebData)
-
-
-type alias Config msg =
-    { updatePageMsg : () -> msg
-    , changeLanguageMsg : Language -> msg
-    }
 
 
 type alias Context =
