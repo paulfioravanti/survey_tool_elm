@@ -2,38 +2,27 @@ module Locale.Dropdown exposing (view)
 
 import Css exposing (..)
 import Css.Foreign
-import Html.Styled
-    exposing
-        ( Html
-        , a
-        , div
-        , h1
-        , h4
-        , img
-        , li
-        , main_
-        , nav
-        , p
-        , section
-        , span
-        , text
-        , ul
-        )
-import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
+import Html.Styled exposing (Html, div, li, p, span, text, ul)
+import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onMouseOver)
 import Locale.Model as Model exposing (Config, Language(En, It, Ja))
+import Locale.Utils as Utils
 import Styles
 
 
 view : Config msg -> Html msg
 view config =
-    div
-        [ class "relative w3 pointer"
-        , css
+    let
+        classes =
+            [ "relative", "pointer", "w3" ]
+                |> String.join " "
+                |> class
+
+        styles =
             [ hover
                 [ Css.Foreign.children
                     [ Css.Foreign.selector
-                        "[data-name='locale-dropdown-menu']"
+                        "[data-name='locale-dropdown-current-selection']"
                         [ borderColor (rgba 0 0 0 0.1)
                         , color (hex "555")
                         ]
@@ -50,21 +39,55 @@ view config =
                     ]
                 ]
             ]
-        ]
-        [ p
-            [ attribute "data-name" "locale-dropdown-menu"
-            , class "tc pa2 bg-white flex items-center b--white ba light-silver mv0"
+                |> css
+    in
+        div
+            [ attribute "data-name" "locale-dropdown-menu", classes, styles ]
+            [ currentSelection
+            , dropdownList config
+            ]
+
+
+currentSelection : Html msg
+currentSelection =
+    let
+        classes =
+            [ "b--white"
+            , "ba"
+            , "bg-white"
+            , "flex"
+            , "items-center"
+            , "light-silver"
+            , "mv0"
+            , "pa2"
+            , "tc"
+            ]
+                |> String.join " "
+                |> class
+    in
+        p
+            [ attribute "data-name" "locale-dropdown-current-selection"
+            , classes
             ]
             [ span [ class "flex-auto flag-icon flag-icon-au" ] []
-            , span
-                [ attribute "data-name" "locale-dropdown-caret"
-                , class "white absolute"
-                , css [ left (pct 80) ]
-                ]
-                [ text "▾" ]
+            , caret
             ]
-        , dropdownList config
-        ]
+
+
+caret : Html msg
+caret =
+    let
+        classes =
+            [ "absolute", "white" ]
+                |> String.join " "
+                |> class
+    in
+        span
+            [ attribute "data-name" "locale-dropdown-caret"
+            , classes
+            , css [ left (pct 80) ]
+            ]
+            [ text "▾" ]
 
 
 dropdownList : Config msg -> Html msg
@@ -104,21 +127,4 @@ dropdownListItemView { changeLanguageMsg } language =
         , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
         , onMouseOver (changeLanguageMsg language)
         ]
-        [ span [ class (languageToFlagClass language) ] [] ]
-
-
-languageToFlagClass : Language -> String
-languageToFlagClass language =
-    let
-        flagIconLanguage =
-            case language of
-                En ->
-                    "au"
-
-                It ->
-                    "it"
-
-                Ja ->
-                    "jp"
-    in
-        "flag-icon flag-icon-" ++ flagIconLanguage
+        [ span [ class (Utils.languageToFlagClass language) ] [] ]
