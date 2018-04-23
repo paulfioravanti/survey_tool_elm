@@ -50,8 +50,13 @@ update msg model =
 
         RoutingMsg msg ->
             let
+                config =
+                    { updatePageMsg = UpdatePage
+                    , localeMsg = LocaleMsg << Locale.changeLanguageMsg
+                    }
+
                 ( route, cmd ) =
-                    Router.update msg UpdatePage model.locale.translations
+                    Router.update msg config model.locale.translations
             in
                 ( { model | route = route }
                 , cmd

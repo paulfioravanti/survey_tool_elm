@@ -4,7 +4,7 @@ import Html.Styled as Html exposing (Html)
 import I18Next exposing (Translations)
 import Navigation exposing (Location)
 import Route as Route
-import Router.Model exposing (Context)
+import Router.Model exposing (Config, Context)
 import Router.Msg as Msg
 import Router.Routing as Routing
 import Router.Update as Update
@@ -34,6 +34,6 @@ toRoute location =
     Utils.toRoute location
 
 
-update : Msg -> (() -> msg) -> Translations -> ( Route, Cmd msg )
-update msg cmdMsg translations =
-    Update.update msg cmdMsg translations
+update : Msg -> Config msg -> Translations -> ( Route, Cmd msg )
+update msg config translations =
+    Update.update msg config translations

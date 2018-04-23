@@ -4,9 +4,9 @@ module Router.Update exposing (update)
 -}
 
 import I18Next exposing (Translations)
-import Locale
 import Navigation
 import Route exposing (Route)
+import Router.Model exposing (Config)
 import Router.Msg
     exposing
         ( Msg
@@ -21,14 +21,14 @@ import Task
 import Window
 
 
-update : Msg -> (() -> msg) -> Translations -> ( Route, Cmd msg )
-update msg updatePageMsg translations =
+update : Msg -> Config msg -> Translations -> ( Route, Cmd msg )
+update msg config translations =
     case msg of
         Blur route ->
             ( route, Cmd.none )
 
         ChangeLanguage route language ->
-            ( route, Cmd.none )
+            ( route, Task.perform config.localeMsg (Task.succeed language) )
 
         ChangeLocation route ->
             ( route
@@ -42,5 +42,5 @@ update msg updatePageMsg translations =
 
         LocationChanged location ->
             ( Utils.toRoute location
-            , Task.perform updatePageMsg (Task.succeed ())
+            , Task.perform config.updatePageMsg (Task.succeed ())
             )

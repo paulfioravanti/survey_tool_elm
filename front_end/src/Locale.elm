@@ -1,4 +1,13 @@
-module Locale exposing (Language, Locale, Msg, init, fetchTranslations, update)
+module Locale
+    exposing
+        ( Language
+        , Locale
+        , Msg
+        , changeLanguageMsg
+        , init
+        , fetchTranslations
+        , update
+        )
 
 import I18Next
 import Json.Decode as Decode exposing (Value)
@@ -18,6 +27,11 @@ type alias Locale =
 
 type alias Msg =
     Msg.Msg
+
+
+changeLanguageMsg : Language -> Msg
+changeLanguageMsg =
+    Msg.ChangeLanguage
 
 
 init : Value -> Locale
