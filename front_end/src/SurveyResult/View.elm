@@ -193,6 +193,7 @@ responseRatePercentage label responseRate =
             , "justify-between"
             , "mt2 mt0-ns"
             , "tc"
+            , "w-50"
             ]
                 |> String.join " "
     in
@@ -223,6 +224,7 @@ responseRateValue responseRate =
         classes =
             [ "bg-light-gray"
             , "f1-ns"
+            , "mh3"
             ]
                 |> String.join " "
                 |> class

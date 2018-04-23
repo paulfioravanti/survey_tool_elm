@@ -23,7 +23,7 @@ import Html.Styled
         , ul
         )
 import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
-import Html.Styled.Events exposing (onClick)
+import Html.Styled.Events exposing (onClick, onMouseOver)
 import I18Next exposing (Translations)
 import Locale exposing (Language)
 import Styles
@@ -105,7 +105,7 @@ dropdownListItemView changeLanguageMsg language =
     li
         [ class "pa2 w-100"
         , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
-        , onClick (changeLanguageMsg language)
+        , onMouseOver (changeLanguageMsg language)
         ]
         [ span [ class (Locale.languageToFlagClass language) ] [] ]
 
@@ -148,10 +148,10 @@ heading translations =
             ]
                 |> String.join " "
     in
-        h1 [ class headingClasses ]
-            [ text (I18Next.t translations "survey")
-            , logo
-            , text (I18Next.t translations "results")
+        h1 [ class headingClasses, css [ fontSize (Css.rem 4.0) ] ]
+            [ text (I18Next.t translations "surveyResults")
+              -- , logo
+              -- , text (I18Next.t translations "results")
             ]
 
 
