@@ -94,15 +94,15 @@ navigation config =
                 , css [ marginTop (Css.rem 0.12) ]
                 ]
                 (List.map
-                    (dropdownListItemView changeLanguageMsg)
+                    (dropdownListItemView config)
                     Locale.availableLanguages
                 )
             ]
         ]
 
 
-dropdownListItemView : (Language -> msg) -> Language -> Html msg
-dropdownListItemView changeLanguageMsg language =
+dropdownListItemView : Config msg -> Language -> Html msg
+dropdownListItemView { changeLanguageMsg } language =
     li
         [ class "pa2 w-100"
         , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
