@@ -63,16 +63,38 @@ view config =
                 ]
                 [ text "▾" ]
             ]
-        , ul
+        , dropdownList config
+        ]
+
+
+dropdownList : Config msg -> Html msg
+dropdownList config =
+    let
+        classes =
+            [ "absolute"
+            , "b--black-10"
+            , "bb"
+            , "bg-white"
+            , "bl"
+            , "br"
+            , "dn"
+            , "items-center"
+            , "list"
+            , "ma0"
+            , "pa0"
+            , "tc"
+            , "top-2"
+            , "w3"
+            ]
+                |> String.join " "
+                |> class
+    in
+        ul
             [ attribute "data-name" "locale-dropdown-list"
-            , class "bg-white dn absolute list ma0 pa0 tc top-2 w3 b--black-10 bb bl br items-center"
+            , classes
             , css [ marginTop (Css.rem 0.12) ]
             ]
-            (List.map
-                (dropdownListItemView config)
-                Model.availableLanguages
-            )
-        ]
+            (List.map (dropdownListItemView config) Model.availableLanguages)
 
 
 dropdownListItemView : Config msg -> Language -> Html msg
