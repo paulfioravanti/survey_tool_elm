@@ -13,9 +13,9 @@ import Json.Decode as Decode exposing (Decoder)
 import RemoteData exposing (WebData)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Cmd as Cmd
+import SurveyResultDetail.Config exposing (Config)
 import SurveyResultDetail.Controller as Controller
 import SurveyResultDetail.Decoder as Decoder
-import SurveyResultDetail.Model exposing (Config)
 import SurveyResultDetail.Msg as Msg
 import SurveyResultDetail.Update as Update
 

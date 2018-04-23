@@ -1,4 +1,4 @@
-module SurveyResultDetail.Model exposing (Config)
+module SurveyResultDetail.Config exposing (Config)
 
 import Locale exposing (Language)
 

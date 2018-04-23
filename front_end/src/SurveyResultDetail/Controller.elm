@@ -21,7 +21,7 @@ import RemoteData
         , WebData
         )
 import SurveyResult exposing (SurveyResult)
-import SurveyResultDetail.Model exposing (Config)
+import SurveyResultDetail.Config exposing (Config)
 import SurveyResultDetail.View
 
 

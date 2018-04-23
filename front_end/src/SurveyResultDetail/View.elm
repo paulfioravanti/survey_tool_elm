@@ -33,7 +33,7 @@ import Json.Decode as Decode
 import Locale
 import Styles
 import SurveyResult exposing (SurveyResult)
-import SurveyResultDetail.Model exposing (Config)
+import SurveyResultDetail.Config exposing (Config)
 import Theme
 import Utils
 
