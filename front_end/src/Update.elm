@@ -52,7 +52,7 @@ update msg model =
             let
                 config =
                     { updatePageMsg = UpdatePage
-                    , localeMsg = LocaleMsg << Locale.changeLanguageMsg
+                    , changeLanguageMsg = LocaleMsg << Locale.changeLanguageMsg
                     }
 
                 ( route, cmd ) =

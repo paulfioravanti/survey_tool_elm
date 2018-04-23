@@ -5,6 +5,7 @@ import I18Next exposing (Translations)
 
 type Language
     = En
+    | It
     | Ja
 
 

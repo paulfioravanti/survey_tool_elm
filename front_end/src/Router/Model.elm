@@ -9,7 +9,7 @@ import RemoteData exposing (WebData)
 
 type alias Config msg =
     { updatePageMsg : () -> msg
-    , localeMsg : Language -> msg
+    , changeLanguageMsg : Language -> msg
     }
 
 

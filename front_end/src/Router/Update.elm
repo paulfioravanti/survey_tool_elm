@@ -28,7 +28,9 @@ update msg config translations =
             ( route, Cmd.none )
 
         ChangeLanguage route language ->
-            ( route, Task.perform config.localeMsg (Task.succeed language) )
+            ( route
+            , Task.perform config.changeLanguageMsg (Task.succeed language)
+            )
 
         ChangeLocation route ->
             ( route
