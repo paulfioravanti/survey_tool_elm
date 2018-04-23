@@ -25,7 +25,8 @@ import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import I18Next exposing (Translations)
 import Locale exposing (Language)
 import SurveyResult exposing (SurveyResult)
-import SurveyResultList.Model exposing (Config, SurveyResultList)
+import SurveyResultList.Config exposing (Config)
+import SurveyResultList.Model exposing (SurveyResultList)
 
 
 view : Config msg -> Translations -> SurveyResultList -> Html msg

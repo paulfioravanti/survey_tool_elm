@@ -11,8 +11,9 @@ import Html.Styled exposing (Html)
 import I18Next exposing (Translations)
 import RemoteData exposing (WebData)
 import SurveyResultList.Cmd as Cmd
+import SurveyResultList.Config exposing (Config)
 import SurveyResultList.Controller as Controller
-import SurveyResultList.Model as Model exposing (Config)
+import SurveyResultList.Model as Model
 import SurveyResultList.Msg as Msg
 import SurveyResultList.Update as Update
 

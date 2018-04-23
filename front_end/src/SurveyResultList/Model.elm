@@ -1,13 +1,6 @@
-module SurveyResultList.Model exposing (Config, SurveyResultList)
+module SurveyResultList.Model exposing (SurveyResultList)
 
-import Locale exposing (Language)
 import SurveyResult exposing (SurveyResult)
-
-
-type alias Config msg =
-    { surveyResultDetailMsg : String -> msg
-    , changeLanguageMsg : Language -> msg
-    }
 
 
 type alias SurveyResultList =
