@@ -47,5 +47,5 @@ update msg config translations =
 
         LocationChanged location ->
             ( Utils.toRoute location
-            , Task.perform config.updatePageMsg (Task.succeed ())
+            , Cmd.none
             )

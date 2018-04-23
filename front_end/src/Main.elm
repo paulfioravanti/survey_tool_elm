@@ -21,7 +21,7 @@ import VirtualDom exposing (Node)
 main : Program Flags Model Msg
 main =
     Navigation.programWithFlags
-        (RoutingMsg << Router.locationChangedMsg)
+        UpdatePage
         { init = init
         , view = view
         , update = Update.update
@@ -48,7 +48,7 @@ init flags location =
             [ model.locale.language
                 |> Locale.fetchTranslations
                 |> Cmd.map LocaleMsg
-            , Task.succeed ()
+            , Task.succeed location
                 |> Task.perform UpdatePage
             ]
         )
