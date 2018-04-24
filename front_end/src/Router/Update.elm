@@ -7,9 +7,8 @@ import I18Next exposing (Translations)
 import Navigation
 import Route exposing (Route)
 import Router.Config exposing (Config)
-import Router.Msg exposing (Msg(Blur, ChangeLanguage, ChangeLocation))
+import Router.Msg exposing (Msg(Blur, ChangeLocation))
 import Router.Utils as Utils
-import Task
 import Window
 
 
@@ -18,14 +17,6 @@ update msg config translations =
     case msg of
         Blur route ->
             ( route, Cmd.none )
-
-        ChangeLanguage route language ->
-            ( route
-            , Cmd.batch
-                [ Task.perform config.changeLanguageMsg (Task.succeed language)
-                , Window.updateRouteTitle route translations
-                ]
-            )
 
         ChangeLocation route ->
             ( route
