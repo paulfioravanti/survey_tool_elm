@@ -46,7 +46,7 @@ view config context =
         div
             [ attribute "data-name" "locale-dropdown-menu", classes, styles ]
             [ currentSelection
-            , dropdownList config
+            , dropdownList config context
             ]
 
 
@@ -92,8 +92,8 @@ caret =
             [ text "▾" ]
 
 
-dropdownList : Config msg -> Html msg
-dropdownList config =
+dropdownList : Config msg -> Context -> Html msg
+dropdownList config context =
     let
         classes =
             [ "absolute"
@@ -119,11 +119,11 @@ dropdownList config =
             , classes
             , css [ marginTop (Css.rem 0.12) ]
             ]
-            (List.map (dropdownListItemView config) Model.availableLanguages)
+            (List.map (dropdownListItemView config context) Model.availableLanguages)
 
 
-dropdownListItemView : Config msg -> Language -> Html msg
-dropdownListItemView { changeLanguageMsg } language =
+dropdownListItemView : Config msg -> Context -> Language -> Html msg
+dropdownListItemView { changeLanguageMsg } context language =
     li
         [ class "pa2 w-100"
         , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
