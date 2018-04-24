@@ -50,7 +50,7 @@ update msg model =
 
         RoutingMsg msg ->
             let
-                config =
+                routerConfig =
                     { blurMsg = (RoutingMsg << Router.blurMsg)
                     , changeLanguageMsg = LocaleMsg << Locale.changeLanguageMsg
                     , changeLocationMsg =
@@ -59,7 +59,7 @@ update msg model =
                     }
 
                 ( route, cmd ) =
-                    Router.update msg config model.locale.translations
+                    Router.update msg routerConfig model.locale.translations
             in
                 ( { model | route = route }
                 , cmd
