@@ -2,6 +2,7 @@ module Model exposing (Model, init)
 
 import Config exposing (Config)
 import Locale exposing (Locale)
+import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested), WebData)
 import Router exposing (Route)
 import SurveyResult exposing (SurveyResult)
@@ -11,6 +12,7 @@ import SurveyResultList exposing (SurveyResultList)
 type alias Model =
     { config : Config
     , locale : Locale
+    , location : Location
     , route : Route
     , surveyResultDetail : WebData SurveyResult
     , surveyResultList : WebData SurveyResultList
@@ -42,11 +44,16 @@ type alias Model =
     -->     NotRequested
 
 -}
-init : Config -> Locale -> Route -> Model
-init config locale route =
-    { config = config
-    , locale = locale
-    , route = route
-    , surveyResultDetail = NotRequested
-    , surveyResultList = NotRequested
-    }
+init : Config -> Locale -> Location -> Model
+init config locale location =
+    let
+        route =
+            Router.toRoute location
+    in
+        { config = config
+        , locale = locale
+        , location = location
+        , route = route
+        , surveyResultDetail = NotRequested
+        , surveyResultList = NotRequested
+        }

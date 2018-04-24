@@ -4,5 +4,4 @@ import Locale exposing (Locale)
 
 
 type alias Context =
-    { locale : Locale
-    }
+    { locale : Locale }
