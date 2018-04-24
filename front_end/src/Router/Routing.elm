@@ -22,20 +22,20 @@ route { locale, route, surveyResultList, surveyResultDetail } =
     case route of
         ListSurveyResultsRoute ->
             let
-                config =
+                surveyResultListConfig =
                     { changeLanguageMsg = ChangeLanguage route
                     , surveyResultDetailMsg =
                         (ChangeLocation << SurveyResultDetailRoute)
                     }
             in
                 SurveyResultList.view
-                    config
+                    surveyResultListConfig
                     locale.translations
                     surveyResultList
 
         SurveyResultDetailRoute id ->
             let
-                config =
+                surveyResultDetailConfig =
                     { backToHomeMsg = ChangeLocation ListSurveyResultsRoute
                     , blurMsg = Blur (SurveyResultDetailRoute id)
                     , changeLanguageMsg = ChangeLanguage route
@@ -43,15 +43,15 @@ route { locale, route, surveyResultList, surveyResultDetail } =
                     }
             in
                 SurveyResultDetail.view
-                    config
+                    surveyResultDetailConfig
                     locale.translations
                     surveyResultDetail
 
         NotFoundRoute ->
             let
-                config =
+                messageConfig =
                     { backToHomeMsg = ChangeLocation ListSurveyResultsRoute
                     , path = Utils.toPath ListSurveyResultsRoute
                     }
             in
-                NotFound.view config locale.translations
+                NotFound.view messageConfig locale.translations
