@@ -1,4 +1,4 @@
-module Model exposing (Model, initialModel)
+module Model exposing (Model, init)
 
 import Config exposing (Config)
 import Locale exposing (Locale)
@@ -42,8 +42,8 @@ type alias Model =
     -->     NotRequested
 
 -}
-initialModel : Config -> Locale -> Route -> Model
-initialModel config locale route =
+init : Config -> Locale -> Route -> Model
+init config locale route =
     { config = config
     , locale = locale
     , route = route

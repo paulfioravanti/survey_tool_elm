@@ -41,7 +41,7 @@ init flags location =
         model =
             location
                 |> Router.toRoute
-                |> Model.initialModel config locale
+                |> Model.init config locale
     in
         ( model
         , Cmd.batch
