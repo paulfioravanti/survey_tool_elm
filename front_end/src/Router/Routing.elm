@@ -23,9 +23,9 @@ route { locale, route, surveyResultList, surveyResultDetail } =
         ListSurveyResultsRoute ->
             let
                 config =
-                    { surveyResultDetailMsg =
+                    { changeLanguageMsg = ChangeLanguage route
+                    , surveyResultDetailMsg =
                         (ChangeLocation << SurveyResultDetailRoute)
-                    , changeLanguageMsg = ChangeLanguage route
                     }
             in
                 SurveyResultList.view
