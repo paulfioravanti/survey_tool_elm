@@ -14,6 +14,7 @@ import RemoteData exposing (WebData)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Cmd as Cmd
 import SurveyResultDetail.Config exposing (Config)
+import SurveyResultDetail.Context exposing (Context)
 import SurveyResultDetail.Controller as Controller
 import SurveyResultDetail.Decoder as Decoder
 import SurveyResultDetail.Msg as Msg
@@ -39,6 +40,6 @@ update msg translations =
     Update.update msg translations
 
 
-view : Config msg -> Translations -> WebData SurveyResult -> Html msg
-view config translations surveyResult =
-    Controller.render config translations surveyResult
+view : Config msg -> Context -> WebData SurveyResult -> Html msg
+view config context surveyResult =
+    Controller.render config context surveyResult

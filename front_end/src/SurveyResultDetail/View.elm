@@ -34,12 +34,13 @@ import Locale
 import Styles
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Config exposing (Config)
+import SurveyResultDetail.Context exposing (Context)
 import Theme
 import Utils
 
 
-view : Config msg -> Translations -> SurveyResult -> Html msg
-view ({ backToHomeMsg, blurMsg, path } as config) translations surveyResult =
+view : Config msg -> Context -> SurveyResult -> Html msg
+view ({ backToHomeMsg, blurMsg, path } as config) context surveyResult =
     let
         classes =
             [ "center"
@@ -61,10 +62,10 @@ view ({ backToHomeMsg, blurMsg, path } as config) translations surveyResult =
                 [ attribute "data-name" "survey-result-detail", classes ]
                 [ backToHomeLink path backtoHomeClickOptions
                 , surveyName surveyResult.name
-                , summary translations surveyResult
+                , summary context.locale.translations surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        (Theme.view translations)
+                        (Theme.view context.locale.translations)
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]

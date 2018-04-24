@@ -22,17 +22,18 @@ import RemoteData
         )
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Config exposing (Config)
+import SurveyResultDetail.Context exposing (Context)
 import SurveyResultDetail.View
 
 
-render : Config msg -> Translations -> WebData SurveyResult -> Html msg
-render ({ backToHomeMsg, path } as config) translations surveyResult =
+render : Config msg -> Context -> WebData SurveyResult -> Html msg
+render ({ backToHomeMsg, path } as config) context surveyResult =
     case surveyResult of
         NotRequested ->
             text ""
 
         Requesting ->
-            Loading.view translations
+            Loading.view context.locale.translations
 
         Failure error ->
             case error of
@@ -45,14 +46,14 @@ render ({ backToHomeMsg, path } as config) translations surveyResult =
                                     , path = path
                                     }
                             in
-                                NotFound.view config translations
+                                NotFound.view config context.locale.translations
 
                         _ ->
-                            Error.view error translations
+                            Error.view error context.locale.translations
 
                 _ ->
-                    Error.view error translations
+                    Error.view error context.locale.translations
 
         Success surveyResult ->
             surveyResult
-                |> SurveyResultDetail.View.view config translations
+                |> SurveyResultDetail.View.view config context

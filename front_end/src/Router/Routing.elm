@@ -45,10 +45,13 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     , changeLanguageMsg = config.changeLanguageMsg
                     , path = Utils.toPath ListSurveyResultsRoute
                     }
+
+                surveyResultDetailContext =
+                    { locale = locale }
             in
                 SurveyResultDetail.view
                     surveyResultDetailConfig
-                    locale.translations
+                    surveyResultDetailContext
                     surveyResultDetail
 
         NotFoundRoute ->
