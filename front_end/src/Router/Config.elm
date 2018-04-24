@@ -5,6 +5,6 @@ import Navigation exposing (Location)
 
 
 type alias Config msg =
-    { updatePageMsg : Location -> msg
-    , changeLanguageMsg : Language -> msg
+    { changeLanguageMsg : Language -> msg
+    , updatePageMsg : Location -> msg
     }
