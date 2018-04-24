@@ -1,9 +1,18 @@
-module Router exposing (Msg, Route, route, toRoute, update)
+module Router
+    exposing
+        ( Msg
+        , Route
+        , blurMsg
+        , changeLocationMsg
+        , route
+        , toRoute
+        , update
+        )
 
 import Html.Styled as Html exposing (Html)
 import I18Next exposing (Translations)
 import Navigation exposing (Location)
-import Route as Route
+import Route as Route exposing (Route)
 import Router.Config exposing (Config)
 import Router.Context exposing (Context)
 import Router.Msg as Msg
@@ -20,7 +29,17 @@ type alias Route =
     Route.Route
 
 
-route : Config msg -> Context -> Html Msg
+blurMsg : Route -> Msg
+blurMsg =
+    Msg.Blur
+
+
+changeLocationMsg : Route -> Msg
+changeLocationMsg =
+    Msg.ChangeLocation
+
+
+route : Config msg -> Context -> Html msg
 route config context =
     Routing.route config context
 

@@ -12,21 +12,20 @@ import Route
         )
 import Router.Config exposing (Config)
 import Router.Context exposing (Context)
-import Router.Msg exposing (Msg(Blur, ChangeLanguage, ChangeLocation))
 import Router.Utils as Utils
 import SurveyResultDetail
 import SurveyResultList exposing (SurveyResultList)
 
 
-route : Config msg -> Context -> Html Msg
+route : Config msg -> Context -> Html msg
 route config { locale, route, surveyResultList, surveyResultDetail } =
     case route of
         ListSurveyResultsRoute ->
             let
                 surveyResultListConfig =
-                    { changeLanguageMsg = ChangeLanguage route
+                    { changeLanguageMsg = config.changeLanguageMsg
                     , surveyResultDetailMsg =
-                        (ChangeLocation << SurveyResultDetailRoute)
+                        (config.changeLocationMsg << SurveyResultDetailRoute)
                     }
             in
                 SurveyResultList.view
@@ -37,9 +36,10 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
         SurveyResultDetailRoute id ->
             let
                 surveyResultDetailConfig =
-                    { backToHomeMsg = ChangeLocation ListSurveyResultsRoute
-                    , blurMsg = Blur (SurveyResultDetailRoute id)
-                    , changeLanguageMsg = ChangeLanguage route
+                    { backToHomeMsg =
+                        config.changeLocationMsg ListSurveyResultsRoute
+                    , blurMsg = config.blurMsg (SurveyResultDetailRoute id)
+                    , changeLanguageMsg = config.changeLanguageMsg
                     , path = Utils.toPath ListSurveyResultsRoute
                     }
             in
@@ -51,7 +51,8 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
         NotFoundRoute ->
             let
                 messageConfig =
-                    { backToHomeMsg = ChangeLocation ListSurveyResultsRoute
+                    { backToHomeMsg =
+                        config.changeLocationMsg ListSurveyResultsRoute
                     , path = Utils.toPath ListSurveyResultsRoute
                     }
             in

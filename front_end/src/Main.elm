@@ -58,7 +58,9 @@ view : Model -> Node Msg
 view { locale, route, surveyResultList, surveyResultDetail } =
     let
         config =
-            { changeLanguageMsg = (LocaleMsg << Locale.changeLanguageMsg)
+            { blurMsg = (RoutingMsg << Router.blurMsg)
+            , changeLanguageMsg = (LocaleMsg << Locale.changeLanguageMsg)
+            , changeLocationMsg = (RoutingMsg << Router.changeLocationMsg)
             , updatePageMsg = UpdatePage
             }
 
@@ -70,7 +72,6 @@ view { locale, route, surveyResultList, surveyResultDetail } =
             }
     in
         Router.route config context
-            |> Html.map RoutingMsg
             |> Html.toUnstyled
 
 

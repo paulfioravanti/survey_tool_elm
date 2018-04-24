@@ -51,8 +51,11 @@ update msg model =
         RoutingMsg msg ->
             let
                 config =
-                    { updatePageMsg = UpdatePage
+                    { blurMsg = (RoutingMsg << Router.blurMsg)
                     , changeLanguageMsg = LocaleMsg << Locale.changeLanguageMsg
+                    , changeLocationMsg =
+                        (RoutingMsg << Router.changeLocationMsg)
+                    , updatePageMsg = UpdatePage
                     }
 
                 ( route, cmd ) =
