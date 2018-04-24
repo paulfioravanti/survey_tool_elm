@@ -18,7 +18,7 @@ import SurveyResultList exposing (SurveyResultList)
 
 
 route : Config msg -> Context -> Html msg
-route config { locale, route, surveyResultList, surveyResultDetail } =
+route config { locale, location, route, surveyResultList, surveyResultDetail } =
     case route of
         ListSurveyResultsRoute ->
             let
@@ -29,7 +29,9 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     }
 
                 surveyResultListContext =
-                    { locale = locale }
+                    { locale = locale
+                    , location = location
+                    }
             in
                 SurveyResultList.view
                     surveyResultListConfig
@@ -47,7 +49,9 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     }
 
                 surveyResultDetailContext =
-                    { locale = locale }
+                    { locale = locale
+                    , location = location
+                    }
             in
                 SurveyResultDetail.view
                     surveyResultDetailConfig

@@ -1,4 +1,4 @@
-module SurveyResultList.Context exposing (Context)
+module SurveyResult.Context exposing (Context)
 
 import Locale exposing (Locale)
 import Navigation exposing (Location)

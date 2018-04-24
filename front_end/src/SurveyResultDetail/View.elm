@@ -57,7 +57,7 @@ view ({ backToHomeMsg, blurMsg, path } as config) context surveyResult =
             msgClickOptions blurMsg
     in
         main_ [ blurClickOptions ]
-            [ header config
+            [ header config context
             , article
                 [ attribute "data-name" "survey-result-detail", classes ]
                 [ backToHomeLink path backtoHomeClickOptions
@@ -73,15 +73,18 @@ view ({ backToHomeMsg, blurMsg, path } as config) context surveyResult =
             ]
 
 
-header : Config msg -> Html msg
-header config =
+header : Config msg -> Context -> Html msg
+header config context =
     let
         dropdownConfig =
             { changeLanguageMsg = config.changeLanguageMsg }
+
+        dropdownContext =
+            { location = context.location }
     in
         nav [ class "flex flex-row justify-between mw8 center mt1" ]
             [ logo
-            , Locale.dropdown dropdownConfig
+            , Locale.dropdown dropdownConfig dropdownContext
             ]
 
 

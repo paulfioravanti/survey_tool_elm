@@ -53,7 +53,7 @@ init flags location =
 
 
 view : Model -> Node Msg
-view { locale, route, surveyResultList, surveyResultDetail } =
+view { locale, location, route, surveyResultList, surveyResultDetail } =
     let
         routerConfig =
             { blurMsg = (RoutingMsg << Router.blurMsg)
@@ -64,6 +64,7 @@ view { locale, route, surveyResultList, surveyResultDetail } =
 
         routerContext =
             { locale = locale
+            , location = location
             , route = route
             , surveyResultList = surveyResultList
             , surveyResultDetail = surveyResultDetail

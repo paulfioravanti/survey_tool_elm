@@ -6,13 +6,14 @@ import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onMouseOver)
 import Locale.Config exposing (Config)
+import Locale.Context exposing (Context)
 import Locale.Model as Model exposing (Language(En, It, Ja))
 import Locale.Utils as Utils
 import Styles
 
 
-view : Config msg -> Html msg
-view config =
+view : Config msg -> Context -> Html msg
+view config context =
     let
         classes =
             [ "relative", "pointer", "w3" ]

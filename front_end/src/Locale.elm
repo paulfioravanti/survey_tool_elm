@@ -15,6 +15,7 @@ import Html.Styled exposing (Html)
 import Json.Decode as Decode exposing (Value)
 import Locale.Cmd as Cmd
 import Locale.Config exposing (Config)
+import Locale.Context exposing (Context)
 import Locale.Dropdown as Dropdown
 import Locale.Model as Model exposing (Language(En, It, Ja))
 import Locale.Msg as Msg
@@ -38,9 +39,9 @@ changeLanguageMsg =
     Msg.ChangeLanguage
 
 
-dropdown : Config msg -> Html msg
-dropdown config =
-    Dropdown.view config
+dropdown : Config msg -> Context -> Html msg
+dropdown config context =
+    Dropdown.view config context
 
 
 init : Value -> Locale
