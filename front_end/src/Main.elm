@@ -57,14 +57,14 @@ init flags location =
 view : Model -> Node Msg
 view { locale, route, surveyResultList, surveyResultDetail } =
     let
-        config =
+        context =
             { locale = locale
             , route = route
             , surveyResultList = surveyResultList
             , surveyResultDetail = surveyResultDetail
             }
     in
-        (Html.toUnstyled << Html.map RoutingMsg << Router.route) config
+        (Html.toUnstyled << Html.map RoutingMsg << Router.route) context
 
 
 subscriptions : Model -> Sub Msg

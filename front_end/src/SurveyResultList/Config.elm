@@ -4,6 +4,6 @@ import Locale exposing (Language)
 
 
 type alias Config msg =
-    { surveyResultDetailMsg : String -> msg
-    , changeLanguageMsg : Language -> msg
+    { changeLanguageMsg : Language -> msg
+    , surveyResultDetailMsg : String -> msg
     }
