@@ -57,21 +57,21 @@ init flags location =
 view : Model -> Node Msg
 view { locale, route, surveyResultList, surveyResultDetail } =
     let
-        config =
+        routerConfig =
             { blurMsg = (RoutingMsg << Router.blurMsg)
             , changeLanguageMsg = (LocaleMsg << Locale.changeLanguageMsg)
             , changeLocationMsg = (RoutingMsg << Router.changeLocationMsg)
             , updatePageMsg = UpdatePage
             }
 
-        context =
+        routerContext =
             { locale = locale
             , route = route
             , surveyResultList = surveyResultList
             , surveyResultDetail = surveyResultDetail
             }
     in
-        Router.route config context
+        Router.route routerConfig routerContext
             |> Html.toUnstyled
 
 

@@ -27,10 +27,13 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     , surveyResultDetailMsg =
                         (config.changeLocationMsg << SurveyResultDetailRoute)
                     }
+
+                surveyResultListContext =
+                    { locale = locale }
             in
                 SurveyResultList.view
                     surveyResultListConfig
-                    locale.translations
+                    surveyResultListContext
                     surveyResultList
 
         SurveyResultDetailRoute id ->

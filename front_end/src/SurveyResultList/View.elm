@@ -26,11 +26,12 @@ import I18Next exposing (Translations)
 import Locale exposing (Language)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Config exposing (Config)
+import SurveyResultList.Context exposing (Context)
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
-view : Config msg -> Translations -> SurveyResultList -> Html msg
-view config translations { surveyResults } =
+view : Config msg -> Context -> SurveyResultList -> Html msg
+view config context { surveyResults } =
     let
         classes =
             [ "center"
@@ -42,7 +43,7 @@ view config translations { surveyResults } =
         main_ []
             [ header config
             , section [ attribute "data-name" "survey-results", classes ]
-                (surveyResultList config translations surveyResults)
+                (surveyResultList config context surveyResults)
             ]
 
 
@@ -60,10 +61,10 @@ header config =
 
 surveyResultList :
     Config msg
-    -> Translations
+    -> Context
     -> List SurveyResult
     -> List (Html msg)
-surveyResultList config translations surveyResults =
+surveyResultList config context surveyResults =
     let
         classes =
             [ "flex"
@@ -77,10 +78,13 @@ surveyResultList config translations surveyResults =
             { surveyResultDetailMsg = config.surveyResultDetailMsg }
     in
         div [ classes ]
-            [ heading translations ]
+            [ heading context.locale.translations ]
             :: (surveyResults
                     |> List.map
-                        (SurveyResult.view surveyResultConfig translations)
+                        (SurveyResult.view
+                            surveyResultConfig
+                            context.locale.translations
+                        )
                )
 
 

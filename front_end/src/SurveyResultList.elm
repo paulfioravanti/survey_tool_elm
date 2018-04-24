@@ -12,6 +12,7 @@ import I18Next exposing (Translations)
 import RemoteData exposing (WebData)
 import SurveyResultList.Cmd as Cmd
 import SurveyResultList.Config exposing (Config)
+import SurveyResultList.Context exposing (Context)
 import SurveyResultList.Controller as Controller
 import SurveyResultList.Model as Model
 import SurveyResultList.Msg as Msg
@@ -36,6 +37,6 @@ update msg translations =
     Update.update msg translations
 
 
-view : Config msg -> Translations -> WebData SurveyResultList -> Html msg
-view config translations surveyResultList =
-    Controller.render config translations surveyResultList
+view : Config msg -> Context -> WebData SurveyResultList -> Html msg
+view config context surveyResultList =
+    Controller.render config context surveyResultList
