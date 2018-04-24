@@ -20,9 +20,9 @@ type alias Route =
     Route.Route
 
 
-route : Context -> Html Msg
-route context =
-    Routing.route context
+route : Config msg -> Context -> Html Msg
+route config context =
+    Routing.route config context
 
 
 toRoute : Location -> Route

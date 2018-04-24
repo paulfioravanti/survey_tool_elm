@@ -10,6 +10,7 @@ import Route
             , NotFoundRoute
             )
         )
+import Router.Config exposing (Config)
 import Router.Context exposing (Context)
 import Router.Msg exposing (Msg(Blur, ChangeLanguage, ChangeLocation))
 import Router.Utils as Utils
@@ -17,8 +18,8 @@ import SurveyResultDetail
 import SurveyResultList exposing (SurveyResultList)
 
 
-route : Context -> Html Msg
-route { locale, route, surveyResultList, surveyResultDetail } =
+route : Config msg -> Context -> Html Msg
+route config { locale, route, surveyResultList, surveyResultDetail } =
     case route of
         ListSurveyResultsRoute ->
             let
