@@ -7,7 +7,7 @@ import Route exposing (Route)
 
 type alias Config msg =
     { blurMsg : Route -> msg
-    , changeLanguageMsg : Locale.Msg -> msg
+    , localeMsg : Locale.Msg -> msg
     , changeLocationMsg : Route -> msg
     , updatePageMsg : Location -> msg
     }

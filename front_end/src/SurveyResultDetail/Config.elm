@@ -6,6 +6,6 @@ import Locale
 type alias Config msg =
     { backToHomeMsg : msg
     , blurMsg : msg
-    , changeLanguageMsg : Locale.Msg -> msg
+    , localeMsg : Locale.Msg -> msg
     , path : String
     }

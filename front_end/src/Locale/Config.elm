@@ -4,4 +4,4 @@ import Locale.Msg as Msg
 
 
 type alias Config msg =
-    { changeLanguageMsg : Msg.Msg -> msg }
+    { localeMsg : Msg.Msg -> msg }
