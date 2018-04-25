@@ -1,6 +1,7 @@
 module SurveyResultDetail.Config exposing (Config)
 
 import Locale
+import Navigation exposing (Location)
 
 
 type alias Config msg =
@@ -8,4 +9,5 @@ type alias Config msg =
     , blurMsg : msg
     , localeMsg : Locale.Msg -> msg
     , path : String
+    , updatePageMsg : Location -> msg
     }
