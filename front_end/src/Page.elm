@@ -14,6 +14,7 @@ import Route
             , SurveyResultDetailRoute
             )
         )
+import SurveyResult
 import SurveyResultDetail
 import SurveyResultList
 import Window
@@ -45,15 +46,31 @@ update model =
                     ( model, Cmd.none )
 
         SurveyResultDetailRoute id ->
-            ( { model | surveyResultDetail = Requesting }
-            , Cmd.batch
-                [ model.config.apiUrl
-                    |> SurveyResultDetail.fetchSurveyResult id
-                    |> Cmd.map SurveyResultDetailMsg
-                , Window.updateTitle
-                    (I18Next.t model.locale.translations "loading")
-                ]
-            )
+            case model.surveyResultDetail of
+                Success surveyResultDetail ->
+                    if SurveyResult.id surveyResultDetail == id then
+                        ( model, Cmd.none )
+                    else
+                        ( { model | surveyResultDetail = Requesting }
+                        , Cmd.batch
+                            [ model.config.apiUrl
+                                |> SurveyResultDetail.fetchSurveyResult id
+                                |> Cmd.map SurveyResultDetailMsg
+                            , Window.updateTitle
+                                (I18Next.t model.locale.translations "loading")
+                            ]
+                        )
+
+                _ ->
+                    ( { model | surveyResultDetail = Requesting }
+                    , Cmd.batch
+                        [ model.config.apiUrl
+                            |> SurveyResultDetail.fetchSurveyResult id
+                            |> Cmd.map SurveyResultDetailMsg
+                        , Window.updateTitle
+                            (I18Next.t model.locale.translations "loading")
+                        ]
+                    )
 
         _ ->
             ( model, Cmd.none )
