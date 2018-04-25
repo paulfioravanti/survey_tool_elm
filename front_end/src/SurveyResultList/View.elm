@@ -51,7 +51,9 @@ header : Config msg -> Context -> Html msg
 header config context =
     let
         dropdownConfig =
-            { localeMsg = config.localeMsg }
+            { localeMsg = config.localeMsg
+            , updatePageMsg = config.updatePageMsg
+            }
 
         dropdownContext =
             { location = context.location }
