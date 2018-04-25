@@ -1,11 +1,11 @@
 module SurveyResultDetail.Config exposing (Config)
 
-import Locale exposing (Language)
+import Locale
 
 
 type alias Config msg =
     { backToHomeMsg : msg
     , blurMsg : msg
-    , changeLanguageMsg : Language -> msg
+    , changeLanguageMsg : Locale.Msg -> msg
     , path : String
     }

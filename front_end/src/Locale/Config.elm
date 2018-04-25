@@ -1,7 +1,7 @@
 module Locale.Config exposing (Config)
 
-import Locale.Model exposing (Language)
+import Locale.Msg as Msg
 
 
 type alias Config msg =
-    { changeLanguageMsg : Language -> msg }
+    { changeLanguageMsg : Msg.Msg -> msg }

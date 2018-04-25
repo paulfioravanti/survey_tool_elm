@@ -1,9 +1,9 @@
 module SurveyResultList.Config exposing (Config)
 
-import Locale exposing (Language)
+import Locale
 
 
 type alias Config msg =
-    { changeLanguageMsg : Language -> msg
+    { changeLanguageMsg : Locale.Msg -> msg
     , surveyResultDetailMsg : String -> msg
     }

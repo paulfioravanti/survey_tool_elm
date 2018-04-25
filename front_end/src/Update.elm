@@ -52,7 +52,7 @@ update msg model =
             let
                 routerConfig =
                     { blurMsg = (RoutingMsg << Router.blurMsg)
-                    , changeLanguageMsg = LocaleMsg << Locale.changeLanguageMsg
+                    , changeLanguageMsg = LocaleMsg
                     , changeLocationMsg =
                         (RoutingMsg << Router.changeLocationMsg)
                     , updatePageMsg = UpdatePage
