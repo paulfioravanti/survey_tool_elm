@@ -16,6 +16,7 @@ import Page
 import Router
 import SurveyResultDetail
 import SurveyResultList
+import Task
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -27,7 +28,11 @@ update msg model =
                     Locale.update msg model.locale
             in
                 ( { model | locale = locale }
-                , Cmd.map LocaleMsg cmd
+                , Cmd.batch
+                    [ Cmd.map LocaleMsg cmd
+                    , Task.succeed model.location
+                        |> Task.perform UpdatePage
+                    ]
                 )
 
         SurveyResultDetailMsg msg ->

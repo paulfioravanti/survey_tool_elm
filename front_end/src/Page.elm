@@ -6,7 +6,7 @@ module Page exposing (update)
 import I18Next exposing (Translations)
 import Msg exposing (Msg(SurveyResultDetailMsg, SurveyResultListMsg))
 import Model exposing (Model)
-import RemoteData exposing (RemoteData(NotRequested, Requesting))
+import RemoteData exposing (RemoteData(NotRequested, Requesting, Success))
 import Route
     exposing
         ( Route
@@ -33,6 +33,12 @@ update model =
                         , Window.updateTitle
                             (I18Next.t model.locale.translations "loading")
                         ]
+                    )
+
+                Success _ ->
+                    ( model
+                    , Window.updateTitle
+                        (I18Next.t model.locale.translations "surveyResults")
                     )
 
                 _ ->
