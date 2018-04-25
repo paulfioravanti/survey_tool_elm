@@ -5,7 +5,6 @@ on the status of the data fetched from the remote API point.
 -}
 
 import Html.Styled exposing (Html, text)
-import I18Next exposing (Translations)
 import Message.Loading as Loading
 import Message.Error as Error
 import RemoteData
