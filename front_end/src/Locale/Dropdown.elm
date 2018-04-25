@@ -124,10 +124,11 @@ dropdownList config context =
 
 
 dropdownListItemView : Config msg -> Context -> Language -> Html msg
-dropdownListItemView { localeMsg } context language =
+dropdownListItemView config context language =
     li
         [ class "pa2 w-100"
         , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
-        , onMouseOver (localeMsg (ChangeLanguage language context.location))
+        , onMouseOver
+            (config.localeMsg (ChangeLanguage language context.location))
         ]
         [ span [ class (Utils.languageToFlagClass language) ] [] ]
