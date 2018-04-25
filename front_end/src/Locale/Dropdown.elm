@@ -4,7 +4,7 @@ import Css exposing (..)
 import Css.Foreign
 import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
-import Html.Styled.Events exposing (onMouseOver)
+import Html.Styled.Events exposing (onMouseEnter)
 import Locale.Config exposing (Config)
 import Locale.Context exposing (Context)
 import Locale.Model as Model exposing (Language(En, It, Ja))
@@ -128,6 +128,6 @@ dropdownListItemView { localeMsg } context language =
     li
         [ class "pa2 w-100"
         , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
-        , onMouseOver (localeMsg (ChangeLanguage language))
+        , onMouseEnter (localeMsg (ChangeLanguage language context.location))
         ]
         [ span [ class (Utils.languageToFlagClass language) ] [] ]
