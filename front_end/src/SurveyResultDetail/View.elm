@@ -68,7 +68,7 @@ view ({ backToHomeMsg, blurMsg, path } as config) context surveyResult =
                 , summary context.locale.translations surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        (Theme.view context.locale.translations)
+                        (Theme.view config context.locale.translations)
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]

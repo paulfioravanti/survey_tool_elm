@@ -7,6 +7,7 @@ import Question.Decoder as Decoder
 import Question.Model as Model
 import Question.Utils as Utils
 import Question.View as View
+import SurveyResultDetail.Config exposing (Config)
 
 
 type alias Question =
@@ -23,6 +24,6 @@ decoder =
     Decoder.decoder
 
 
-view : Translations -> Question -> Html msg
-view translations { description, surveyResponses } =
-    View.view translations description surveyResponses
+view : Config msg -> Translations -> Question -> Html msg
+view config translations { description, surveyResponses } =
+    View.view config translations description surveyResponses

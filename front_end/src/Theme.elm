@@ -6,6 +6,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Theme.Decoder as Decoder
 import Theme.Model as Model
 import Theme.View as View
+import SurveyResultDetail.Config exposing (Config)
 
 
 type alias Theme =
@@ -17,6 +18,6 @@ decoder =
     Decoder.decoder
 
 
-view : Translations -> Theme -> Html msg
-view translations theme =
-    View.view translations theme
+view : Config msg -> Translations -> Theme -> Html msg
+view config translations theme =
+    View.view config translations theme

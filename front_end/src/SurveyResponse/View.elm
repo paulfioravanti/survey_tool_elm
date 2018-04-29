@@ -7,15 +7,17 @@ import Css exposing (hover, visible, visibility)
 import Css.Foreign exposing (children)
 import Html.Styled exposing (Html, a, div, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
+import Html.Styled.Events exposing (onMouseEnter)
 import I18Next exposing (Translations)
 import Styles
 import SurveyResponse.Model exposing (Rating)
 import SurveyResponse.RespondentHistogram exposing (RespondentHistogram)
 import SurveyResponse.Tooltip as Tooltip
+import SurveyResultDetail.Config exposing (Config)
 
 
-view : Translations -> RespondentHistogram -> Rating -> Html msg
-view translations respondents rating =
+view : Config msg -> Translations -> RespondentHistogram -> Rating -> Html msg
+view config translations respondents rating =
     let
         classes =
             [ "dt"
@@ -41,11 +43,11 @@ view translations respondents rating =
             , classes
             , styles
             ]
-            [ content translations respondents rating ]
+            [ content config translations respondents rating ]
 
 
-content : Translations -> RespondentHistogram -> Rating -> Html msg
-content translations respondents rating =
+content : Config msg -> Translations -> RespondentHistogram -> Rating -> Html msg
+content config translations respondents rating =
     let
         classes =
             [ "b--light-silver"
@@ -80,6 +82,7 @@ content translations respondents rating =
             [ attribute "data-name" "survey-response-content"
             , classes
             , styles
+            , onMouseEnter config.blurMsg
             ]
             [ text rating
             , Tooltip.view translations rating respondents
