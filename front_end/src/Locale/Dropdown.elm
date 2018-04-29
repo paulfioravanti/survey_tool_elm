@@ -4,7 +4,7 @@ import Css exposing (..)
 import Css.Foreign
 import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
-import Html.Styled.Events exposing (onMouseEnter)
+import Html.Styled.Events exposing (onClick)
 import Locale.Config exposing (Config)
 import Locale.Context exposing (Context)
 import Locale.Model as Model exposing (Language(En, It, Ja))
@@ -91,11 +91,15 @@ caret =
             [ "absolute", "white" ]
                 |> String.join " "
                 |> class
+
+        styles =
+            [ left (pct 80) ]
+                |> css
     in
         span
             [ attribute "data-name" "locale-dropdown-caret"
             , classes
-            , css [ left (pct 80) ]
+            , styles
             ]
             [ text "▾" ]
 
@@ -140,7 +144,7 @@ dropdownListItemView config language =
     li
         [ class "pa2 w-100"
         , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
-        , onMouseEnter
+        , onClick
             (config.localeMsg (ChangeLanguage language))
         ]
         [ span [ class (Utils.languageToFlagClass language) ] [] ]
