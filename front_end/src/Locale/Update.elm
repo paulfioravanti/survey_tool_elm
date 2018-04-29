@@ -14,7 +14,7 @@ import Locale.Msg
 
 
 update : Msg -> Locale -> ( Locale, Cmd Msg )
-update msg locale =
+update msg ({ showAvailableLanguages } as locale) =
     case msg of
         ChangeLanguage language ->
             ( { locale | language = language }, Cmd.fetchTranslations language )
@@ -30,7 +30,7 @@ update msg locale =
 
         ToggleAvailableLanguages ->
             ( { locale
-                | showAvailableLanguages = not locale.showAvailableLanguages
+                | showAvailableLanguages = not showAvailableLanguages
               }
             , Cmd.none
             )
