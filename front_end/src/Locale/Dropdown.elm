@@ -47,7 +47,7 @@ view config context =
         div
             [ attribute "data-name" "locale-dropdown-menu", classes, styles ]
             [ currentSelection context
-            , dropdownList config
+            , dropdownList config context
             ]
 
 
@@ -100,8 +100,8 @@ caret =
             [ text "▾" ]
 
 
-dropdownList : Config msg -> Html msg
-dropdownList config =
+dropdownList : Config msg -> Context -> Html msg
+dropdownList config context =
     let
         classes =
             [ "absolute"
@@ -121,13 +121,18 @@ dropdownList config =
             ]
                 |> String.join " "
                 |> class
+
+        selectableLanguages =
+            List.filter
+                (\language -> language /= context.locale.language)
+                Model.availableLanguages
     in
         ul
             [ attribute "data-name" "locale-dropdown-list"
             , classes
             , css [ marginTop (Css.rem 0.12) ]
             ]
-            (List.map (dropdownListItemView config) Model.availableLanguages)
+            (List.map (dropdownListItemView config) selectableLanguages)
 
 
 dropdownListItemView : Config msg -> Language -> Html msg
