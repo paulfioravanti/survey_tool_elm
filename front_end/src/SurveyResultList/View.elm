@@ -41,14 +41,14 @@ view config context { surveyResults } =
                 |> class
     in
         main_ []
-            [ header config
+            [ header config context
             , section [ attribute "data-name" "survey-results", classes ]
                 (surveyResultList config context surveyResults)
             ]
 
 
-header : Config msg -> Html msg
-header config =
+header : Config msg -> Context -> Html msg
+header config context =
     let
         dropdownConfig =
             { localeMsg = config.localeMsg
@@ -57,7 +57,7 @@ header config =
     in
         nav [ class "flex flex-row justify-between mw8 center mt1" ]
             [ logo
-            , Locale.dropdown dropdownConfig
+            , Locale.dropdown dropdownConfig context
             ]
 
 

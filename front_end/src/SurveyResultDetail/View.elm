@@ -83,7 +83,7 @@ header config context =
     in
         nav [ class "flex flex-row justify-between mw8 center mt1" ]
             [ logo
-            , Locale.dropdown dropdownConfig
+            , Locale.dropdown dropdownConfig context
             ]
 
 

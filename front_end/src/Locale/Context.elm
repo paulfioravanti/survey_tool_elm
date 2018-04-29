@@ -1,7 +1,7 @@
 module Locale.Context exposing (Context)
 
-import Navigation exposing (Location)
+import Locale.Model exposing (Locale)
 
 
 type alias Context =
-    { location : Location }
+    { locale : Locale }
