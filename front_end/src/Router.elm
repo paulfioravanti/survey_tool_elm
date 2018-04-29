@@ -2,7 +2,6 @@ module Router
     exposing
         ( Msg
         , Route
-        , blurMsg
         , changeLocationMsg
         , route
         , toRoute
@@ -27,11 +26,6 @@ type alias Msg =
 
 type alias Route =
     Route.Route
-
-
-blurMsg : Route -> Msg
-blurMsg =
-    Msg.Blur
 
 
 changeLocationMsg : Route -> Msg
