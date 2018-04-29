@@ -56,10 +56,13 @@ view ({ backToHomeMsg, blurMsg, path } as config) context surveyResult =
         blurClickOptions =
             msgClickOptions blurMsg
     in
-        main_ [ blurClickOptions ]
+        main_ []
             [ header config context
             , article
-                [ attribute "data-name" "survey-result-detail", classes ]
+                [ attribute "data-name" "survey-result-detail"
+                , classes
+                , blurClickOptions
+                ]
                 [ backToHomeLink path backtoHomeClickOptions
                 , surveyName surveyResult.name
                 , summary context.locale.translations surveyResult

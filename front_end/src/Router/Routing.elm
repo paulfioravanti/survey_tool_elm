@@ -24,6 +24,7 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
             let
                 surveyResultListConfig =
                     { localeMsg = config.localeMsg
+                    , blurMsg = config.blurMsg
                     , surveyResultDetailMsg =
                         (config.changeLocationMsg << SurveyResultDetailRoute)
                     , updatePageMsg = config.updatePageMsg
@@ -42,7 +43,7 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
                 surveyResultDetailConfig =
                     { backToHomeMsg =
                         config.changeLocationMsg ListSurveyResultsRoute
-                    , blurMsg = config.blurMsg (SurveyResultDetailRoute id)
+                    , blurMsg = config.blurMsg
                     , localeMsg = config.localeMsg
                     , path = Utils.toPath ListSurveyResultsRoute
                     , updatePageMsg = config.updatePageMsg

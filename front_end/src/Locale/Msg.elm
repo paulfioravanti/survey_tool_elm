@@ -6,6 +6,7 @@ import Locale.Model exposing (Language)
 
 
 type Msg
-    = ChangeLanguage Language
+    = CloseAvailableLanguages
+    | ChangeLanguage Language
     | FetchTranslations (Result Error Translations)
     | ToggleAvailableLanguages

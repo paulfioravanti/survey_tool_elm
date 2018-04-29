@@ -5,7 +5,8 @@ import Navigation exposing (Location)
 
 
 type alias Config msg =
-    { localeMsg : Locale.Msg -> msg
+    { blurMsg : msg
+    , localeMsg : Locale.Msg -> msg
     , surveyResultDetailMsg : String -> msg
     , updatePageMsg : Location -> msg
     }

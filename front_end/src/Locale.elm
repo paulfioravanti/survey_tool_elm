@@ -3,9 +3,11 @@ module Locale
         ( Language
         , Locale
         , Msg
+        , closeAvailableLanguagesMsg
         , dropdown
         , init
         , fetchTranslations
+        , toggleAvailableLanguagesMsg
         , update
         )
 
@@ -31,6 +33,16 @@ type alias Locale =
 
 type alias Msg =
     Msg.Msg
+
+
+closeAvailableLanguagesMsg : Msg
+closeAvailableLanguagesMsg =
+    Msg.CloseAvailableLanguages
+
+
+toggleAvailableLanguagesMsg : Msg
+toggleAvailableLanguagesMsg =
+    Msg.ToggleAvailableLanguages
 
 
 dropdown : Config msg -> Context -> Html msg

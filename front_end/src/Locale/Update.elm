@@ -6,6 +6,7 @@ import Locale.Msg
     exposing
         ( Msg
             ( ChangeLanguage
+            , CloseAvailableLanguages
             , FetchTranslations
             , ToggleAvailableLanguages
             )
@@ -17,6 +18,9 @@ update msg locale =
     case msg of
         ChangeLanguage language ->
             ( { locale | language = language }, Cmd.fetchTranslations language )
+
+        CloseAvailableLanguages ->
+            ( { locale | showAvailableLanguages = False }, Cmd.none )
 
         FetchTranslations (Ok translations) ->
             ( { locale | translations = translations }, Cmd.none )

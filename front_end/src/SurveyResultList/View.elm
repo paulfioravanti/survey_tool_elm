@@ -6,7 +6,8 @@ module SurveyResultList.View exposing (view)
 import Css exposing (..)
 import Html.Styled
     exposing
-        ( Html
+        ( Attribute
+        , Html
         , a
         , div
         , h1
@@ -22,7 +23,9 @@ import Html.Styled
         , ul
         )
 import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
+import Html.Styled.Events exposing (onWithOptions)
 import I18Next exposing (Translations)
+import Json.Decode as Decode
 import Locale exposing (Language)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Config exposing (Config)
@@ -39,10 +42,17 @@ view config context { surveyResults } =
             ]
                 |> String.join " "
                 |> class
+
+        blurClickOptions =
+            msgClickOptions config.blurMsg
     in
         main_ []
             [ header config context
-            , section [ attribute "data-name" "survey-results", classes ]
+            , section
+                [ attribute "data-name" "survey-results"
+                , classes
+                , blurClickOptions
+                ]
                 (surveyResultList config context surveyResults)
             ]
 
@@ -118,3 +128,11 @@ logo =
                 |> String.join " "
     in
         img [ src "/logo.png", class logoClasses, alt "logo" ] []
+
+
+msgClickOptions : msg -> Attribute msg
+msgClickOptions msg =
+    onWithOptions
+        "click"
+        { preventDefault = True, stopPropagation = True }
+        (Decode.succeed msg)

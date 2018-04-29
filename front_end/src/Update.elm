@@ -9,6 +9,7 @@ import Msg
             , SurveyResultListMsg
             , RoutingMsg
             , UpdatePage
+            , Blur
             )
         )
 import Model exposing (Model)
@@ -56,7 +57,7 @@ update msg model =
         RoutingMsg msg ->
             let
                 routerConfig =
-                    { blurMsg = (RoutingMsg << Router.blurMsg)
+                    { blurMsg = Blur
                     , localeMsg = LocaleMsg
                     , changeLocationMsg =
                         (RoutingMsg << Router.changeLocationMsg)
@@ -72,3 +73,9 @@ update msg model =
 
         UpdatePage location ->
             Page.update model
+
+        Blur ->
+            ( model
+            , Task.succeed Locale.closeAvailableLanguagesMsg
+                |> Task.perform LocaleMsg
+            )

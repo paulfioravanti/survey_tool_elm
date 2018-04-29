@@ -13,3 +13,4 @@ type Msg
     | SurveyResultListMsg SurveyResultList.Msg
     | RoutingMsg Router.Msg
     | UpdatePage Location
+    | Blur

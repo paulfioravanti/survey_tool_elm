@@ -10,7 +10,8 @@ import Flags exposing (Flags)
 import Html.Styled as Html exposing (Html)
 import Locale
 import Model exposing (Model)
-import Msg exposing (Msg(LocaleMsg, RoutingMsg, UpdatePage))
+import Mouse
+import Msg exposing (Msg(Blur, LocaleMsg, RoutingMsg, UpdatePage))
 import Navigation exposing (Location)
 import Router
 import Task
@@ -56,7 +57,7 @@ view : Model -> Node Msg
 view { locale, location, route, surveyResultList, surveyResultDetail } =
     let
         routerConfig =
-            { blurMsg = (RoutingMsg << Router.blurMsg)
+            { blurMsg = Blur
             , localeMsg = LocaleMsg
             , changeLocationMsg = (RoutingMsg << Router.changeLocationMsg)
             , updatePageMsg = UpdatePage
@@ -76,4 +77,7 @@ view { locale, location, route, surveyResultList, surveyResultDetail } =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    if model.locale.showAvailableLanguages == True then
+        Mouse.clicks (\_ -> LocaleMsg Locale.closeAvailableLanguagesMsg)
+    else
+        Sub.none
