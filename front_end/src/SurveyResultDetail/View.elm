@@ -80,13 +80,10 @@ header config context =
             { localeMsg = config.localeMsg
             , updatePageMsg = config.updatePageMsg
             }
-
-        dropdownContext =
-            { location = context.location }
     in
         nav [ class "flex flex-row justify-between mw8 center mt1" ]
             [ logo
-            , Locale.dropdown dropdownConfig dropdownContext
+            , Locale.dropdown dropdownConfig
             ]
 
 

@@ -8,7 +8,7 @@ import Locale.Msg exposing (Msg(ChangeLanguage, FetchTranslations))
 update : Msg -> Locale -> ( Locale, Cmd Msg )
 update msg locale =
     case msg of
-        ChangeLanguage language location ->
+        ChangeLanguage language ->
             ( { locale | language = language }, Cmd.fetchTranslations language )
 
         FetchTranslations (Ok translations) ->

@@ -7,5 +7,5 @@ import Navigation exposing (Location)
 
 
 type Msg
-    = ChangeLanguage Language Location
+    = ChangeLanguage Language
     | FetchTranslations (Result Error Translations)

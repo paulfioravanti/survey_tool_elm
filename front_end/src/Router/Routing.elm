@@ -30,9 +30,7 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
                     }
 
                 surveyResultListContext =
-                    { locale = locale
-                    , location = location
-                    }
+                    { locale = locale }
             in
                 SurveyResultList.view
                     surveyResultListConfig
@@ -51,9 +49,7 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
                     }
 
                 surveyResultDetailContext =
-                    { locale = locale
-                    , location = location
-                    }
+                    { locale = locale }
             in
                 SurveyResultDetail.view
                     surveyResultDetailConfig

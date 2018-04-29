@@ -6,15 +6,14 @@ import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onMouseEnter)
 import Locale.Config exposing (Config)
-import Locale.Context exposing (Context)
 import Locale.Model as Model exposing (Language(En, It, Ja))
 import Locale.Msg exposing (Msg(ChangeLanguage))
 import Locale.Utils as Utils
 import Styles
 
 
-view : Config msg -> Context -> Html msg
-view config context =
+view : Config msg -> Html msg
+view config =
     let
         classes =
             [ "relative", "pointer", "w3" ]
@@ -47,7 +46,7 @@ view config context =
         div
             [ attribute "data-name" "locale-dropdown-menu", classes, styles ]
             [ currentSelection
-            , dropdownList config context
+            , dropdownList config
             ]
 
 
@@ -93,8 +92,8 @@ caret =
             [ text "▾" ]
 
 
-dropdownList : Config msg -> Context -> Html msg
-dropdownList config context =
+dropdownList : Config msg -> Html msg
+dropdownList config =
     let
         classes =
             [ "absolute"
@@ -120,15 +119,15 @@ dropdownList config context =
             , classes
             , css [ marginTop (Css.rem 0.12) ]
             ]
-            (List.map (dropdownListItemView config context) Model.availableLanguages)
+            (List.map (dropdownListItemView config) Model.availableLanguages)
 
 
-dropdownListItemView : Config msg -> Context -> Language -> Html msg
-dropdownListItemView config context language =
+dropdownListItemView : Config msg -> Language -> Html msg
+dropdownListItemView config language =
     li
         [ class "pa2 w-100"
         , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
         , onMouseEnter
-            (config.localeMsg (ChangeLanguage language context.location))
+            (config.localeMsg (ChangeLanguage language))
         ]
         [ span [ class (Utils.languageToFlagClass language) ] [] ]
