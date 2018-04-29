@@ -11,6 +11,7 @@ type Language
 
 type alias Locale =
     { language : Language
+    , showAvailableLanguages : Bool
     , translations : Translations
     }
 

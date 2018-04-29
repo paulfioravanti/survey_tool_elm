@@ -8,7 +8,7 @@ import Html.Styled.Events exposing (onClick)
 import Locale.Config exposing (Config)
 import Locale.Context exposing (Context)
 import Locale.Model as Model exposing (Language(En, It, Ja))
-import Locale.Msg exposing (Msg(ChangeLanguage))
+import Locale.Msg exposing (Msg(ChangeLanguage, ToggleAvailableLanguages))
 import Locale.Utils as Utils
 import Styles
 
@@ -26,14 +26,7 @@ view config context =
                 [ Css.Foreign.children
                     [ Css.Foreign.selector
                         "[data-name='locale-dropdown-current-selection']"
-                        [ borderColor (rgba 0 0 0 0.1)
-                        , color (hex "555")
-                        ]
-                    , Css.Foreign.selector
-                        "[data-name='locale-dropdown-list']"
-                        [ displayFlex
-                        , flexDirection column
-                        ]
+                        [ borderColor (rgba 0 0 0 0.1) ]
                     ]
                 , Css.Foreign.descendants
                     [ Css.Foreign.selector
@@ -45,7 +38,11 @@ view config context =
                 |> css
     in
         div
-            [ attribute "data-name" "locale-dropdown-menu", classes, styles ]
+            [ attribute "data-name" "locale-dropdown-menu"
+            , classes
+            , styles
+            , onClick (config.localeMsg ToggleAvailableLanguages)
+            ]
             [ currentSelection context
             , dropdownList config context
             ]
@@ -54,9 +51,14 @@ view config context =
 currentSelection : Context -> Html msg
 currentSelection context =
     let
+        displayClasses =
+            if context.locale.showAvailableLanguages then
+                [ "b--black-10" ]
+            else
+                [ "b--white" ]
+
         classes =
-            [ "b--white"
-            , "ba"
+            [ "ba"
             , "bg-white"
             , "flex"
             , "items-center"
@@ -65,6 +67,7 @@ currentSelection context =
             , "pa2"
             , "tc"
             ]
+                ++ displayClasses
                 |> String.join " "
                 |> class
 
@@ -80,15 +83,22 @@ currentSelection context =
             , classes
             ]
             [ span [ flagClasses ] []
-            , caret
+            , caret context
             ]
 
 
-caret : Html msg
-caret =
+caret : Context -> Html msg
+caret context =
     let
+        displayClasses =
+            if context.locale.showAvailableLanguages then
+                [ "black-20" ]
+            else
+                [ "white" ]
+
         classes =
-            [ "absolute", "white" ]
+            [ "absolute" ]
+                ++ displayClasses
                 |> String.join " "
                 |> class
 
@@ -107,6 +117,12 @@ caret =
 dropdownList : Config msg -> Context -> Html msg
 dropdownList config context =
     let
+        displayClasses =
+            if context.locale.showAvailableLanguages then
+                [ "flex", "flex-column" ]
+            else
+                [ "dn" ]
+
         classes =
             [ "absolute"
             , "b--black-10"
@@ -114,7 +130,6 @@ dropdownList config context =
             , "bg-white"
             , "bl"
             , "br"
-            , "dn"
             , "items-center"
             , "list"
             , "ma0"
@@ -123,6 +138,7 @@ dropdownList config context =
             , "top-2"
             , "w3"
             ]
+                ++ displayClasses
                 |> String.join " "
                 |> class
 

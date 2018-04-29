@@ -50,6 +50,7 @@ init languageFlag =
             I18Next.initialTranslations
     in
         { language = language
+        , showAvailableLanguages = False
         , translations = translations
         }
 
