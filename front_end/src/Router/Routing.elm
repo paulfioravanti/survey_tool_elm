@@ -19,7 +19,7 @@ import SurveyResultList exposing (SurveyResultList)
 
 
 route : Config msg -> Context -> Html msg
-route config { locale, location, route, surveyResultList, surveyResultDetail } =
+route config { locale, route, surveyResultList, surveyResultDetail } =
     case route of
         ListSurveyResultsRoute ->
             let
