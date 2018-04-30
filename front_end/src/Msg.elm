@@ -8,9 +8,9 @@ import SurveyResultList
 
 
 type Msg
-    = LocaleMsg Locale.Msg
+    = Blur
+    | LocaleMsg Locale.Msg
     | SurveyResultDetailMsg SurveyResultDetail.Msg
     | SurveyResultListMsg SurveyResultList.Msg
     | RoutingMsg Router.Msg
     | UpdatePage Location
-    | Blur
