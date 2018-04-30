@@ -33,7 +33,12 @@ view config translations respondents rating =
             [ content config translations respondents rating ]
 
 
-content : Config msg -> Translations -> RespondentHistogram -> Rating -> Html msg
+content :
+    Config msg
+    -> Translations
+    -> RespondentHistogram
+    -> Rating
+    -> Html msg
 content config translations respondents rating =
     let
         classes =
