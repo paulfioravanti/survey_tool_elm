@@ -3,7 +3,7 @@ module SurveyResultList.View exposing (view)
 {-| Display a survey result list
 -}
 
-import Css exposing (..)
+import Css exposing (fontSize, rem)
 import Header
 import Html.Styled
     exposing
@@ -94,8 +94,9 @@ heading translations =
             , "ttu"
             ]
                 |> String.join " "
+                |> class
     in
-        h1 [ class headingClasses, css [ fontSize (Css.rem 4.0) ] ]
+        h1 [ headingClasses, css [ fontSize (Css.rem 4.0) ] ]
             [ text (I18Next.t translations "surveyResults") ]
 
 

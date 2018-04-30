@@ -5,8 +5,8 @@ module SurveyResultList.Update exposing (update)
 
 import I18Next exposing (Translations)
 import RemoteData exposing (RemoteData(Failure, Success), WebData)
-import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
 import SurveyResultList.Model exposing (SurveyResultList)
+import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
 import Window
 
 
