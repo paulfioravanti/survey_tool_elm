@@ -12,8 +12,8 @@ import Navigation exposing (Location)
 import Route exposing (Route)
 import Router.Config exposing (Config)
 import Router.Context exposing (Context)
+import Router.Controller as Controller
 import Router.Msg as Msg
-import Router.Routing as Routing
 import Router.Update as Update
 import Router.Utils as Utils
 
@@ -24,7 +24,7 @@ type alias Msg =
 
 route : Config msg -> Context -> Html msg
 route config context =
-    Routing.route config context
+    Controller.route config context
 
 
 toRoute : Location -> Route

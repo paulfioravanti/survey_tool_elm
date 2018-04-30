@@ -1,4 +1,4 @@
-module Router.Routing exposing (route)
+module Router.Controller exposing (route)
 
 import Html.Styled as Html exposing (Html)
 import Message.NotFound as NotFound

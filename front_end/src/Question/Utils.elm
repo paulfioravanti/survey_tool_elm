@@ -4,8 +4,8 @@ module Question.Utils exposing (averageScore)
 -}
 
 import Question.Model exposing (Question)
-import SurveyResponse
 import Round
+import SurveyResponse
 
 
 {-| Tallies the `responseContent` values from the `SurveyResponse`s in a list
