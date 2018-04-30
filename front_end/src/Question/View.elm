@@ -5,11 +5,10 @@ import Html.Styled.Attributes exposing (attribute, class, css)
 import I18Next exposing (Translations)
 import Styles
 import SurveyResponse exposing (RespondentHistogram, SurveyResponse)
-import SurveyResultDetail.Config exposing (Config)
 
 
-view : Config msg -> Translations -> String -> List SurveyResponse -> Html msg
-view config translations description surveyResponses =
+view : msg -> Translations -> String -> List SurveyResponse -> Html msg
+view blurMsg translations description surveyResponses =
     let
         classes =
             [ "flex"
@@ -35,7 +34,7 @@ view config translations description surveyResponses =
                 [ averageScore
                     (I18Next.t translations "averageSymbol")
                     surveyResponses
-                , responses config translations surveyResponses
+                , responses blurMsg translations surveyResponses
                 ]
             ]
 
@@ -85,8 +84,8 @@ averageScore label surveyResponses =
             ]
 
 
-responses : Config msg -> Translations -> List SurveyResponse -> Html msg
-responses config translations surveyResponses =
+responses : msg -> Translations -> List SurveyResponse -> Html msg
+responses blurMsg translations surveyResponses =
     let
         ratings =
             [ "1", "2", "3", "4", "5" ]
@@ -104,4 +103,7 @@ responses config translations surveyResponses =
                 |> class
     in
         div [ attribute "data-name" "survey-responses", classes ]
-            (List.map (SurveyResponse.view config translations respondents) ratings)
+            (List.map
+                (SurveyResponse.view blurMsg translations respondents)
+                ratings
+            )

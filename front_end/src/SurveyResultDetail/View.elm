@@ -68,7 +68,7 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult 
                 , summary locale.translations surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        (Theme.view config locale.translations)
+                        (Theme.view blurMsg locale.translations)
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]

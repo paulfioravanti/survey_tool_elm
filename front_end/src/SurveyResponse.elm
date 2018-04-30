@@ -18,7 +18,6 @@ import SurveyResponse.Model as Model
 import SurveyResponse.RespondentHistogram as RespondentHistogram
 import SurveyResponse.Utils as Utils
 import SurveyResponse.View as View
-import SurveyResultDetail.Config exposing (Config)
 
 
 type alias SurveyResponse =
@@ -58,6 +57,6 @@ sumResponseContent surveyResponses =
     Utils.sumResponseContent surveyResponses
 
 
-view : Config msg -> Translations -> RespondentHistogram -> Rating -> Html msg
-view config translations respondents rating =
-    View.view config translations respondents rating
+view : msg -> Translations -> RespondentHistogram -> Rating -> Html msg
+view blurMsg translations respondents rating =
+    View.view blurMsg translations respondents rating

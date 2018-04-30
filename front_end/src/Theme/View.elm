@@ -8,11 +8,10 @@ import Html.Styled.Attributes exposing (attribute, class)
 import I18Next exposing (Translations)
 import Question exposing (Question)
 import Theme.Model exposing (Theme)
-import SurveyResultDetail.Config exposing (Config)
 
 
-view : Config msg -> Translations -> Theme -> Html msg
-view config translations { name, questions } =
+view : msg -> Translations -> Theme -> Html msg
+view blurMsg translations { name, questions } =
     let
         classes =
             [ "b--light-gray"
@@ -35,7 +34,7 @@ view config translations { name, questions } =
                     questions
                 ]
             , div [ attribute "data-name" "questions" ]
-                (List.map (Question.view config translations) questions)
+                (List.map (Question.view blurMsg translations) questions)
             ]
 
 
