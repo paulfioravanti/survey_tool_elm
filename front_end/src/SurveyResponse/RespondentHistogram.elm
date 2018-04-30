@@ -62,10 +62,10 @@ init surveyResponses =
     let
         prependRatingToList { respondentId, responseContent } histogram =
             if Dict.member responseContent histogram then
-                Dict.update
-                    responseContent
-                    (Maybe.map ((::) respondentId))
-                    histogram
+                histogram
+                    |> Dict.update
+                        responseContent
+                        (Maybe.map ((::) respondentId))
             else
                 histogram
     in
