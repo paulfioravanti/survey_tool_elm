@@ -1,7 +1,5 @@
 module Locale.Dropdown exposing (view)
 
-import Css exposing (borderColor, color, hover, left, marginTop, pct, rgba)
-import Css.Foreign
 import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onClick)
@@ -18,27 +16,11 @@ view localeMsg locale =
             [ "relative", "pointer", "w3" ]
                 |> String.join " "
                 |> class
-
-        styles =
-            [ hover
-                [ Css.Foreign.children
-                    [ Css.Foreign.selector
-                        "[data-name='locale-dropdown-current-selection']"
-                        [ borderColor (rgba 0 0 0 0.1) ]
-                    ]
-                , Css.Foreign.descendants
-                    [ Css.Foreign.selector
-                        "[data-name='locale-dropdown-caret']"
-                        [ color (rgba 0 0 0 0.2) ]
-                    ]
-                ]
-            ]
-                |> css
     in
         div
             [ attribute "data-name" "locale-dropdown-menu"
             , classes
-            , styles
+            , css [ Styles.dropdownMenu ]
             , onClick (localeMsg ToggleAvailableLanguages)
             ]
             [ currentSelection locale
@@ -99,15 +81,11 @@ caret locale =
                 ++ displayClasses
                 |> String.join " "
                 |> class
-
-        styles =
-            [ left (pct 80) ]
-                |> css
     in
         span
             [ attribute "data-name" "locale-dropdown-caret"
             , classes
-            , styles
+            , css [ Styles.dropdownMenuCaret ]
             ]
             [ text "▾" ]
 
@@ -148,7 +126,7 @@ dropdownList localeMsg locale =
         ul
             [ attribute "data-name" "locale-dropdown-list"
             , classes
-            , css [ marginTop (Css.rem 0.12) ]
+            , css [ Styles.dropdownMenuList ]
             ]
             (List.map (dropdownListItemView localeMsg) selectableLanguages)
 
@@ -163,7 +141,7 @@ dropdownListItemView localeMsg language =
     in
         li
             [ classes
-            , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
+            , css [ Styles.dropdownMenuListItem ]
             , onClick (localeMsg (ChangeLanguage language))
             ]
             [ span [ class (Utils.languageToFlagClass language) ] [] ]

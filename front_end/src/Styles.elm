@@ -5,6 +5,10 @@ module Styles
         , brandBorderColor
         , brandColor
         , brandColorAlpha
+        , dropdownMenu
+        , dropdownMenuCaret
+        , dropdownMenuList
+        , dropdownMenuListItem
         , overlineText
         , surveyResultSummary
         , tooltip
@@ -31,6 +35,7 @@ import Css
         , hidden
         , hover
         , left
+        , marginTop
         , overline
         , pct
         , position
@@ -70,6 +75,39 @@ brandColor =
 brandColorAlpha : Style
 brandColorAlpha =
     color brandAlpha
+
+
+dropdownMenu : Style
+dropdownMenu =
+    Css.batch
+        [ hover
+            [ Css.Foreign.children
+                [ Css.Foreign.selector
+                    "[data-name='locale-dropdown-current-selection']"
+                    [ borderColor (rgba 0 0 0 0.1) ]
+                ]
+            , Css.Foreign.descendants
+                [ Css.Foreign.selector
+                    "[data-name='locale-dropdown-caret']"
+                    [ color (rgba 0 0 0 0.2) ]
+                ]
+            ]
+        ]
+
+
+dropdownMenuCaret : Style
+dropdownMenuCaret =
+    left (pct 80)
+
+
+dropdownMenuList : Style
+dropdownMenuList =
+    marginTop (Css.rem 0.12)
+
+
+dropdownMenuListItem : Style
+dropdownMenuListItem =
+    hover [ brandBackgroundColorAlpha ]
 
 
 overlineText : Style
