@@ -30,17 +30,16 @@ import Html.Styled.Attributes
 import Html.Styled.Events exposing (onWithOptions)
 import I18Next exposing (Translations)
 import Json.Decode as Decode
-import Locale
+import Locale exposing (Locale)
 import Styles
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Config exposing (Config)
-import SurveyResultDetail.Context exposing (Context)
 import Theme
 import Utils
 
 
-view : Config msg -> Context -> SurveyResult -> Html msg
-view ({ backToHomeMsg, blurMsg, backToHomePath } as config) context surveyResult =
+view : Config msg -> Locale -> SurveyResult -> Html msg
+view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult =
     let
         classes =
             [ "center"
@@ -57,7 +56,7 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) context surveyResult
             msgClickOptions config.blurMsg
     in
         main_ []
-            [ header config context
+            [ header config locale
             , article
                 [ attribute "data-name" "survey-result-detail"
                 , classes
@@ -65,10 +64,10 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) context surveyResult
                 ]
                 [ backToHomeLink backToHomePath backtoHomeClickOptions
                 , surveyName surveyResult.name
-                , summary context.locale.translations surveyResult
+                , summary locale.translations surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        (Theme.view config context.locale.translations)
+                        (Theme.view config locale.translations)
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]
@@ -76,14 +75,14 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) context surveyResult
             ]
 
 
-header : Config msg -> Context -> Html msg
-header config context =
+header : Config msg -> Locale -> Html msg
+header config locale =
     let
         dropdownConfig =
             { localeMsg = config.localeMsg }
     in
         nav [ class "flex flex-row-reverse mw8 center mt1" ]
-            [ Locale.dropdown dropdownConfig context ]
+            [ Locale.dropdown dropdownConfig locale ]
 
 
 backToHomeLink : String -> Attribute msg -> Html msg

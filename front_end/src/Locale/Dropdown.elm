@@ -6,15 +6,14 @@ import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onClick)
 import Locale.Config exposing (Config)
-import Locale.Context exposing (Context)
-import Locale.Model as Model exposing (Language(En, It, Ja))
+import Locale.Model as Model exposing (Language(En, It, Ja), Locale)
 import Locale.Msg exposing (Msg(ChangeLanguage, ToggleAvailableLanguages))
 import Locale.Utils as Utils
 import Styles
 
 
-view : Config msg -> Context -> Html msg
-view config context =
+view : Config msg -> Locale -> Html msg
+view config locale =
     let
         classes =
             [ "relative", "pointer", "w3" ]
@@ -43,16 +42,16 @@ view config context =
             , styles
             , onClick (config.localeMsg ToggleAvailableLanguages)
             ]
-            [ currentSelection context
-            , dropdownList config context
+            [ currentSelection locale
+            , dropdownList config locale
             ]
 
 
-currentSelection : Context -> Html msg
-currentSelection context =
+currentSelection : Locale -> Html msg
+currentSelection locale =
     let
         displayClasses =
-            if context.locale.showAvailableLanguages then
+            if locale.showAvailableLanguages then
                 [ "b--black-10" ]
             else
                 [ "b--white" ]
@@ -73,7 +72,7 @@ currentSelection context =
 
         flagClasses =
             [ "flex-auto"
-            , Utils.languageToFlagClass context.locale.language
+            , Utils.languageToFlagClass locale.language
             ]
                 |> String.join " "
                 |> class
@@ -83,15 +82,15 @@ currentSelection context =
             , classes
             ]
             [ span [ flagClasses ] []
-            , caret context
+            , caret locale
             ]
 
 
-caret : Context -> Html msg
-caret context =
+caret : Locale -> Html msg
+caret locale =
     let
         displayClasses =
-            if context.locale.showAvailableLanguages then
+            if locale.showAvailableLanguages then
                 [ "black-20" ]
             else
                 [ "white" ]
@@ -114,11 +113,11 @@ caret context =
             [ text "▾" ]
 
 
-dropdownList : Config msg -> Context -> Html msg
-dropdownList config context =
+dropdownList : Config msg -> Locale -> Html msg
+dropdownList config locale =
     let
         displayClasses =
-            if context.locale.showAvailableLanguages then
+            if locale.showAvailableLanguages then
                 [ "flex", "flex-column" ]
             else
                 [ "dn" ]
@@ -144,7 +143,7 @@ dropdownList config context =
 
         selectableLanguages =
             List.filter
-                (\language -> language /= context.locale.language)
+                (\language -> language /= locale.language)
                 Model.availableLanguages
     in
         ul

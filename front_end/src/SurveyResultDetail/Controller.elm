@@ -6,6 +6,7 @@ on the status of the data fetched from the remote API point.
 
 import Html.Styled exposing (Html, text)
 import Http
+import Locale exposing (Locale)
 import Message.Loading as Loading
 import Message.Error as Error
 import Message.NotFound as NotFound
@@ -21,18 +22,17 @@ import RemoteData
         )
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Config exposing (Config)
-import SurveyResultDetail.Context exposing (Context)
 import SurveyResultDetail.View
 
 
-render : Config msg -> Context -> WebData SurveyResult -> Html msg
-render ({ backToHomeMsg, backToHomePath } as config) context surveyResult =
+render : Config msg -> Locale -> WebData SurveyResult -> Html msg
+render ({ backToHomeMsg, backToHomePath } as config) locale surveyResult =
     case surveyResult of
         NotRequested ->
             text ""
 
         Requesting ->
-            Loading.view context.locale.translations
+            Loading.view locale.translations
 
         Failure error ->
             case error of
@@ -45,14 +45,13 @@ render ({ backToHomeMsg, backToHomePath } as config) context surveyResult =
                                     , backToHomePath = backToHomePath
                                     }
                             in
-                                NotFound.view config context.locale.translations
+                                NotFound.view config locale.translations
 
                         _ ->
-                            Error.view error context.locale.translations
+                            Error.view error locale.translations
 
                 _ ->
-                    Error.view error context.locale.translations
+                    Error.view error locale.translations
 
         Success surveyResult ->
-            surveyResult
-                |> SurveyResultDetail.View.view config context
+            SurveyResultDetail.View.view config locale surveyResult

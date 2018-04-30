@@ -57,7 +57,7 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
             in
                 SurveyResultDetail.view
                     surveyResultDetailConfig
-                    surveyResultDetailContext
+                    locale
                     surveyResultDetail
 
         NotFoundRoute ->

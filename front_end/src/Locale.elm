@@ -18,7 +18,7 @@ import Locale.Cmd as Cmd
 import Locale.Config exposing (Config)
 import Locale.Context exposing (Context)
 import Locale.Dropdown as Dropdown
-import Locale.Model as Model exposing (Language(En, It, Ja))
+import Locale.Model as Model exposing (Language(En, It, Ja), Locale)
 import Locale.Msg as Msg
 import Locale.Update as Update
 
@@ -45,9 +45,9 @@ toggleAvailableLanguagesMsg =
     Msg.ToggleAvailableLanguages
 
 
-dropdown : Config msg -> Context -> Html msg
-dropdown config context =
-    Dropdown.view config context
+dropdown : Config msg -> Locale -> Html msg
+dropdown config locale =
+    Dropdown.view config locale
 
 
 init : Value -> Locale
