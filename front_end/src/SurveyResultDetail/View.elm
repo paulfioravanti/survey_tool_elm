@@ -44,7 +44,8 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult 
     let
         classes =
             [ "center"
-            , "flex flex-column"
+            , "flex"
+            , "flex-column"
             , "mw7-ns"
             ]
                 |> String.join " "
@@ -76,21 +77,15 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult 
             ]
 
 
-header : (Locale.Msg -> msg) -> Locale -> Html msg
-header localeMsg locale =
-    nav [ class "flex flex-row-reverse mw8 center mt1" ]
-        [ Locale.dropdown localeMsg locale ]
-
-
 backToHomeLink : String -> Attribute msg -> Html msg
 backToHomeLink path clickOptions =
     let
         classes =
             [ "absolute"
             , "dim"
+            , "ml2 ml0-ns"
             , "mt3 mt4-ns"
             , "pt2 pt1-ns"
-            , "ml2 ml0-ns"
             ]
                 |> String.join " "
                 |> class
