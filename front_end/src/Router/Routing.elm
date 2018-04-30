@@ -51,9 +51,6 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     , blurMsg = config.blurMsg
                     , localeMsg = config.localeMsg
                     }
-
-                surveyResultDetailContext =
-                    { locale = locale }
             in
                 SurveyResultDetail.view
                     surveyResultDetailConfig
