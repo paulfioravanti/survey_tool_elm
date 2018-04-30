@@ -1,8 +1,8 @@
 module Main exposing (main, init, subscriptions)
 
-{-| NOTE: The init function does not really need to be exposed for the app
-to function, but this was the only way I could think of test it. I was
-unable to figure out a way to test init through main.
+{-| NOTE: The init and subscriptions functions do not really need to be exposed
+for the app to function, but this was the only way I could think of test it.
+I was unable to figure out a way to test init through main.
 -}
 
 import Config exposing (Config)
