@@ -12,11 +12,11 @@ import Html.Styled
 import Http exposing (Error(BadStatus))
 import I18Next exposing (Translations)
 import Locale exposing (Locale)
+import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Route exposing (Route(NotFoundRoute, SurveyResultDetailRoute))
-import Router
 import Test exposing (Test, describe, fuzz3, fuzz4)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
@@ -64,8 +64,7 @@ unknownRouteTest config locale location =
                                 NotRequested
                     in
                         model
-                            |> Router.route
-                            |> Html.Styled.toUnstyled
+                            |> Main.view
                             |> Query.fromHtml
                             |> Query.find [ tag "section" ]
                             |> Query.has [ notFoundMessage ]
@@ -109,8 +108,7 @@ unknownSurveyResult config locale location =
                                 NotRequested
                     in
                         model
-                            |> Router.route
-                            |> Html.Styled.toUnstyled
+                            |> Main.view
                             |> Query.fromHtml
                             |> Query.find [ tag "section" ]
                             |> Query.has [ notFoundMessage ]

@@ -10,6 +10,7 @@ import I18Next exposing (Translations)
 import Html.Attributes as Attributes
 import Html.Styled
 import Locale exposing (Locale)
+import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
@@ -20,7 +21,6 @@ import Route
             , SurveyResultDetailRoute
             )
         )
-import Router
 import Test exposing (Test, describe, fuzz3)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag)
@@ -69,8 +69,7 @@ surveyResultsListPageTest config locale location loadingMessage =
                             Requesting
                 in
                     model
-                        |> Router.route
-                        |> Html.Styled.toUnstyled
+                        |> Main.view
                         |> Query.fromHtml
                         |> Query.find [ tag "section" ]
                         |> Query.has [ loadingMessage ]
@@ -85,7 +84,7 @@ surveyResultDetailPageTest :
     -> Test
 surveyResultDetailPageTest config locale location loadingMessage =
     describe "when data has been requested on a SurveyResultDetail page"
-        [ fuzz2 config locale location "displays a loading message" <|
+        [ fuzz3 config locale location "displays a loading message" <|
             \config locale location ->
                 let
                     model =
@@ -98,8 +97,7 @@ surveyResultDetailPageTest config locale location loadingMessage =
                             NotRequested
                 in
                     model
-                        |> Router.route
-                        |> Html.Styled.toUnstyled
+                        |> Main.view
                         |> Query.fromHtml
                         |> Query.find [ tag "section" ]
                         |> Query.has [ loadingMessage ]

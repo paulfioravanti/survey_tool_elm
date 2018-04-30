@@ -7,12 +7,12 @@ import Fuzzer.Navigation.Location as Location
 import Html.Attributes as Attributes
 import Html.Styled
 import Locale exposing (Locale)
+import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import Question.Model exposing (Question)
 import RemoteData exposing (RemoteData(NotRequested, Success))
 import Route exposing (Route(SurveyResultDetailRoute))
-import Router
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils
@@ -67,8 +67,7 @@ suite =
                                 NotRequested
                     in
                         model
-                            |> Router.route
-                            |> Html.Styled.toUnstyled
+                            |> Main.view
                             |> Query.fromHtml
                             |> Query.has [ tag "article", surveyResultDetail ]
                 )

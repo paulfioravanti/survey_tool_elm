@@ -1,6 +1,6 @@
-module Main exposing (main, init, subscriptions)
+module Main exposing (main, init, subscriptions, view)
 
-{-| NOTE: The init and subscriptions functions do not really need to be exposed
+{-| NOTE: The non-main functions do not really need to be exposed
 for the app to function, but this was the only way I could think of test it.
 I was unable to figure out a way to test init through main.
 -}

@@ -7,6 +7,7 @@ import Fuzzer.Navigation.Location as Location
 import Html exposing (Html, text)
 import Html.Styled
 import Locale exposing (Locale)
+import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested))
@@ -17,7 +18,6 @@ import Route
             , SurveyResultDetailRoute
             )
         )
-import Router
 import Test exposing (Test, describe, fuzz3)
 import Test.Html.Query as Query
 
@@ -50,8 +50,7 @@ suite =
                                     NotRequested
                         in
                             model
-                                |> Router.route
-                                |> Html.Styled.toUnstyled
+                                |> Main.view
                                 |> Query.fromHtml
                                 |> Query.children []
                                 |> Query.count (Expect.equal 0)
@@ -71,8 +70,7 @@ suite =
                                     NotRequested
                         in
                             model
-                                |> Router.route
-                                |> Html.Styled.toUnstyled
+                                |> Main.view
                                 |> Query.fromHtml
                                 |> Query.children []
                                 |> Query.count (Expect.equal 0)

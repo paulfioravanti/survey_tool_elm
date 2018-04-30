@@ -8,11 +8,11 @@ import Fuzzer.SurveyResultList as SurveyResultList
 import Html.Attributes as Attributes
 import Html.Styled
 import Locale exposing (Locale)
+import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested, Success))
 import Route exposing (Route(ListSurveyResultsRoute))
-import Router
 import Test exposing (Test, describe, fuzz4)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
@@ -56,8 +56,7 @@ suite =
                                 (Success surveyResultList)
                     in
                         model
-                            |> Router.route
-                            |> Html.Styled.toUnstyled
+                            |> Main.view
                             |> Query.fromHtml
                             |> Query.has [ tag "section", surveyResults ]
                 )

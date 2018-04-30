@@ -87,7 +87,7 @@ fetchSurveyResultListFailureTest config locale location =
 fetchSurveyResultListSuccessTest :
     Fuzzer Config
     -> Fuzzer Locale
-    -> Fuzz Location
+    -> Fuzzer Location
     -> Test
 fetchSurveyResultListSuccessTest config locale location =
     let

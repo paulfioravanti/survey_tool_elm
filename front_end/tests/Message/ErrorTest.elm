@@ -12,6 +12,7 @@ import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import I18Next exposing (Translations)
 import Locale exposing (Locale)
+import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
@@ -22,7 +23,6 @@ import Route
             , SurveyResultDetailRoute
             )
         )
-import Router
 import Test exposing (Test, describe, fuzz3, fuzz4)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag, text)
@@ -81,8 +81,7 @@ networkErrorTest config locale location errorMessage =
                                 (Failure NetworkError)
                     in
                         model
-                            |> Router.route
-                            |> Html.Styled.toUnstyled
+                            |> Main.view
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ networkErrorMessage ]
@@ -122,8 +121,7 @@ badStatusTest config locale location response errorMessage =
                                     (Failure (BadStatus response))
                         in
                             model
-                                |> Router.route
-                                |> Html.Styled.toUnstyled
+                                |> Main.view
                                 |> Query.fromHtml
                                 |> Query.find [ tag "section", errorMessage ]
                                 |> Query.has [ badStatusMessage ]
@@ -148,8 +146,7 @@ badStatusTest config locale location response errorMessage =
                                     NotRequested
                         in
                             model
-                                |> Router.route
-                                |> Html.Styled.toUnstyled
+                                |> Main.view
                                 |> Query.fromHtml
                                 |> Query.find [ tag "section", errorMessage ]
                                 |> Query.has [ badStatusMessage ]
@@ -190,8 +187,7 @@ badPayloadTest config locale location response errorMessage =
                                 (Failure (BadPayload "BadPayload" response))
                     in
                         model
-                            |> Router.route
-                            |> Html.Styled.toUnstyled
+                            |> Main.view
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ badPayloadMessage ]
@@ -226,8 +222,7 @@ otherErrorTest config locale location errorMessage =
                                     (Failure Timeout)
                         in
                             model
-                                |> Router.route
-                                |> Html.Styled.toUnstyled
+                                |> Main.view
                                 |> Query.fromHtml
                                 |> Query.find [ tag "section", errorMessage ]
                                 |> Query.has [ otherErrorMessage ]
@@ -246,8 +241,7 @@ otherErrorTest config locale location errorMessage =
                                     NotRequested
                         in
                             model
-                                |> Router.route
-                                |> Html.Styled.toUnstyled
+                                |> Main.view
                                 |> Query.fromHtml
                                 |> Query.find [ tag "section", errorMessage ]
                                 |> Query.has [ otherErrorMessage ]
