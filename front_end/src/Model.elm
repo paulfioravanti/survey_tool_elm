@@ -4,7 +4,8 @@ import Config exposing (Config)
 import Locale exposing (Locale)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested), WebData)
-import Router exposing (Route)
+import Route exposing (Route)
+import Router
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList exposing (SurveyResultList)
 

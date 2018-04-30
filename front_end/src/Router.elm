@@ -1,7 +1,6 @@
 module Router
     exposing
         ( Msg
-        , Route
         , route
         , toRoute
         , update
@@ -10,7 +9,7 @@ module Router
 import Html.Styled as Html exposing (Html)
 import I18Next exposing (Translations)
 import Navigation exposing (Location)
-import Route as Route exposing (Route)
+import Route exposing (Route)
 import Router.Config exposing (Config)
 import Router.Context exposing (Context)
 import Router.Msg as Msg
@@ -21,10 +20,6 @@ import Router.Utils as Utils
 
 type alias Msg =
     Msg.Msg
-
-
-type alias Route =
-    Route.Route
 
 
 route : Config msg -> Context -> Html msg
