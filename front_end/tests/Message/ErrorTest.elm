@@ -6,12 +6,14 @@ import Fuzz exposing (Fuzzer)
 import Fuzzer.Http.Response as Response
 import Fuzzer.Config as Config
 import Fuzzer.Locale as Locale
+import Fuzzer.Navigation.Location as Location
 import Html.Attributes as Attributes
 import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
 import I18Next exposing (Translations)
 import Locale exposing (Locale)
 import Model exposing (Model)
+import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
 import Route
     exposing
@@ -21,7 +23,7 @@ import Route
             )
         )
 import Router
-import Test exposing (Test, describe, fuzz2, fuzz3)
+import Test exposing (Test, describe, fuzz3, fuzz4)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag, text)
 
@@ -35,6 +37,9 @@ suite =
         locale =
             Locale.fuzzer
 
+        location =
+            Location.fuzzer
+
         response =
             Response.fuzzer
 
@@ -43,28 +48,34 @@ suite =
                 (Attributes.attribute "data-name" "error-message")
     in
         describe "view"
-            [ networkErrorTest config locale errorMessage
-            , badStatusTest config locale response errorMessage
-            , badPayloadTest config locale response errorMessage
-            , otherErrorTest config locale errorMessage
+            [ networkErrorTest config locale location errorMessage
+            , badStatusTest config locale location response errorMessage
+            , badPayloadTest config locale location response errorMessage
+            , otherErrorTest config locale location errorMessage
             ]
 
 
-networkErrorTest : Fuzzer Config -> Fuzzer Locale -> Selector -> Test
-networkErrorTest config locale errorMessage =
+networkErrorTest :
+    Fuzzer Config
+    -> Fuzzer Locale
+    -> Fuzzer Location
+    -> Selector
+    -> Test
+networkErrorTest config locale location errorMessage =
     let
         networkErrorMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "network-error-message")
     in
         describe "when error is a NetworkError"
-            [ fuzz2 config locale "displays an error message" <|
-                \config locale ->
+            [ fuzz3 config locale location "displays an error message" <|
+                \config locale location ->
                     let
                         model =
                             Model
                                 config
                                 locale
+                                location
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Failure NetworkError)
@@ -81,10 +92,11 @@ networkErrorTest config locale errorMessage =
 badStatusTest :
     Fuzzer Config
     -> Fuzzer Locale
+    -> Fuzzer Location
     -> Fuzzer (Http.Response String)
     -> Selector
     -> Test
-badStatusTest config locale response errorMessage =
+badStatusTest config locale location response errorMessage =
     let
         badStatusMessage =
             Selector.attribute
@@ -92,13 +104,19 @@ badStatusTest config locale response errorMessage =
     in
         describe "when error is a BadStatus"
             [ describe "when requesting the survey results list page"
-                [ fuzz3 config locale response "displays an error message" <|
-                    \config locale response ->
+                [ fuzz4
+                    config
+                    locale
+                    location
+                    response
+                    "displays an error message"
+                    (\config locale location response ->
                         let
                             model =
                                 Model
                                     config
                                     locale
+                                    location
                                     ListSurveyResultsRoute
                                     NotRequested
                                     (Failure (BadStatus response))
@@ -109,15 +127,22 @@ badStatusTest config locale response errorMessage =
                                 |> Query.fromHtml
                                 |> Query.find [ tag "section", errorMessage ]
                                 |> Query.has [ badStatusMessage ]
+                    )
                 ]
             , describe "when requesting a survey result detail page"
-                [ fuzz3 config locale response "displays an error message" <|
-                    \config locale response ->
+                [ fuzz4
+                    config
+                    locale
+                    location
+                    response
+                    "displays an error message"
+                    (\config locale location response ->
                         let
                             model =
                                 Model
                                     config
                                     locale
+                                    location
                                     (SurveyResultDetailRoute "1")
                                     (Failure (BadStatus response))
                                     NotRequested
@@ -128,6 +153,7 @@ badStatusTest config locale response errorMessage =
                                 |> Query.fromHtml
                                 |> Query.find [ tag "section", errorMessage ]
                                 |> Query.has [ badStatusMessage ]
+                    )
                 ]
             ]
 
@@ -135,23 +161,30 @@ badStatusTest config locale response errorMessage =
 badPayloadTest :
     Fuzzer Config
     -> Fuzzer Locale
+    -> Fuzzer Location
     -> Fuzzer (Http.Response String)
     -> Selector
     -> Test
-badPayloadTest config locale response errorMessage =
+badPayloadTest config locale location response errorMessage =
     let
         badPayloadMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "bad-payload-message")
     in
         describe "when error is a BadPayload"
-            [ fuzz3 config locale response "displays an error message" <|
-                \config locale response ->
+            [ fuzz4
+                config
+                locale
+                location
+                response
+                "displays an error message"
+                (\config locale location response ->
                     let
                         model =
                             Model
                                 config
                                 locale
+                                location
                                 ListSurveyResultsRoute
                                 NotRequested
                                 (Failure (BadPayload "BadPayload" response))
@@ -162,11 +195,17 @@ badPayloadTest config locale response errorMessage =
                             |> Query.fromHtml
                             |> Query.find [ tag "section", errorMessage ]
                             |> Query.has [ badPayloadMessage ]
+                )
             ]
 
 
-otherErrorTest : Fuzzer Config -> Fuzzer Locale -> Selector -> Test
-otherErrorTest config locale errorMessage =
+otherErrorTest :
+    Fuzzer Config
+    -> Fuzzer Locale
+    -> Fuzzer Location
+    -> Selector
+    -> Test
+otherErrorTest config locale location errorMessage =
     let
         otherErrorMessage =
             Selector.attribute
@@ -174,13 +213,14 @@ otherErrorTest config locale errorMessage =
     in
         describe "when error is any other Http error"
             [ describe "when requesting the survey results list page"
-                [ fuzz2 config locale "displays an error message" <|
-                    \config locale ->
+                [ fuzz3 config locale location "displays an error message" <|
+                    \config locale location ->
                         let
                             model =
                                 Model
                                     config
                                     locale
+                                    location
                                     ListSurveyResultsRoute
                                     NotRequested
                                     (Failure Timeout)
@@ -193,13 +233,14 @@ otherErrorTest config locale errorMessage =
                                 |> Query.has [ otherErrorMessage ]
                 ]
             , describe "when requesting a survey result detail page"
-                [ fuzz2 config locale "displays an error message" <|
-                    \config locale ->
+                [ fuzz3 config locale location "displays an error message" <|
+                    \config locale location ->
                         let
                             model =
                                 Model
                                     config
                                     locale
+                                    location
                                     (SurveyResultDetailRoute "1")
                                     (Failure Timeout)
                                     NotRequested

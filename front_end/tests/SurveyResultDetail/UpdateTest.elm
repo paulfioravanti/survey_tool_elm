@@ -6,11 +6,13 @@ import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import Fuzzer.Http.Response as Response
 import Fuzzer.Locale as Locale
+import Fuzzer.Navigation.Location as Location
 import Fuzzer.SurveyResult as SurveyResult
 import Http exposing (Error(BadStatus, NetworkError))
 import Locale exposing (Locale)
 import Model exposing (Model)
 import Msg exposing (Msg(SurveyResultDetailMsg))
+import Navigation exposing (Location)
 import RemoteData
     exposing
         ( RemoteData
@@ -25,7 +27,7 @@ import Route exposing (Route(SurveyResultDetailRoute))
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils as Utils
 import SurveyResultDetail.Msg exposing (Msg(FetchSurveyResultDetail))
-import Test exposing (Test, describe, fuzz3, fuzz4)
+import Test exposing (Test, describe, fuzz4, fuzz5)
 import Update
 
 
@@ -38,6 +40,9 @@ suite =
         locale =
             Locale.fuzzer
 
+        location =
+            Location.fuzzer
+
         surveyResult =
             SurveyResult.fuzzer
     in
@@ -45,18 +50,22 @@ suite =
             [ fetchSurveyResultNetworkErrorFailureTest
                 config
                 locale
+                location
                 surveyResult
             , fetchSurveyResultBadStatusFailureTest
                 config
                 locale
+                location
                 surveyResult
             , fetchSurveyResultBadStatusNotFoundFailureTest
                 config
                 locale
+                location
                 surveyResult
             , fetchSurveyResultSuccessTest
                 config
                 locale
+                location
                 surveyResult
             ]
 
@@ -64,21 +73,22 @@ suite =
 fetchSurveyResultNetworkErrorFailureTest :
     Fuzzer Config
     -> Fuzzer Locale
+    -> Fuzzer Location
     -> Fuzzer SurveyResult
     -> Test
-fetchSurveyResultNetworkErrorFailureTest config locale surveyResult =
+fetchSurveyResultNetworkErrorFailureTest config locale location surveyResult =
     describe
         """
         when SurveyResultDetailMsg FetchSurveyResultDetail request
         fails on a NetworkError
         """
-        [ fuzz3
+        [ fuzz4
             config
             locale
+            location
             surveyResult
             "model surveyResultDetail is updated with a Failure"
-          <|
-            \config locale surveyResultDetail ->
+            (\config locale location surveyResultDetail ->
                 let
                     id =
                         surveyResultDetail.url
@@ -88,6 +98,7 @@ fetchSurveyResultNetworkErrorFailureTest config locale surveyResult =
                         Model
                             config
                             locale
+                            location
                             (SurveyResultDetailRoute id)
                             Requesting
                             NotRequested
@@ -103,15 +114,17 @@ fetchSurveyResultNetworkErrorFailureTest config locale surveyResult =
                             { model
                                 | surveyResultDetail = Failure NetworkError
                             }
+            )
         ]
 
 
 fetchSurveyResultBadStatusFailureTest :
     Fuzzer Config
     -> Fuzzer Locale
+    -> Fuzzer Location
     -> Fuzzer SurveyResult
     -> Test
-fetchSurveyResultBadStatusFailureTest config locale surveyResult =
+fetchSurveyResultBadStatusFailureTest config locale location surveyResult =
     let
         response =
             Response.fuzzer
@@ -121,14 +134,14 @@ fetchSurveyResultBadStatusFailureTest config locale surveyResult =
             when SurveyResultDetailMsg FetchSurveyResultDetail request
             fails on a BadStatus Error
             """
-            [ fuzz4
+            [ fuzz5
                 config
                 locale
+                location
                 surveyResult
                 response
                 "model surveyResultDetail is updated with a Failure"
-              <|
-                \config locale surveyResultDetail response ->
+                (\config locale location surveyResultDetail response ->
                     let
                         id =
                             surveyResultDetail.url
@@ -138,6 +151,7 @@ fetchSurveyResultBadStatusFailureTest config locale surveyResult =
                             Model
                                 config
                                 locale
+                                location
                                 (SurveyResultDetailRoute id)
                                 Requesting
                                 NotRequested
@@ -164,15 +178,17 @@ fetchSurveyResultBadStatusFailureTest config locale surveyResult =
                                     | surveyResultDetail =
                                         Failure (BadStatus serverErrorResponse)
                                 }
+                )
             ]
 
 
 fetchSurveyResultBadStatusNotFoundFailureTest :
     Fuzzer Config
     -> Fuzzer Locale
+    -> Fuzzer Location
     -> Fuzzer SurveyResult
     -> Test
-fetchSurveyResultBadStatusNotFoundFailureTest config locale surveyResult =
+fetchSurveyResultBadStatusNotFoundFailureTest config locale location surveyResult =
     let
         response =
             Response.fuzzer
@@ -182,14 +198,14 @@ fetchSurveyResultBadStatusNotFoundFailureTest config locale surveyResult =
             when SurveyResultDetailMsg FetchSurveyResultDetail request
             fails on a BadStatus NotFound Error
             """
-            [ fuzz4
+            [ fuzz5
                 config
                 locale
+                location
                 surveyResult
                 response
                 "model surveyResultDetail is updated with a Failure"
-              <|
-                \config locale surveyResultDetail response ->
+                (\config locale location surveyResultDetail response ->
                     let
                         id =
                             surveyResultDetail.url
@@ -199,6 +215,7 @@ fetchSurveyResultBadStatusNotFoundFailureTest config locale surveyResult =
                             Model
                                 config
                                 locale
+                                location
                                 (SurveyResultDetailRoute id)
                                 Requesting
                                 NotRequested
@@ -225,23 +242,26 @@ fetchSurveyResultBadStatusNotFoundFailureTest config locale surveyResult =
                                     | surveyResultDetail =
                                         Failure (BadStatus serverErrorResponse)
                                 }
+                )
             ]
 
 
 fetchSurveyResultSuccessTest :
     Fuzzer Config
     -> Fuzzer Locale
+    -> Fuzzer Location
     -> Fuzzer SurveyResult
     -> Test
-fetchSurveyResultSuccessTest config locale surveyResult =
+fetchSurveyResultSuccessTest config locale location surveyResult =
     describe
         "when SurveyResultDetailMsg FetchSurveyResultDetail request succeeds"
-        [ fuzz3
+        [ fuzz4
             config
             locale
+            location
             surveyResult
             "model surveyResultDetail is updated with a Success"
-            (\config locale surveyResultDetail ->
+            (\config locale location surveyResultDetail ->
                 let
                     id =
                         surveyResultDetail.url
@@ -251,6 +271,7 @@ fetchSurveyResultSuccessTest config locale surveyResult =
                         Model
                             config
                             locale
+                            location
                             (SurveyResultDetailRoute id)
                             NotRequested
                             Requesting

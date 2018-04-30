@@ -5,11 +5,13 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import Fuzzer.Locale as Locale
+import Fuzzer.Navigation.Location as Location
 import I18Next exposing (Translations)
 import Html.Attributes as Attributes
 import Html.Styled
 import Locale exposing (Locale)
 import Model exposing (Model)
+import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Route
     exposing
@@ -19,7 +21,7 @@ import Route
             )
         )
 import Router
-import Test exposing (Test, describe, fuzz2)
+import Test exposing (Test, describe, fuzz3)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag)
 
@@ -33,26 +35,35 @@ suite =
         locale =
             Locale.fuzzer
 
+        location =
+            Location.fuzzer
+
         loadingMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "loading-message")
     in
         describe "view"
-            [ surveyResultsListPageTest config locale loadingMessage
-            , surveyResultDetailPageTest config locale loadingMessage
+            [ surveyResultsListPageTest config locale location loadingMessage
+            , surveyResultDetailPageTest config locale location loadingMessage
             ]
 
 
-surveyResultsListPageTest : Fuzzer Config -> Fuzzer Locale -> Selector -> Test
-surveyResultsListPageTest config locale loadingMessage =
+surveyResultsListPageTest :
+    Fuzzer Config
+    -> Fuzzer Locale
+    -> Fuzzer Location
+    -> Selector
+    -> Test
+surveyResultsListPageTest config locale location loadingMessage =
     describe "when data has been requested on the SurveyResultsList page"
-        [ fuzz2 config locale "displays a loading message" <|
-            \config locale ->
+        [ fuzz3 config locale location "displays a loading message" <|
+            \config locale location ->
                 let
                     model =
                         Model
                             config
                             locale
+                            location
                             ListSurveyResultsRoute
                             NotRequested
                             Requesting
@@ -66,16 +77,22 @@ surveyResultsListPageTest config locale loadingMessage =
         ]
 
 
-surveyResultDetailPageTest : Fuzzer Config -> Fuzzer Locale -> Selector -> Test
-surveyResultDetailPageTest config locale loadingMessage =
+surveyResultDetailPageTest :
+    Fuzzer Config
+    -> Fuzzer Locale
+    -> Fuzzer Location
+    -> Selector
+    -> Test
+surveyResultDetailPageTest config locale location loadingMessage =
     describe "when data has been requested on a SurveyResultDetail page"
-        [ fuzz2 config locale "displays a loading message" <|
-            \config locale ->
+        [ fuzz2 config locale location "displays a loading message" <|
+            \config locale location ->
                 let
                     model =
                         Model
                             config
                             locale
+                            location
                             (SurveyResultDetailRoute "10")
                             Requesting
                             NotRequested

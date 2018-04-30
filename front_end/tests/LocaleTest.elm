@@ -27,6 +27,7 @@ initTests () =
                         locale =
                             Locale
                                 En
+                                False
                                 I18Next.initialTranslations
                     in
                         languageFlag
@@ -43,6 +44,7 @@ initTests () =
                         locale =
                             Locale
                                 En
+                                False
                                 I18Next.initialTranslations
                     in
                         languageFlag
@@ -59,6 +61,7 @@ initTests () =
                         locale =
                             Locale
                                 Ja
+                                False
                                 I18Next.initialTranslations
                     in
                         languageFlag
@@ -75,6 +78,7 @@ initTests () =
                         locale =
                             Locale
                                 En
+                                False
                                 I18Next.initialTranslations
                     in
                         languageFlag

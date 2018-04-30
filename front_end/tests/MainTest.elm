@@ -49,9 +49,7 @@ initTest flags location =
                     Locale.init flags.language
 
                 model =
-                    rootLocation
-                        |> Router.Utils.toRoute
-                        |> Model.initialModel config locale
+                    Model.init config locale rootLocation
             in
                 rootLocation
                     |> Main.init flags
@@ -72,8 +70,7 @@ subscriptionsTest flags location =
 
                 model =
                     { location | pathname = "/" }
-                        |> Router.Utils.toRoute
-                        |> Model.initialModel config locale
+                        |> Model.init config locale
             in
                 model
                     |> Main.subscriptions
