@@ -23,6 +23,12 @@ import Task
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        Blur ->
+            ( model
+            , Task.succeed Locale.closeAvailableLanguagesMsg
+                |> Task.perform LocaleMsg
+            )
+
         LocaleMsg msg ->
             let
                 ( locale, cmd ) =
@@ -71,9 +77,3 @@ update msg model =
 
         UpdatePage location ->
             Page.update model
-
-        Blur ->
-            ( model
-            , Task.succeed Locale.closeAvailableLanguagesMsg
-                |> Task.perform LocaleMsg
-            )
