@@ -22,14 +22,13 @@ import Html.Styled.Events exposing (onWithOptions)
 import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Styles
-import SurveyResult.Config exposing (Config)
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils
 import Utils
 
 
-view : Config msg -> Translations -> SurveyResult -> Html msg
-view config translations surveyResult =
+view : (String -> msg) -> Translations -> SurveyResult -> Html msg
+view surveyResultDetailMsg translations surveyResult =
     let
         classes =
             [ "avenir"
@@ -44,11 +43,11 @@ view config translations surveyResult =
                 |> class
     in
         article [ classes, css [ Styles.surveyResultSummary ] ]
-            [ summaryLink config translations surveyResult ]
+            [ summaryLink surveyResultDetailMsg translations surveyResult ]
 
 
-summaryLink : Config msg -> Translations -> SurveyResult -> Html msg
-summaryLink { surveyResultDetailMsg } translations surveyResult =
+summaryLink : (String -> msg) -> Translations -> SurveyResult -> Html msg
+summaryLink surveyResultDetailMsg translations surveyResult =
     let
         url =
             surveyResult.url

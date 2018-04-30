@@ -80,16 +80,13 @@ surveyResultList surveyResultDetailMsg locale surveyResults =
             ]
                 |> String.join " "
                 |> class
-
-        surveyResultConfig =
-            { surveyResultDetailMsg = surveyResultDetailMsg }
     in
         div [ classes ]
             [ heading locale.translations ]
             :: (surveyResults
                     |> List.map
                         (SurveyResult.view
-                            surveyResultConfig
+                            surveyResultDetailMsg
                             locale.translations
                         )
                )
