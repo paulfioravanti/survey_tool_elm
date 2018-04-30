@@ -3,11 +3,11 @@ module Message.NotFound exposing (view)
 {-| Displays a not found message for 404 errors.
 -}
 
-import I18Next exposing (Translations)
 import Html.Styled exposing (Html, a, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)
 import Html.Styled.Keyed as Keyed
+import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Styles
 
@@ -24,8 +24,8 @@ view config translations =
         classes =
             [ "flex"
             , "flex-column"
-            , "justify-center"
             , "items-center"
+            , "justify-center"
             , "vh-75"
             ]
                 |> String.join " "
@@ -77,7 +77,7 @@ heading label =
 
 
 backToHomeLink : Config msg -> String -> Html msg
-backToHomeLink config label =
+backToHomeLink { backToHomeMsg, backToHomePath } label =
     let
         classes =
             [ "avenir"
@@ -90,13 +90,13 @@ backToHomeLink config label =
                 |> class
     in
         a
-            [ href config.backToHomePath
+            [ href backToHomePath
             , classes
             , onWithOptions
                 "click"
                 { preventDefault = True
                 , stopPropagation = False
                 }
-                (Decode.succeed config.backToHomeMsg)
+                (Decode.succeed backToHomeMsg)
             ]
             [ text label ]

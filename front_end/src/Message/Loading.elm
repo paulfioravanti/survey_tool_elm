@@ -4,10 +4,10 @@ module Message.Loading exposing (view)
 from an API endpoint.
 -}
 
-import I18Next exposing (Translations)
 import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed
+import I18Next exposing (Translations)
 import Styles
 
 
@@ -17,8 +17,8 @@ view translations =
         classes =
             [ "flex"
             , "flex-column"
-            , "justify-center"
             , "items-center"
+            , "justify-center"
             , "vh-75"
             ]
                 |> String.join " "
