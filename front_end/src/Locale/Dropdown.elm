@@ -13,7 +13,10 @@ view : (Msg -> msg) -> Locale -> Html msg
 view localeMsg locale =
     let
         classes =
-            [ "relative", "pointer", "w3" ]
+            [ "relative"
+            , "pointer"
+            , "w3"
+            ]
                 |> String.join " "
                 |> class
     in
@@ -42,7 +45,6 @@ currentSelection locale =
             , "bg-white"
             , "flex"
             , "items-center"
-            , "light-silver"
             , "mv0"
             , "pa2"
             , "tc"
