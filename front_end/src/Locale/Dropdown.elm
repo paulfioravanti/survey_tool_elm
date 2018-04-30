@@ -1,6 +1,6 @@
 module Locale.Dropdown exposing (view)
 
-import Css exposing (..)
+import Css exposing (borderColor, color, hover, left, marginTop, pct, rgba)
 import Css.Foreign
 import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
