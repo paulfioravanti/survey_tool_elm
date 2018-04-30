@@ -3,6 +3,7 @@ module SurveyResultDetail.View exposing (view)
 {-| Display a survey result's detail page.
 -}
 
+import Header
 import Html.Styled
     exposing
         ( Attribute
@@ -56,7 +57,7 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult 
             msgClickOptions blurMsg
     in
         main_ []
-            [ header config.localeMsg locale
+            [ Header.view config.localeMsg locale
             , article
                 [ attribute "data-name" "survey-result-detail"
                 , classes

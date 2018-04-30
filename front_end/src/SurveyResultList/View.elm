@@ -4,6 +4,7 @@ module SurveyResultList.View exposing (view)
 -}
 
 import Css exposing (..)
+import Header
 import Html.Styled
     exposing
         ( Attribute
@@ -46,7 +47,7 @@ view { blurMsg, localeMsg, surveyResultDetailMsg } locale { surveyResults } =
             msgClickOptions blurMsg
     in
         main_ []
-            [ header localeMsg locale
+            [ Header.view localeMsg locale
             , section
                 [ attribute "data-name" "survey-results"
                 , classes
@@ -54,12 +55,6 @@ view { blurMsg, localeMsg, surveyResultDetailMsg } locale { surveyResults } =
                 ]
                 (surveyResultList surveyResultDetailMsg locale surveyResults)
             ]
-
-
-header : (Locale.Msg -> msg) -> Locale -> Html msg
-header localeMsg locale =
-    nav [ class "flex flex-row-reverse mw8 center mt1" ]
-        [ Locale.dropdown localeMsg locale ]
 
 
 surveyResultList :
