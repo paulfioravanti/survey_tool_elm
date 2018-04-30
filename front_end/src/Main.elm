@@ -59,7 +59,7 @@ view { locale, location, route, surveyResultList, surveyResultDetail } =
         routerConfig =
             { blurMsg = Blur
             , localeMsg = LocaleMsg
-            , changeLocationMsg = (RoutingMsg << Router.changeLocationMsg)
+            , routingMsg = RoutingMsg
             }
 
         routerContext =

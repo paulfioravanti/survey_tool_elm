@@ -2,7 +2,6 @@ module Router
     exposing
         ( Msg
         , Route
-        , changeLocationMsg
         , route
         , toRoute
         , update
@@ -26,11 +25,6 @@ type alias Msg =
 
 type alias Route =
     Route.Route
-
-
-changeLocationMsg : Route -> Msg
-changeLocationMsg =
-    Msg.ChangeLocation
 
 
 route : Config msg -> Context -> Html msg

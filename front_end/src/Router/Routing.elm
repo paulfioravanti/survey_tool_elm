@@ -12,6 +12,7 @@ import Route
         )
 import Router.Config exposing (Config)
 import Router.Context exposing (Context)
+import Router.Msg exposing (Msg(ChangeLocation))
 import Router.Utils as Utils
 import SurveyResultDetail
 import SurveyResultList exposing (SurveyResultList)
@@ -26,7 +27,10 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
                     { localeMsg = config.localeMsg
                     , blurMsg = config.blurMsg
                     , surveyResultDetailMsg =
-                        (config.changeLocationMsg << SurveyResultDetailRoute)
+                        (config.routingMsg
+                            << ChangeLocation
+                            << SurveyResultDetailRoute
+                        )
                     }
 
                 surveyResultListContext =
@@ -41,7 +45,8 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
             let
                 surveyResultDetailConfig =
                     { backToHomeMsg =
-                        config.changeLocationMsg ListSurveyResultsRoute
+                        config.routingMsg
+                            (ChangeLocation ListSurveyResultsRoute)
                     , blurMsg = config.blurMsg
                     , localeMsg = config.localeMsg
                     , path = Utils.toPath ListSurveyResultsRoute
@@ -59,7 +64,8 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
             let
                 messageConfig =
                     { backToHomeMsg =
-                        config.changeLocationMsg ListSurveyResultsRoute
+                        config.routingMsg
+                            (ChangeLocation ListSurveyResultsRoute)
                     , path = Utils.toPath ListSurveyResultsRoute
                     }
             in

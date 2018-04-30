@@ -1,12 +1,11 @@
 module Router.Config exposing (Config)
 
 import Locale
-import Navigation exposing (Location)
-import Route exposing (Route)
+import Router.Msg as Msg
 
 
 type alias Config msg =
     { blurMsg : msg
     , localeMsg : Locale.Msg -> msg
-    , changeLocationMsg : Route -> msg
+    , routingMsg : Msg.Msg -> msg
     }

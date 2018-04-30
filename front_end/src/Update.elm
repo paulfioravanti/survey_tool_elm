@@ -59,8 +59,7 @@ update msg model =
                 routerConfig =
                     { blurMsg = Blur
                     , localeMsg = LocaleMsg
-                    , changeLocationMsg =
-                        (RoutingMsg << Router.changeLocationMsg)
+                    , routingMsg = RoutingMsg
                     }
 
                 ( route, cmd ) =
