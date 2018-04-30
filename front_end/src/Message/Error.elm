@@ -17,8 +17,8 @@ view error translations =
         classes =
             [ "flex"
             , "flex-column"
-            , "justify-center"
             , "items-center"
+            , "justify-center"
             , "tc"
             , "vh-75"
             ]

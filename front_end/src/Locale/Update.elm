@@ -29,8 +29,6 @@ update msg ({ showAvailableLanguages } as locale) =
             ( locale, Cmd.none )
 
         ToggleAvailableLanguages ->
-            ( { locale
-                | showAvailableLanguages = not showAvailableLanguages
-              }
+            ( { locale | showAvailableLanguages = not showAvailableLanguages }
             , Cmd.none
             )
