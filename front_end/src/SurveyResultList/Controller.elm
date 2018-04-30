@@ -5,6 +5,7 @@ on the status of the data fetched from the remote API point.
 -}
 
 import Html.Styled exposing (Html, text)
+import Locale exposing (Locale)
 import Message.Loading as Loading
 import Message.Error as Error
 import RemoteData
@@ -18,22 +19,21 @@ import RemoteData
         , WebData
         )
 import SurveyResultList.Config exposing (Config)
-import SurveyResultList.Context exposing (Context)
 import SurveyResultList.Model exposing (SurveyResultList)
 import SurveyResultList.View
 
 
-render : Config msg -> Context -> WebData SurveyResultList -> Html msg
-render config context surveyResultList =
+render : Config msg -> Locale -> WebData SurveyResultList -> Html msg
+render config locale surveyResultList =
     case surveyResultList of
         NotRequested ->
             text ""
 
         Requesting ->
-            Loading.view context.locale.translations
+            Loading.view locale.translations
 
         Failure error ->
-            Error.view error context.locale.translations
+            Error.view error locale.translations
 
         Success surveyResultList ->
-            SurveyResultList.View.view config context surveyResultList
+            SurveyResultList.View.view config locale surveyResultList

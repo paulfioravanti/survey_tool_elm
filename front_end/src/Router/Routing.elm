@@ -32,13 +32,10 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                             << SurveyResultDetailRoute
                         )
                     }
-
-                surveyResultListContext =
-                    { locale = locale }
             in
                 SurveyResultList.view
                     surveyResultListConfig
-                    surveyResultListContext
+                    locale
                     surveyResultList
 
         SurveyResultDetailRoute id ->

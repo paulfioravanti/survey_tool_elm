@@ -26,15 +26,14 @@ import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import Html.Styled.Events exposing (onWithOptions)
 import I18Next exposing (Translations)
 import Json.Decode as Decode
-import Locale exposing (Language)
+import Locale exposing (Language, Locale)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Config exposing (Config)
-import SurveyResultList.Context exposing (Context)
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
-view : Config msg -> Context -> SurveyResultList -> Html msg
-view config context { surveyResults } =
+view : Config msg -> Locale -> SurveyResultList -> Html msg
+view config locale { surveyResults } =
     let
         classes =
             [ "center"
@@ -47,32 +46,32 @@ view config context { surveyResults } =
             msgClickOptions config.blurMsg
     in
         main_ []
-            [ header config context
+            [ header config locale
             , section
                 [ attribute "data-name" "survey-results"
                 , classes
                 , blurClickOptions
                 ]
-                (surveyResultList config context surveyResults)
+                (surveyResultList config locale surveyResults)
             ]
 
 
-header : Config msg -> Context -> Html msg
-header config context =
+header : Config msg -> Locale -> Html msg
+header config locale =
     let
         dropdownConfig =
             { localeMsg = config.localeMsg }
     in
         nav [ class "flex flex-row-reverse mw8 center mt1" ]
-            [ Locale.dropdown dropdownConfig context.locale ]
+            [ Locale.dropdown dropdownConfig locale ]
 
 
 surveyResultList :
     Config msg
-    -> Context
+    -> Locale
     -> List SurveyResult
     -> List (Html msg)
-surveyResultList config context surveyResults =
+surveyResultList config locale surveyResults =
     let
         classes =
             [ "flex"
@@ -86,12 +85,12 @@ surveyResultList config context surveyResults =
             { surveyResultDetailMsg = config.surveyResultDetailMsg }
     in
         div [ classes ]
-            [ heading context.locale.translations ]
+            [ heading locale.translations ]
             :: (surveyResults
                     |> List.map
                         (SurveyResult.view
                             surveyResultConfig
-                            context.locale.translations
+                            locale.translations
                         )
                )
 
