@@ -92,9 +92,9 @@ backToHomeLink path clickOptions =
 
         -- NOTE: fa-prefixed classes are from Font Awesome.
         iconClasses =
-            [ "fa-angle-left"
+            [ "f2 f1-ns"
+            , "fa-angle-left"
             , "fas"
-            , "f2 f1-ns"
             ]
                 |> String.join " "
                 |> class
@@ -144,8 +144,9 @@ summary translations surveyResult =
             , "tc"
             ]
                 |> String.join " "
+                |> class
     in
-        div [ class classes ]
+        div [ classes ]
             [ participationCount
                 (I18Next.t translations "participants")
                 surveyResult.participantCount
@@ -166,6 +167,7 @@ participationCount label participantCount =
             , "fw2"
             ]
                 |> String.join " "
+                |> class
 
         valueClasses =
             [ "f4 f3-ns"
@@ -173,11 +175,12 @@ participationCount label participantCount =
             , "tc"
             ]
                 |> String.join " "
+                |> class
     in
         div [ attribute "data-name" "participation-count" ]
-            [ div [ class labelClasses ]
+            [ div [ labelClasses ]
                 [ text label ]
-            , div [ class valueClasses ]
+            , div [ valueClasses ]
                 [ text (toString participantCount) ]
             ]
 
@@ -190,6 +193,7 @@ submittedResponseCount label responseCount =
             , "fw2"
             ]
                 |> String.join " "
+                |> class
 
         valueClasses =
             [ "f4 f3-ns"
@@ -197,11 +201,12 @@ submittedResponseCount label responseCount =
             , "tc"
             ]
                 |> String.join " "
+                |> class
     in
         div [ attribute "data-name" "submitted-response-count" ]
-            [ div [ class labelClasses ]
+            [ div [ labelClasses ]
                 [ text label ]
-            , div [ class valueClasses ]
+            , div [ valueClasses ]
                 [ text (toString responseCount) ]
             ]
 
@@ -214,6 +219,7 @@ submittedResponseRate label responseRate =
             , "fw2"
             ]
                 |> String.join " "
+                |> class
 
         valueClasses =
             [ "f4 f3-ns"
@@ -221,11 +227,12 @@ submittedResponseRate label responseRate =
             , "tc"
             ]
                 |> String.join " "
+                |> class
     in
         div [ attribute "data-name" "submitted-response-rate" ]
-            [ div [ class labelClasses ]
+            [ div [ labelClasses ]
                 [ text label ]
-            , div [ class valueClasses ]
+            , div [ valueClasses ]
                 [ text (Utils.toFormattedPercentage responseRate) ]
             ]
 
