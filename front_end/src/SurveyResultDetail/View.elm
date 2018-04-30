@@ -50,10 +50,10 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult 
                 |> class
 
         backtoHomeClickOptions =
-            msgClickOptions config.backToHomeMsg
+            msgClickOptions backToHomeMsg
 
         blurClickOptions =
-            msgClickOptions config.blurMsg
+            msgClickOptions blurMsg
     in
         main_ []
             [ header config locale
