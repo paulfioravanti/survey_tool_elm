@@ -20,8 +20,8 @@ view blurMsg translations { name, questions } =
             , "flex-row"
             , "justify-between"
             , "mb3"
-            , "mt4"
             , "mh1 mh0-ns"
+            , "mt4"
             ]
                 |> String.join " "
                 |> class
