@@ -5,15 +5,14 @@ import Css.Foreign
 import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onClick)
-import Locale.Config exposing (Config)
 import Locale.Model as Model exposing (Language(En, It, Ja), Locale)
 import Locale.Msg exposing (Msg(ChangeLanguage, ToggleAvailableLanguages))
 import Locale.Utils as Utils
 import Styles
 
 
-view : Config msg -> Locale -> Html msg
-view config locale =
+view : (Msg -> msg) -> Locale -> Html msg
+view localeMsg locale =
     let
         classes =
             [ "relative", "pointer", "w3" ]
@@ -40,10 +39,10 @@ view config locale =
             [ attribute "data-name" "locale-dropdown-menu"
             , classes
             , styles
-            , onClick (config.localeMsg ToggleAvailableLanguages)
+            , onClick (localeMsg ToggleAvailableLanguages)
             ]
             [ currentSelection locale
-            , dropdownList config locale
+            , dropdownList localeMsg locale
             ]
 
 
@@ -113,8 +112,8 @@ caret locale =
             [ text "▾" ]
 
 
-dropdownList : Config msg -> Locale -> Html msg
-dropdownList config locale =
+dropdownList : (Msg -> msg) -> Locale -> Html msg
+dropdownList localeMsg locale =
     let
         displayClasses =
             if locale.showAvailableLanguages then
@@ -151,15 +150,14 @@ dropdownList config locale =
             , classes
             , css [ marginTop (Css.rem 0.12) ]
             ]
-            (List.map (dropdownListItemView config) selectableLanguages)
+            (List.map (dropdownListItemView localeMsg) selectableLanguages)
 
 
-dropdownListItemView : Config msg -> Language -> Html msg
-dropdownListItemView config language =
+dropdownListItemView : (Msg -> msg) -> Language -> Html msg
+dropdownListItemView localeMsg language =
     li
         [ class "pa2 w-100"
         , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
-        , onClick
-            (config.localeMsg (ChangeLanguage language))
+        , onClick (localeMsg (ChangeLanguage language))
         ]
         [ span [ class (Utils.languageToFlagClass language) ] [] ]

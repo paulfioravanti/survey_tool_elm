@@ -77,12 +77,8 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult 
 
 header : Config msg -> Locale -> Html msg
 header config locale =
-    let
-        dropdownConfig =
-            { localeMsg = config.localeMsg }
-    in
-        nav [ class "flex flex-row-reverse mw8 center mt1" ]
-            [ Locale.dropdown dropdownConfig locale ]
+    nav [ class "flex flex-row-reverse mw8 center mt1" ]
+        [ Locale.dropdown config.localeMsg locale ]
 
 
 backToHomeLink : String -> Attribute msg -> Html msg

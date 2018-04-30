@@ -63,7 +63,7 @@ header config locale =
             { localeMsg = config.localeMsg }
     in
         nav [ class "flex flex-row-reverse mw8 center mt1" ]
-            [ Locale.dropdown dropdownConfig locale ]
+            [ Locale.dropdown config.localeMsg locale ]
 
 
 surveyResultList :

@@ -15,8 +15,6 @@ import I18Next
 import Html.Styled exposing (Html)
 import Json.Decode as Decode exposing (Value)
 import Locale.Cmd as Cmd
-import Locale.Config exposing (Config)
-import Locale.Context exposing (Context)
 import Locale.Dropdown as Dropdown
 import Locale.Model as Model exposing (Language(En, It, Ja), Locale)
 import Locale.Msg as Msg
@@ -45,9 +43,9 @@ toggleAvailableLanguagesMsg =
     Msg.ToggleAvailableLanguages
 
 
-dropdown : Config msg -> Locale -> Html msg
-dropdown config locale =
-    Dropdown.view config locale
+dropdown : (Msg -> msg) -> Locale -> Html msg
+dropdown localeMsg locale =
+    Dropdown.view localeMsg locale
 
 
 init : Value -> Locale
