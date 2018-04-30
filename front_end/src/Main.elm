@@ -75,8 +75,8 @@ view { locale, location, route, surveyResultList, surveyResultDetail } =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
-    if model.locale.showAvailableLanguages == True then
+subscriptions { locale } =
+    if locale.showAvailableLanguages == True then
         Mouse.clicks (\_ -> LocaleMsg Locale.closeAvailableLanguagesMsg)
     else
         Sub.none
