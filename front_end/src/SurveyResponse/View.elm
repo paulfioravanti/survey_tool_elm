@@ -3,8 +3,6 @@ module SurveyResponse.View exposing (view)
 {-| Display a survey response.
 -}
 
-import Css exposing (hover, visible, visibility)
-import Css.Foreign exposing (children)
 import Html.Styled exposing (Html, a, div, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onMouseEnter)
@@ -26,22 +24,11 @@ view config translations respondents rating =
             ]
                 |> String.join " "
                 |> class
-
-        styles =
-            [ hover
-                [ children
-                    [ Css.Foreign.selector
-                        "[data-name='survey-response-content']"
-                        [ Styles.brandBackgroundColor ]
-                    ]
-                ]
-            ]
-                |> css
     in
         div
             [ attribute "data-name" "survey-response"
             , classes
-            , styles
+            , css [ Styles.surveyResponse ]
             ]
             [ content config translations respondents rating ]
 
@@ -65,23 +52,11 @@ content config translations respondents rating =
             ]
                 |> String.join " "
                 |> class
-
-        styles =
-            [ hover
-                [ Styles.brandBorderColor
-                , children
-                    [ Css.Foreign.selector
-                        "[data-name*='survey-response-tooltip']"
-                        [ visibility visible ]
-                    ]
-                ]
-            ]
-                |> css
     in
         div
             [ attribute "data-name" "survey-response-content"
             , classes
-            , styles
+            , css [ Styles.surveyResponseContent ]
             , onMouseEnter config.blurMsg
             ]
             [ text rating

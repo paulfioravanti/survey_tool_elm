@@ -10,6 +10,8 @@ module Styles
         , dropdownMenuList
         , dropdownMenuListItem
         , overlineText
+        , surveyResponse
+        , surveyResponseContent
         , surveyResultSummary
         , tooltip
         )
@@ -48,8 +50,9 @@ import Css
         , top
         , transparent
         , visibility
+        , visible
         )
-import Css.Foreign exposing (descendants)
+import Css.Foreign exposing (children, descendants)
 
 
 brandBackgroundColor : Style
@@ -79,18 +82,16 @@ brandColorAlpha =
 
 dropdownMenu : Style
 dropdownMenu =
-    Css.batch
-        [ hover
-            [ Css.Foreign.children
-                [ Css.Foreign.selector
-                    "[data-name='locale-dropdown-current-selection']"
-                    [ borderColor (rgba 0 0 0 0.1) ]
-                ]
-            , Css.Foreign.descendants
-                [ Css.Foreign.selector
-                    "[data-name='locale-dropdown-caret']"
-                    [ color (rgba 0 0 0 0.2) ]
-                ]
+    hover
+        [ Css.Foreign.children
+            [ Css.Foreign.selector
+                "[data-name='locale-dropdown-current-selection']"
+                [ borderColor (rgba 0 0 0 0.1) ]
+            ]
+        , Css.Foreign.descendants
+            [ Css.Foreign.selector
+                "[data-name='locale-dropdown-caret']"
+                [ color (rgba 0 0 0 0.2) ]
             ]
         ]
 
@@ -113,6 +114,29 @@ dropdownMenuListItem =
 overlineText : Style
 overlineText =
     textDecoration overline
+
+
+surveyResponse : Style
+surveyResponse =
+    hover
+        [ children
+            [ Css.Foreign.selector
+                "[data-name='survey-response-content']"
+                [ brandBackgroundColor ]
+            ]
+        ]
+
+
+surveyResponseContent : Style
+surveyResponseContent =
+    hover
+        [ brandBorderColor
+        , children
+            [ Css.Foreign.selector
+                "[data-name*='survey-response-tooltip']"
+                [ visibility visible ]
+            ]
+        ]
 
 
 surveyResultSummary : Style
