@@ -25,6 +25,7 @@ type alias Model =
     import Config exposing (Config)
     import Json.Encode as Encode
     import Locale exposing (Locale)
+    import Navigation exposing (Location)
     import RemoteData exposing (RemoteData(NotRequested))
     import Route exposing (Route(ListSurveyResultsRoute))
 
@@ -36,10 +37,16 @@ type alias Model =
     locale =
         Locale.init (Encode.string "en")
 
-    initialModel config locale ListSurveyResultsRoute
+    location : Location
+    location =
+        Location "/survey_results" "" "" "" "" "" "" "" "" "" ""
+
+
+    init config locale location
     --> Model
     -->     config
     -->     locale
+    -->     location
     -->     ListSurveyResultsRoute
     -->     NotRequested
     -->     NotRequested
