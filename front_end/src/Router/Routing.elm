@@ -27,7 +27,6 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
                     , blurMsg = config.blurMsg
                     , surveyResultDetailMsg =
                         (config.changeLocationMsg << SurveyResultDetailRoute)
-                    , updatePageMsg = config.updatePageMsg
                     }
 
                 surveyResultListContext =
@@ -46,7 +45,6 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
                     , blurMsg = config.blurMsg
                     , localeMsg = config.localeMsg
                     , path = Utils.toPath ListSurveyResultsRoute
-                    , updatePageMsg = config.updatePageMsg
                     }
 
                 surveyResultDetailContext =

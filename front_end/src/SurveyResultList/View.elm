@@ -61,9 +61,7 @@ header : Config msg -> Context -> Html msg
 header config context =
     let
         dropdownConfig =
-            { localeMsg = config.localeMsg
-            , updatePageMsg = config.updatePageMsg
-            }
+            { localeMsg = config.localeMsg }
     in
         nav [ class "flex flex-row-reverse mw8 center mt1" ]
             [ Locale.dropdown dropdownConfig context ]

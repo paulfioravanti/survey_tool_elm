@@ -60,7 +60,6 @@ view { locale, location, route, surveyResultList, surveyResultDetail } =
             { blurMsg = Blur
             , localeMsg = LocaleMsg
             , changeLocationMsg = (RoutingMsg << Router.changeLocationMsg)
-            , updatePageMsg = UpdatePage
             }
 
         routerContext =

@@ -61,7 +61,6 @@ update msg model =
                     , localeMsg = LocaleMsg
                     , changeLocationMsg =
                         (RoutingMsg << Router.changeLocationMsg)
-                    , updatePageMsg = UpdatePage
                     }
 
                 ( route, cmd ) =

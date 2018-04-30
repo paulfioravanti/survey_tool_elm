@@ -5,6 +5,4 @@ import Navigation exposing (Location)
 
 
 type alias Config msg =
-    { localeMsg : Msg.Msg -> msg
-    , updatePageMsg : Location -> msg
-    }
+    { localeMsg : Msg.Msg -> msg }

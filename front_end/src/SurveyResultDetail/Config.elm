@@ -9,5 +9,4 @@ type alias Config msg =
     , blurMsg : msg
     , localeMsg : Locale.Msg -> msg
     , path : String
-    , updatePageMsg : Location -> msg
     }
