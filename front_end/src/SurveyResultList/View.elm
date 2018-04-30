@@ -33,7 +33,7 @@ import SurveyResultList.Model exposing (SurveyResultList)
 
 
 view : Config msg -> Locale -> SurveyResultList -> Html msg
-view config locale { surveyResults } =
+view { blurMsg, localeMsg, surveyResultDetailMsg } locale { surveyResults } =
     let
         classes =
             [ "center"
@@ -43,35 +43,35 @@ view config locale { surveyResults } =
                 |> class
 
         blurClickOptions =
-            msgClickOptions config.blurMsg
+            msgClickOptions blurMsg
     in
         main_ []
-            [ header config locale
+            [ header localeMsg locale
             , section
                 [ attribute "data-name" "survey-results"
                 , classes
                 , blurClickOptions
                 ]
-                (surveyResultList config locale surveyResults)
+                (surveyResultList surveyResultDetailMsg locale surveyResults)
             ]
 
 
-header : Config msg -> Locale -> Html msg
-header config locale =
+header : (Locale.Msg -> msg) -> Locale -> Html msg
+header localeMsg locale =
     let
         dropdownConfig =
-            { localeMsg = config.localeMsg }
+            { localeMsg = localeMsg }
     in
         nav [ class "flex flex-row-reverse mw8 center mt1" ]
-            [ Locale.dropdown config.localeMsg locale ]
+            [ Locale.dropdown localeMsg locale ]
 
 
 surveyResultList :
-    Config msg
+    (String -> msg)
     -> Locale
     -> List SurveyResult
     -> List (Html msg)
-surveyResultList config locale surveyResults =
+surveyResultList surveyResultDetailMsg locale surveyResults =
     let
         classes =
             [ "flex"
@@ -82,7 +82,7 @@ surveyResultList config locale surveyResults =
                 |> class
 
         surveyResultConfig =
-            { surveyResultDetailMsg = config.surveyResultDetailMsg }
+            { surveyResultDetailMsg = surveyResultDetailMsg }
     in
         div [ classes ]
             [ heading locale.translations ]
