@@ -7,7 +7,6 @@ module Locale
         , dropdown
         , init
         , fetchTranslations
-        , toggleAvailableLanguagesMsg
         , update
         )
 
@@ -36,11 +35,6 @@ type alias Msg =
 closeAvailableLanguagesMsg : Msg
 closeAvailableLanguagesMsg =
     Msg.CloseAvailableLanguages
-
-
-toggleAvailableLanguagesMsg : Msg
-toggleAvailableLanguagesMsg =
-    Msg.ToggleAvailableLanguages
 
 
 dropdown : (Msg -> msg) -> Locale -> Html msg
