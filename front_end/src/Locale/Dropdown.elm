@@ -155,9 +155,15 @@ dropdownList localeMsg locale =
 
 dropdownListItemView : (Msg -> msg) -> Language -> Html msg
 dropdownListItemView localeMsg language =
-    li
-        [ class "pa2 w-100"
-        , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
-        , onClick (localeMsg (ChangeLanguage language))
-        ]
-        [ span [ class (Utils.languageToFlagClass language) ] [] ]
+    let
+        classes =
+            [ "pa2", "w-100" ]
+                |> String.join " "
+                |> class
+    in
+        li
+            [ classes
+            , css [ hover [ Styles.brandBackgroundColorAlpha ] ]
+            , onClick (localeMsg (ChangeLanguage language))
+            ]
+            [ span [ class (Utils.languageToFlagClass language) ] [] ]
