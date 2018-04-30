@@ -8,12 +8,12 @@ import Locale.Msg as Msg exposing (Msg(FetchTranslations))
 fetchTranslations : Language -> Cmd Msg
 fetchTranslations language =
     language
-        |> translationsUrl
+        |> toTranslationsUrl
         |> I18Next.fetchTranslations FetchTranslations
 
 
-translationsUrl : Language -> String
-translationsUrl language =
+toTranslationsUrl : Language -> String
+toTranslationsUrl language =
     let
         translationLanguage =
             language
