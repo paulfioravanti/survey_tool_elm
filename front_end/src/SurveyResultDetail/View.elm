@@ -56,7 +56,7 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult 
             msgClickOptions blurMsg
     in
         main_ []
-            [ header config locale
+            [ header config.localeMsg locale
             , article
                 [ attribute "data-name" "survey-result-detail"
                 , classes
@@ -75,10 +75,10 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult 
             ]
 
 
-header : Config msg -> Locale -> Html msg
-header config locale =
+header : (Locale.Msg -> msg) -> Locale -> Html msg
+header localeMsg locale =
     nav [ class "flex flex-row-reverse mw8 center mt1" ]
-        [ Locale.dropdown config.localeMsg locale ]
+        [ Locale.dropdown localeMsg locale ]
 
 
 backToHomeLink : String -> Attribute msg -> Html msg

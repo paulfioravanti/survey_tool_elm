@@ -58,12 +58,8 @@ view { blurMsg, localeMsg, surveyResultDetailMsg } locale { surveyResults } =
 
 header : (Locale.Msg -> msg) -> Locale -> Html msg
 header localeMsg locale =
-    let
-        dropdownConfig =
-            { localeMsg = localeMsg }
-    in
-        nav [ class "flex flex-row-reverse mw8 center mt1" ]
-            [ Locale.dropdown localeMsg locale ]
+    nav [ class "flex flex-row-reverse mw8 center mt1" ]
+        [ Locale.dropdown localeMsg locale ]
 
 
 surveyResultList :
