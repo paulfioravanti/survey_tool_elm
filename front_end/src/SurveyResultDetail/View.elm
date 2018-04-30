@@ -84,24 +84,8 @@ header config context =
             , updatePageMsg = config.updatePageMsg
             }
     in
-        nav [ class "flex flex-row justify-between mw8 center mt1" ]
-            [ logo
-            , Locale.dropdown dropdownConfig context
-            ]
-
-
-logo : Html msg
-logo =
-    let
-        logoClasses =
-            [ "h2 h2-ns"
-            , "img"
-            , "mh1 mh2-ns"
-            , "mt0"
-            ]
-                |> String.join " "
-    in
-        img [ src "/logo.png", class logoClasses, alt "logo" ] []
+        nav [ class "flex flex-row-reverse mw8 center mt1" ]
+            [ Locale.dropdown dropdownConfig context ]
 
 
 backToHomeLink : String -> Attribute msg -> Html msg

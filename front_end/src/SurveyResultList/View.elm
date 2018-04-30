@@ -65,10 +65,8 @@ header config context =
             , updatePageMsg = config.updatePageMsg
             }
     in
-        nav [ class "flex flex-row justify-between mw8 center mt1" ]
-            [ logo
-            , Locale.dropdown dropdownConfig context
-            ]
+        nav [ class "flex flex-row-reverse mw8 center mt1" ]
+            [ Locale.dropdown dropdownConfig context ]
 
 
 surveyResultList :
@@ -114,20 +112,6 @@ heading translations =
     in
         h1 [ class headingClasses, css [ fontSize (Css.rem 4.0) ] ]
             [ text (I18Next.t translations "surveyResults") ]
-
-
-logo : Html msg
-logo =
-    let
-        logoClasses =
-            [ "h2 h2-ns"
-            , "img"
-            , "mh1 mh2-ns"
-            , "mt0"
-            ]
-                |> String.join " "
-    in
-        img [ src "/logo.png", class logoClasses, alt "logo" ] []
 
 
 msgClickOptions : msg -> Attribute msg
