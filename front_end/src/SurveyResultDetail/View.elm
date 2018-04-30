@@ -40,7 +40,7 @@ import Utils
 
 
 view : Config msg -> Context -> SurveyResult -> Html msg
-view ({ backToHomeMsg, blurMsg, path } as config) context surveyResult =
+view ({ backToHomeMsg, blurMsg, backToHomePath } as config) context surveyResult =
     let
         classes =
             [ "center"
@@ -51,10 +51,10 @@ view ({ backToHomeMsg, blurMsg, path } as config) context surveyResult =
                 |> class
 
         backtoHomeClickOptions =
-            msgClickOptions backToHomeMsg
+            msgClickOptions config.backToHomeMsg
 
         blurClickOptions =
-            msgClickOptions blurMsg
+            msgClickOptions config.blurMsg
     in
         main_ []
             [ header config context
@@ -63,7 +63,7 @@ view ({ backToHomeMsg, blurMsg, path } as config) context surveyResult =
                 , classes
                 , blurClickOptions
                 ]
-                [ backToHomeLink path backtoHomeClickOptions
+                [ backToHomeLink backToHomePath backtoHomeClickOptions
                 , surveyName surveyResult.name
                 , summary context.locale.translations surveyResult
                 , div [ attribute "data-name" "themes" ]
@@ -72,7 +72,7 @@ view ({ backToHomeMsg, blurMsg, path } as config) context surveyResult =
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]
-            , footerContent path backtoHomeClickOptions
+            , footerContent backToHomePath backtoHomeClickOptions
             ]
 
 

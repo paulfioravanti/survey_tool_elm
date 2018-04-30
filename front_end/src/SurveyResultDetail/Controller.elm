@@ -26,7 +26,7 @@ import SurveyResultDetail.View
 
 
 render : Config msg -> Context -> WebData SurveyResult -> Html msg
-render ({ backToHomeMsg, path } as config) context surveyResult =
+render ({ backToHomeMsg, backToHomePath } as config) context surveyResult =
     case surveyResult of
         NotRequested ->
             text ""
@@ -42,7 +42,7 @@ render ({ backToHomeMsg, path } as config) context surveyResult =
                             let
                                 config =
                                     { backToHomeMsg = backToHomeMsg
-                                    , path = path
+                                    , backToHomePath = backToHomePath
                                     }
                             in
                                 NotFound.view config context.locale.translations

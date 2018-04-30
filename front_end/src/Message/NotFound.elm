@@ -14,7 +14,7 @@ import Styles
 
 type alias Config msg =
     { backToHomeMsg : msg
-    , path : String
+    , backToHomePath : String
     }
 
 
@@ -77,7 +77,7 @@ heading label =
 
 
 backToHomeLink : Config msg -> String -> Html msg
-backToHomeLink { backToHomeMsg, path } label =
+backToHomeLink config label =
     let
         classes =
             [ "avenir"
@@ -90,13 +90,13 @@ backToHomeLink { backToHomeMsg, path } label =
                 |> class
     in
         a
-            [ href path
+            [ href config.backToHomePath
             , classes
             , onWithOptions
                 "click"
                 { preventDefault = True
                 , stopPropagation = False
                 }
-                (Decode.succeed backToHomeMsg)
+                (Decode.succeed config.backToHomeMsg)
             ]
             [ text label ]

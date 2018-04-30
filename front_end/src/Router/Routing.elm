@@ -47,9 +47,9 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
                     { backToHomeMsg =
                         config.routingMsg
                             (ChangeLocation ListSurveyResultsRoute)
+                    , backToHomePath = Utils.toPath ListSurveyResultsRoute
                     , blurMsg = config.blurMsg
                     , localeMsg = config.localeMsg
-                    , path = Utils.toPath ListSurveyResultsRoute
                     }
 
                 surveyResultDetailContext =
@@ -66,7 +66,9 @@ route config { locale, location, route, surveyResultList, surveyResultDetail } =
                     { backToHomeMsg =
                         config.routingMsg
                             (ChangeLocation ListSurveyResultsRoute)
-                    , path = Utils.toPath ListSurveyResultsRoute
+                    , backToHomePath =
+                        ListSurveyResultsRoute
+                            |> Utils.toPath
                     }
             in
                 NotFound.view messageConfig locale.translations
