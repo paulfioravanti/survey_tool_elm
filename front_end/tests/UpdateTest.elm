@@ -8,7 +8,7 @@ import Fuzzer.Locale as Locale
 import Fuzzer.Navigation.Location as Location
 import Locale exposing (Locale)
 import Model exposing (Model)
-import Msg exposing (Msg(UpdatePage))
+import Msg exposing (Msg(Blur, UpdatePage))
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested, Requesting))
 import Route
@@ -40,6 +40,7 @@ suite =
             , surveyResultsListAlreadyRequestedTest config locale location
             , surveyResultDetailNotRequestedTest config locale location
             , routeNotFoundTest config locale location
+            , blurTest config locale location
             ]
 
 
@@ -166,6 +167,31 @@ routeNotFoundTest config locale location =
                 in
                     model
                         |> Update.update (UpdatePage location)
+                        |> Tuple.first
+                        |> Expect.equal model
+        ]
+
+
+blurTest : Fuzzer Config -> Fuzzer Locale -> Fuzzer Location -> Test
+blurTest config locale location =
+    -- NOTE: Not sure how to test that a Task has been queued up to be executed
+    -- by the Elm runtime, but the LocaleMsg CloseAvailableLanguages msg is
+    -- tested in the tests/Locale/UpdateTest.elm file.
+    describe "when msg is Blur"
+        [ fuzz3 config locale location "model is returned as-is" <|
+            \config locale location ->
+                let
+                    model =
+                        Model
+                            config
+                            locale
+                            location
+                            ListSurveyResultsRoute
+                            NotRequested
+                            Requesting
+                in
+                    model
+                        |> Update.update Blur
                         |> Tuple.first
                         |> Expect.equal model
         ]
