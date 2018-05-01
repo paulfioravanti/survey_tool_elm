@@ -59,19 +59,41 @@ initTest flags location =
 
 subscriptionsTest : Fuzzer Flags -> Fuzzer Navigation.Location -> Test
 subscriptionsTest flags location =
-    fuzz2 flags location "subscriptions" <|
-        \flags location ->
-            let
-                config =
-                    Config.init flags
+    describe "subscriptions"
+        -- NOTE: Not sure how to test out the content of subscriptions, so
+        -- for now just confirm that if the languages dropdown menu is open,
+        -- there *is* a subscription.
+        [ fuzz2 flags location "when showAvailableLanguages is True" <|
+            \flags location ->
+                let
+                    config =
+                        Config.init flags
 
-                locale =
-                    Locale.init flags.language
+                    locale =
+                        Locale.init flags.language
 
-                model =
-                    { location | pathname = "/" }
-                        |> Model.init config locale
-            in
-                model
-                    |> Main.subscriptions
-                    |> Expect.equal Sub.none
+                    model =
+                        { location | pathname = "/" }
+                            |> Model.init config
+                                { locale | showAvailableLanguages = True }
+                in
+                    model
+                        |> Main.subscriptions
+                        |> Expect.notEqual Sub.none
+        , fuzz2 flags location "when model in any other state" <|
+            \flags location ->
+                let
+                    config =
+                        Config.init flags
+
+                    locale =
+                        Locale.init flags.language
+
+                    model =
+                        { location | pathname = "/" }
+                            |> Model.init config locale
+                in
+                    model
+                        |> Main.subscriptions
+                        |> Expect.equal Sub.none
+        ]

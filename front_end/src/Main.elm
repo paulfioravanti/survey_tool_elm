@@ -77,6 +77,8 @@ view { locale, location, route, surveyResultList, surveyResultDetail } =
 subscriptions : Model -> Sub Msg
 subscriptions { locale } =
     if locale.showAvailableLanguages == True then
-        Mouse.clicks (\_ -> LocaleMsg Locale.closeAvailableLanguagesMsg)
+        -- NOTE: Would prefer anonymous function notation here over `always`,
+        -- but that doesn't get picked up by elm-coverage :/
+        Mouse.clicks (always (LocaleMsg Locale.closeAvailableLanguagesMsg))
     else
         Sub.none
