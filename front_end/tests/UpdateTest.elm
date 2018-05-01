@@ -6,11 +6,12 @@ import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import Fuzzer.Locale as Locale
 import Fuzzer.Navigation.Location as Location
+import Fuzzer.SurveyResultList as SurveyResultList
 import Locale exposing (Locale)
 import Model exposing (Model)
 import Msg exposing (Msg(Blur, UpdatePage))
 import Navigation exposing (Location)
-import RemoteData exposing (RemoteData(NotRequested, Requesting))
+import RemoteData exposing (RemoteData(NotRequested, Requesting, Success))
 import Route
     exposing
         ( Route
@@ -19,7 +20,7 @@ import Route
             , SurveyResultDetailRoute
             )
         )
-import Test exposing (Test, describe, fuzz3)
+import Test exposing (Test, describe, fuzz3, fuzz4)
 import Update
 
 
@@ -38,6 +39,7 @@ suite =
         describe "update when UpdatePage msg sent"
             [ surveyResultsListNotRequestedTest config locale location
             , surveyResultsListAlreadyRequestedTest config locale location
+            , surveyResultsListAlreadyRetrievedTest config locale location
             , surveyResultDetailNotRequestedTest config locale location
             , routeNotFoundTest config locale location
             , blurTest config locale location
@@ -108,6 +110,46 @@ surveyResultsListAlreadyRequestedTest config locale location =
                         |> Tuple.first
                         |> Expect.equal model
         ]
+
+
+surveyResultsListAlreadyRetrievedTest :
+    Fuzzer Config
+    -> Fuzzer Locale
+    -> Fuzzer Location
+    -> Test
+surveyResultsListAlreadyRetrievedTest config locale location =
+    let
+        surveyResultList =
+            SurveyResultList.fuzzer
+    in
+        describe
+            """
+            when UpdatePage ListSurveyResultsRoute msg sent and
+            surveyResultsList has already been retrieved ie Success
+            """
+            [ fuzz4
+                config
+                locale
+                location
+                surveyResultList
+                "it does not update the model"
+                (\config locale location surveyResultList ->
+                    let
+                        model =
+                            Model
+                                config
+                                locale
+                                location
+                                ListSurveyResultsRoute
+                                NotRequested
+                                (Success surveyResultList)
+                    in
+                        model
+                            |> Update.update (UpdatePage location)
+                            |> Tuple.first
+                            |> Expect.equal model
+                )
+            ]
 
 
 surveyResultDetailNotRequestedTest :
