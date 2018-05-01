@@ -25,7 +25,7 @@ serve the JSON files expected by the front end.
 ### Dependencies
 
 - [Elixir][] 1.6.4
-- [Erlang][] 20.3.2
+- [Erlang][] 20.3.4
 
 ### Setup
 
@@ -75,7 +75,7 @@ would have been overkill).
 ### Dependencies
 
 - [Elm][] 0.18.0
-- [NodeJS][] 9.11.1
+- [NodeJS][] 10.0.0
 
 ### Setup
 
