@@ -153,7 +153,7 @@ Verified examples (doctests):
 elm-verified-examples
 ```
 
-Run tests and generate code coverage report:
+Run tests and generate code coverage report (should be at 100% coverage):
 
 ```sh
 elm-coverage
