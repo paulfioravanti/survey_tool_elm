@@ -9,13 +9,21 @@ import Fuzzer.Language as Language
 import Fuzzer.Locale as Locale
 import Fuzzer.Route as Route
 import Locale.Model exposing (Locale)
-import Locale.Msg exposing (Msg(ChangeLanguage))
+import Locale.Msg
+    exposing
+        ( Msg
+            ( ChangeLanguage
+            , CloseAvailableLanguages
+            , FetchTranslations
+            , ToggleAvailableLanguages
+            )
+        )
 import Model exposing (Model)
 import Msg exposing (Msg(LocaleMsg))
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested))
 import Route exposing (Route)
-import Test exposing (Test, describe, fuzz5)
+import Test exposing (Test, describe, fuzz4, fuzz5)
 import Update
 
 
@@ -36,6 +44,7 @@ suite =
     in
         describe "update"
             [ changeLanguageTest config locale location route
+            , closeAvailableLanguagesTest config locale location route
             ]
 
 
@@ -51,7 +60,8 @@ changeLanguageTest config locale location route =
             Language.fuzzer
     in
         describe "when msg is ChangeLanguage"
-            [ fuzz5 config
+            [ fuzz5
+                config
                 locale
                 location
                 route
@@ -80,3 +90,42 @@ changeLanguageTest config locale location route =
                             |> Expect.equal { model | locale = newLocale }
                 )
             ]
+
+
+closeAvailableLanguagesTest :
+    Fuzzer Config
+    -> Fuzzer Locale
+    -> Fuzzer Location
+    -> Fuzzer Route
+    -> Test
+closeAvailableLanguagesTest config locale location route =
+    describe "when msg is CloseAvailableLanguages"
+        [ fuzz4
+            config
+            locale
+            location
+            route
+            "updates the locale's showAvailableLanguages field to False"
+            (\config locale location route ->
+                let
+                    model =
+                        Model
+                            config
+                            { locale | showAvailableLanguages = True }
+                            location
+                            route
+                            NotRequested
+                            NotRequested
+
+                    msg =
+                        LocaleMsg CloseAvailableLanguages
+
+                    newLocale =
+                        { locale | showAvailableLanguages = False }
+                in
+                    model
+                        |> Update.update msg
+                        |> Tuple.first
+                        |> Expect.equal { model | locale = newLocale }
+            )
+        ]
