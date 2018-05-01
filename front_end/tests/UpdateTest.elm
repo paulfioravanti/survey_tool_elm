@@ -11,6 +11,7 @@ import Locale exposing (Locale)
 import Model exposing (Model)
 import Msg exposing (Msg(Blur, UpdatePage))
 import Navigation exposing (Location)
+import Question.Model exposing (Question)
 import RemoteData exposing (RemoteData(NotRequested, Requesting, Success))
 import Route
     exposing
@@ -20,7 +21,10 @@ import Route
             , SurveyResultDetailRoute
             )
         )
+import SurveyResult.Model exposing (SurveyResult)
+import SurveyResponse.Model exposing (SurveyResponse)
 import Test exposing (Test, describe, fuzz3, fuzz4)
+import Theme.Model exposing (Theme)
 import Update
 
 
@@ -41,6 +45,7 @@ suite =
             , surveyResultsListAlreadyRequestedTest config locale location
             , surveyResultsListAlreadyRetrievedTest config locale location
             , surveyResultDetailNotRequestedTest config locale location
+            , surveyResultDetailAlreadyRetrievedTest config locale location
             , routeNotFoundTest config locale location
             , blurTest config locale location
             ]
@@ -188,6 +193,75 @@ surveyResultDetailNotRequestedTest config locale location =
         ]
 
 
+surveyResultDetailAlreadyRetrievedTest :
+    Fuzzer Config
+    -> Fuzzer Locale
+    -> Fuzzer Location
+    -> Test
+surveyResultDetailAlreadyRetrievedTest config locale location =
+    describe
+        """
+        when UpdatePage SurveyResultDetailRoute msg sent and
+        surveyResultsDetail has already been retrieved ie is Success
+        """
+        [ fuzz3
+            config
+            locale
+            location
+            """
+            it updates the surveyResultDetail to Requesting if its ID is
+            different to the one being requested in the route
+            """
+            (\config locale location ->
+                let
+                    surveyResult =
+                        surveyResultFactory
+
+                    model =
+                        Model
+                            config
+                            locale
+                            location
+                            (SurveyResultDetailRoute "2")
+                            (Success surveyResult)
+                            NotRequested
+                in
+                    model
+                        |> Update.update (UpdatePage location)
+                        |> Tuple.first
+                        |> Expect.equal
+                            { model | surveyResultDetail = Requesting }
+            )
+        , fuzz3
+            config
+            locale
+            location
+            """
+            the surveyResultDetail does not change if the displayed
+            surveyResult is the same as the requested in the route
+            """
+            (\config locale location ->
+                let
+                    surveyResult =
+                        surveyResultFactory
+
+                    model =
+                        Model
+                            config
+                            locale
+                            location
+                            (SurveyResultDetailRoute "1")
+                            (Success surveyResult)
+                            NotRequested
+                in
+                    model
+                        |> Update.update (UpdatePage location)
+                        |> Tuple.first
+                        |> Expect.equal model
+            )
+        ]
+
+
 routeNotFoundTest :
     Fuzzer Config
     -> Fuzzer Locale
@@ -237,3 +311,23 @@ blurTest config locale location =
                         |> Tuple.first
                         |> Expect.equal model
         ]
+
+
+surveyResultFactory : SurveyResult
+surveyResultFactory =
+    SurveyResult
+        "Simple Survey"
+        6
+        0.8333333333333334
+        5
+        (Just
+            [ Theme
+                "The Work"
+                [ Question
+                    "I like the kind of work I do."
+                    [ SurveyResponse 1 1 1 "5" ]
+                    "ratingquestion"
+                ]
+            ]
+        )
+        "/survey_results/1.json"
