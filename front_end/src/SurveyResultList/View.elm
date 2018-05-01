@@ -3,7 +3,6 @@ module SurveyResultList.View exposing (view)
 {-| Display a survey result list
 -}
 
-import Css exposing (fontSize, rem)
 import Header
 import Html.Styled
     exposing
@@ -28,6 +27,7 @@ import Html.Styled.Events exposing (onWithOptions)
 import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Locale exposing (Language, Locale)
+import Styles
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Config exposing (Config)
 import SurveyResultList.Model exposing (SurveyResultList)
@@ -89,14 +89,14 @@ heading translations =
         headingClasses =
             [ "avenir"
             , "dark-gray"
-            , "f2 f-5-ns"
             , "mv3"
             , "ttu"
             ]
                 |> String.join " "
                 |> class
     in
-        h1 [ headingClasses, css [ fontSize (Css.rem 4.0) ] ]
+        h1
+            [ headingClasses, css [ Styles.surveyResultListHeading ] ]
             [ text (I18Next.t translations "surveyResults") ]
 
 

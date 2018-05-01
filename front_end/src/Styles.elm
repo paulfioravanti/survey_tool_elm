@@ -12,6 +12,7 @@ module Styles
         , overlineText
         , surveyResponse
         , surveyResponseContent
+        , surveyResultListHeading
         , surveyResultSummary
         , tooltip
         )
@@ -33,6 +34,7 @@ import Css
         , borderWidth
         , bottom
         , color
+        , fontSize
         , hex
         , hidden
         , hover
@@ -43,6 +45,7 @@ import Css
         , position
         , property
         , px
+        , rem
         , rgb
         , rgba
         , solid
@@ -52,6 +55,7 @@ import Css
         , visibility
         , visible
         )
+import Css.Media exposing (minWidth, only, screen, withMedia)
 import Css.Foreign exposing (children, descendants)
 
 
@@ -136,6 +140,15 @@ surveyResponseContent =
                 "[data-name*='survey-response-tooltip']"
                 [ visibility visible ]
             ]
+        ]
+
+
+surveyResultListHeading : Style
+surveyResultListHeading =
+    Css.batch
+        [ withMedia [ only screen [ minWidth (Css.em 30) ] ]
+            [ fontSize (Css.rem 4.0) ]
+        , fontSize (Css.rem 1.9)
         ]
 
 
