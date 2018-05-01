@@ -17,7 +17,15 @@ update : Msg -> Locale -> ( Locale, Cmd Msg )
 update msg ({ showAvailableLanguages } as locale) =
     case msg of
         ChangeLanguage language ->
-            ( { locale | language = language }, Cmd.fetchTranslations language )
+            ( { locale | language = language }
+            , Cmd.batch
+                [ Cmd.fetchTranslations language
+                , language
+                    |> toString
+                    |> String.toLower
+                    |> Cmd.updateLanguage
+                ]
+            )
 
         CloseAvailableLanguages ->
             ( { locale | showAvailableLanguages = False }, Cmd.none )

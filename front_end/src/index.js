@@ -13,11 +13,21 @@ document.addEventListener("DOMContentLoaded", () => {
       Main.embed(appContainer, {
         environment: process.env.NODE_ENV,
         apiUrl: process.env.ELM_APP_API_URL,
-        language: navigator.language || navigator.userLanguage
+        language: getLanguage()
       });
 
     app.ports.updateTitle.subscribe((newTitle) => {
       window.document.title = newTitle;
     });
+
+    app.ports.updateLanguage.subscribe((language) => {
+      localStorage.setItem("survey-tool-language", language);
+    });
+  }
+
+  function getLanguage() {
+    return localStorage.getItem("survey-tool-language") ||
+      navigator.language ||
+      navigator.userLanguage;
   }
 });

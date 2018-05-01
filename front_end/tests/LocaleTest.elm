@@ -4,7 +4,7 @@ import Expect
 import I18Next
 import Json.Encode as Encode
 import Locale
-import Locale.Model exposing (Language(En, Ja), Locale)
+import Locale.Model exposing (Language(En, It, Ja), Locale)
 import Test exposing (Test, describe, test)
 
 
@@ -44,6 +44,23 @@ initTests () =
                         locale =
                             Locale
                                 En
+                                False
+                                I18Next.initialTranslations
+                    in
+                        languageFlag
+                            |> Locale.init
+                            |> Expect.equal locale
+            ]
+        , describe "when language flag is an Italian locale"
+            [ test "sets the language to Italian" <|
+                \() ->
+                    let
+                        languageFlag =
+                            Encode.string "it"
+
+                        locale =
+                            Locale
+                                It
                                 False
                                 I18Next.initialTranslations
                     in

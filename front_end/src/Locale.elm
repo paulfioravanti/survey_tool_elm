@@ -75,6 +75,8 @@ toLanguage language =
         Ok language ->
             if String.startsWith "en" language then
                 En
+            else if String.startsWith "it" language then
+                It
             else if String.startsWith "ja" language then
                 Ja
             else
