@@ -10,13 +10,16 @@ import I18Next
 import Html.Attributes as Attributes
 import Html.Styled
 import Locale.Model exposing (Language(En, It, Ja), Locale)
+import Locale.Msg exposing (Msg(ChangeLanguage, ToggleAvailableLanguages))
 import Main
 import Model exposing (Model)
+import Msg exposing (Msg(LocaleMsg))
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested, Success))
 import Route exposing (Route(ListSurveyResultsRoute))
 import SurveyResultList exposing (SurveyResultList)
 import Test exposing (Test, describe, fuzz3)
+import Test.Html.Event as Event exposing (click)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (attribute, class, tag)
 
@@ -34,7 +37,10 @@ suite =
             SurveyResultList.fuzzer
     in
         describe "language dropdown menu"
-            [ currentLanguageFlagDisplayTests config location surveyResultList ]
+            [ currentLanguageFlagDisplayTests config location surveyResultList
+            , openDropdownTest config location surveyResultList
+            , changeLanguageTest config location surveyResultList
+            ]
 
 
 currentLanguageFlagDisplayTests :
@@ -129,5 +135,137 @@ currentLanguageFlagDisplayTests config location surveyResultList =
                             |> Query.find [ dropdownCurrentSelection ]
                             |> Query.children [ class "flag-icon-jp" ]
                             |> Query.count (Expect.equal 1)
+                )
+            ]
+
+
+openDropdownTest :
+    Fuzzer Config
+    -> Fuzzer Location
+    -> Fuzzer SurveyResultList
+    -> Test
+openDropdownTest config location surveyResultList =
+    let
+        dropdownMenu =
+            Selector.attribute
+                (Attributes.attribute
+                    "data-name"
+                    "locale-dropdown-menu"
+                )
+    in
+        describe "clicking the language dropdown menu"
+            [ fuzz3
+                config
+                location
+                surveyResultList
+                """
+                sends a message to toggle the display of the available languages
+                """
+                (\config location surveyResultList ->
+                    let
+                        locale =
+                            (Locale En False I18Next.initialTranslations)
+
+                        model =
+                            Model
+                                config
+                                locale
+                                location
+                                ListSurveyResultsRoute
+                                NotRequested
+                                (Success surveyResultList)
+                    in
+                        model
+                            |> Main.view
+                            |> Query.fromHtml
+                            |> Query.find [ dropdownMenu ]
+                            |> Event.simulate click
+                            |> Event.expect (LocaleMsg ToggleAvailableLanguages)
+                )
+            ]
+
+
+changeLanguageTest :
+    Fuzzer Config
+    -> Fuzzer Location
+    -> Fuzzer SurveyResultList
+    -> Test
+changeLanguageTest config location surveyResultList =
+    let
+        dropdownList =
+            Selector.attribute
+                (Attributes.attribute
+                    "data-name"
+                    "locale-dropdown-list"
+                )
+    in
+        describe "changing language"
+            [ fuzz3
+                config
+                location
+                surveyResultList
+                "changing to Italian"
+                (\config location surveyResultList ->
+                    let
+                        locale =
+                            (Locale En False I18Next.initialTranslations)
+
+                        model =
+                            Model
+                                config
+                                locale
+                                location
+                                ListSurveyResultsRoute
+                                NotRequested
+                                (Success surveyResultList)
+
+                        italianDropdownOption =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "language-it"
+                                )
+                    in
+                        model
+                            |> Main.view
+                            |> Query.fromHtml
+                            |> Query.find [ dropdownList ]
+                            |> Query.find [ italianDropdownOption ]
+                            |> Event.simulate click
+                            |> Event.expect (LocaleMsg (ChangeLanguage It))
+                )
+            , fuzz3
+                config
+                location
+                surveyResultList
+                "changing to Japanese"
+                (\config location surveyResultList ->
+                    let
+                        locale =
+                            (Locale En False I18Next.initialTranslations)
+
+                        model =
+                            Model
+                                config
+                                locale
+                                location
+                                ListSurveyResultsRoute
+                                NotRequested
+                                (Success surveyResultList)
+
+                        japaneseDropdownOption =
+                            Selector.attribute
+                                (Attributes.attribute
+                                    "data-name"
+                                    "language-ja"
+                                )
+                    in
+                        model
+                            |> Main.view
+                            |> Query.fromHtml
+                            |> Query.find [ dropdownList ]
+                            |> Query.find [ japaneseDropdownOption ]
+                            |> Event.simulate click
+                            |> Event.expect (LocaleMsg (ChangeLanguage Ja))
                 )
             ]

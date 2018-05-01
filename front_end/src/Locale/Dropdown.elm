@@ -140,9 +140,15 @@ dropdownListItemView localeMsg language =
             [ "pa2", "w-100" ]
                 |> String.join " "
                 |> class
+
+        attributeName =
+            language
+                |> toString
+                |> String.toLower
     in
         li
-            [ classes
+            [ attribute "data-name" ("language-" ++ attributeName)
+            , classes
             , css [ Styles.dropdownMenuListItem ]
             , onClick (localeMsg (ChangeLanguage language))
             ]
