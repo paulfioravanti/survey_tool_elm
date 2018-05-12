@@ -1,15 +1,15 @@
-module Fuzzer.Language exposing (fuzzer)
+module Fuzzer.Lang exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer)
 import Random.Pcg as Random
-import Locale.Model exposing (Language(En, Ja))
+import Translations exposing (Lang(En, Ja))
 import Shrink
 
 
-fuzzer : Fuzzer Language
+fuzzer : Fuzzer Lang
 fuzzer =
     let
-        generator : Random.Generator Language
+        generator : Random.Generator Lang
         generator =
             Random.int 0 1
                 |> Random.map
@@ -25,7 +25,7 @@ fuzzer =
                                 En
                     )
 
-        shrinker : Shrink.Shrinker Language
+        shrinker : Shrink.Shrinker Lang
         shrinker language =
             Shrink.noShrink language
     in

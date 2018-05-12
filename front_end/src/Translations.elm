@@ -7,22 +7,6 @@ type Lang
     | Ja
 
 
-getLnFromCode : String -> Lang
-getLnFromCode code =
-    case code of
-        "en" ->
-            En
-
-        "it" ->
-            It
-
-        "ja" ->
-            Ja
-
-        _ ->
-            En
-
-
 allRespondents : Lang -> String -> String -> String
 allRespondents lang str0 str1 =
     case lang of
@@ -229,32 +213,6 @@ responseRate lang =
 
         Ja ->
             "回答率"
-
-
-results : Lang -> String
-results lang =
-    case lang of
-        En ->
-            "Results"
-
-        It ->
-            "Risultati"
-
-        Ja ->
-            "結果"
-
-
-survey : Lang -> String
-survey lang =
-    case lang of
-        En ->
-            "Survey"
-
-        It ->
-            "Sondaggio"
-
-        Ja ->
-            "調査"
 
 
 surveyResults : Lang -> String

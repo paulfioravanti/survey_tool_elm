@@ -15,8 +15,6 @@
   "participants": "回答者数",
   "responses": "回答件数",
   "responseRate": "回答率",
-  "results": "結果",
-  "survey": "調査",
   "surveyResults": "調査結果",
   "truncatedRespondents": "回答者ID{{idsToDisplay}}とその他{{numTruncated}}名が選択"
 }

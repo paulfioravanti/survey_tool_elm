@@ -4,12 +4,12 @@ import Config exposing (Config)
 import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
+import Fuzzer.Lang as Lang
 import Fuzzer.Navigation.Location as Location
 import Fuzzer.SurveyResultList as SurveyResultList
-import I18Next
 import Html.Attributes as Attributes
 import Html.Styled
-import Locale.Model exposing (Language(En, It, Ja), Locale)
+import Locale.Model exposing (Locale)
 import Locale.Msg exposing (Msg(ChangeLanguage, ToggleAvailableLanguages))
 import Main
 import Model exposing (Model)
@@ -18,10 +18,11 @@ import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested, Success))
 import Route exposing (Route(ListSurveyResultsRoute))
 import SurveyResultList exposing (SurveyResultList)
-import Test exposing (Test, describe, fuzz3)
+import Test exposing (Test, describe, fuzz3, fuzz4)
 import Test.Html.Event as Event exposing (click)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (attribute, class, tag)
+import Translations exposing (Lang(En, It, Ja))
 
 
 suite : Test
@@ -66,7 +67,7 @@ currentLanguageFlagDisplayTests config location surveyResultList =
                 (\config location surveyResultList ->
                     let
                         locale =
-                            (Locale En False I18Next.initialTranslations)
+                            (Locale En False)
 
                         model =
                             Model
@@ -92,7 +93,7 @@ currentLanguageFlagDisplayTests config location surveyResultList =
                 (\config location surveyResultList ->
                     let
                         locale =
-                            (Locale It False I18Next.initialTranslations)
+                            (Locale It False)
 
                         model =
                             Model
@@ -118,7 +119,7 @@ currentLanguageFlagDisplayTests config location surveyResultList =
                 (\config location surveyResultList ->
                     let
                         locale =
-                            (Locale Ja False I18Next.initialTranslations)
+                            (Locale Ja False)
 
                         model =
                             Model
@@ -152,19 +153,23 @@ openDropdownTest config location surveyResultList =
                     "data-name"
                     "locale-dropdown-menu"
                 )
+
+        language =
+            Lang.fuzzer
     in
         describe "clicking the language dropdown menu"
-            [ fuzz3
+            [ fuzz4
                 config
                 location
+                language
                 surveyResultList
                 """
                 sends a message to toggle the display of the available languages
                 """
-                (\config location surveyResultList ->
+                (\config location language surveyResultList ->
                     let
                         locale =
-                            (Locale En False I18Next.initialTranslations)
+                            Locale language False
 
                         model =
                             Model
@@ -208,7 +213,7 @@ changeLanguageTest config location surveyResultList =
                 (\config location surveyResultList ->
                     let
                         locale =
-                            (Locale En False I18Next.initialTranslations)
+                            (Locale En False)
 
                         model =
                             Model
@@ -242,7 +247,7 @@ changeLanguageTest config location surveyResultList =
                 (\config location surveyResultList ->
                     let
                         locale =
-                            (Locale En False I18Next.initialTranslations)
+                            (Locale En False)
 
                         model =
                             Model

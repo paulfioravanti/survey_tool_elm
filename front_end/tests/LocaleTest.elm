@@ -1,11 +1,11 @@
 module LocaleTest exposing (suite)
 
 import Expect
-import I18Next
 import Json.Encode as Encode
 import Locale
-import Locale.Model exposing (Language(En, It, Ja), Locale)
+import Locale.Model exposing (Locale)
 import Test exposing (Test, describe, test)
+import Translations exposing (Lang(En, It, Ja))
 
 
 suite : Test
@@ -28,7 +28,6 @@ initTests () =
                             Locale
                                 En
                                 False
-                                I18Next.initialTranslations
                     in
                         languageFlag
                             |> Locale.init
@@ -45,7 +44,6 @@ initTests () =
                             Locale
                                 En
                                 False
-                                I18Next.initialTranslations
                     in
                         languageFlag
                             |> Locale.init
@@ -62,7 +60,6 @@ initTests () =
                             Locale
                                 It
                                 False
-                                I18Next.initialTranslations
                     in
                         languageFlag
                             |> Locale.init
@@ -79,7 +76,6 @@ initTests () =
                             Locale
                                 Ja
                                 False
-                                I18Next.initialTranslations
                     in
                         languageFlag
                             |> Locale.init
@@ -96,7 +92,6 @@ initTests () =
                             Locale
                                 En
                                 False
-                                I18Next.initialTranslations
                     in
                         languageFlag
                             |> Locale.init

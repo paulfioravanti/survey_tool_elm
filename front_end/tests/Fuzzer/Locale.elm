@@ -2,8 +2,7 @@ module Fuzzer.Locale exposing (fuzzer)
 
 import Dict
 import Fuzz exposing (Fuzzer, bool, constant, string)
-import Fuzzer.Language as Language
-import I18Next
+import Fuzzer.Lang as Lang
 import Locale.Model exposing (Locale)
 
 
@@ -11,11 +10,7 @@ fuzzer : Fuzzer Locale
 fuzzer =
     let
         language =
-            Language.fuzzer
-
-        translations =
-            I18Next.initialTranslations
+            Lang.fuzzer
     in
         Fuzz.map Locale language
             |> Fuzz.andMap bool
-            |> Fuzz.andMap (constant translations)

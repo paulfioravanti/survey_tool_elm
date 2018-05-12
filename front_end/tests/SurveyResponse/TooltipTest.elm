@@ -2,35 +2,37 @@ module SurveyResponse.TooltipTest exposing (suite)
 
 import Dict exposing (Dict)
 import Expect
+import Fuzz exposing (Fuzzer)
+import Fuzzer.Lang as Lang
 import Html.Attributes as Attributes
 import Html.Styled
-import I18Next exposing (Translations)
 import SurveyResponse.Tooltip as Tooltip
-import Test exposing (Test, describe, test)
+import Test exposing (Test, describe, fuzz, test)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
+import Translations exposing (Lang(En))
 
 
 suite : Test
 suite =
     let
-        translations =
-            I18Next.initialTranslations
+        language =
+            Lang.fuzzer
 
         key =
             "1"
     in
         describe "view"
-            [ noRespondentsTest translations key
-            , oneRespondentTest translations key
-            , allRespondentsDisplayableTest translations key
-            , truncatedRespondentsOneExtraTest translations key
-            , truncatedRespondentsMultipleExtraTest translations key
+            [ noRespondentsTest language key
+            , oneRespondentTest language key
+            , allRespondentsDisplayableTest language key
+            , truncatedRespondentsOneExtraTest language key
+            , truncatedRespondentsMultipleExtraTest language key
             ]
 
 
-noRespondentsTest : Translations -> String -> Test
-noRespondentsTest translations key =
+noRespondentsTest : Fuzzer Lang -> String -> Test
+noRespondentsTest language key =
     let
         histogram =
             Dict.fromList
@@ -44,18 +46,18 @@ noRespondentsTest translations key =
                 )
     in
         describe "when response has no respondents"
-            [ test "displays a specific message for no respondents" <|
-                \() ->
+            [ fuzz language "displays a specific message for no respondents" <|
+                \language ->
                     histogram
-                        |> Tooltip.view translations key
+                        |> Tooltip.view language key
                         |> Html.Styled.toUnstyled
                         |> Query.fromHtml
                         |> Query.has [ tag "span", noRespondents ]
             ]
 
 
-oneRespondentTest : Translations -> String -> Test
-oneRespondentTest translations key =
+oneRespondentTest : Fuzzer Lang -> String -> Test
+oneRespondentTest language key =
     let
         histogram =
             Dict.fromList
@@ -69,18 +71,18 @@ oneRespondentTest translations key =
                 )
     in
         describe "when response has one respondent"
-            [ test "displays a specific message for one respondent" <|
-                \() ->
+            [ fuzz language "displays a specific message for one respondent" <|
+                \language ->
                     histogram
-                        |> Tooltip.view translations key
+                        |> Tooltip.view language key
                         |> Html.Styled.toUnstyled
                         |> Query.fromHtml
                         |> Query.has [ tag "span", oneRespondent ]
             ]
 
 
-allRespondentsDisplayableTest : Translations -> String -> Test
-allRespondentsDisplayableTest translations key =
+allRespondentsDisplayableTest : Fuzzer Lang -> String -> Test
+allRespondentsDisplayableTest language key =
     let
         histogram =
             Dict.fromList
@@ -94,18 +96,18 @@ allRespondentsDisplayableTest translations key =
                 )
     in
         describe "when all respondents are displayable in tooltip"
-            [ test "displays all respondents" <|
-                \() ->
+            [ fuzz language "displays all respondents" <|
+                \language ->
                     histogram
-                        |> Tooltip.view translations key
+                        |> Tooltip.view language key
                         |> Html.Styled.toUnstyled
                         |> Query.fromHtml
                         |> Query.has [ tag "span", allRespondents ]
             ]
 
 
-truncatedRespondentsOneExtraTest : Translations -> String -> Test
-truncatedRespondentsOneExtraTest translations key =
+truncatedRespondentsOneExtraTest : Fuzzer Lang -> String -> Test
+truncatedRespondentsOneExtraTest language key =
     let
         histogram =
             Dict.fromList
@@ -119,18 +121,18 @@ truncatedRespondentsOneExtraTest translations key =
                 )
     in
         describe "when one respondent is not displayable in tooltip"
-            [ test "truncates respondents list" <|
-                \() ->
+            [ fuzz language "truncates respondents list" <|
+                \language ->
                     histogram
-                        |> Tooltip.view translations key
+                        |> Tooltip.view language key
                         |> Html.Styled.toUnstyled
                         |> Query.fromHtml
                         |> Query.has [ tag "span", truncatedRespondents ]
             ]
 
 
-truncatedRespondentsMultipleExtraTest : Translations -> String -> Test
-truncatedRespondentsMultipleExtraTest translations key =
+truncatedRespondentsMultipleExtraTest : Fuzzer Lang -> String -> Test
+truncatedRespondentsMultipleExtraTest language key =
     let
         histogram =
             Dict.fromList
@@ -144,10 +146,10 @@ truncatedRespondentsMultipleExtraTest translations key =
                 )
     in
         describe "when multiple respondents are not displayable in tooltip"
-            [ test "truncates respondents list" <|
-                \() ->
+            [ fuzz language "truncates respondents list" <|
+                \language ->
                     histogram
-                        |> Tooltip.view translations key
+                        |> Tooltip.view language key
                         |> Html.Styled.toUnstyled
                         |> Query.fromHtml
                         |> Query.has [ tag "span", truncatedRespondents ]

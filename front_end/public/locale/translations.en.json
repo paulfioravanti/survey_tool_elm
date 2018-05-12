@@ -15,8 +15,6 @@
   "participants": "Participants",
   "responses": "Responses",
   "responseRate": "Response Rate",
-  "results": "Results",
-  "survey": "Survey",
   "surveyResults": "Survey Results",
   "truncatedRespondents": "Chosen by respondent IDs {{idsToDisplay}}, and {{numTruncated}} {{other}}."
 }
