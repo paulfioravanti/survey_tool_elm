@@ -10,7 +10,6 @@ import Fuzzer.Navigation.Location as Location
 import Html.Attributes as Attributes
 import Html.Styled
 import Http exposing (Error(BadStatus, BadPayload, NetworkError, Timeout))
-import I18Next exposing (Translations)
 import Locale exposing (Locale)
 import Main
 import Model exposing (Model)

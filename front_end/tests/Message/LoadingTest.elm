@@ -6,7 +6,6 @@ import Fuzz exposing (Fuzzer)
 import Fuzzer.Config as Config
 import Fuzzer.Locale as Locale
 import Fuzzer.Navigation.Location as Location
-import I18Next exposing (Translations)
 import Html.Attributes as Attributes
 import Html.Styled
 import Locale exposing (Locale)
