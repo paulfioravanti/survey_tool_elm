@@ -16,24 +16,24 @@ import Translations exposing (Lang(En))
 suite : Test
 suite =
     let
-        language =
-            Lang.fuzzer
-
         key =
             "1"
     in
         describe "view"
-            [ noRespondentsTest language key
-            , oneRespondentTest language key
-            , allRespondentsDisplayableTest language key
-            , truncatedRespondentsOneExtraTest language key
-            , truncatedRespondentsMultipleExtraTest language key
+            [ noRespondentsTest key
+            , oneRespondentTest key
+            , allRespondentsDisplayableTest key
+            , truncatedRespondentsOneExtraTest key
+            , truncatedRespondentsMultipleExtraTest key
             ]
 
 
-noRespondentsTest : Fuzzer Lang -> String -> Test
-noRespondentsTest language key =
+noRespondentsTest : String -> Test
+noRespondentsTest key =
     let
+        language =
+            Lang.fuzzer
+
         histogram =
             Dict.fromList
                 [ ( key, [] ) ]
@@ -56,9 +56,12 @@ noRespondentsTest language key =
             ]
 
 
-oneRespondentTest : Fuzzer Lang -> String -> Test
-oneRespondentTest language key =
+oneRespondentTest : String -> Test
+oneRespondentTest key =
     let
+        language =
+            Lang.fuzzer
+
         histogram =
             Dict.fromList
                 [ ( key, [ 1 ] ) ]
@@ -81,9 +84,12 @@ oneRespondentTest language key =
             ]
 
 
-allRespondentsDisplayableTest : Fuzzer Lang -> String -> Test
-allRespondentsDisplayableTest language key =
+allRespondentsDisplayableTest : String -> Test
+allRespondentsDisplayableTest key =
     let
+        language =
+            Lang.fuzzer
+
         histogram =
             Dict.fromList
                 [ ( key, [ 1, 2, 3, 4, 5 ] ) ]
@@ -106,9 +112,12 @@ allRespondentsDisplayableTest language key =
             ]
 
 
-truncatedRespondentsOneExtraTest : Fuzzer Lang -> String -> Test
-truncatedRespondentsOneExtraTest language key =
+truncatedRespondentsOneExtraTest : String -> Test
+truncatedRespondentsOneExtraTest key =
     let
+        language =
+            Lang.fuzzer
+
         histogram =
             Dict.fromList
                 [ ( key, [ 1, 2, 3, 4, 5, 6 ] ) ]
@@ -131,9 +140,12 @@ truncatedRespondentsOneExtraTest language key =
             ]
 
 
-truncatedRespondentsMultipleExtraTest : Fuzzer Lang -> String -> Test
-truncatedRespondentsMultipleExtraTest language key =
+truncatedRespondentsMultipleExtraTest : String -> Test
+truncatedRespondentsMultipleExtraTest key =
     let
+        language =
+            Lang.fuzzer
+
         histogram =
             Dict.fromList
                 [ ( key, [ 1, 2, 3, 4, 5, 6, 7 ] ) ]

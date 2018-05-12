@@ -2,7 +2,7 @@ module Fuzzer.Lang exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer)
 import Random.Pcg as Random
-import Translations exposing (Lang(En, Ja))
+import Translations exposing (Lang(En, It, Ja))
 import Shrink
 
 
@@ -11,7 +11,7 @@ fuzzer =
     let
         generator : Random.Generator Lang
         generator =
-            Random.int 0 1
+            Random.int 0 2
                 |> Random.map
                     (\int ->
                         case int of
@@ -19,6 +19,9 @@ fuzzer =
                                 En
 
                             1 ->
+                                It
+
+                            2 ->
                                 Ja
 
                             _ ->
