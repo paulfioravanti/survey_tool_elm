@@ -45,7 +45,7 @@ update msg model =
         SurveyResultDetailMsg msg ->
             let
                 ( surveyResultDetail, cmd ) =
-                    SurveyResultDetail.update msg model.locale.translations
+                    SurveyResultDetail.update msg model.locale.language
             in
                 ( { model | surveyResultDetail = surveyResultDetail }
                 , Cmd.map SurveyResultDetailMsg cmd
@@ -54,7 +54,7 @@ update msg model =
         SurveyResultListMsg msg ->
             let
                 ( surveyResultList, cmd ) =
-                    SurveyResultList.update msg model.locale.translations
+                    SurveyResultList.update msg model.locale.language
             in
                 ( { model | surveyResultList = surveyResultList }
                 , Cmd.map SurveyResultListMsg cmd
@@ -69,7 +69,7 @@ update msg model =
                     }
 
                 ( route, cmd ) =
-                    Router.update msg routerConfig model.locale.translations
+                    Router.update msg routerConfig model.locale.language
             in
                 ( { model | route = route }
                 , cmd

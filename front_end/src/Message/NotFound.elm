@@ -7,9 +7,9 @@ import Html.Styled exposing (Html, a, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)
 import Html.Styled.Keyed as Keyed
-import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Styles
+import Translations exposing (Lang)
 
 
 type alias Config msg =
@@ -18,8 +18,8 @@ type alias Config msg =
     }
 
 
-view : Config msg -> Translations -> Html msg
-view config translations =
+view : Config msg -> Lang -> Html msg
+view config language =
     let
         classes =
             [ "flex"
@@ -36,10 +36,10 @@ view config translations =
                 [ attribute "data-name" "not-found-message", classes ]
                 [ Keyed.node "div" [] [ ( "not-found-icon", icon ) ]
                 , div []
-                    [ heading (I18Next.t translations "notFound") ]
+                    [ heading (Translations.notFound language) ]
                 , backToHomeLink
                     config
-                    (I18Next.t translations "backToSurveyResults")
+                    (Translations.backToSurveyResults language)
                 ]
             ]
 

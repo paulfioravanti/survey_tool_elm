@@ -6,15 +6,15 @@ module SurveyResponse.View exposing (view)
 import Html.Styled exposing (Html, a, div, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onMouseEnter)
-import I18Next exposing (Translations)
 import Styles
 import SurveyResponse.Model exposing (Rating)
 import SurveyResponse.RespondentHistogram exposing (RespondentHistogram)
 import SurveyResponse.Tooltip as Tooltip
+import Translations exposing (Lang)
 
 
-view : msg -> Translations -> RespondentHistogram -> Rating -> Html msg
-view blurMsg translations respondents rating =
+view : msg -> Lang -> RespondentHistogram -> Rating -> Html msg
+view blurMsg language respondents rating =
     let
         classes =
             [ "dt"
@@ -29,16 +29,16 @@ view blurMsg translations respondents rating =
             , classes
             , css [ Styles.surveyResponse ]
             ]
-            [ content blurMsg translations respondents rating ]
+            [ content blurMsg language respondents rating ]
 
 
 content :
     msg
-    -> Translations
+    -> Lang
     -> RespondentHistogram
     -> Rating
     -> Html msg
-content blurMsg translations respondents rating =
+content blurMsg language respondents rating =
     let
         classes =
             [ "b--light-silver"
@@ -64,5 +64,5 @@ content blurMsg translations respondents rating =
             , onMouseEnter blurMsg
             ]
             [ text rating
-            , Tooltip.view translations rating respondents
+            , Tooltip.view language rating respondents
             ]

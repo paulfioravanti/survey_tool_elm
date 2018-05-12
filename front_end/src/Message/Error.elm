@@ -7,12 +7,12 @@ import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed
 import Http exposing (Error, Error(BadPayload, BadStatus, NetworkError))
-import I18Next exposing (Translations)
 import Styles
+import Translations exposing (Lang)
 
 
-view : Error -> Translations -> Html msg
-view error translations =
+view : Error -> Lang -> Html msg
+view error language =
     let
         classes =
             [ "flex"
@@ -29,7 +29,7 @@ view error translations =
             [ section [ attribute "data-name" "error-message", classes ]
                 [ Keyed.node "div" [] [ ( "error-icon", icon ) ]
                 , div []
-                    [ errorContent error translations ]
+                    [ errorContent error language ]
                 ]
             ]
 
@@ -49,8 +49,8 @@ icon =
         i [ classes, css [ Styles.brandColorAlpha ] ] []
 
 
-errorContent : Error -> Translations -> Html msg
-errorContent error translations =
+errorContent : Error -> Lang -> Html msg
+errorContent error language =
     let
         classes =
             [ "avenir"
@@ -61,8 +61,8 @@ errorContent error translations =
                 |> class
     in
         h1 [ classes ]
-            [ errorHeading (I18Next.t translations "errorRetrievingData")
-            , errorMessage error translations
+            [ errorHeading (Translations.errorRetrievingData language)
+            , errorMessage error language
             ]
 
 
@@ -80,11 +80,11 @@ errorHeading label =
             [ text label ]
 
 
-errorMessage : Error -> Translations -> Html msg
-errorMessage error translations =
+errorMessage : Error -> Lang -> Html msg
+errorMessage error language =
     let
         ( name, message ) =
-            errorToMessage error translations
+            errorToMessage error language
 
         classes =
             [ "f6"
@@ -97,12 +97,12 @@ errorMessage error translations =
             [ text ("(" ++ message ++ ")") ]
 
 
-errorToMessage : Error -> Translations -> ( String, String )
-errorToMessage error translations =
+errorToMessage : Error -> Lang -> ( String, String )
+errorToMessage error language =
     case error of
         NetworkError ->
             ( "network-error-message"
-            , I18Next.t translations "networkErrorMessage"
+            , Translations.networkErrorMessage language
             )
 
         BadStatus response ->
@@ -110,7 +110,7 @@ errorToMessage error translations =
 
         BadPayload message response ->
             ( "bad-payload-message"
-            , I18Next.t translations "badPayloadMessage"
+            , Translations.badPayloadMessage language message
             )
 
         _ ->

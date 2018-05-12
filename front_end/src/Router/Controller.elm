@@ -65,4 +65,4 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                             |> Utils.toPath
                     }
             in
-                NotFound.view messageConfig locale.translations
+                NotFound.view messageConfig locale.language

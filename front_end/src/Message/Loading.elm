@@ -7,12 +7,12 @@ from an API endpoint.
 import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed
-import I18Next exposing (Translations)
 import Styles
+import Translations exposing (Lang)
 
 
-view : Translations -> Html msg
-view translations =
+view : Lang -> Html msg
+view language =
     let
         classes =
             [ "flex"
@@ -28,7 +28,7 @@ view translations =
             [ section [ attribute "data-name" "loading-message", classes ]
                 [ Keyed.node "div" [] [ ( "loading-icon", icon ) ]
                 , div []
-                    [ heading (I18Next.t translations "loading") ]
+                    [ heading (Translations.loading language) ]
                 ]
             ]
 

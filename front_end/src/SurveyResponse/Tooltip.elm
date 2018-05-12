@@ -7,18 +7,18 @@ of respondent IDs and their responses.
 import Dict exposing (Dict)
 import Html.Styled exposing (Html, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
-import I18Next exposing (Delims(Curly), Translations)
 import Styles
 import SurveyResponse.Model exposing (Rating, RespondentId)
 import SurveyResponse.RespondentHistogram exposing (RespondentHistogram)
+import Translations exposing (Lang)
 
 
-view : Translations -> Rating -> RespondentHistogram -> Html msg
-view translations rating histogram =
+view : Lang -> Rating -> RespondentHistogram -> Html msg
+view language rating histogram =
     let
         ( attributeName, respondents ) =
             histogram
-                |> respondentsByResponseContent translations rating
+                |> respondentsByResponseContent language rating
 
         classes =
             [ "absolute"
@@ -45,11 +45,11 @@ view translations rating histogram =
 
 
 respondentsByResponseContent :
-    Translations
+    Lang
     -> Rating
     -> RespondentHistogram
     -> ( String, String )
-respondentsByResponseContent translations rating histogram =
+respondentsByResponseContent language rating histogram =
     let
         numIdsToDisplay =
             5
@@ -69,22 +69,22 @@ respondentsByResponseContent translations rating histogram =
     in
         if List.isEmpty respondents then
             ( attributeName ++ "no-respondents"
-            , I18Next.t translations "noRespondents"
+            , Translations.noRespondents language
             )
         else if List.length respondents == 1 then
             ( attributeName ++ "one-respondent"
-            , (displaySingleRespondent translations respondents)
+            , (displaySingleRespondent language respondents)
             )
         else if head == respondents then
             ( attributeName ++ "all-respondents"
-            , (displayAllRespondents translations head)
+            , (displayAllRespondents language head)
             )
         else
-            truncatedRespondents translations head tail
+            truncatedRespondents language head tail
 
 
-displaySingleRespondent : Translations -> List RespondentId -> String
-displaySingleRespondent translations respondents =
+displaySingleRespondent : Lang -> List RespondentId -> String
+displaySingleRespondent language respondents =
     let
         id =
             respondents
@@ -92,11 +92,11 @@ displaySingleRespondent translations respondents =
                 |> Maybe.withDefault 0
                 |> toString
     in
-        I18Next.tr translations Curly "oneRespondent" [ ( "id", id ) ]
+        Translations.oneRespondent language id
 
 
-displayAllRespondents : Translations -> List RespondentId -> String
-displayAllRespondents translations respondents =
+displayAllRespondents : Lang -> List RespondentId -> String
+displayAllRespondents language respondents =
     let
         allExceptLast =
             (List.length respondents) - 1
@@ -117,18 +117,15 @@ displayAllRespondents translations respondents =
                 |> Maybe.withDefault 0
                 |> toString
     in
-        I18Next.tr translations
-            Curly
-            "allRespondents"
-            [ ( "headIds", headIds ), ( "tailId", tailId ) ]
+        Translations.allRespondents language headIds tailId
 
 
 truncatedRespondents :
-    Translations
+    Lang
     -> List RespondentId
     -> List RespondentId
     -> ( String, String )
-truncatedRespondents translations respondentsToDisplay truncatedRespondents =
+truncatedRespondents language respondentsToDisplay truncatedRespondents =
     let
         idsToDisplay =
             respondentsToDisplay
@@ -140,9 +137,9 @@ truncatedRespondents translations respondentsToDisplay truncatedRespondents =
 
         others =
             if numTruncated == 1 then
-                I18Next.t translations "other"
+                Translations.other language
             else
-                I18Next.t translations "others"
+                Translations.others language
 
         attribute =
             if numTruncated == 1 then
@@ -151,11 +148,9 @@ truncatedRespondents translations respondentsToDisplay truncatedRespondents =
                 "survey-response-tooltip-multiple-truncated-respondents"
     in
         ( attribute
-        , I18Next.tr translations
-            Curly
-            "truncatedRespondents"
-            [ ( "idsToDisplay", idsToDisplay )
-            , ( "numTruncated", toString numTruncated )
-            , ( "other", others )
-            ]
+        , Translations.truncatedRespondents
+            language
+            idsToDisplay
+            (toString numTruncated)
+            others
         )

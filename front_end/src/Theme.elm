@@ -1,11 +1,11 @@
 module Theme exposing (Theme, decoder, view)
 
 import Html.Styled exposing (Html)
-import I18Next exposing (Translations)
 import Json.Decode as Decode exposing (Decoder)
 import Theme.Decoder as Decoder
 import Theme.Model as Model
 import Theme.View as View
+import Translations exposing (Lang)
 
 
 type alias Theme =
@@ -17,6 +17,6 @@ decoder =
     Decoder.decoder
 
 
-view : msg -> Translations -> Theme -> Html msg
-view blurMsg translations theme =
-    View.view blurMsg translations theme
+view : msg -> Lang -> Theme -> Html msg
+view blurMsg language theme =
+    View.view blurMsg language theme

@@ -30,10 +30,10 @@ render config locale surveyResultList =
             text ""
 
         Requesting ->
-            Loading.view locale.translations
+            Loading.view locale.language
 
         Failure error ->
-            Error.view error locale.translations
+            Error.view error locale.language
 
         Success surveyResultList ->
             SurveyResultList.View.view config locale surveyResultList

@@ -1,21 +1,21 @@
 port module Locale.Cmd exposing (fetchTranslations, updateLanguage)
 
 import I18Next
-import Locale.Model exposing (Language)
 import Locale.Msg as Msg exposing (Msg(FetchTranslations))
+import Translations exposing (Lang)
 
 
 port updateLanguage : String -> Cmd msg
 
 
-fetchTranslations : Language -> Cmd Msg
+fetchTranslations : Lang -> Cmd Msg
 fetchTranslations language =
     language
         |> toTranslationsUrl
         |> I18Next.fetchTranslations FetchTranslations
 
 
-toTranslationsUrl : Language -> String
+toTranslationsUrl : Lang -> String
 toTranslationsUrl language =
     let
         translationLanguage =

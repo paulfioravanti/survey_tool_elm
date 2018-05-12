@@ -32,7 +32,7 @@ render ({ backToHomeMsg, backToHomePath } as config) locale surveyResult =
             text ""
 
         Requesting ->
-            Loading.view locale.translations
+            Loading.view locale.language
 
         Failure error ->
             case error of
@@ -45,13 +45,13 @@ render ({ backToHomeMsg, backToHomePath } as config) locale surveyResult =
                                     , backToHomePath = backToHomePath
                                     }
                             in
-                                NotFound.view config locale.translations
+                                NotFound.view config locale.language
 
                         _ ->
-                            Error.view error locale.translations
+                            Error.view error locale.language
 
                 _ ->
-                    Error.view error locale.translations
+                    Error.view error locale.language
 
         Success surveyResult ->
             SurveyResultDetail.View.view config locale surveyResult

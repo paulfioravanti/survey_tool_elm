@@ -24,13 +24,13 @@ import Html.Styled
         )
 import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
 import Html.Styled.Events exposing (onWithOptions)
-import I18Next exposing (Translations)
 import Json.Decode as Decode
-import Locale exposing (Language, Locale)
+import Locale exposing (Locale)
 import Styles
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Config exposing (Config)
 import SurveyResultList.Model exposing (SurveyResultList)
+import Translations exposing (Lang)
 
 
 view : Config msg -> Locale -> SurveyResultList -> Html msg
@@ -73,18 +73,18 @@ surveyResultList surveyResultDetailMsg locale surveyResults =
                 |> class
     in
         div [ classes ]
-            [ heading locale.translations ]
+            [ heading locale.language ]
             :: (surveyResults
                     |> List.map
                         (SurveyResult.view
                             surveyResultDetailMsg
-                            locale.translations
+                            locale.language
                         )
                )
 
 
-heading : Translations -> Html msg
-heading translations =
+heading : Lang -> Html msg
+heading language =
     let
         headingClasses =
             [ "avenir"
@@ -97,7 +97,7 @@ heading translations =
     in
         h1
             [ headingClasses, css [ Styles.surveyResultListHeading ] ]
-            [ text (I18Next.t translations "surveyResults") ]
+            [ text (Translations.surveyResults language) ]
 
 
 msgClickOptions : msg -> Attribute msg

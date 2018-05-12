@@ -2,13 +2,13 @@ module Question.View exposing (view)
 
 import Html.Styled exposing (Html, div, h3, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
-import I18Next exposing (Translations)
 import Styles
 import SurveyResponse exposing (RespondentHistogram, SurveyResponse)
+import Translations exposing (Lang)
 
 
-view : msg -> Translations -> String -> List SurveyResponse -> Html msg
-view blurMsg translations description surveyResponses =
+view : msg -> Lang -> String -> List SurveyResponse -> Html msg
+view blurMsg language description surveyResponses =
     let
         classes =
             [ "flex"
@@ -32,9 +32,9 @@ view blurMsg translations description surveyResponses =
             [ descriptionText description
             , div [ scoresClasses ]
                 [ averageScore
-                    (I18Next.t translations "averageSymbol")
+                    (Translations.averageSymbol language)
                     surveyResponses
-                , responses blurMsg translations surveyResponses
+                , responses blurMsg language surveyResponses
                 ]
             ]
 
@@ -84,8 +84,8 @@ averageScore label surveyResponses =
             ]
 
 
-responses : msg -> Translations -> List SurveyResponse -> Html msg
-responses blurMsg translations surveyResponses =
+responses : msg -> Lang -> List SurveyResponse -> Html msg
+responses blurMsg language surveyResponses =
     let
         ratings =
             [ "1", "2", "3", "4", "5" ]
@@ -104,6 +104,6 @@ responses blurMsg translations surveyResponses =
     in
         div [ attribute "data-name" "survey-responses", classes ]
             (List.map
-                (SurveyResponse.view blurMsg translations respondents)
+                (SurveyResponse.view blurMsg language respondents)
                 ratings
             )

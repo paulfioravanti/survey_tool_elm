@@ -5,13 +5,13 @@ module Theme.View exposing (view)
 
 import Html.Styled exposing (Html, div, h2, span, text)
 import Html.Styled.Attributes exposing (attribute, class)
-import I18Next exposing (Translations)
 import Question exposing (Question)
 import Theme.Model exposing (Theme)
+import Translations exposing (Lang)
 
 
-view : msg -> Translations -> Theme -> Html msg
-view blurMsg translations { name, questions } =
+view : msg -> Lang -> Theme -> Html msg
+view blurMsg language { name, questions } =
     let
         classes =
             [ "b--light-gray"
@@ -30,11 +30,11 @@ view blurMsg translations { name, questions } =
             [ div [ classes ]
                 [ themeName name
                 , averageScore
-                    (I18Next.t translations "averageScore")
+                    (Translations.averageScore language)
                     questions
                 ]
             , div [ attribute "data-name" "questions" ]
-                (List.map (Question.view blurMsg translations) questions)
+                (List.map (Question.view blurMsg language) questions)
             ]
 
 

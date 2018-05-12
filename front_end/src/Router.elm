@@ -7,7 +7,6 @@ module Router
         )
 
 import Html.Styled as Html exposing (Html)
-import I18Next exposing (Translations)
 import Navigation exposing (Location)
 import Route exposing (Route)
 import Router.Config exposing (Config)
@@ -16,6 +15,7 @@ import Router.Controller as Controller
 import Router.Msg as Msg
 import Router.Update as Update
 import Router.Utils as Utils
+import Translations exposing (Lang)
 
 
 type alias Msg =
@@ -32,6 +32,6 @@ toRoute location =
     Utils.toRoute location
 
 
-update : Msg -> Config msg -> Translations -> ( Route, Cmd msg )
-update msg config translations =
-    Update.update msg config translations
+update : Msg -> Config msg -> Lang -> ( Route, Cmd msg )
+update msg config language =
+    Update.update msg config language

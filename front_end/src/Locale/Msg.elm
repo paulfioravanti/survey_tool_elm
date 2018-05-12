@@ -2,11 +2,11 @@ module Locale.Msg exposing (Msg(..))
 
 import Http exposing (Error)
 import I18Next exposing (Translations)
-import Locale.Model exposing (Language)
+import Translations exposing (Lang)
 
 
 type Msg
-    = CloseAvailableLanguages
-    | ChangeLanguage Language
+    = ChangeLanguage Lang
+    | CloseAvailableLanguages
     | FetchTranslations (Result Error Translations)
     | ToggleAvailableLanguages

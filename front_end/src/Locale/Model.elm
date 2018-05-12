@@ -1,21 +1,16 @@
-module Locale.Model exposing (Language(..), Locale, availableLanguages)
+module Locale.Model exposing (Locale, availableLanguages)
 
 import I18Next exposing (Translations)
-
-
-type Language
-    = En
-    | It
-    | Ja
+import Translations exposing (Lang(En, It, Ja))
 
 
 type alias Locale =
-    { language : Language
+    { language : Lang
     , showAvailableLanguages : Bool
     , translations : Translations
     }
 
 
-availableLanguages : List Language
+availableLanguages : List Lang
 availableLanguages =
     [ En, It, Ja ]

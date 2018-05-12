@@ -19,16 +19,16 @@ import Html.Styled
         )
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)
-import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Styles
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils
+import Translations exposing (Lang)
 import Utils
 
 
-view : (String -> msg) -> Translations -> SurveyResult -> Html msg
-view surveyResultDetailMsg translations surveyResult =
+view : (String -> msg) -> Lang -> SurveyResult -> Html msg
+view surveyResultDetailMsg language surveyResult =
     let
         classes =
             [ "avenir"
@@ -43,11 +43,11 @@ view surveyResultDetailMsg translations surveyResult =
                 |> class
     in
         article [ classes, css [ Styles.surveyResultSummary ] ]
-            [ summaryLink surveyResultDetailMsg translations surveyResult ]
+            [ summaryLink surveyResultDetailMsg language surveyResult ]
 
 
-summaryLink : (String -> msg) -> Translations -> SurveyResult -> Html msg
-summaryLink surveyResultDetailMsg translations surveyResult =
+summaryLink : (String -> msg) -> Lang -> SurveyResult -> Html msg
+summaryLink surveyResultDetailMsg language surveyResult =
     let
         url =
             surveyResult.url
@@ -75,7 +75,7 @@ summaryLink surveyResultDetailMsg translations surveyResult =
             [ href url, classes, clickOptions ]
             [ summaryHeading surveyResult.name
             , summaryContent
-                translations
+                language
                 surveyResult.participantCount
                 surveyResult.submittedResponseCount
                 surveyResult.responseRate
@@ -99,8 +99,8 @@ summaryHeading name =
             [ text name ]
 
 
-summaryContent : Translations -> Int -> Int -> Float -> Html msg
-summaryContent translations participantCount submittedResponseCount responseRate =
+summaryContent : Lang -> Int -> Int -> Float -> Html msg
+summaryContent language participantCount submittedResponseCount responseRate =
     let
         classes =
             [ "flex"
@@ -112,15 +112,15 @@ summaryContent translations participantCount submittedResponseCount responseRate
                 |> class
     in
         div [ classes ]
-            [ statistics translations participantCount submittedResponseCount
+            [ statistics language participantCount submittedResponseCount
             , responseRatePercentage
-                (I18Next.t translations "responseRate")
+                (Translations.responseRate language)
                 responseRate
             ]
 
 
-statistics : Translations -> Int -> Int -> Html msg
-statistics translations participantCount submittedResponseCount =
+statistics : Lang -> Int -> Int -> Html msg
+statistics language participantCount submittedResponseCount =
     let
         classes =
             [ "w-50-ns" ]
@@ -129,10 +129,10 @@ statistics translations participantCount submittedResponseCount =
     in
         div [ classes ]
             [ statistic
-                (I18Next.t translations "participants")
+                (Translations.participants language)
                 participantCount
             , statistic
-                (I18Next.t translations "responses")
+                (Translations.responses language)
                 submittedResponseCount
             ]
 

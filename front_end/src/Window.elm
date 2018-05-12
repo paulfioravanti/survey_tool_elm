@@ -1,37 +1,37 @@
 port module Window exposing (updateErrorTitle, updateRouteTitle, updateTitle)
 
 import Http exposing (Error(BadStatus))
-import I18Next exposing (Translations)
 import Route exposing (Route(ListSurveyResultsRoute))
+import Translations exposing (Lang)
 
 
 port updateTitle : String -> Cmd msg
 
 
-updateErrorTitle : Error -> Translations -> Cmd msg
-updateErrorTitle error translations =
+updateErrorTitle : Error -> Lang -> Cmd msg
+updateErrorTitle error language =
     let
         title =
             case error of
                 BadStatus response ->
                     case response.status.code of
                         404 ->
-                            I18Next.t translations "notFound"
+                            Translations.notFound language
 
                         _ ->
-                            I18Next.t translations "errorRetrievingData"
+                            Translations.errorRetrievingData language
 
                 _ ->
-                    I18Next.t translations "errorRetrievingData"
+                    Translations.errorRetrievingData language
     in
         updateTitle title
 
 
-updateRouteTitle : Route -> Translations -> Cmd msg
-updateRouteTitle route translations =
+updateRouteTitle : Route -> Lang -> Cmd msg
+updateRouteTitle route language =
     case route of
         ListSurveyResultsRoute ->
-            updateTitle (I18Next.t translations "surveyResults")
+            updateTitle (Translations.surveyResults language)
 
         _ ->
             Cmd.none

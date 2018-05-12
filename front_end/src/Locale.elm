@@ -1,7 +1,6 @@
 module Locale
     exposing
-        ( Language
-        , Locale
+        ( Locale
         , Msg
         , closeAvailableLanguagesMsg
         , dropdown
@@ -15,13 +14,10 @@ import Html.Styled exposing (Html)
 import Json.Decode as Decode exposing (Value)
 import Locale.Cmd as Cmd
 import Locale.Dropdown as Dropdown
-import Locale.Model as Model exposing (Language(En, It, Ja), Locale)
+import Locale.Model as Model exposing (Locale)
 import Locale.Msg as Msg
 import Locale.Update as Update
-
-
-type alias Language =
-    Model.Language
+import Translations exposing (Lang(En, It, Ja))
 
 
 type alias Locale =
@@ -59,7 +55,7 @@ init languageFlag =
         }
 
 
-fetchTranslations : Language -> Cmd Msg
+fetchTranslations : Lang -> Cmd Msg
 fetchTranslations language =
     Cmd.fetchTranslations language
 
@@ -69,7 +65,7 @@ update msg locale =
     Update.update msg locale
 
 
-toLanguage : Result error String -> Language
+toLanguage : Result error String -> Lang
 toLanguage language =
     case language of
         Ok language ->

@@ -1,9 +1,9 @@
 module Locale.Utils exposing (languageToFlagClass)
 
-import Locale.Model exposing (Language(En, It, Ja))
+import Translations exposing (Lang(En, It, Ja))
 
 
-languageToFlagClass : Language -> String
+languageToFlagClass : Lang -> String
 languageToFlagClass language =
     let
         flagIconLanguage =

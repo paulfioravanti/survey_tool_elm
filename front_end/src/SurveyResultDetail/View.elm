@@ -29,13 +29,13 @@ import Html.Styled.Attributes
         , src
         )
 import Html.Styled.Events exposing (onWithOptions)
-import I18Next exposing (Translations)
 import Json.Decode as Decode
 import Locale exposing (Locale)
 import Styles
 import SurveyResult exposing (SurveyResult)
 import SurveyResultDetail.Config exposing (Config)
 import Theme
+import Translations exposing (Lang)
 import Utils
 
 
@@ -66,10 +66,10 @@ view ({ backToHomeMsg, blurMsg, backToHomePath } as config) locale surveyResult 
                 ]
                 [ backToHomeLink backToHomePath backtoHomeClickOptions
                 , surveyName surveyResult.name
-                , summary locale.translations surveyResult
+                , summary locale.language surveyResult
                 , div [ attribute "data-name" "themes" ]
                     (List.map
-                        (Theme.view blurMsg locale.translations)
+                        (Theme.view blurMsg locale.language)
                         (Maybe.withDefault [] surveyResult.themes)
                     )
                 ]
@@ -130,8 +130,8 @@ surveyName name =
             ]
 
 
-summary : Translations -> SurveyResult -> Html msg
-summary translations surveyResult =
+summary : Lang -> SurveyResult -> Html msg
+summary language surveyResult =
     let
         classes =
             [ "bg-light-gray"
@@ -148,13 +148,13 @@ summary translations surveyResult =
     in
         div [ classes ]
             [ participationCount
-                (I18Next.t translations "participants")
+                (Translations.participants language)
                 surveyResult.participantCount
             , submittedResponseCount
-                (I18Next.t translations "responses")
+                (Translations.responses language)
                 surveyResult.submittedResponseCount
             , submittedResponseRate
-                (I18Next.t translations "responseRate")
+                (Translations.responseRate language)
                 surveyResult.responseRate
             ]
 

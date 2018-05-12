@@ -3,10 +3,11 @@ module Locale.Dropdown exposing (view)
 import Html.Styled exposing (Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onClick)
-import Locale.Model as Model exposing (Language(En, It, Ja), Locale)
+import Locale.Model as Model exposing (Locale)
 import Locale.Msg exposing (Msg(ChangeLanguage, ToggleAvailableLanguages))
 import Locale.Utils as Utils
 import Styles
+import Translations exposing (Lang(En, It, Ja))
 
 
 view : (Msg -> msg) -> Locale -> Html msg
@@ -133,7 +134,7 @@ dropdownList localeMsg locale =
             (List.map (dropdownListItemView localeMsg) selectableLanguages)
 
 
-dropdownListItemView : (Msg -> msg) -> Language -> Html msg
+dropdownListItemView : (Msg -> msg) -> Lang -> Html msg
 dropdownListItemView localeMsg language =
     let
         classes =
