@@ -15,8 +15,6 @@
   "participants": "Partecipanti",
   "responses": "Risposte",
   "responseRate": "Tasso di risposta",
-  "results": "Risultati",
-  "survey": "Sondaggio",
   "surveyResults": "Risultati Sondaggio",
   "truncatedRespondents": "Scelto da rispondenti con ID {{idsToDisplay}}, e {{numTruncated}} {{other}}."
 }
