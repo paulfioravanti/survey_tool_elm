@@ -5,14 +5,11 @@ module Locale
         , closeAvailableLanguagesMsg
         , dropdown
         , init
-        , fetchTranslations
         , update
         )
 
-import I18Next
 import Html.Styled exposing (Html)
 import Json.Decode as Decode exposing (Value)
-import Locale.Cmd as Cmd
 import Locale.Dropdown as Dropdown
 import Locale.Model as Model exposing (Locale)
 import Locale.Msg as Msg
@@ -45,19 +42,10 @@ init languageFlag =
             languageFlag
                 |> Decode.decodeValue Decode.string
                 |> toLanguage
-
-        translations =
-            I18Next.initialTranslations
     in
         { language = language
         , showAvailableLanguages = False
-        , translations = translations
         }
-
-
-fetchTranslations : Lang -> Cmd Msg
-fetchTranslations language =
-    Cmd.fetchTranslations language
 
 
 update : Msg -> Locale -> ( Locale, Cmd Msg )

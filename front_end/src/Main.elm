@@ -43,13 +43,9 @@ init flags location =
             Model.init config locale location
     in
         ( model
-        , Cmd.batch
-            [ model.locale.language
-                |> Locale.fetchTranslations
-                |> Cmd.map LocaleMsg
-            , Task.succeed location
-                |> Task.perform UpdatePage
-            ]
+        , Task.succeed
+            location
+            |> Task.perform UpdatePage
         )
 
 
