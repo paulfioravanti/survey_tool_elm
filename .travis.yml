@@ -54,4 +54,6 @@ matrix:
       script:
         - elm-test --verbose
         - elm-verify-examples --fail-on-warn
-        - elm-analyse
+        # Building elm-css can take over 10 minutes, so tell Travis to keep on
+        # waiting past 10 minutes
+        - travis_wait elm-analyse
