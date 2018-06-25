@@ -88,11 +88,12 @@ installing them to be able to run all application and testing commands:
 - [Create Elm App][]
 - [elm-verify-examples][]
 - [Elm Coverage][]
+- [Elm Analyse][]
 
 Install:
 
 ```sh
-npm install -g elm-test create-elm-app elm-verify-examples elm-coverage
+npm install -g elm-test create-elm-app elm-verify-examples elm-coverage elm-analyse
 ```
 
 In order to get `mix test.watch`-like functionality with Elm, I used:
@@ -159,6 +160,15 @@ Run tests and generate code coverage report (should be at 100% coverage):
 elm-coverage
 open .coverage/coverage.html
 ```
+
+Run Elm Analyse confirm best practices are being adhered to:
+
+```sh
+elm-analyse
+```
+
+Note: it will take a while for the `elm-css` library to be loaded the first
+time this is run, so give it potentially about 10 minutes.
 
 #### Development Mode (optional)
 
@@ -252,6 +262,7 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [Create Elm App]: https://github.com/halfzebra/create-elm-app
 [Elixir]: https://github.com/elixir-lang/elixir
 [Elm]: http://elm-lang.org/
+[Elm Analyse]: https://github.com/stil4m/elm-analyse
 [Elm Coverage]: https://github.com/zwilias/elm-coverage
 [`elm-app build`]: https://github.com/halfzebra/create-elm-app#elm-app-build
 [elm-test]: https://github.com/elm-community/elm-test
