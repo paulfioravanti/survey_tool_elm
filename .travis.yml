@@ -31,6 +31,8 @@ matrix:
           - sysconfcpus
           # https://stackoverflow.com/a/42523517/567863
           - $HOME/.npm
+          # https://github.com/stil4m/elm-analyse/issues/152
+          - $HOME/.elm-analyse
       before_install:
         - cd front_end
         - | # build time improvement see: https://git.io/vQcqz
@@ -52,3 +54,4 @@ matrix:
       script:
         - elm-test --verbose
         - elm-verify-examples --fail-on-warn
+        - elm-analyse
