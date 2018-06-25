@@ -3,8 +3,8 @@ module SurveyResponse.View exposing (view)
 {-| Display a survey response.
 -}
 
-import Html.Styled exposing (Html, a, div, text)
-import Html.Styled.Attributes exposing (attribute, class, css, href)
+import Html.Styled exposing (Html, div, text)
+import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onMouseEnter)
 import Styles
 import SurveyResponse.Model exposing (Rating)

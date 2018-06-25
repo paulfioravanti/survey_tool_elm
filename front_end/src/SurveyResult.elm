@@ -7,7 +7,7 @@ module SurveyResult
         )
 
 import Html.Styled exposing (Html)
-import Json.Decode as Decode exposing (Decoder)
+import Json.Decode exposing (Decoder)
 import SurveyResult.Decoder as Decoder
 import SurveyResult.Model as Model
 import SurveyResult.Utils as Utils

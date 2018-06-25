@@ -8,7 +8,7 @@ module SurveyResultDetail
         )
 
 import Html.Styled exposing (Html)
-import Json.Decode as Decode exposing (Decoder)
+import Json.Decode exposing (Decoder)
 import Locale exposing (Locale)
 import RemoteData exposing (WebData)
 import SurveyResult exposing (SurveyResult)

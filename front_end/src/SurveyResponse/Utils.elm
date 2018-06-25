@@ -132,11 +132,10 @@ sumResponseContent : List SurveyResponse -> Int
 sumResponseContent surveyResponses =
     let
         addResponseContent =
-            (\surveyResponse acc ->
+            \surveyResponse acc ->
                 surveyResponse.responseContent
                     |> toIntValue
                     |> (+) acc
-            )
     in
         surveyResponses
             |> List.foldl addResponseContent 0

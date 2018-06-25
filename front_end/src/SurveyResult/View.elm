@@ -10,11 +10,6 @@ import Html.Styled
         , article
         , div
         , h1
-        , h2
-        , img
-        , p
-        , section
-        , span
         , text
         )
 import Html.Styled.Attributes exposing (attribute, class, css, href)
