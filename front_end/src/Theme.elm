@@ -1,7 +1,7 @@
 module Theme exposing (Theme, decoder, view)
 
 import Html.Styled exposing (Html)
-import Json.Decode as Decode exposing (Decoder)
+import Json.Decode exposing (Decoder)
 import Theme.Decoder as Decoder
 import Theme.Model as Model
 import Theme.View as View

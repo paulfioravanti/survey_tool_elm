@@ -29,10 +29,11 @@ update msg model =
                 |> Task.perform LocaleMsg
             )
 
-        LocaleMsg msg ->
+        LocaleMsg localeMsg ->
             let
                 ( locale, cmd ) =
-                    Locale.update msg model.locale
+                    model.locale
+                        |> Locale.update localeMsg
             in
                 ( { model | locale = locale }
                 , Cmd.batch
@@ -42,38 +43,36 @@ update msg model =
                     ]
                 )
 
-        SurveyResultDetailMsg msg ->
+        SurveyResultDetailMsg surveyResultDetailMsg ->
             let
                 ( surveyResultDetail, cmd ) =
-                    SurveyResultDetail.update msg model.locale.language
+                    model.locale.language
+                        |> SurveyResultDetail.update surveyResultDetailMsg
             in
                 ( { model | surveyResultDetail = surveyResultDetail }
                 , Cmd.map SurveyResultDetailMsg cmd
                 )
 
-        SurveyResultListMsg msg ->
+        SurveyResultListMsg surveyResultMsg ->
             let
                 ( surveyResultList, cmd ) =
-                    SurveyResultList.update msg model.locale.language
+                    model.locale.language
+                        |> SurveyResultList.update surveyResultMsg
             in
                 ( { model | surveyResultList = surveyResultList }
                 , Cmd.map SurveyResultListMsg cmd
                 )
 
-        RoutingMsg msg ->
+        RoutingMsg routingMsg ->
             let
-                routerConfig =
-                    { blurMsg = Blur
-                    , localeMsg = LocaleMsg
-                    , routingMsg = RoutingMsg
-                    }
-
                 ( route, cmd ) =
-                    Router.update msg model.locale.language
+                    model.locale.language
+                        |> Router.update routingMsg
             in
                 ( { model | route = route }
                 , cmd
                 )
 
-        UpdatePage location ->
+        -- suppressed parameter is `location`
+        UpdatePage _ ->
             Page.update model

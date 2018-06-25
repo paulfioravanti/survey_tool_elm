@@ -8,21 +8,13 @@ import Html.Styled
     exposing
         ( Attribute
         , Html
-        , a
         , div
         , h1
-        , h4
-        , img
-        , li
         , main_
-        , nav
-        , p
         , section
-        , span
         , text
-        , ul
         )
-import Html.Styled.Attributes exposing (alt, attribute, class, css, href, src)
+import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onWithOptions)
 import Json.Decode as Decode
 import Locale exposing (Locale)

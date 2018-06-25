@@ -24,8 +24,8 @@ import SurveyResultList.View
 
 
 render : Config msg -> Locale -> WebData SurveyResultList -> Html msg
-render config locale surveyResultList =
-    case surveyResultList of
+render config locale surveyResultListData =
+    case surveyResultListData of
         NotRequested ->
             text ""
 

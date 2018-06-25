@@ -16,7 +16,6 @@ import Html.Styled
         , i
         , img
         , main_
-        , nav
         , text
         )
 import Html.Styled.Attributes

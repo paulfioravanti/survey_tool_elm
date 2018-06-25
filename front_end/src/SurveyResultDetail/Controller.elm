@@ -26,8 +26,8 @@ import SurveyResultDetail.View
 
 
 render : Config msg -> Locale -> WebData SurveyResult -> Html msg
-render ({ backToHomeMsg, backToHomePath } as config) locale surveyResult =
-    case surveyResult of
+render ({ backToHomeMsg, backToHomePath } as config) locale surveyResultData =
+    case surveyResultData of
         NotRequested ->
             text ""
 
@@ -40,12 +40,12 @@ render ({ backToHomeMsg, backToHomePath } as config) locale surveyResult =
                     case response.status.code of
                         404 ->
                             let
-                                config =
+                                notFoundConfig =
                                     { backToHomeMsg = backToHomeMsg
                                     , backToHomePath = backToHomePath
                                     }
                             in
-                                NotFound.view config locale.language
+                                NotFound.view notFoundConfig locale.language
 
                         _ ->
                             Error.view error locale.language
