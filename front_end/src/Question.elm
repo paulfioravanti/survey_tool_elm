@@ -1,7 +1,7 @@
 module Question exposing (Question, averageScore, decoder, view)
 
 import Html.Styled exposing (Html)
-import Json.Decode as Decode exposing (Decoder)
+import Json.Decode exposing (Decoder)
 import Question.Decoder as Decoder
 import Question.Model as Model
 import Question.Utils as Utils

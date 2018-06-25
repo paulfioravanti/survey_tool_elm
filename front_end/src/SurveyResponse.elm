@@ -11,7 +11,7 @@ module SurveyResponse
         )
 
 import Html.Styled exposing (Html)
-import Json.Decode as Decode exposing (Decoder)
+import Json.Decode exposing (Decoder)
 import SurveyResponse.Decoder as Decoder
 import SurveyResponse.Model as Model
 import SurveyResponse.RespondentHistogram as RespondentHistogram

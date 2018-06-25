@@ -1,6 +1,6 @@
 module Router.Controller exposing (route)
 
-import Html.Styled as Html exposing (Html)
+import Html.Styled exposing (Html)
 import Message.NotFound as NotFound
 import Route
     exposing
@@ -15,7 +15,7 @@ import Router.Context exposing (Context)
 import Router.Msg exposing (Msg(ChangeLocation))
 import Router.Utils as Utils
 import SurveyResultDetail
-import SurveyResultList exposing (SurveyResultList)
+import SurveyResultList
 
 
 route : Config msg -> Context -> Html msg
@@ -27,10 +27,9 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     { localeMsg = config.localeMsg
                     , blurMsg = config.blurMsg
                     , surveyResultDetailMsg =
-                        (config.routingMsg
+                        config.routingMsg
                             << ChangeLocation
                             << SurveyResultDetailRoute
-                        )
                     }
             in
                 SurveyResultList.view
@@ -38,7 +37,8 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     locale
                     surveyResultList
 
-        SurveyResultDetailRoute id ->
+        -- suppressed parameter is `id`
+        SurveyResultDetailRoute _ ->
             let
                 surveyResultDetailConfig =
                     { backToHomeMsg =

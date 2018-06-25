@@ -4,7 +4,7 @@ module SurveyResponse.Tooltip exposing (view)
 of respondent IDs and their responses.
 -}
 
-import Dict exposing (Dict)
+import Dict
 import Html.Styled exposing (Html, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Styles
@@ -73,11 +73,11 @@ respondentsByResponseContent language rating histogram =
             )
         else if List.length respondents == 1 then
             ( attributeName ++ "one-respondent"
-            , (displaySingleRespondent language respondents)
+            , displaySingleRespondent language respondents
             )
         else if head == respondents then
             ( attributeName ++ "all-respondents"
-            , (displayAllRespondents language head)
+            , displayAllRespondents language head
             )
         else
             truncatedRespondents language head tail
@@ -99,7 +99,7 @@ displayAllRespondents : Lang -> List RespondentId -> String
 displayAllRespondents language respondents =
     let
         allExceptLast =
-            (List.length respondents) - 1
+            List.length respondents - 1
 
         ( head, tail ) =
             ( List.take allExceptLast respondents
@@ -141,13 +141,13 @@ truncatedRespondents language respondentsToDisplay truncatedRespondents =
             else
                 Translations.others language
 
-        attribute =
+        dataAttribute =
             if numTruncated == 1 then
                 "survey-response-tooltip-one-truncated-respondent"
             else
                 "survey-response-tooltip-multiple-truncated-respondents"
     in
-        ( attribute
+        ( dataAttribute
         , Translations.truncatedRespondents
             language
             idsToDisplay

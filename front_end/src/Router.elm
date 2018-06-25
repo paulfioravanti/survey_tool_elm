@@ -6,7 +6,7 @@ module Router
         , update
         )
 
-import Html.Styled as Html exposing (Html)
+import Html.Styled exposing (Html)
 import Navigation exposing (Location)
 import Route exposing (Route)
 import Router.Config exposing (Config)
@@ -32,6 +32,6 @@ toRoute location =
     Utils.toRoute location
 
 
-update : Msg -> Config msg -> Lang -> ( Route, Cmd msg )
-update msg config language =
-    Update.update msg config language
+update : Msg -> Lang -> ( Route, Cmd msg )
+update msg language =
+    Update.update msg language

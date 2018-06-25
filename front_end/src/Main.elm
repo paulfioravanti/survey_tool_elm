@@ -5,9 +5,9 @@ for the app to function, but this was the only way I could think of test it.
 I was unable to figure out a way to test init through main.
 -}
 
-import Config exposing (Config)
+import Config
 import Flags exposing (Flags)
-import Html.Styled as Html exposing (Html)
+import Html.Styled as Html
 import Locale
 import Model exposing (Model)
 import Mouse

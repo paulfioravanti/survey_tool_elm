@@ -45,7 +45,6 @@ import Css
         , position
         , property
         , px
-        , rem
         , rgb
         , rgba
         , solid

@@ -16,7 +16,7 @@ import Route
 import SurveyResult
 import SurveyResultDetail
 import SurveyResultList
-import Translations exposing (Lang)
+import Translations
 import Window
 
 

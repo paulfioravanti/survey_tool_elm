@@ -54,8 +54,8 @@ update msg locale =
 
 
 toLanguage : Result error String -> Lang
-toLanguage language =
-    case language of
+toLanguage languageFlag =
+    case languageFlag of
         Ok language ->
             if String.startsWith "en" language then
                 En

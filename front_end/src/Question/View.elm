@@ -3,7 +3,7 @@ module Question.View exposing (view)
 import Html.Styled exposing (Html, div, h3, span, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Styles
-import SurveyResponse exposing (RespondentHistogram, SurveyResponse)
+import SurveyResponse exposing (SurveyResponse)
 import Translations exposing (Lang)
 
 
@@ -56,7 +56,7 @@ descriptionText description =
 averageScore : String -> List SurveyResponse -> Html msg
 averageScore label surveyResponses =
     let
-        averageScore =
+        responsesAverageScore =
             surveyResponses
                 |> SurveyResponse.averageScore
 
@@ -80,7 +80,7 @@ averageScore label surveyResponses =
         h3 [ attribute "data-name" "question-average-score", classes ]
             [ span [ labelClasses, css [ Styles.overlineText ] ]
                 [ text label ]
-            , text averageScore
+            , text responsesAverageScore
             ]
 
 

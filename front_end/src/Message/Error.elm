@@ -6,7 +6,7 @@ module Message.Error exposing (view)
 import Html.Styled exposing (Html, div, h1, i, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Keyed as Keyed
-import Http exposing (Error, Error(BadPayload, BadStatus, NetworkError))
+import Http exposing (Error(BadPayload, BadStatus, NetworkError))
 import Styles
 import Translations exposing (Lang)
 
@@ -108,7 +108,8 @@ errorToMessage error language =
         BadStatus response ->
             ( "bad-status-message", toString response.status.message )
 
-        BadPayload message response ->
+        -- Unused variable is `response`
+        BadPayload message _ ->
             ( "bad-payload-message"
             , Translations.badPayloadMessage language message
             )

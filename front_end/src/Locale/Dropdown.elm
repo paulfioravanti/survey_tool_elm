@@ -7,7 +7,7 @@ import Locale.Model as Model exposing (Locale)
 import Locale.Msg exposing (Msg(ChangeLanguage, ToggleAvailableLanguages))
 import Locale.Utils as Utils
 import Styles
-import Translations exposing (Lang(En, It, Ja))
+import Translations exposing (Lang)
 
 
 view : (Msg -> msg) -> Locale -> Html msg
@@ -80,8 +80,8 @@ caret locale =
                 [ "white" ]
 
         classes =
-            [ "absolute" ]
-                ++ displayClasses
+            "absolute"
+                :: displayClasses
                 |> String.join " "
                 |> class
     in

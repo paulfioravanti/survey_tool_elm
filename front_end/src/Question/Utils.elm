@@ -88,11 +88,10 @@ countValidResponses : List Question -> Int
 countValidResponses questions =
     let
         addQuestionSurveyResponsesCount =
-            (\question acc ->
+            \question acc ->
                 question.surveyResponses
                     |> List.foldl SurveyResponse.addValidResponse 0
                     |> (+) acc
-            )
     in
         questions
             |> List.foldl addQuestionSurveyResponsesCount 0
@@ -102,11 +101,10 @@ sumResponseContent : List Question -> Int
 sumResponseContent questions =
     let
         addQuestionsSum =
-            (\question acc ->
+            \question acc ->
                 question.surveyResponses
                     |> SurveyResponse.sumResponseContent
                     |> (+) acc
-            )
     in
         questions
             |> List.foldl addQuestionsSum 0

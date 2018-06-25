@@ -69,7 +69,7 @@ update msg model =
                     }
 
                 ( route, cmd ) =
-                    Router.update msg routerConfig model.locale.language
+                    Router.update msg model.locale.language
             in
                 ( { model | route = route }
                 , cmd
