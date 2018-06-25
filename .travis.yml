@@ -52,8 +52,8 @@ matrix:
         - chmod +x $(npm config get prefix)/bin/elm-make
         - travis_retry elm package install --yes
       script:
-        - elm-test --verbose
-        - elm-verify-examples --fail-on-warn
         # Building elm-css can take over 10 minutes, so tell Travis to keep on
         # waiting past 10 minutes
         - travis_wait 25 elm-analyse
+        - elm-test --verbose
+        - elm-verify-examples --fail-on-warn
