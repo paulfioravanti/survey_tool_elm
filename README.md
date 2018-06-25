@@ -24,8 +24,8 @@ serve the JSON files expected by the front end.
 
 ### Dependencies
 
-- [Elixir][] 1.6.4
-- [Erlang][] 20.3.4
+- [Elixir][] 1.6.6
+- [Erlang][] 21.0
 
 ### Setup
 
