@@ -3,15 +3,7 @@ module SurveyResult.View exposing (view)
 {-| Display for a survey result within a survey result list.
 -}
 
-import Html.Styled
-    exposing
-        ( Html
-        , a
-        , article
-        , div
-        , h1
-        , text
-        )
+import Html.Styled exposing (Html, a, article, div, h1, text)
 import Html.Styled.Attributes exposing (attribute, class, css, href)
 import Html.Styled.Events exposing (onWithOptions)
 import Json.Decode as Decode
