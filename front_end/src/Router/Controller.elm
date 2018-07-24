@@ -2,14 +2,7 @@ module Router.Controller exposing (route)
 
 import Html.Styled exposing (Html)
 import Message.NotFound as NotFound
-import Route
-    exposing
-        ( Route
-            ( ListSurveyResultsRoute
-            , SurveyResultDetailRoute
-            , NotFoundRoute
-            )
-        )
+import Route exposing (Route(ListSurveyResults, SurveyResultDetail, NotFound))
 import Router.Config exposing (Config)
 import Router.Context exposing (Context)
 import Router.Msg exposing (Msg(ChangeLocation))
@@ -21,7 +14,7 @@ import SurveyResultList
 route : Config msg -> Context -> Html msg
 route config { locale, route, surveyResultList, surveyResultDetail } =
     case route of
-        ListSurveyResultsRoute ->
+        ListSurveyResults ->
             let
                 surveyResultListConfig =
                     { localeMsg = config.localeMsg
@@ -29,7 +22,7 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     , surveyResultDetailMsg =
                         config.routingMsg
                             << ChangeLocation
-                            << SurveyResultDetailRoute
+                            << SurveyResultDetail
                     }
             in
                 SurveyResultList.view
@@ -38,13 +31,13 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     surveyResultList
 
         -- suppressed parameter is `id`
-        SurveyResultDetailRoute _ ->
+        SurveyResultDetail _ ->
             let
                 surveyResultDetailConfig =
                     { backToHomeMsg =
                         config.routingMsg
-                            (ChangeLocation ListSurveyResultsRoute)
-                    , backToHomePath = Utils.toPath ListSurveyResultsRoute
+                            (ChangeLocation ListSurveyResults)
+                    , backToHomePath = Utils.toPath ListSurveyResults
                     , blurMsg = config.blurMsg
                     , localeMsg = config.localeMsg
                     }
@@ -54,14 +47,14 @@ route config { locale, route, surveyResultList, surveyResultDetail } =
                     locale
                     surveyResultDetail
 
-        NotFoundRoute ->
+        NotFound ->
             let
                 messageConfig =
                     { backToHomeMsg =
                         config.routingMsg
-                            (ChangeLocation ListSurveyResultsRoute)
+                            (ChangeLocation ListSurveyResults)
                     , backToHomePath =
-                        ListSurveyResultsRoute
+                        ListSurveyResults
                             |> Utils.toPath
                     }
             in

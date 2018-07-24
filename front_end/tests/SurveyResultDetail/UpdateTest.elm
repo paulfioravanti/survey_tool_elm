@@ -23,7 +23,7 @@ import RemoteData
             )
         )
 import Result exposing (Result)
-import Route exposing (Route(SurveyResultDetailRoute))
+import Route exposing (Route(SurveyResultDetail))
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils as Utils
 import SurveyResultDetail.Msg exposing (Msg(FetchSurveyResultDetail))
@@ -99,7 +99,7 @@ fetchSurveyResultNetworkErrorFailureTest config locale location surveyResult =
                             config
                             locale
                             location
-                            (SurveyResultDetailRoute id)
+                            (SurveyResultDetail id)
                             Requesting
                             NotRequested
 
@@ -152,7 +152,7 @@ fetchSurveyResultBadStatusFailureTest config locale location surveyResult =
                                 config
                                 locale
                                 location
-                                (SurveyResultDetailRoute id)
+                                (SurveyResultDetail id)
                                 Requesting
                                 NotRequested
 
@@ -216,7 +216,7 @@ fetchSurveyResultBadStatusNotFoundFailureTest config locale location surveyResul
                                 config
                                 locale
                                 location
-                                (SurveyResultDetailRoute id)
+                                (SurveyResultDetail id)
                                 Requesting
                                 NotRequested
 
@@ -272,7 +272,7 @@ fetchSurveyResultSuccessTest config locale location surveyResult =
                             config
                             locale
                             location
-                            (SurveyResultDetailRoute id)
+                            (SurveyResultDetail id)
                             NotRequested
                             Requesting
 

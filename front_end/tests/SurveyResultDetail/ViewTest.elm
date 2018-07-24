@@ -12,7 +12,7 @@ import Model exposing (Model)
 import Navigation exposing (Location)
 import Question.Model exposing (Question)
 import RemoteData exposing (RemoteData(NotRequested, Success))
-import Route exposing (Route(SurveyResultDetailRoute))
+import Route exposing (Route(SurveyResultDetail))
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResult.Utils
@@ -62,7 +62,7 @@ suite =
                                 config
                                 locale
                                 location
-                                (SurveyResultDetailRoute id)
+                                (SurveyResultDetail id)
                                 (Success surveyResult)
                                 NotRequested
                     in

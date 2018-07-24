@@ -16,7 +16,7 @@ import Model exposing (Model)
 import Msg exposing (Msg(LocaleMsg))
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested, Success))
-import Route exposing (Route(ListSurveyResultsRoute))
+import Route exposing (Route(ListSurveyResults))
 import SurveyResultList exposing (SurveyResultList)
 import Test exposing (Test, describe, fuzz3, fuzz4)
 import Test.Html.Event as Event exposing (click)
@@ -74,7 +74,7 @@ currentLanguageFlagDisplayTests config location surveyResultList =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Success surveyResultList)
                     in
@@ -100,7 +100,7 @@ currentLanguageFlagDisplayTests config location surveyResultList =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Success surveyResultList)
                     in
@@ -126,7 +126,7 @@ currentLanguageFlagDisplayTests config location surveyResultList =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Success surveyResultList)
                     in
@@ -176,7 +176,7 @@ openDropdownTest config location surveyResultList =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Success surveyResultList)
                     in
@@ -220,7 +220,7 @@ changeLanguageTest config location surveyResultList =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Success surveyResultList)
 
@@ -254,7 +254,7 @@ changeLanguageTest config location surveyResultList =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Success surveyResultList)
 

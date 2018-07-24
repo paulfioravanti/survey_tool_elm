@@ -15,13 +15,7 @@ import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
-import Route
-    exposing
-        ( Route
-            ( ListSurveyResultsRoute
-            , SurveyResultDetailRoute
-            )
-        )
+import Route exposing (Route(ListSurveyResults, SurveyResultDetail))
 import Test exposing (Test, describe, fuzz3, fuzz4)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag, text)
@@ -75,7 +69,7 @@ networkErrorTest config locale location errorMessage =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Failure NetworkError)
                     in
@@ -115,7 +109,7 @@ badStatusTest config locale location response errorMessage =
                                     config
                                     locale
                                     location
-                                    ListSurveyResultsRoute
+                                    ListSurveyResults
                                     NotRequested
                                     (Failure (BadStatus response))
                         in
@@ -140,7 +134,7 @@ badStatusTest config locale location response errorMessage =
                                     config
                                     locale
                                     location
-                                    (SurveyResultDetailRoute "1")
+                                    (SurveyResultDetail "1")
                                     (Failure (BadStatus response))
                                     NotRequested
                         in
@@ -181,7 +175,7 @@ badPayloadTest config locale location response errorMessage =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Failure (BadPayload "BadPayload" response))
                     in
@@ -216,7 +210,7 @@ otherErrorTest config locale location errorMessage =
                                     config
                                     locale
                                     location
-                                    ListSurveyResultsRoute
+                                    ListSurveyResults
                                     NotRequested
                                     (Failure Timeout)
                         in
@@ -235,7 +229,7 @@ otherErrorTest config locale location errorMessage =
                                     config
                                     locale
                                     location
-                                    (SurveyResultDetailRoute "1")
+                                    (SurveyResultDetail "1")
                                     (Failure Timeout)
                                     NotRequested
                         in

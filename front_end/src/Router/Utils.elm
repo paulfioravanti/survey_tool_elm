@@ -4,14 +4,7 @@ module Router.Utils exposing (toRoute, toPath)
 -}
 
 import Navigation exposing (Location)
-import Route
-    exposing
-        ( Route
-            ( ListSurveyResultsRoute
-            , NotFoundRoute
-            , SurveyResultDetailRoute
-            )
-        )
+import Route exposing (Route(ListSurveyResults, NotFound, SurveyResultDetail))
 import UrlParser exposing (Parser, (</>), map, oneOf, s, string, top)
 
 
@@ -36,16 +29,16 @@ import UrlParser exposing (Parser, (</>), map, oneOf, s, string, top)
             ""
 
     toRoute (location "/")
-    --> ListSurveyResultsRoute
+    --> ListSurveyResults
 
     toRoute (location "/survey_results")
-    --> ListSurveyResultsRoute
+    --> ListSurveyResults
 
     toRoute (location "/survey_results/1")
-    --> SurveyResultDetailRoute "1"
+    --> SurveyResultDetail "1"
 
     toRoute (location "/invalid")
-    --> NotFoundRoute
+    --> NotFound
 
 -}
 toRoute : Location -> Route
@@ -60,40 +53,40 @@ toRoute location =
                 route
 
             Nothing ->
-                NotFoundRoute
+                NotFound
 
 
 {-| Translates a Route into a URL
 
     import Route exposing (Route(..))
 
-    toPath ListSurveyResultsRoute
+    toPath ListSurveyResults
     --> "/survey_results"
 
-    toPath (SurveyResultDetailRoute "10")
+    toPath (SurveyResultDetail "10")
     --> "/survey_results/10"
 
-    toPath NotFoundRoute
+    toPath NotFound
     --> "/not-found"
 
 -}
 toPath : Route -> String
 toPath route =
     case route of
-        ListSurveyResultsRoute ->
+        ListSurveyResults ->
             "/survey_results"
 
-        SurveyResultDetailRoute id ->
+        SurveyResultDetail id ->
             "/survey_results/" ++ id
 
-        NotFoundRoute ->
+        NotFound ->
             "/not-found"
 
 
 matchers : Parser (Route -> a) a
 matchers =
     oneOf
-        [ map ListSurveyResultsRoute top
-        , map ListSurveyResultsRoute (s "survey_results")
-        , map SurveyResultDetailRoute (s "survey_results" </> string)
+        [ map ListSurveyResults top
+        , map ListSurveyResults (s "survey_results")
+        , map SurveyResultDetail (s "survey_results" </> string)
         ]

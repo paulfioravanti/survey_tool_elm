@@ -15,7 +15,7 @@ import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(Failure, NotRequested))
-import Route exposing (Route(NotFoundRoute, SurveyResultDetailRoute))
+import Route exposing (Route(NotFound, SurveyResultDetail))
 import Test exposing (Test, describe, fuzz3, fuzz4)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
@@ -58,7 +58,7 @@ unknownRouteTest config locale location =
                                 config
                                 locale
                                 location
-                                NotFoundRoute
+                                NotFound
                                 NotRequested
                                 NotRequested
                     in
@@ -102,7 +102,7 @@ unknownSurveyResult config locale location =
                                 config
                                 locale
                                 location
-                                (SurveyResultDetailRoute "1")
+                                (SurveyResultDetail "1")
                                 (Failure (BadStatus notFoundResponse))
                                 NotRequested
                     in

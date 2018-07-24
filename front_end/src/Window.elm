@@ -1,7 +1,7 @@
 port module Window exposing (updateErrorTitle, updateRouteTitle, updateTitle)
 
 import Http exposing (Error(BadStatus))
-import Route exposing (Route(ListSurveyResultsRoute))
+import Route exposing (Route(ListSurveyResults))
 import Translations exposing (Lang)
 
 
@@ -30,7 +30,7 @@ updateErrorTitle error language =
 updateRouteTitle : Route -> Lang -> Cmd msg
 updateRouteTitle route language =
     case route of
-        ListSurveyResultsRoute ->
+        ListSurveyResults ->
             updateTitle (Translations.surveyResults language)
 
         _ ->

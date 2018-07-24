@@ -11,13 +11,7 @@ import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested))
-import Route
-    exposing
-        ( Route
-            ( ListSurveyResultsRoute
-            , SurveyResultDetailRoute
-            )
-        )
+import Route exposing (Route(ListSurveyResults, SurveyResultDetail))
 import Test exposing (Test, describe, fuzz3)
 import Test.Html.Query as Query
 
@@ -45,7 +39,7 @@ suite =
                                     config
                                     locale
                                     location
-                                    ListSurveyResultsRoute
+                                    ListSurveyResults
                                     NotRequested
                                     NotRequested
                         in
@@ -65,7 +59,7 @@ suite =
                                     config
                                     locale
                                     location
-                                    (SurveyResultDetailRoute "10")
+                                    (SurveyResultDetail "10")
                                     NotRequested
                                     NotRequested
                         in

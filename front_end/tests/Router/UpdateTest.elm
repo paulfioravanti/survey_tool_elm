@@ -12,7 +12,7 @@ import Model exposing (Model)
 import Msg exposing (Msg(RoutingMsg))
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested))
-import Route exposing (Route(ListSurveyResultsRoute))
+import Route exposing (Route(ListSurveyResults))
 import Router.Msg exposing (Msg(ChangeLocation))
 import Router.Utils as Utils
 import Test exposing (Test, describe, fuzz3, fuzz4, fuzz5)

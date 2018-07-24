@@ -6,13 +6,7 @@ module Page exposing (update)
 import Msg exposing (Msg(SurveyResultDetailMsg, SurveyResultListMsg))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(NotRequested, Requesting, Success))
-import Route
-    exposing
-        ( Route
-            ( ListSurveyResultsRoute
-            , SurveyResultDetailRoute
-            )
-        )
+import Route exposing (Route(ListSurveyResults, SurveyResultDetail))
 import SurveyResult
 import SurveyResultDetail
 import SurveyResultList
@@ -23,7 +17,7 @@ import Window
 update : Model -> ( Model, Cmd Msg )
 update model =
     case model.route of
-        ListSurveyResultsRoute ->
+        ListSurveyResults ->
             case model.surveyResultList of
                 NotRequested ->
                     ( { model | surveyResultList = Requesting }
@@ -45,7 +39,7 @@ update model =
                 _ ->
                     ( model, Cmd.none )
 
-        SurveyResultDetailRoute id ->
+        SurveyResultDetail id ->
             let
                 fetchSurveyResultDetail =
                     ( { model | surveyResultDetail = Requesting }

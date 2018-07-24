@@ -12,7 +12,7 @@ import Main
 import Model exposing (Model)
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData(NotRequested, Success))
-import Route exposing (Route(ListSurveyResultsRoute))
+import Route exposing (Route(ListSurveyResults))
 import Test exposing (Test, describe, fuzz4)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
@@ -51,7 +51,7 @@ suite =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Success surveyResultList)
                     in

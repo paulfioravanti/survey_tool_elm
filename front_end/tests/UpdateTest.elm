@@ -13,14 +13,7 @@ import Msg exposing (Msg(Blur, UpdatePage))
 import Navigation exposing (Location)
 import Question.Model exposing (Question)
 import RemoteData exposing (RemoteData(NotRequested, Requesting, Success))
-import Route
-    exposing
-        ( Route
-            ( ListSurveyResultsRoute
-            , NotFoundRoute
-            , SurveyResultDetailRoute
-            )
-        )
+import Route exposing (Route(ListSurveyResults, NotFound, SurveyResultDetail))
 import SurveyResult.Model exposing (SurveyResult)
 import SurveyResponse.Model exposing (SurveyResponse)
 import Test exposing (Test, describe, fuzz3, fuzz4)
@@ -59,7 +52,7 @@ surveyResultsListNotRequestedTest :
 surveyResultsListNotRequestedTest config locale location =
     describe
         """
-        when UpdatePage ListSurveyResultsRoute msg sent and
+        when UpdatePage ListSurveyResults msg sent and
         surveyResultsList is NotRequested
         """
         [ fuzz3
@@ -75,7 +68,7 @@ surveyResultsListNotRequestedTest config locale location =
                             config
                             locale
                             location
-                            ListSurveyResultsRoute
+                            ListSurveyResults
                             NotRequested
                             NotRequested
                 in
@@ -95,7 +88,7 @@ surveyResultsListAlreadyRequestedTest :
 surveyResultsListAlreadyRequestedTest config locale location =
     describe
         """
-        when UpdatePage ListSurveyResultsRoute msg sent and
+        when UpdatePage ListSurveyResults msg sent and
         surveyResultsList already requested ie not NotRequested.
         """
         [ fuzz3 config locale location "it does not update the model" <|
@@ -106,7 +99,7 @@ surveyResultsListAlreadyRequestedTest config locale location =
                             config
                             locale
                             location
-                            ListSurveyResultsRoute
+                            ListSurveyResults
                             NotRequested
                             Requesting
                 in
@@ -129,7 +122,7 @@ surveyResultsListAlreadyRetrievedTest config locale location =
     in
         describe
             """
-            when UpdatePage ListSurveyResultsRoute msg sent and
+            when UpdatePage ListSurveyResults msg sent and
             surveyResultsList has already been retrieved ie Success
             """
             [ fuzz4
@@ -145,7 +138,7 @@ surveyResultsListAlreadyRetrievedTest config locale location =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 (Success surveyResultList)
                     in
@@ -165,7 +158,7 @@ surveyResultDetailNotRequestedTest :
 surveyResultDetailNotRequestedTest config locale location =
     describe
         """
-        when UpdatePage SurveyResultDetailRoute msg sent and
+        when UpdatePage SurveyResultDetail msg sent and
         surveyResultsDetail is NotRequested
         """
         [ fuzz3
@@ -180,7 +173,7 @@ surveyResultDetailNotRequestedTest config locale location =
                             config
                             locale
                             location
-                            (SurveyResultDetailRoute "10")
+                            (SurveyResultDetail "10")
                             NotRequested
                             NotRequested
                 in
@@ -201,7 +194,7 @@ surveyResultDetailAlreadyRetrievedTest :
 surveyResultDetailAlreadyRetrievedTest config locale location =
     describe
         """
-        when UpdatePage SurveyResultDetailRoute msg sent and
+        when UpdatePage SurveyResultDetail msg sent and
         surveyResultsDetail has already been retrieved ie is Success
         """
         [ fuzz3
@@ -222,7 +215,7 @@ surveyResultDetailAlreadyRetrievedTest config locale location =
                             config
                             locale
                             location
-                            (SurveyResultDetailRoute "2")
+                            (SurveyResultDetail "2")
                             (Success surveyResult)
                             NotRequested
                 in
@@ -250,7 +243,7 @@ surveyResultDetailAlreadyRetrievedTest config locale location =
                             config
                             locale
                             location
-                            (SurveyResultDetailRoute "1")
+                            (SurveyResultDetail "1")
                             (Success surveyResult)
                             NotRequested
                 in
@@ -277,7 +270,7 @@ routeNotFoundTest config locale location =
                             config
                             locale
                             location
-                            NotFoundRoute
+                            NotFound
                             NotRequested
                             NotRequested
                 in
@@ -302,7 +295,7 @@ blurTest config locale location =
                             config
                             locale
                             location
-                            ListSurveyResultsRoute
+                            ListSurveyResults
                             NotRequested
                             Requesting
                 in

@@ -22,7 +22,7 @@ import RemoteData
             )
         )
 import Result exposing (Result)
-import Route exposing (Route(ListSurveyResultsRoute))
+import Route exposing (Route(ListSurveyResults))
 import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
 import Test exposing (Test, describe, fuzz3, fuzz4)
 import Update
@@ -65,7 +65,7 @@ fetchSurveyResultListFailureTest config locale location =
                             config
                             locale
                             location
-                            ListSurveyResultsRoute
+                            ListSurveyResults
                             NotRequested
                             Requesting
 
@@ -108,7 +108,7 @@ fetchSurveyResultListSuccessTest config locale location =
                                 config
                                 locale
                                 location
-                                ListSurveyResultsRoute
+                                ListSurveyResults
                                 NotRequested
                                 Requesting
 

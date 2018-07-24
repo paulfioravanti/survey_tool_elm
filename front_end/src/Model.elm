@@ -27,7 +27,7 @@ type alias Model =
     import Locale exposing (Locale)
     import Navigation exposing (Location)
     import RemoteData exposing (RemoteData(NotRequested))
-    import Route exposing (Route(ListSurveyResultsRoute))
+    import Route exposing (Route(ListSurveyResults))
 
     config : Config
     config =
@@ -47,7 +47,7 @@ type alias Model =
     -->     config
     -->     locale
     -->     location
-    -->     ListSurveyResultsRoute
+    -->     ListSurveyResults
     -->     NotRequested
     -->     NotRequested
 

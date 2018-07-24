@@ -2,14 +2,7 @@ module Fuzzer.Route exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer)
 import Random.Pcg as Random
-import Route
-    exposing
-        ( Route
-            ( ListSurveyResultsRoute
-            , NotFoundRoute
-            , SurveyResultDetailRoute
-            )
-        )
+import Route exposing (Route(ListSurveyResults, NotFound, SurveyResultDetail))
 import Shrink
 
 
@@ -23,13 +16,13 @@ fuzzer =
                     (\int ->
                         case int of
                             0 ->
-                                ListSurveyResultsRoute
+                                ListSurveyResults
 
                             1 ->
-                                (SurveyResultDetailRoute "id")
+                                (SurveyResultDetail "id")
 
                             _ ->
-                                NotFoundRoute
+                                NotFound
                     )
 
         shrinker : Shrink.Shrinker Route

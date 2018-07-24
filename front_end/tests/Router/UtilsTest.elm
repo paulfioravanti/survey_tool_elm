@@ -3,7 +3,7 @@ module Router.UtilsTest exposing (suite)
 import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.Navigation.Location as Location
-import Route exposing (Route(ListSurveyResultsRoute, NotFoundRoute))
+import Route exposing (Route(ListSurveyResults, NotFound))
 import Router.Utils as Utils
 import Test exposing (Test, describe, fuzz, test)
 
@@ -30,10 +30,10 @@ toRouteTests () =
                         in
                             validLocation
                                 |> Utils.toRoute
-                                |> Expect.equal ListSurveyResultsRoute
+                                |> Expect.equal ListSurveyResults
                 ]
             , describe "when location path is invalid"
-                [ fuzz location "returns NotFoundRoute" <|
+                [ fuzz location "returns NotFound" <|
                     \location ->
                         let
                             invalidLocation =
@@ -41,6 +41,6 @@ toRouteTests () =
                         in
                             invalidLocation
                                 |> Utils.toRoute
-                                |> Expect.equal NotFoundRoute
+                                |> Expect.equal NotFound
                 ]
             ]
