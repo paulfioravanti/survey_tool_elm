@@ -4,12 +4,14 @@ defmodule BackEnd.Endpoint do
   """
 
   alias __MODULE__, as: Endpoint
+  alias BackEnd.Router
+  alias Plug.Cowboy
 
   @doc """
   This function called by `Supervisor.start_link/2`
   """
   def start_link(opts) do
-    {:ok, _} = Plug.Adapters.Cowboy2.http(BackEnd.Router, [], opts)
+    {:ok, _} = Cowboy.http(Router, [], opts)
   end
 
   @doc """

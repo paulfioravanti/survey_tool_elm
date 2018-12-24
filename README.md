@@ -19,13 +19,12 @@ cd survey_tool_elm
 
 ## Back end
 
-The back end is an [Elixir][] app that uses [Plug][]'s [Cowboy2 adapter][] to
-serve the JSON files expected by the front end.
+The back end is an [Elixir][] app that uses [PlugCowboy][] to serve the JSON
+files expected by the front end.
 
 ### Dependencies
 
-- [Elixir][] 1.6.6
-- [Erlang][] 21.0
+- [Elixir][] 1.7.4
 
 ### Setup
 
@@ -75,7 +74,7 @@ would have been overkill).
 ### Dependencies
 
 - [Elm][] 0.18.0
-- [NodeJS][] 10.0.0
+- [NodeJS][] 11.2.0
 
 ### Setup
 
@@ -258,7 +257,6 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
 [Back end JSON API]: https://survey-tool-back-end.herokuapp.com/survey_results
-[Cowboy2 adapter]: https://github.com/elixir-plug/plug/blob/master/lib/plug/adapters/cowboy2.ex
 [Create Elm App]: https://github.com/halfzebra/create-elm-app
 [Elixir]: https://github.com/elixir-lang/elixir
 [Elm]: http://elm-lang.org/
@@ -282,7 +280,7 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [NodeJS]: https://nodejs.org/en/
 [PETE stack]: https://github.com/dwyl/technology-stack#the-pete-stack
 [Phoenix]: http://phoenixframework.org/
-[Plug]: https://github.com/elixir-plug/plug
+[PlugCowboy]: https://github.com/elixir-plug/plug_cowboy
 [Ruby]: https://github.com/ruby/ruby
 [stackoverflow-badge]: http://stackoverflow.com/users/flair/567863.png
 [stackoverflow-url]: http://stackoverflow.com/users/567863/paul-fioravanti

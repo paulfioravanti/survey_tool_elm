@@ -7,7 +7,6 @@ defmodule BackEnd.Router do
   """
 
   use Plug.Router
-  alias BackEnd.Encoder
 
   if Mix.env() == :dev do
     use Plug.Debugger
@@ -25,6 +24,14 @@ defmodule BackEnd.Router do
 
   plug(CORSPlug)
   plug(:match)
+
+  plug(
+    Plug.Parsers,
+    parsers: [:json],
+    pass: ["application/json"],
+    json_decoder: Jason
+  )
+
   plug(:dispatch)
 
   get "/survey_results" do
@@ -51,11 +58,9 @@ defmodule BackEnd.Router do
 
   # NOTE: File was found.
   defp send_response({:ok, content}, conn) do
-    json = Encoder.encode_json(content)
-
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, json)
+    |> send_resp(200, content)
   end
 
   # NOTE: File was not found.
@@ -64,7 +69,7 @@ defmodule BackEnd.Router do
   end
 
   defp send_error(conn, message) do
-    error = Encoder.json_error(message)
+    error = Jason.encode!(%{error: message})
 
     conn
     |> put_resp_content_type("application/json")

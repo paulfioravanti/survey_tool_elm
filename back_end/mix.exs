@@ -21,11 +21,11 @@ defmodule BackEnd.Mixfile do
 
   defp deps do
     [
-      {:cors_plug, "~> 1.5"},
+      {:cors_plug, "~> 2.0"},
       {:cowboy, "~> 2.3"},
       {:mix_test_watch, "~> 0.6", only: :dev, runtime: false},
-      {:plug, "~> 1.5"},
-      {:poison, "~> 3.1"}
+      {:plug_cowboy, "~> 2.0"},
+      {:jason, "~> 1.1"}
     ]
   end
 end

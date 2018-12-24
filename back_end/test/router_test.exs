@@ -17,7 +17,7 @@ defmodule RouterTest do
 
   describe "GET /survey_results" do
     setup do
-      json = Utilities.read_json("lib/back_end/survey_results/index.json")
+      json = read_file("index.json")
       {:ok, [json: json]}
     end
 
@@ -31,7 +31,7 @@ defmodule RouterTest do
 
   describe "GET /survey_results/:id" do
     setup do
-      json = Utilities.read_json("lib/back_end/survey_results/1.json")
+      json = read_file("1.json")
       {:ok, [json: json]}
     end
 
@@ -45,7 +45,7 @@ defmodule RouterTest do
 
   describe "GET /survey_results/:id when :id is not found" do
     setup do
-      json = Poison.encode!(%{error: "Record not found"})
+      json = Jason.encode!(%{error: "Record not found"})
       {:ok, [json: json]}
     end
 
@@ -59,7 +59,7 @@ defmodule RouterTest do
 
   describe "GET unknown path" do
     setup do
-      json = Poison.encode!(%{error: "Not found"})
+      json = Jason.encode!(%{error: "Not found"})
       {:ok, [json: json]}
     end
 
@@ -69,5 +69,11 @@ defmodule RouterTest do
       assert get_resp_header(conn, "content-type") == @json_resp_type
       assert conn.resp_body == json
     end
+  end
+
+  defp read_file(filename) do
+    "lib/back_end/survey_results/#{filename}"
+    |> Path.expand()
+    |> File.read!()
   end
 end
