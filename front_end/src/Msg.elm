@@ -1,16 +1,19 @@
 module Msg exposing (Msg(..))
 
-import Locale
-import Navigation exposing (Location)
-import Router
-import SurveyResultDetail
+import Browser exposing (UrlRequest)
+import Language exposing (Language)
+import LanguageSelector
+import Route exposing (Route)
+import SurveyResult
 import SurveyResultList
+import Url exposing (Url)
 
 
 type Msg
-    = Blur
-    | LocaleMsg Locale.Msg
-    | SurveyResultDetailMsg SurveyResultDetail.Msg
-    | SurveyResultListMsg SurveyResultList.Msg
-    | RoutingMsg Router.Msg
-    | UpdatePage Location
+    = ChangeLanguage Language
+    | ChangeRoute Route
+    | LanguageSelector LanguageSelector.Msg
+    | SurveyResult SurveyResult.Msg
+    | SurveyResultList SurveyResultList.Msg
+    | UrlChanged Url
+    | UrlRequested UrlRequest

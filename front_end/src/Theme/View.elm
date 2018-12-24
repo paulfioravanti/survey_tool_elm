@@ -1,84 +1,45 @@
 module Theme.View exposing (view)
 
-{-| Display the contents of a theme.
--}
-
 import Html.Styled exposing (Html, div, h2, span, text)
 import Html.Styled.Attributes exposing (attribute, class)
-import Question exposing (Question)
+import Language exposing (Language)
+import Question
+import Theme.Aggregation as Aggregation
 import Theme.Model exposing (Theme)
-import Translations exposing (Lang)
+import Theme.Styles as Styles
+import Translations
 
 
-view : msg -> Lang -> Theme -> Html msg
-view blurMsg language { name, questions } =
-    let
-        classes =
-            [ "b--light-gray"
-            , "bb"
-            , "flex"
-            , "flex-row"
-            , "justify-between"
-            , "mb3"
-            , "mh1 mh0-ns"
-            , "mt4"
+view : Language -> Theme -> Html msg
+view language theme =
+    div [ attribute "data-name" "theme" ]
+        [ div [ class Styles.theme ]
+            [ name theme
+            , averageScore language theme
             ]
-                |> String.join " "
-                |> class
-    in
-        div [ attribute "data-name" "theme" ]
-            [ div [ classes ]
-                [ themeName name
-                , averageScore
-                    (Translations.averageScore language)
-                    questions
-                ]
-            , div [ attribute "data-name" "questions" ]
-                (List.map (Question.view blurMsg language) questions)
-            ]
+        , div [ attribute "data-name" "questions" ]
+            (List.map (Question.view language) theme.questions)
+        ]
 
 
-themeName : String -> Html msg
-themeName name =
-    let
-        classes =
-            [ "f4 f3-ns"
-            , "mid-gray"
-            , "ttu"
-            ]
-                |> String.join " "
-                |> class
-    in
-        h2 [ classes ]
-            [ text name ]
+
+-- PRIVATE
 
 
-averageScore : String -> List Question -> Html msg
-averageScore label questions =
-    let
-        classes =
-            [ "b"
-            , "f4 f3-ns"
-            , "mid-gray"
-            ]
-                |> String.join " "
-                |> class
+name : Theme -> Html msg
+name theme =
+    h2 [ class Styles.name ]
+        [ text theme.name ]
 
-        labelClasses =
-            [ "fw2"
-            , "mr2"
-            ]
-                |> String.join " "
-                |> class
 
-        valueClasses =
-            [ "dark-gray" ]
-                |> String.join " "
-                |> class
-    in
-        h2 [ attribute "data-name" "theme-average-score", classes ]
-            [ span [ labelClasses ]
-                [ text label ]
-            , span [ valueClasses ]
-                [ text (Question.averageScore questions) ]
-            ]
+averageScore : Language -> Theme -> Html msg
+averageScore language theme =
+    h2
+        [ attribute "data-name" "theme-average-score"
+        , class Styles.averageScore
+        ]
+        [ span [ class Styles.averageScoreLabel ]
+            [ text (Translations.averageScore language) ]
+        , span [ class Styles.averageScoreValue ]
+            [ text (Aggregation.averageScore theme) ]
+        ]

@@ -6,14 +6,13 @@ module SurveyResult.Decoder exposing (decoder)
 import Json.Decode as Decode
     exposing
         ( Decoder
-        , field
         , float
         , int
         , list
-        , maybe
+        , nullable
         , string
         )
-import Json.Decode.Extra exposing ((|:))
+import Json.Decode.Pipeline exposing (optional, required)
 import SurveyResult.Model exposing (SurveyResult)
 import Theme
 
@@ -21,7 +20,7 @@ import Theme
 {-| Decodes a JSON survey result.
 
     import Json.Decode as Decode
-    import SurveyResult.Model exposing (SurveyResult)
+    import SurveyResult exposing (SurveyResult)
 
     json : String
     json =
@@ -37,13 +36,13 @@ import Theme
 
     surveyResult : SurveyResult
     surveyResult =
-        SurveyResult
-            "Simple Survey"
-            6
-            0.8333333333333334
-            5
-            Nothing
-            "/survey_results/1.json"
+        { name = "Simple Survey"
+        , participantCount = 6
+        , responseRate = 0.8333333333333334
+        , submittedResponseCount = 5
+        , themes = Nothing
+        , url = "/survey_results/1.json"
+        }
 
     Decode.decodeString decoder json
     --> Ok surveyResult
@@ -55,11 +54,10 @@ decoder =
         theme =
             Theme.decoder
     in
-        Decode.succeed
-            SurveyResult
-            |: field "name" string
-            |: field "participant_count" int
-            |: field "response_rate" float
-            |: field "submitted_response_count" int
-            |: maybe (field "themes" (list theme))
-            |: field "url" string
+    Decode.succeed SurveyResult
+        |> required "name" string
+        |> required "participant_count" int
+        |> required "response_rate" float
+        |> required "submitted_response_count" int
+        |> optional "themes" (nullable (list theme)) Nothing
+        |> required "url" string

@@ -1,11 +1,11 @@
-module SurveyResult.Encoder exposing (encoder)
+module SurveyResult.Encoder exposing (encode)
 
 import Json.Encode as Encode
 import SurveyResult exposing (SurveyResult)
 
 
-encoder : SurveyResult -> Encode.Value
-encoder surveyResult =
+encode : SurveyResult -> Encode.Value
+encode surveyResult =
     Encode.object
         [ ( "name"
           , Encode.string surveyResult.name
@@ -18,6 +18,9 @@ encoder surveyResult =
           )
         , ( "submitted_response_count"
           , Encode.int surveyResult.submittedResponseCount
+          )
+        , ( "themes"
+          , Encode.null
           )
         , ( "url"
           , Encode.string surveyResult.url

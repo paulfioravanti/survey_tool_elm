@@ -1,16 +1,14 @@
-module SurveyResultList.Encoder exposing (encoder)
+module SurveyResultList.Encoder exposing (encode)
 
 import Json.Encode as Encode
-import SurveyResult.Encoder as Encoder
+import SurveyResult.Encoder as SurveyResult
 import SurveyResultList exposing (SurveyResultList)
 
 
-encoder : SurveyResultList -> Encode.Value
-encoder surveyResultList =
-    let
-        surveyResults =
-            surveyResultList.surveyResults
-                |> List.map Encoder.encoder
-    in
-        Encode.object
-            [ ( "survey_results", Encode.list surveyResults ) ]
+encode : SurveyResultList -> Encode.Value
+encode surveyResultList =
+    Encode.object
+        [ ( "survey_results"
+          , Encode.list SurveyResult.encode surveyResultList.surveyResults
+          )
+        ]

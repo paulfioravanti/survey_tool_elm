@@ -1,67 +1,57 @@
-module Model exposing (Model, init)
+module Model exposing (Model, changeLanguage, init)
 
-import Config exposing (Config)
-import Locale exposing (Locale)
-import Navigation exposing (Location)
-import RemoteData exposing (RemoteData(NotRequested), WebData)
-import Route exposing (Route)
-import Router
+import ApiUrl
+import Browser.Navigation exposing (Key)
+import Flags exposing (Flags)
+import Language exposing (Language)
+import LanguageSelector exposing (LanguageSelector)
+import Navigation exposing (Navigation)
+import RemoteData exposing (WebData)
+import Route
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList exposing (SurveyResultList)
+import Title
+import Url exposing (Url)
 
 
 type alias Model =
-    { config : Config
-    , locale : Locale
-    , location : Location
-    , route : Route
+    { apiUrl : String
+    , language : Language
+    , languageSelector : LanguageSelector
+    , navigation : Navigation
     , surveyResultDetail : WebData SurveyResult
     , surveyResultList : WebData SurveyResultList
+    , title : String
     }
 
 
-{-| Initialises Model attributes
-
-    import Config exposing (Config)
-    import Json.Encode as Encode
-    import Locale exposing (Locale)
-    import Navigation exposing (Location)
-    import RemoteData exposing (RemoteData(NotRequested))
-    import Route exposing (Route(ListSurveyResults))
-
-    config : Config
-    config =
-        Config "http://www.example.com/survey_results"
-
-    locale : Locale
-    locale =
-        Locale.init (Encode.string "en")
-
-    location : Location
-    location =
-        Location "/survey_results" "" "" "" "" "" "" "" "" "" ""
-
-
-    init config locale location
-    --> Model
-    -->     config
-    -->     locale
-    -->     location
-    -->     ListSurveyResults
-    -->     NotRequested
-    -->     NotRequested
-
--}
-init : Config -> Locale -> Location -> Model
-init config locale location =
+init : Flags -> Url -> Maybe Key -> Model
+init flags url key =
     let
         route =
-            Router.toRoute location
+            Route.init url
+
+        language =
+            Language.init flags.language
     in
-        { config = config
-        , locale = locale
-        , location = location
-        , route = route
-        , surveyResultDetail = NotRequested
-        , surveyResultList = NotRequested
-        }
+    { apiUrl = ApiUrl.init flags
+    , language = language
+    , languageSelector = LanguageSelector.init language
+    , navigation = Navigation.init key route
+    , surveyResultDetail = SurveyResult.init
+    , surveyResultList = SurveyResultList.init
+    , title = Title.init route language
+    }
+
+
+changeLanguage : Language -> Model -> Model
+changeLanguage language model =
+    let
+        languageSelector =
+            model.languageSelector
+                |> LanguageSelector.updateSelectableLanguages language
+    in
+    { model
+        | language = language
+        , languageSelector = languageSelector
+    }

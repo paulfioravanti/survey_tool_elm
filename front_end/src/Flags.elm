@@ -4,7 +4,7 @@ import Json.Decode exposing (Value)
 
 
 type alias Flags =
-    { environment : Value
-    , apiUrl : Value
+    { apiUrl : Value
+    , environment : Value
     , language : Value
     }

@@ -1,8 +1,9 @@
 module SurveyResultList.Msg exposing (Msg(..))
 
-import Http exposing (Error)
+import RemoteData exposing (WebData)
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
 type Msg
-    = FetchSurveyResultList (Result Error SurveyResultList)
+    = Load String (WebData SurveyResultList)
+    | Fetched (WebData SurveyResultList)

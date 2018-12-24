@@ -1,17 +1,19 @@
 {
   "root": "../src",
   "tests": [
-    "Model",
+    "ApiUrl",
+    "Language",
+    "Question.Aggregation",
     "Question.Decoder",
-    "Question.Utils",
-    "Router.Utils",
+    "Route",
+    "SurveyResponse.Aggregation",
     "SurveyResponse.Decoder",
     "SurveyResponse.RespondentHistogram",
-    "SurveyResponse.Utils",
     "SurveyResult.Decoder",
-    "SurveyResult.Utils",
-    "SurveyResultDetail.Decoder",
+    "SurveyResult.Detail.Decoder",
+    "SurveyResult.Parser",
     "SurveyResultList.Decoder",
+    "Theme.Aggregation",
     "Theme.Decoder",
     "Utils"
   ]

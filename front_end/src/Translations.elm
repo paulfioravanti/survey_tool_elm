@@ -1,241 +1,286 @@
-module Translations exposing (..)
+module Translations exposing
+    ( allRespondents
+    , averageScore
+    , averageSymbol
+    , backToSurveyResults
+    , badBodyMessage
+    , errorRetrievingData
+    , loading
+    , networkErrorMessage
+    , noRespondents
+    , notFound
+    , oneRespondent
+    , other
+    , otherErrorMessage
+    , others
+    , participants
+    , responseRate
+    , responses
+    , surveyResults
+    , truncatedRespondents
+    )
+
+import Language exposing (Language)
 
 
-type Lang
-    = En
-    | It
-    | Ja
-
-
-allRespondents : Lang -> String -> String -> String
-allRespondents lang str0 str1 =
-    case lang of
-        En ->
+allRespondents : Language -> String -> String -> String
+allRespondents language str0 str1 =
+    case language of
+        Language.En ->
             "Chosen by respondent IDs " ++ str0 ++ ", and " ++ str1 ++ "."
 
-        It ->
+        Language.It ->
             "Scelto da rispondenti con ID " ++ str0 ++ ", e " ++ str1 ++ "."
 
-        Ja ->
+        Language.Ja ->
             "回答者ID" ++ str0 ++ "と" ++ str1 ++ "が選択"
 
 
-averageScore : Lang -> String
-averageScore lang =
-    case lang of
-        En ->
+averageScore : Language -> String
+averageScore language =
+    case language of
+        Language.En ->
             "Average Score"
 
-        It ->
+        Language.It ->
             "Punteggio Medio"
 
-        Ja ->
+        Language.Ja ->
             "平均点数"
 
 
-averageSymbol : Lang -> String
-averageSymbol lang =
-    case lang of
-        En ->
+averageSymbol : Language -> String
+averageSymbol language =
+    case language of
+        Language.En ->
             "x"
 
-        It ->
+        Language.It ->
             "x"
 
-        Ja ->
+        Language.Ja ->
             "x"
 
 
-backToSurveyResults : Lang -> String
-backToSurveyResults lang =
-    case lang of
-        En ->
+backToSurveyResults : Language -> String
+backToSurveyResults language =
+    case language of
+        Language.En ->
             "←  Back to survey results"
 
-        It ->
+        Language.It ->
             "←  Torna ai risultati sondaggio"
 
-        Ja ->
+        Language.Ja ->
             "←  調査結果一覧表に戻る"
 
 
-badPayloadMessage : Lang -> String -> String
-badPayloadMessage lang str0 =
+badBodyMessage : Language -> String -> String
+badBodyMessage lang message =
     case lang of
-        En ->
-            "Decoding Failed: " ++ str0 ++ ""
+        Language.En ->
+            "Decoding Failed: " ++ message ++ ""
 
-        It ->
-            "Decodifica Fallita: " ++ str0 ++ ""
+        Language.It ->
+            "Decodifica Fallita: " ++ message ++ ""
 
-        Ja ->
-            "デコードが失敗した： " ++ str0 ++ ""
+        Language.Ja ->
+            "デコードが失敗した： " ++ message ++ ""
 
 
-errorRetrievingData : Lang -> String
-errorRetrievingData lang =
-    case lang of
-        En ->
+errorRetrievingData : Language -> String
+errorRetrievingData language =
+    case language of
+        Language.En ->
             "Error retrieving data"
 
-        It ->
+        Language.It ->
             "Errore durante lo scaricamento dei dati"
 
-        Ja ->
-            "エラーが発生しました。"
+        Language.Ja ->
+            "エラーが発生しました"
 
 
-loading : Lang -> String
-loading lang =
-    case lang of
-        En ->
+loading : Language -> String
+loading language =
+    case language of
+        Language.En ->
             "Loading"
 
-        It ->
+        Language.It ->
             "Caricamento"
 
-        Ja ->
+        Language.Ja ->
             "ロード中"
 
 
-networkErrorMessage : Lang -> String
-networkErrorMessage lang =
-    case lang of
-        En ->
+networkErrorMessage : Language -> String
+networkErrorMessage language =
+    case language of
+        Language.En ->
             "Is the server running?"
 
-        It ->
+        Language.It ->
             "Il server è in esecuzione?"
 
-        Ja ->
+        Language.Ja ->
             "サーバーが実行されているか確認ください"
 
 
-noRespondents : Lang -> String
-noRespondents lang =
-    case lang of
-        En ->
+noRespondents : Language -> String
+noRespondents language =
+    case language of
+        Language.En ->
             "Chosen by no respondents."
 
-        It ->
+        Language.It ->
             "Scelto da nessun rispondenti."
 
-        Ja ->
+        Language.Ja ->
             "選択なし"
 
 
-notFound : Lang -> String
-notFound lang =
-    case lang of
-        En ->
+notFound : Language -> String
+notFound language =
+    case language of
+        Language.En ->
             "Not Found"
 
-        It ->
-            "Non trovato"
+        Language.It ->
+            "Non Trovato"
 
-        Ja ->
+        Language.Ja ->
             "ページが見つかりません"
 
 
-oneRespondent : Lang -> String -> String
-oneRespondent lang str0 =
-    case lang of
-        En ->
+oneRespondent : Language -> String -> String
+oneRespondent language str0 =
+    case language of
+        Language.En ->
             "Chosen by respondent ID " ++ str0 ++ "."
 
-        It ->
+        Language.It ->
             "Scelto da rispondente con ID " ++ str0 ++ "."
 
-        Ja ->
+        Language.Ja ->
             "回答者ID" ++ str0 ++ "が選択"
 
 
-other : Lang -> String
-other lang =
-    case lang of
-        En ->
+other : Language -> String
+other language =
+    case language of
+        Language.En ->
             "other"
 
-        It ->
+        Language.It ->
             "altro"
 
-        Ja ->
+        Language.Ja ->
             "その他"
 
 
-others : Lang -> String
-others lang =
-    case lang of
-        En ->
+otherErrorMessage : Language -> String
+otherErrorMessage language =
+    case language of
+        Language.En ->
+            "Something went wrong"
+
+        Language.It ->
+            "Errore sconosciuto"
+
+        Language.Ja ->
+            "エラーが発生しました"
+
+
+others : Language -> String
+others language =
+    case language of
+        Language.En ->
             "others"
 
-        It ->
+        Language.It ->
             "altri"
 
-        Ja ->
+        Language.Ja ->
             "その他"
 
 
-participants : Lang -> String
-participants lang =
-    case lang of
-        En ->
+participants : Language -> String
+participants language =
+    case language of
+        Language.En ->
             "Participants"
 
-        It ->
+        Language.It ->
             "Partecipanti"
 
-        Ja ->
+        Language.Ja ->
             "回答者数"
 
 
-responses : Lang -> String
-responses lang =
-    case lang of
-        En ->
-            "Responses"
-
-        It ->
-            "Risposte"
-
-        Ja ->
-            "回答件数"
-
-
-responseRate : Lang -> String
-responseRate lang =
-    case lang of
-        En ->
+responseRate : Language -> String
+responseRate language =
+    case language of
+        Language.En ->
             "Response Rate"
 
-        It ->
+        Language.It ->
             "Tasso di risposta"
 
-        Ja ->
+        Language.Ja ->
             "回答率"
 
 
-surveyResults : Lang -> String
-surveyResults lang =
-    case lang of
-        En ->
+responses : Language -> String
+responses language =
+    case language of
+        Language.En ->
+            "Responses"
+
+        Language.It ->
+            "Risposte"
+
+        Language.Ja ->
+            "回答件数"
+
+
+surveyResults : Language -> String
+surveyResults language =
+    case language of
+        Language.En ->
             "Survey Results"
 
-        It ->
+        Language.It ->
             "Risultati Sondaggio"
 
-        Ja ->
+        Language.Ja ->
             "調査結果"
 
 
-truncatedRespondents : Lang -> String -> String -> String -> String
-truncatedRespondents lang str0 str1 str2 =
-    case lang of
-        En ->
-            "Chosen by respondent IDs " ++ str0 ++ ", and " ++ str1 ++ " " ++ str2 ++ "."
+truncatedRespondents : Language -> String -> String -> String -> String
+truncatedRespondents language str0 str1 str2 =
+    case language of
+        Language.En ->
+            "Chosen by respondent IDs "
+                ++ str0
+                ++ ", and "
+                ++ str1
+                ++ " "
+                ++ str2
+                ++ "."
 
-        It ->
-            "Scelto da rispondenti con ID " ++ str0 ++ ", e " ++ str1 ++ " " ++ str2 ++ "."
+        Language.It ->
+            "Scelto da rispondenti con ID "
+                ++ str0
+                ++ ", e "
+                ++ str1
+                ++ " "
+                ++ str2
+                ++ "."
 
-        Ja ->
-            "回答者ID" ++ str0 ++ "とその他" ++ str1 ++ "名が選択"
+        Language.Ja ->
+            "回答者ID"
+                ++ str0
+                ++ "とその他"
+                ++ str1
+                ++ "名が選択"

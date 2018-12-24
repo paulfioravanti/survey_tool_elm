@@ -3,8 +3,8 @@ module Theme.Decoder exposing (decoder)
 {-| Decodes a JSON theme.
 -}
 
-import Json.Decode as Decode exposing (Decoder, field, list, string)
-import Json.Decode.Extra exposing ((|:))
+import Json.Decode as Decode exposing (Decoder, list, string)
+import Json.Decode.Pipeline exposing (required)
 import Question
 import Theme.Model exposing (Theme)
 
@@ -14,7 +14,7 @@ import Theme.Model exposing (Theme)
     import Json.Decode as Decode
     import Question.Model exposing (Question)
     import SurveyResponse.Model exposing (SurveyResponse)
-    import Theme.Model exposing (Theme)
+    import Theme exposing (Theme)
 
     json : String
     json =
@@ -40,13 +40,14 @@ import Theme.Model exposing (Theme)
 
     theme : Theme
     theme =
-        Theme
-            "The Work"
+        { name = "The Work"
+        , questions =
             [ Question
                   "I like the kind of work I do."
                   [ SurveyResponse 1 1 1 "5" ]
                   "ratingquestion"
             ]
+        }
 
     Decode.decodeString decoder json
     --> Ok theme
@@ -58,7 +59,6 @@ decoder =
         question =
             Question.decoder
     in
-        Decode.succeed
-            Theme
-            |: field "name" string
-            |: field "questions" (list question)
+    Decode.succeed Theme
+        |> required "name" string
+        |> required "questions" (list question)

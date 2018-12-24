@@ -1,12 +1,14 @@
-module SurveyResultList.Cmd exposing (fetchSurveyResultList)
+module SurveyResultList.Cmd exposing (load)
 
-import Http
-import SurveyResultList.Decoder as Decoder
-import SurveyResultList.Msg exposing (Msg(FetchSurveyResultList))
+import RemoteData exposing (WebData)
+import SurveyResultList.Model exposing (SurveyResultList)
+import SurveyResultList.Msg as Msg exposing (Msg)
+import Task
 
 
-fetchSurveyResultList : String -> Cmd Msg
-fetchSurveyResultList apiUrl =
-    Decoder.decoder
-        |> Http.get apiUrl
-        |> Http.send FetchSurveyResultList
+load : String -> WebData SurveyResultList -> Cmd Msg
+load apiUrl surveyResultList =
+    surveyResultList
+        |> Msg.Load apiUrl
+        |> Task.succeed
+        |> Task.perform identity

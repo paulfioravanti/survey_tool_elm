@@ -1,63 +1,133 @@
-module SurveyResultList.ViewTest exposing (suite)
+module SurveyResultList.ViewTest exposing (all)
 
 import Expect
-import Fuzzer.Config as Config
-import Fuzzer.Locale as Locale
-import Fuzzer.Navigation.Location as Location
-import Fuzzer.SurveyResultList as SurveyResultList
+import Fuzz exposing (Fuzzer)
 import Html.Attributes as Attributes
 import Html.Styled
-import Locale exposing (Locale)
-import Main
-import Model exposing (Model)
-import Navigation exposing (Location)
-import RemoteData exposing (RemoteData(NotRequested, Success))
-import Route exposing (Route(ListSurveyResults))
-import Test exposing (Test, describe, fuzz4)
+import Http
+import Http.Error.Fuzzer as Error
+import Language exposing (Language)
+import Language.Fuzzer as Language
+import RemoteData
+import SurveyResultList
+import Test exposing (Test, describe, fuzz, fuzz2)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (tag)
 
 
-suite : Test
-suite =
+all : Test
+all =
     let
-        config =
-            Config.fuzzer
+        randomLanguage =
+            Language.fuzzer
+    in
+    describe "SurveyResultList.view"
+        [ viewWhenDataIsNotAskedTest randomLanguage
+        , viewWhenDataIsLoadingTest randomLanguage
+        , viewWhenDataIsNotFoundFailureTest randomLanguage
+        , viewWhenDataIsFailureTest randomLanguage
+        ]
 
-        locale =
-            Locale.fuzzer
 
-        location =
-            Location.fuzzer
+viewWhenDataIsNotAskedTest : Fuzzer Language -> Test
+viewWhenDataIsNotAskedTest randomLanguage =
+    let
+        surveyResultList =
+            RemoteData.NotAsked
+    in
+    describe "when survey result list web data is NotAsked"
+        [ fuzz randomLanguage "displays a blank page" <|
+            \language ->
+                let
+                    expectedHtml =
+                        Html.Styled.text ""
+
+                    actualHtml =
+                        surveyResultList
+                            |> SurveyResultList.view language
+                in
+                Expect.equal expectedHtml actualHtml
+        ]
+
+
+viewWhenDataIsLoadingTest : Fuzzer Language -> Test
+viewWhenDataIsLoadingTest randomLanguage =
+    let
+        surveyResultList =
+            RemoteData.Loading
+
+        loadingMessage =
+            Selector.attribute
+                (Attributes.attribute "data-name" "loading-message")
+    in
+    describe "when survey result list web data is Loading"
+        [ fuzz randomLanguage "displays a loading message" <|
+            \language ->
+                let
+                    html =
+                        SurveyResultList.view language surveyResultList
+                in
+                html
+                    |> Html.Styled.toUnstyled
+                    |> Query.fromHtml
+                    |> Query.has [ tag "section", loadingMessage ]
+        ]
+
+
+viewWhenDataIsNotFoundFailureTest : Fuzzer Language -> Test
+viewWhenDataIsNotFoundFailureTest randomLanguage =
+    let
+        httpError =
+            Http.BadStatus 404
 
         surveyResultList =
-            SurveyResultList.fuzzer
+            RemoteData.Failure httpError
 
-        surveyResults =
+        errorMessage =
             Selector.attribute
-                (Attributes.attribute "data-name" "survey-results")
+                (Attributes.attribute "data-name" "error-message")
+
+        badStatusMessage =
+            Selector.attribute
+                (Attributes.attribute "data-name" "bad-status-message")
     in
-        describe "view"
-            [ fuzz4
-                config
-                locale
-                location
-                surveyResultList
-                "displays a list of survey results"
-                (\config locale location surveyResultList ->
-                    let
-                        model =
-                            Model
-                                config
-                                locale
-                                location
-                                ListSurveyResults
-                                NotRequested
-                                (Success surveyResultList)
-                    in
-                        model
-                            |> Main.view
-                            |> Query.fromHtml
-                            |> Query.has [ tag "section", surveyResults ]
-                )
-            ]
+    describe "when survey result list web data is NotFound Failure"
+        [ fuzz randomLanguage "displays an error message" <|
+            \language ->
+                let
+                    html =
+                        SurveyResultList.view language surveyResultList
+                in
+                html
+                    |> Html.Styled.toUnstyled
+                    |> Query.fromHtml
+                    |> Query.find [ tag "section", errorMessage ]
+                    |> Query.has [ tag "div", badStatusMessage ]
+        ]
+
+
+viewWhenDataIsFailureTest : Fuzzer Language -> Test
+viewWhenDataIsFailureTest randomLanguage =
+    let
+        randomHttpError =
+            Error.fuzzer
+
+        errorMessage =
+            Selector.attribute
+                (Attributes.attribute "data-name" "error-message")
+    in
+    describe "when survey result list web data is Failure"
+        [ fuzz2 randomLanguage randomHttpError "displays an error message" <|
+            \language httpError ->
+                let
+                    surveyResultList =
+                        RemoteData.Failure httpError
+
+                    html =
+                        SurveyResultList.view language surveyResultList
+                in
+                html
+                    |> Html.Styled.toUnstyled
+                    |> Query.fromHtml
+                    |> Query.has [ tag "section", errorMessage ]
+        ]

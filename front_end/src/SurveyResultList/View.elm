@@ -1,100 +1,45 @@
 module SurveyResultList.View exposing (view)
 
-{-| Display a survey result list
--}
-
-import Header
-import Html.Styled
-    exposing
-        ( Attribute
-        , Html
-        , div
-        , h1
-        , main_
-        , section
-        , text
-        )
+import Html.Styled exposing (Html, div, h1, main_, section, text)
 import Html.Styled.Attributes exposing (attribute, class, css)
-import Html.Styled.Events exposing (onWithOptions)
-import Json.Decode as Decode
-import Locale exposing (Locale)
-import Styles
+import Language exposing (Language)
 import SurveyResult exposing (SurveyResult)
-import SurveyResultList.Config exposing (Config)
 import SurveyResultList.Model exposing (SurveyResultList)
-import Translations exposing (Lang)
+import SurveyResultList.Styles as Styles
+import Translations
 
 
-view : Config msg -> Locale -> SurveyResultList -> Html msg
-view { blurMsg, localeMsg, surveyResultDetailMsg } locale { surveyResults } =
+view : Language -> SurveyResultList -> Html msg
+view language { surveyResults } =
+    main_ []
+        [ section
+            [ attribute "data-name" "survey-results"
+            , class Styles.section
+            ]
+            (surveyResultList language surveyResults)
+        ]
+
+
+
+-- PRIVATE
+
+
+surveyResultList : Language -> List SurveyResult -> List (Html msg)
+surveyResultList language surveyResults =
     let
-        classes =
-            [ "center"
-            , "mw7"
-            ]
-                |> String.join " "
-                |> class
-
-        blurClickOptions =
-            msgClickOptions blurMsg
+        surveyResults_ =
+            surveyResults
+                |> List.map (SurveyResult.summaryView language)
     in
-        main_ []
-            [ Header.view localeMsg locale
-            , section
-                [ attribute "data-name" "survey-results"
-                , classes
-                , blurClickOptions
-                ]
-                (surveyResultList surveyResultDetailMsg locale surveyResults)
-            ]
+    div [ class Styles.surveyResultList ]
+        [ heading language ]
+        :: surveyResults_
 
 
-surveyResultList :
-    (String -> msg)
-    -> Locale
-    -> List SurveyResult
-    -> List (Html msg)
-surveyResultList surveyResultDetailMsg locale surveyResults =
-    let
-        classes =
-            [ "flex"
-            , "justify-around"
-            , "mt1"
-            ]
-                |> String.join " "
-                |> class
-    in
-        div [ classes ]
-            [ heading locale.language ]
-            :: (surveyResults
-                    |> List.map
-                        (SurveyResult.view
-                            surveyResultDetailMsg
-                            locale.language
-                        )
-               )
-
-
-heading : Lang -> Html msg
+heading : Language -> Html msg
 heading language =
-    let
-        headingClasses =
-            [ "avenir"
-            , "dark-gray"
-            , "mv3"
-            , "ttu"
-            ]
-                |> String.join " "
-                |> class
-    in
-        h1
-            [ headingClasses, css [ Styles.surveyResultListHeading ] ]
-            [ text (Translations.surveyResults language) ]
-
-
-msgClickOptions : msg -> Attribute msg
-msgClickOptions msg =
-    onWithOptions
-        "click"
-        { preventDefault = True, stopPropagation = True }
-        (Decode.succeed msg)
+    h1
+        [ class Styles.heading
+        , css [ Styles.headingCss ]
+        ]
+        [ text (Translations.surveyResults language) ]

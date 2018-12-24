@@ -1,33 +1,29 @@
-import "@fortawesome/fontawesome";
-import "@fortawesome/fontawesome-free-solid";
-import "@fortawesome/fontawesome-free-regular";
+// REF: https://fontawesome.com/how-to-use/on-the-web/setup/hosting-font-awesome-yourself#using-svgs
+import "@fortawesome/fontawesome-free/js/all"
 import "flag-icon-css/css/flag-icon.css"
-import "tachyons";
-import { Main } from "./Main.elm";
+import "tachyons"
+import { Elm } from "./Main.elm";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const appContainer = document.querySelector("#root");
+const app =
+  Elm.Main.init({
+    flags: {
+      environment: process.env.NODE_ENV,
+      apiUrl: process.env.ELM_APP_API_URL,
+      language: getLanguage()
+    }
+  })
 
-  if (appContainer) {
-    const app =
-      Main.embed(appContainer, {
-        environment: process.env.NODE_ENV,
-        apiUrl: process.env.ELM_APP_API_URL,
-        language: getLanguage()
-      });
+app.ports.initBodyProperties.subscribe(classes => {
+  document.body.className = classes
+})
 
-    app.ports.updateTitle.subscribe((newTitle) => {
-      window.document.title = newTitle;
-    });
 
-    app.ports.updateLanguage.subscribe((language) => {
-      localStorage.setItem("survey-tool-language", language);
-    });
-  }
+app.ports.storeLanguage.subscribe(language => {
+  localStorage.setItem("survey-tool-language", language)
+})
 
-  function getLanguage() {
-    return localStorage.getItem("survey-tool-language") ||
-      navigator.language ||
-      navigator.userLanguage;
-  }
-});
+function getLanguage() {
+  return localStorage.getItem("survey-tool-language") ||
+    navigator.language ||
+    navigator.userLanguage
+}

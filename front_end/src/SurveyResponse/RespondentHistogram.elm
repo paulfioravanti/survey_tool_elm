@@ -1,17 +1,17 @@
-module SurveyResponse.RespondentHistogram
-    exposing
-        ( RespondentHistogram
-        , init
-        )
+module SurveyResponse.RespondentHistogram exposing
+    ( RespondentHistogram
+    , init
+    )
 
 import Dict exposing (Dict)
-import SurveyResponse.Model exposing (Rating, RespondentId, SurveyResponse)
+import SurveyResponse.Model exposing (SurveyResponse)
+import SurveyResponse.Ratings as Ratings
 
 
 {-| A histogram of response scores and the respondent IDs who chose them.
 -}
 type alias RespondentHistogram =
-    Dict Rating (List RespondentId)
+    Dict String (List String)
 
 
 {-| Creates a histogram of survey respondents and their response scores for
@@ -46,11 +46,11 @@ Only valid responses from 1-5 are included in the histogram.
     histogram : RespondentHistogram
     histogram =
         Dict.fromList
-            [ ( "1", [5] )
-            , ( "2", [4] )
-            , ( "3", [11, 3] )
-            , ( "4", [10, 9, 2] )
-            , ( "5", [8, 7, 6, 1] )
+            [ ( "1", [ "5" ] )
+            , ( "2", [ "4" ] )
+            , ( "3", [ "11", "3" ] )
+            , ( "4", [ "10", "9", "2" ] )
+            , ( "5", [ "8", "7", "6", "1" ] )
             ]
 
     init surveyResponses
@@ -65,19 +65,21 @@ init surveyResponses =
                 histogram
                     |> Dict.update
                         responseContent
-                        (Maybe.map ((::) respondentId))
+                        (Maybe.map ((::) (String.fromInt respondentId)))
+
             else
                 histogram
     in
-        List.foldl prependRatingToList initialHistogram surveyResponses
+    surveyResponses
+        |> List.foldl prependRatingToList initialHistogram
+
+
+
+-- PRIVATE
 
 
 initialHistogram : RespondentHistogram
 initialHistogram =
-    Dict.fromList
-        [ ( "1", [] )
-        , ( "2", [] )
-        , ( "3", [] )
-        , ( "4", [] )
-        , ( "5", [] )
-        ]
+    Ratings.init
+        |> List.map (\rating -> ( rating, [] ))
+        |> Dict.fromList

@@ -1,80 +1,34 @@
-module Main exposing (main, init, subscriptions, view)
+module Main exposing (init, main)
 
-{-| NOTE: The non-main functions do not really need to be exposed
-for the app to function, but this was the only way I could think of test it.
-I was unable to figure out a way to test init through main.
--}
-
-import Config
+import Browser
+import Browser.Navigation as Navigation exposing (Key)
 import Flags exposing (Flags)
-import Html.Styled as Html
-import Locale
 import Model exposing (Model)
-import Mouse
-import Msg exposing (Msg(Blur, LocaleMsg, RoutingMsg, UpdatePage))
-import Navigation exposing (Location)
-import Router
-import Task
+import Msg exposing (Msg)
+import Ports
+import Styles
 import Update
-import VirtualDom exposing (Node)
+import Url exposing (Url)
+import View
 
 
 main : Program Flags Model Msg
 main =
-    Navigation.programWithFlags
-        UpdatePage
+    Browser.application
         { init = init
-        , view = view
         , update = Update.update
-        , subscriptions = subscriptions
+        , view = View.view
+        , subscriptions = always Sub.none
+        , onUrlRequest = Msg.UrlRequested
+        , onUrlChange = Msg.UrlChanged
         }
 
 
-init : Flags -> Location -> ( Model, Cmd Msg )
-init flags location =
-    let
-        config =
-            Config.init flags
-
-        locale =
-            Locale.init flags.language
-
-        model =
-            Model.init config locale location
-    in
-        ( model
-        , Task.succeed
-            location
-            |> Task.perform UpdatePage
-        )
-
-
-view : Model -> Node Msg
-view { locale, location, route, surveyResultList, surveyResultDetail } =
-    let
-        routerConfig =
-            { blurMsg = Blur
-            , localeMsg = LocaleMsg
-            , routingMsg = RoutingMsg
-            }
-
-        routerContext =
-            { locale = locale
-            , location = location
-            , route = route
-            , surveyResultList = surveyResultList
-            , surveyResultDetail = surveyResultDetail
-            }
-    in
-        Router.route routerConfig routerContext
-            |> Html.toUnstyled
-
-
-subscriptions : Model -> Sub Msg
-subscriptions { locale } =
-    if locale.showAvailableLanguages == True then
-        -- NOTE: Would prefer anonymous function notation here over `always`,
-        -- but that doesn't get picked up by elm-coverage :/
-        Mouse.clicks (always (LocaleMsg Locale.closeAvailableLanguagesMsg))
-    else
-        Sub.none
+init : Flags -> Url -> Key -> ( Model, Cmd Msg )
+init flags url key =
+    ( Model.init flags url (Just key)
+    , Cmd.batch
+        [ Ports.initBodyProperties Styles.body
+        , Navigation.pushUrl key (Url.toString url)
+        ]
+    )

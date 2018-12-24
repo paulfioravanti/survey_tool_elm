@@ -1,22 +1,23 @@
-module SurveyResultList
-    exposing
-        ( Msg
-        , SurveyResultList
-        , fetchSurveyResultList
-        , update
-        , view
-        )
+module SurveyResultList exposing
+    ( Msg
+    , SurveyResultList
+    , init
+    , load
+    , path
+    , title
+    , update
+    , view
+    )
 
 import Html.Styled exposing (Html)
-import Locale exposing (Locale)
+import Language exposing (Language)
 import RemoteData exposing (WebData)
 import SurveyResultList.Cmd as Cmd
-import SurveyResultList.Config exposing (Config)
-import SurveyResultList.Controller as Controller
+import SurveyResultList.Data as Data
 import SurveyResultList.Model as Model
 import SurveyResultList.Msg as Msg
+import SurveyResultList.Path as Path
 import SurveyResultList.Update as Update
-import Translations exposing (Lang)
 
 
 type alias SurveyResultList =
@@ -27,16 +28,32 @@ type alias Msg =
     Msg.Msg
 
 
-fetchSurveyResultList : String -> Cmd Msg
-fetchSurveyResultList apiUrl =
-    Cmd.fetchSurveyResultList apiUrl
+init : WebData SurveyResultList
+init =
+    Data.init
 
 
-update : Msg -> Lang -> ( WebData SurveyResultList, Cmd Msg )
-update msg language =
-    Update.update msg language
+load : String -> WebData SurveyResultList -> Cmd Msg
+load apiUrl surveyResultList =
+    Cmd.load apiUrl surveyResultList
 
 
-view : Config msg -> Locale -> WebData SurveyResultList -> Html msg
-view config locale surveyResultList =
-    Controller.render config locale surveyResultList
+title : Language -> WebData SurveyResultList -> String
+title language surveyResultList =
+    surveyResultList
+        |> Data.title language
+
+
+path : String
+path =
+    Path.path
+
+
+update : Language -> Msg -> ( WebData SurveyResultList, String, Cmd Msg )
+update language msg =
+    Update.update language msg
+
+
+view : Language -> WebData SurveyResultList -> Html msg
+view language webData =
+    Data.view language webData

@@ -3,8 +3,8 @@ module Question.Decoder exposing (decoder)
 {-| Decodes a JSON survey question.
 -}
 
-import Json.Decode as Decode exposing (Decoder, field, list, string)
-import Json.Decode.Extra exposing ((|:))
+import Json.Decode as Decode exposing (Decoder, list, string)
+import Json.Decode.Pipeline exposing (required)
 import Question.Model exposing (Question)
 import SurveyResponse
 
@@ -12,7 +12,7 @@ import SurveyResponse
 {-| Decodes a JSON question from a survey result
 
     import Json.Decode as Decode
-    import Question.Model exposing (Question)
+    import Question exposing (Question)
     import SurveyResponse.Model exposing (SurveyResponse)
 
     json : String
@@ -34,10 +34,11 @@ import SurveyResponse
 
     question : Question
     question =
-        Question
-           "I like the kind of work I do."
-           [ SurveyResponse 1 1 1 "5" ]
-           "ratingquestion"
+        { description = "I like the kind of work I do."
+        , questionType = "ratingquestion"
+        , surveyResponses =
+            [ SurveyResponse 1 1 1 "5" ]
+        }
 
     Decode.decodeString decoder json
     --> Ok question
@@ -49,8 +50,7 @@ decoder =
         surveyResponse =
             SurveyResponse.decoder
     in
-        Decode.succeed
-            Question
-            |: field "description" string
-            |: field "survey_responses" (list surveyResponse)
-            |: field "question_type" string
+    Decode.succeed Question
+        |> required "description" string
+        |> required "survey_responses" (list surveyResponse)
+        |> required "question_type" string

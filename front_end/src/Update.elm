@@ -1,78 +1,98 @@
 module Update exposing (update)
 
-import Locale
-import Msg
-    exposing
-        ( Msg
-            ( LocaleMsg
-            , SurveyResultDetailMsg
-            , SurveyResultListMsg
-            , RoutingMsg
-            , UpdatePage
-            , Blur
-            )
-        )
+import Browser.Navigation as Navigation
+import Cmd
+import Language
+import LanguageSelector
 import Model exposing (Model)
-import Page
-import Router
-import SurveyResultDetail
+import Msg exposing (Msg)
+import Navigation
+import Ports
+import Route
+import SurveyResult
 import SurveyResultList
-import Task
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Blur ->
-            ( model
-            , Task.succeed Locale.closeAvailableLanguagesMsg
-                |> Task.perform LocaleMsg
+        Msg.ChangeLanguage language ->
+            let
+                maybeChangeRoute =
+                    model.navigation.route
+                        |> Cmd.maybeChangeRoute
+
+                storeLanguage =
+                    language
+                        |> Language.toString
+                        |> Ports.storeLanguage
+
+                hideSelectableLanguages =
+                    Cmd.hideSelectableLanguages
+            in
+            ( Model.changeLanguage language model
+            , Cmd.batch
+                [ hideSelectableLanguages
+                , maybeChangeRoute
+                , storeLanguage
+                ]
             )
 
-        LocaleMsg localeMsg ->
+        Msg.ChangeRoute route ->
             let
-                ( locale, cmd ) =
-                    model.locale
-                        |> Locale.update localeMsg
+                loadDataForRoute =
+                    model
+                        |> Cmd.loadDataForRoute route
             in
-                ( { model | locale = locale }
-                , Cmd.batch
-                    [ Cmd.map LocaleMsg cmd
-                    , Task.succeed model.location
-                        |> Task.perform UpdatePage
-                    ]
-                )
+            ( model, loadDataForRoute )
 
-        SurveyResultDetailMsg surveyResultDetailMsg ->
+        Msg.LanguageSelector msgForLanguageSelector ->
             let
-                ( surveyResultDetail, cmd ) =
-                    model.locale.language
-                        |> SurveyResultDetail.update surveyResultDetailMsg
+                languageSelector =
+                    model.languageSelector
+                        |> LanguageSelector.update msgForLanguageSelector
             in
-                ( { model | surveyResultDetail = surveyResultDetail }
-                , Cmd.map SurveyResultDetailMsg cmd
-                )
+            ( { model | languageSelector = languageSelector }, Cmd.none )
 
-        SurveyResultListMsg surveyResultMsg ->
+        Msg.SurveyResult msgForSurveyResult ->
             let
-                ( surveyResultList, cmd ) =
-                    model.locale.language
-                        |> SurveyResultList.update surveyResultMsg
+                ( surveyResult, title, cmd ) =
+                    msgForSurveyResult
+                        |> SurveyResult.update model.language
             in
-                ( { model | surveyResultList = surveyResultList }
-                , Cmd.map SurveyResultListMsg cmd
-                )
+            ( { model | surveyResultDetail = surveyResult, title = title }
+            , Cmd.map Msg.SurveyResult cmd
+            )
 
-        RoutingMsg routingMsg ->
+        Msg.SurveyResultList msgForSurveyResultList ->
             let
-                ( route, cmd ) =
-                    model.locale.language
-                        |> Router.update routingMsg
+                ( surveyResultList, title, cmd ) =
+                    msgForSurveyResultList
+                        |> SurveyResultList.update model.language
             in
-                ( { model | route = route }
-                , cmd
-                )
+            ( { model | surveyResultList = surveyResultList, title = title }
+            , Cmd.map Msg.SurveyResultList cmd
+            )
 
-        -- suppressed parameter is `location`
-        UpdatePage _ ->
-            Page.update model
+        Msg.UrlChanged url ->
+            let
+                maybeRoute =
+                    Route.init url
+
+                navigation =
+                    model.navigation
+                        |> Navigation.updateRoute maybeRoute
+
+                maybeChangeRoute =
+                    maybeRoute
+                        |> Cmd.maybeChangeRoute
+            in
+            ( { model | navigation = navigation }, maybeChangeRoute )
+
+        Msg.UrlRequested urlRequest ->
+            let
+                changeUrl =
+                    urlRequest
+                        |> Cmd.changeUrl model.navigation.key
+            in
+            ( model, changeUrl )

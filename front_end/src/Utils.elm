@@ -1,4 +1,4 @@
-module Utils exposing (toFormattedPercentage)
+module Utils exposing (percentFromFloat)
 
 {-| Utility functions not specifically tied to an application concern.
 -}
@@ -6,20 +6,20 @@ module Utils exposing (toFormattedPercentage)
 
 {-| Formats a float into a displayable percentage
 
-    toFormattedPercentage 0.8333333333333334
+    percentFromFloat 0.8333333333333334
     --> "83%"
 
-    toFormattedPercentage 0.8366666666666664
+    percentFromFloat 0.8366666666666664
     --> "84%"
 
 -}
-toFormattedPercentage : Float -> String
-toFormattedPercentage float =
+percentFromFloat : Float -> String
+percentFromFloat float =
     let
         percent =
             float
                 * 100
                 |> round
-                |> toString
+                |> String.fromInt
     in
-        percent ++ "%"
+    percent ++ "%"

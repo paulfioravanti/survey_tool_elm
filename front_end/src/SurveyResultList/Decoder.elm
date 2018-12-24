@@ -1,19 +1,16 @@
 module SurveyResultList.Decoder exposing (decoder)
 
-{-| Decoder for a JSON survey result list.
--}
-
-import Json.Decode as Decode exposing (Decoder, field, list)
-import Json.Decode.Extra exposing ((|:))
+import Json.Decode as Decode exposing (Decoder, list)
+import Json.Decode.Pipeline exposing (required)
 import SurveyResult
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
 {-| Decodes a JSON survey result list.
 
-    import Json.Decode
+    import Json.Decode as Decode
     import SurveyResult.Model exposing (SurveyResult)
-    import SurveyResultList.Model exposing (SurveyResultList)
+    import SurveyResultList exposing (SurveyResultList)
 
     json : String
     json =
@@ -26,13 +23,6 @@ import SurveyResultList.Model exposing (SurveyResultList)
               "response_rate": 0.8333333333333334,
               "participant_count": 6,
               "name": "Simple Survey"
-            },
-            {
-              "url": "/survey_results/2.json",
-              "submitted_response_count": 271,
-              "response_rate": 1,
-              "participant_count": 271,
-              "name": "Acme Engagement Survey"
             }
           ]
         }
@@ -40,24 +30,18 @@ import SurveyResultList.Model exposing (SurveyResultList)
 
     surveyResultList : SurveyResultList
     surveyResultList =
-        SurveyResultList
-            [ SurveyResult
-                "Simple Survey"
-                6
-                0.8333333333333334
-                5
-                Nothing
-                "/survey_results/1.json"
-            , SurveyResult
-                "Acme Engagement Survey"
-                271
-                1
-                271
-                Nothing
-                "/survey_results/2.json"
+        { surveyResults =
+            [ { name = "Simple Survey"
+              , participantCount = 6
+              , responseRate = 0.8333333333333334
+              , submittedResponseCount = 5
+              , themes = Nothing
+              , url = "/survey_results/1.json"
+              }
             ]
+        }
 
-    Json.Decode.decodeString decoder json
+    Decode.decodeString decoder json
     --> Ok surveyResultList
 
 -}
@@ -67,6 +51,5 @@ decoder =
         surveyResult =
             SurveyResult.decoder
     in
-        Decode.succeed
-            SurveyResultList
-            |: field "survey_results" (list surveyResult)
+    Decode.succeed SurveyResultList
+        |> required "survey_results" (list surveyResult)

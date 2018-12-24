@@ -3,15 +3,15 @@ module SurveyResponse.Decoder exposing (decoder)
 {-| Decodes a JSON survey response.
 -}
 
-import Json.Decode as Decode exposing (Decoder, field, int, string)
-import Json.Decode.Extra exposing ((|:))
+import Json.Decode as Decode exposing (Decoder, int, string)
+import Json.Decode.Pipeline exposing (required)
 import SurveyResponse.Model exposing (SurveyResponse)
 
 
-{-| Decodes a JSON survey response from a survey result
+{-| Decodes a specific JSON survey response from a survey result
 
     import Json.Decode as Decode
-    import SurveyResponse.Model exposing (SurveyResponse)
+    import SurveyResponse exposing (SurveyResponse)
 
     json : String
     json =
@@ -26,7 +26,11 @@ import SurveyResponse.Model exposing (SurveyResponse)
 
     surveyResponse : SurveyResponse
     surveyResponse =
-        SurveyResponse 1 1 1 "5"
+        { id = 1
+        , questionId = 1
+        , respondentId = 1
+        , responseContent = "5"
+        }
 
     Decode.decodeString decoder json
     --> Ok surveyResponse
@@ -34,9 +38,8 @@ import SurveyResponse.Model exposing (SurveyResponse)
 -}
 decoder : Decoder SurveyResponse
 decoder =
-    Decode.succeed
-        SurveyResponse
-        |: field "id" int
-        |: field "question_id" int
-        |: field "respondent_id" int
-        |: field "response_content" string
+    Decode.succeed SurveyResponse
+        |> required "id" int
+        |> required "question_id" int
+        |> required "respondent_id" int
+        |> required "response_content" string

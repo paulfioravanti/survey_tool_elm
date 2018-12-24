@@ -1,21 +1,21 @@
-module Question exposing (Question, averageScore, decoder, view)
+module Question exposing
+    ( Question
+    , decoder
+    , sumValidResponses
+    , view
+    )
 
 import Html.Styled exposing (Html)
 import Json.Decode exposing (Decoder)
+import Language exposing (Language)
+import Question.Aggregation as Aggregation
 import Question.Decoder as Decoder
 import Question.Model as Model
-import Question.Utils as Utils
 import Question.View as View
-import Translations exposing (Lang)
 
 
 type alias Question =
     Model.Question
-
-
-averageScore : List Question -> String
-averageScore questions =
-    Utils.averageScore questions
 
 
 decoder : Decoder Question
@@ -23,6 +23,11 @@ decoder =
     Decoder.decoder
 
 
-view : msg -> Lang -> Question -> Html msg
-view blurMsg language { description, surveyResponses } =
-    View.view blurMsg language description surveyResponses
+sumValidResponses : Question -> Int
+sumValidResponses question =
+    Aggregation.sumValidResponses question
+
+
+view : Language -> Question -> Html msg
+view language question =
+    View.view language question

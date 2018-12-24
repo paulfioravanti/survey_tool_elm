@@ -1,17 +1,9 @@
-module SurveyResponse.Model exposing (Rating, RespondentId, SurveyResponse)
-
-
-type alias Rating =
-    String
-
-
-type alias RespondentId =
-    Int
+module SurveyResponse.Model exposing (SurveyResponse)
 
 
 type alias SurveyResponse =
     { id : Int
     , questionId : Int
-    , respondentId : RespondentId
-    , responseContent : Rating
+    , respondentId : Int
+    , responseContent : String
     }
