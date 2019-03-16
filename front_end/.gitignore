@@ -17,9 +17,6 @@ node_modules
 # Private dev-mode ENV variables
 .env
 
-# Generated elm-module-graph
-module-graph.json
-
 # Generated test files from elm-verify-examples
 tests/VerifyExamples
 
