@@ -24,7 +24,7 @@ files expected by the front end.
 
 ### Dependencies
 
-- [Elixir][] 1.7.4
+- [Elixir][] 1.8.1
 
 ### Setup
 
