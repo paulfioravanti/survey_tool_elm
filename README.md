@@ -73,8 +73,8 @@ would have been overkill).
 
 ### Dependencies
 
-- [Elm][] 0.18.0
-- [NodeJS][] 11.2.0
+- [Elm][] 0.19.0-bugfix6
+- [NodeJS][] 11.10.0
 
 ### Setup
 
@@ -153,7 +153,12 @@ Verified examples (doctests):
 elm-verified-examples
 ```
 
-Run tests and generate code coverage report (should be at 100% coverage):
+Run tests and generate code coverage report.
+
+> Coverage is currently stuck at 99% because there is no way to
+generate a `Navigation.Key` for `Browser.application` apps in a test
+environment. Hopefully, that will change soon, but the issue to follow is
+[here](https://github.com/elm-explorations/test/issues/24).
 
 ```sh
 elm-coverage
