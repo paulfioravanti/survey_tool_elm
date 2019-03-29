@@ -240,18 +240,17 @@ process.
 
 Therefore, a new build of this application must be manually generated locally
 before every Heroku deployment. Hence, the `build` directory has been
-put under version control (by default it is `.gitignore`d). This means the
-deployment steps are:
+put under version control (by default it is `.gitignore`d). 
 
-- Run `elm-app build`
-- Commit the changes to the `build` directory to the repository
-- Deploy to Heroku
+The push/deployment process is mostly automated via the `push` script in the
+root directory. The way to use it is:
 
-OR
-
-- `./push back` to push the back end to Github and Heroku
-- `./push front` to generate a build, and then push the front end to
-  Github and Heroku
+- `./push back`: push repo contents to Github and deploy the back end app to
+  Heroku
+- `./push front`: generate a build, push repo contents to Github, then deploy
+  the front end app to Heroku
+- `./push both`: generate a build, push repo contents to Github, then push the
+  back and front end apps to Heroku
 
 ## Other
 
