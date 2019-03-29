@@ -3,9 +3,9 @@ set -e
 build_elm_app() {
   cd front_end
   elm-app build
+  cd ..
   git add .
   git commit --amend --no-edit --no-verify
-  cd ..
 }
 
 if [ $1 = "back" ]; then
