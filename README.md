@@ -247,6 +247,12 @@ deployment steps are:
 - Commit the changes to the `build` directory to the repository
 - Deploy to Heroku
 
+OR
+
+- `./push back` to push the back end to Github and Heroku
+- `./push front` to generate a build, and then push the front end to
+  Github and Heroku
+
 ## Other
 
 I also wrote implementations of the companion back-end developer test to this
