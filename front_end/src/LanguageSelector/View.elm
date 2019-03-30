@@ -74,13 +74,16 @@ caret showSelectableLanguages =
 
 dropdownList : (Language -> msg) -> LanguageSelector -> Html msg
 dropdownList changeLanguageMsg languageSelector =
+    let
+        { selectableLanguages, showSelectableLanguages } =
+            languageSelector
+    in
     ul
         [ attribute "data-name" "language-selector-list"
-        , class
-            (Styles.dropdownMenuList languageSelector.showSelectableLanguages)
-        , css [ Styles.dropdownMenuListCss ]
+        , class (Styles.dropdownMenuList showSelectableLanguages)
+        , css [ Styles.dropdownMenuListCss showSelectableLanguages ]
         ]
-        (languageSelector.selectableLanguages
+        (selectableLanguages
             |> List.map (dropdownListItem changeLanguageMsg)
         )
 

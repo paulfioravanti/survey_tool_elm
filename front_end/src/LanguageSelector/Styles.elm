@@ -19,11 +19,14 @@ import Css
         ( Style
         , borderColor
         , color
+        , hidden
         , hover
         , left
         , marginTop
         , pct
         , rgba
+        , visibility
+        , visible
         )
 import Css.Global as Global
 import Styles
@@ -110,7 +113,7 @@ dropdownMenuList showSelectableLanguages =
                 "flex flex-column"
 
             else
-                "dn"
+                ""
     in
     [ displayClass
     , "absolute"
@@ -130,9 +133,23 @@ dropdownMenuList showSelectableLanguages =
         |> String.join " "
 
 
-dropdownMenuListCss : Style
-dropdownMenuListCss =
-    marginTop (Css.rem 0.12)
+dropdownMenuListCss : Bool -> Style
+dropdownMenuListCss showSelectableLanguages =
+    let
+        -- Visibility is used here so that flag images always load upfront, and
+        -- there are never any blank menu items when you click the dropdown
+        -- menu while you are waiting for them to load
+        listVisibility =
+            if showSelectableLanguages then
+                visibility visible
+
+            else
+                visibility hidden
+    in
+    Css.batch
+        [ listVisibility
+        , marginTop (Css.rem 0.12)
+        ]
 
 
 dropdownMenuListItem : String
