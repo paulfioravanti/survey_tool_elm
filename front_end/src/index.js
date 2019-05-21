@@ -17,7 +17,6 @@ app.ports.initBodyProperties.subscribe(classes => {
   document.body.className = classes
 })
 
-
 app.ports.storeLanguage.subscribe(language => {
   localStorage.setItem("survey-tool-language", language)
 })
