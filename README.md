@@ -24,7 +24,8 @@ files expected by the front end.
 
 ### Dependencies
 
-- [Elixir][] 1.8.1
+- [Elixir][] 1.8.2 ([asdf-elixir pre-compiled version][]: 1.8.2-otp-22)
+- [Erlang][] 22.0.1
 
 ### Setup
 
@@ -265,6 +266,7 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [![Contact][twitter-badge]][twitter-url]<br />
 [![Stack Overflow][stackoverflow-badge]][stackoverflow-url]
 
+[asdf-elixir pre-compiled version]: https://github.com/asdf-vm/asdf-elixir#elixir-precompiled-versions
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
 [Back end JSON API]: https://survey-tool-back-end.herokuapp.com/survey_results
 [Create Elm App]: https://github.com/halfzebra/create-elm-app
