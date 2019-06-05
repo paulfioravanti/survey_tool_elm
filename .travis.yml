@@ -4,8 +4,8 @@ matrix:
   include:
     # Elixir back end
     - language: elixir
-      elixir: 1.8.1
-      otp_release: 21.3
+      elixir: 1.8.2
+      otp_release: 22.0.1
       cache:
         directories:
           - _build
