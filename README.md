@@ -24,8 +24,8 @@ files expected by the front end.
 
 ### Dependencies
 
-- [Elixir][] 1.8.2 ([asdf-elixir pre-compiled version][]: 1.8.2-otp-22)
-- [Erlang][] 22.0.1
+- [Elixir][] 1.9.0 ([asdf-elixir pre-compiled version][]: 1.9.0-otp-22)
+- [Erlang][] 22.0.4
 
 ### Setup
 
