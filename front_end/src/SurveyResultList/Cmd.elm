@@ -8,7 +8,6 @@ import Task
 
 load : String -> WebData SurveyResultList -> Cmd Msg
 load apiUrl surveyResultList =
-    surveyResultList
-        |> Msg.Load apiUrl
+    Msg.load apiUrl surveyResultList
         |> Task.succeed
         |> Task.perform identity
