@@ -19,8 +19,8 @@ main =
         , update = Update.update
         , view = View.view
         , subscriptions = always Sub.none
-        , onUrlRequest = Msg.UrlRequested
-        , onUrlChange = Msg.UrlChanged
+        , onUrlRequest = Msg.urlRequested
+        , onUrlChange = Msg.urlChanged
         }
 
 

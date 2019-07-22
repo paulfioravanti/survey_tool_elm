@@ -5,6 +5,8 @@ module Msg exposing
     , languageSelector
     , surveyResult
     , surveyResultList
+    , urlChanged
+    , urlRequested
     )
 
 import Browser exposing (UrlRequest)
@@ -49,3 +51,13 @@ surveyResult surveyResultMsg =
 surveyResultList : SurveyResultList.Msg -> Msg
 surveyResultList surveyResultListMsg =
     SurveyResultList surveyResultListMsg
+
+
+urlChanged : Url -> Msg
+urlChanged url =
+    UrlChanged url
+
+
+urlRequested : UrlRequest -> Msg
+urlRequested urlRequest =
+    UrlRequested urlRequest
