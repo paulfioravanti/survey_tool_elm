@@ -73,8 +73,6 @@ displaySingleRespondent language respondents =
             respondents
                 |> List.head
                 |> Maybe.withDefault "0"
-
-        -- |> String.fromInt
     in
     Translations.oneRespondent language id
 
@@ -92,15 +90,12 @@ displayAllRespondents language respondents =
 
         headIds =
             head
-                -- |> List.map String.fromInt
                 |> String.join ", "
 
         tailId =
             tail
                 |> List.head
                 |> Maybe.withDefault "0"
-
-        -- |> String.fromInt
     in
     Translations.allRespondents language headIds tailId
 
@@ -114,7 +109,6 @@ truncatedRespondents language respondentsToDisplay truncatedRespondentsList =
     let
         idsToDisplay =
             respondentsToDisplay
-                -- |> List.map String.fromInt
                 |> String.join ", "
 
         numTruncated =

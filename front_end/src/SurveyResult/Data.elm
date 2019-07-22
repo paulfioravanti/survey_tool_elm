@@ -34,7 +34,7 @@ load apiUrl id webData =
             Decoder.decoder
 
         callbackMsg =
-            Msg.Fetched
+            Msg.fetched
     in
     case webData of
         -- Fetch data if it has not been asked for yet.
