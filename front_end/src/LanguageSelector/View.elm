@@ -26,7 +26,7 @@ view changeLanguageMsg languageSelectorMsg language languageSelector =
         hideSelectableLanguages =
             if languageSelector.showSelectableLanguages then
                 [ onMouseLeave
-                    (languageSelectorMsg Msg.HideSelectableLanguages)
+                    (Msg.hideSelectableLanguages languageSelectorMsg)
                 ]
 
             else
@@ -55,7 +55,7 @@ currentSelection languageSelectorMsg language { showSelectableLanguages } =
     p
         [ attribute "data-name" "language-selector-current-selection"
         , class (Styles.currentSelection showSelectableLanguages)
-        , onClick (languageSelectorMsg Msg.ToggleSelectableLanguages)
+        , onClick (Msg.toggleSelectableLanguages languageSelectorMsg)
         ]
         [ span [ class flagStyles ] []
         , caret showSelectableLanguages
