@@ -5,7 +5,7 @@ elm-coverage:
   elm-coverage
 
 test: elm-test
-  elm-verify-examples
+  elm-verify-examples --run-tests
 
 coverage: elm-coverage
-  elm-verify-examples
+  elm-verify-examples --run-tests
