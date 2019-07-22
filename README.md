@@ -360,4 +360,4 @@ Assuming you use Git to track changes to your code, when you’re ready to submi
 git bundle create front-end-coding-test.bundle master
 ```
 
-We’re looking forward to your innovative solutions!
+We're looking forward to your innovative solutions!
