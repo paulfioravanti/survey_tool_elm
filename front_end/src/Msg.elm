@@ -1,4 +1,11 @@
-module Msg exposing (Msg(..))
+module Msg exposing
+    ( Msg(..)
+    , changeLanguage
+    , changeRoute
+    , languageSelector
+    , surveyResult
+    , surveyResultList
+    )
 
 import Browser exposing (UrlRequest)
 import Language exposing (Language)
@@ -17,3 +24,28 @@ type Msg
     | SurveyResultList SurveyResultList.Msg
     | UrlChanged Url
     | UrlRequested UrlRequest
+
+
+changeLanguage : Language -> Msg
+changeLanguage language =
+    ChangeLanguage language
+
+
+changeRoute : Route -> Msg
+changeRoute route =
+    ChangeRoute route
+
+
+languageSelector : LanguageSelector.Msg -> Msg
+languageSelector languageSelectorMsg =
+    LanguageSelector languageSelectorMsg
+
+
+surveyResult : SurveyResult.Msg -> Msg
+surveyResult surveyResultMsg =
+    SurveyResult surveyResultMsg
+
+
+surveyResultList : SurveyResultList.Msg -> Msg
+surveyResultList surveyResultListMsg =
+    SurveyResultList surveyResultListMsg

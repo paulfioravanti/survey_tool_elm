@@ -58,8 +58,7 @@ summaryView language surveyResult =
 
 title : Language -> WebData SurveyResult -> String
 title language webData =
-    webData
-        |> Data.title language
+    Data.title language webData
 
 
 update : Language -> Msg -> ( WebData SurveyResult, String, Cmd Msg )

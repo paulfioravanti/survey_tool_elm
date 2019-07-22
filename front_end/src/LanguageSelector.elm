@@ -29,9 +29,9 @@ init language =
     Model.init language
 
 
-hideSelectableLanguages : Msg
-hideSelectableLanguages =
-    Msg.HideSelectableLanguages
+hideSelectableLanguages : (Msg -> msg) -> msg
+hideSelectableLanguages languageSelectorMsg =
+    Msg.hideSelectableLanguages languageSelectorMsg
 
 
 update : Msg -> LanguageSelector -> LanguageSelector

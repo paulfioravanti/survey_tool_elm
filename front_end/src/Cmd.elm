@@ -36,8 +36,7 @@ changeUrl maybeKey urlRequest =
 
 hideSelectableLanguages : Cmd Msg
 hideSelectableLanguages =
-    LanguageSelector.hideSelectableLanguages
-        |> Msg.LanguageSelector
+    LanguageSelector.hideSelectableLanguages Msg.languageSelector
         |> Task.succeed
         |> Task.perform identity
 
@@ -48,19 +47,19 @@ loadDataForRoute route model =
         Route.SurveyResultList ->
             model.surveyResultList
                 |> SurveyResultList.load model.apiUrl
-                |> Cmd.map Msg.SurveyResultList
+                |> Cmd.map Msg.surveyResultList
 
         Route.SurveyResultDetail id ->
             model.surveyResultDetail
                 |> SurveyResult.load model.apiUrl id
-                |> Cmd.map Msg.SurveyResult
+                |> Cmd.map Msg.surveyResult
 
 
 maybeChangeRoute : Maybe Route -> Cmd Msg
 maybeChangeRoute maybeRoute =
     case maybeRoute of
         Just route ->
-            Msg.ChangeRoute route
+            Msg.changeRoute route
                 |> Task.succeed
                 |> Task.perform identity
 

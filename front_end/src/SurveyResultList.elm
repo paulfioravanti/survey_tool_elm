@@ -40,8 +40,7 @@ load apiUrl surveyResultList =
 
 title : Language -> WebData SurveyResultList -> String
 title language surveyResultList =
-    surveyResultList
-        |> Data.title language
+    Data.title language surveyResultList
 
 
 path : String

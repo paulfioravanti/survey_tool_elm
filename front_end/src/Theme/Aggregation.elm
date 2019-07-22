@@ -96,11 +96,10 @@ averageScore theme =
 countValidResponses : Theme -> Int
 countValidResponses { questions } =
     let
-        addQuestionSurveyResponsesCount =
-            \question acc ->
-                question.surveyResponses
-                    |> List.foldl SurveyResponse.countValidResponse 0
-                    |> (+) acc
+        addQuestionSurveyResponsesCount question acc =
+            question.surveyResponses
+                |> List.foldl SurveyResponse.countValidResponse 0
+                |> (+) acc
     in
     questions
         |> List.foldl addQuestionSurveyResponsesCount 0
@@ -109,11 +108,10 @@ countValidResponses { questions } =
 sumValidResponses : Theme -> Int
 sumValidResponses { questions } =
     let
-        addQuestionSum =
-            \question acc ->
-                question
-                    |> Question.sumValidResponses
-                    |> (+) acc
+        addQuestionSum question acc =
+            question
+                |> Question.sumValidResponses
+                |> (+) acc
     in
     questions
         |> List.foldl addQuestionSum 0

@@ -16,8 +16,8 @@ view model =
     let
         header =
             Header.view
-                Msg.ChangeLanguage
-                Msg.LanguageSelector
+                Msg.changeLanguage
+                Msg.languageSelector
                 model.language
                 model.languageSelector
 

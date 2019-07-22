@@ -2,7 +2,8 @@ module LanguageSelector.HideSelectableLanguagesTest exposing (all)
 
 import Expect
 import LanguageSelector
-import LanguageSelector.Msg as Msg
+import LanguageSelector.Msg
+import Msg
 import Test exposing (Test, describe, test)
 
 
@@ -11,10 +12,11 @@ all =
     describe "LanguageSelector.hideSelectableLanguages"
         [ let
             expectedData =
-                Msg.HideSelectableLanguages
+                Msg.LanguageSelector
+                    LanguageSelector.Msg.HideSelectableLanguages
 
             actualData =
-                LanguageSelector.hideSelectableLanguages
+                LanguageSelector.hideSelectableLanguages Msg.LanguageSelector
           in
           test "returns Msg.HideSelectableLanguages" <|
             \() ->
