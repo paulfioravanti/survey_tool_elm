@@ -24,8 +24,8 @@ files expected by the front end.
 
 ### Dependencies
 
-- [Elixir][] 1.9.0 ([asdf-elixir pre-compiled version][]: 1.9.0-otp-22)
-- [Erlang][] 22.0.4
+- [Elixir][] 1.9.2 ([asdf-elixir pre-compiled version][]: 1.9.2-otp-22)
+- [Erlang][] 22.1.3
 
 ### Setup
 
@@ -74,8 +74,8 @@ would have been overkill).
 
 ### Dependencies
 
-- [Elm][] 0.19.0-bugfix6
-- [NodeJS][] 12.6.0
+- [Elm][] 0.19.1
+- [NodeJS][] 13.0.1
 
 ### Setup
 
@@ -151,10 +151,11 @@ elm-test
 Verified examples (doctests):
 
 ```sh
-elm-verified-examples
+elm-verify-examples
 ```
 
-Run tests and generate code coverage report.
+Run tests and generate code coverage report.  
+NOTE: `elm-coverage` does not support Elm 0.19.1 as of this writing.
 
 > Coverage is currently stuck at 99% because there is no way to
 generate a `Navigation.Key` for `Browser.application` apps in a test
