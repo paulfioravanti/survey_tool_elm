@@ -17,8 +17,8 @@ matrix:
         - mix test
     # Elm front end
     - language: elm
-      elm: 0.19.1
-      elm-test: 0.19.1
+      elm: latest-0.19.1
+      elm-test: latest-0.19.1
       elm-format: 0.8.2
       node_js: 13.0.1
       before_install:
