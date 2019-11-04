@@ -18,8 +18,8 @@ matrix:
     # Elm front end
     - language: elm
       elm: latest-0.19.1
-      elm-test: latest-0.19.1
-      elm-format: 0.8.2
+      elm_test: latest-0.19.1
+      elm_format: 0.8.2
       node_js: 13.0.1
       before_install:
         - cd front_end
