@@ -23,7 +23,7 @@ defmodule BackEnd.Mixfile do
     [
       {:cors_plug, "~> 2.0"},
       {:cowboy, "~> 2.3"},
-      {:mix_test_watch, "~> 0.6", only: :dev, runtime: false},
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:plug_cowboy, "~> 2.0"},
       {:jason, "~> 1.1"}
     ]
