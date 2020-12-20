@@ -13,11 +13,11 @@ if [ "$1" = "back" ]; then
   git subtree push --prefix back_end heroku-survey-tool-back-end master
 elif [ "$1" = "front" ]; then
   build_elm_app
-  git push
+  git push -f
   git subtree push --prefix front_end heroku-survey-tool-front-end master
 elif [ "$1" = "both" ]; then
   build_elm_app
-  git push
+  git push -f
   git subtree push --prefix back_end heroku-survey-tool-back-end master
   git subtree push --prefix front_end heroku-survey-tool-front-end master
 else

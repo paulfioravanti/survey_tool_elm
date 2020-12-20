@@ -75,7 +75,7 @@ would have been overkill).
 ### Dependencies
 
 - [Elm][] 0.19.1
-- [NodeJS][] 13.0.1
+- [NodeJS][] 15.4.0
 
 ### Setup
 
