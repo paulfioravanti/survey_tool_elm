@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # Listen on Heroku's $PORT
 port =

@@ -1,6 +1,6 @@
 # This file is responsible for configuring your application
 # and its dependencies with the aid of the Mix.Config module.
-use Mix.Config
+import Config
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
@@ -23,14 +23,6 @@ use Mix.Config
 if Mix.env() == :dev do
   # Configures automated testing/linting
   config :mix_test_watch, clear: true
-  # tasks: [
-  #   "coveralls.html",
-  #   "dogma",
-  #   "credo --strict",
-  #   "docs",
-  #   "inch --pedantic",
-  #   "dialyzer --halt-exit-status"
-  # ]
 end
 
 # config :cors_plug, methods: ["GET"]
