@@ -1,4 +1,4 @@
-[![Build Status][travis-badge]][travis-url]
+[![Build Status][Build Status image]][Build Status url]
 
 # Survey Tool Front End Developer Coding Test
 
@@ -195,6 +195,8 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 
 [asdf-elixir pre-compiled version]: https://github.com/asdf-vm/asdf-elixir#elixir-precompiled-versions
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
+[Build Status image]: https://github.com/paulfioravanti/survey_tool_elm/actions/workflows/ci.yml/badge.svg
+[Build Status url]: https://github.com/paulfioravanti/survey_tool_elm/actions/workflows/ci.yml
 [Create Elm App]: https://github.com/halfzebra/create-elm-app
 [create-elm-app#604]: https://github.com/halfzebra/create-elm-app/issues/604
 [Elixir]: https://github.com/elixir-lang/elixir
@@ -218,8 +220,6 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [Ruby]: https://github.com/ruby/ruby
 [survey-tool-ruby]: https://github.com/paulfioravanti/survey_tool_ruby
 [Tachyons]: http://tachyons.io/
-[travis-badge]: https://travis-ci.org/paulfioravanti/survey_tool_elm.svg?branch=master
-[travis-url]: https://travis-ci.org/paulfioravanti/survey_tool_elm
 [watchexec]: https://github.com/mattgreen/watchexec
 
 ---
