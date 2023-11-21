@@ -84,8 +84,8 @@ would have been overkill).
 I used the following global npm packages during development, so I recommend
 installing them to be able to run all application and testing commands:
 
-- [elm-test][]
 - [Create Elm App][]
+- [elm-test][]
 - [elm-verify-examples][]
 - [Elm Coverage][]
 - [Elm Analyse][]
@@ -125,6 +125,9 @@ configure that in the `.env` file.
 ```console
 NODE_OPTIONS=--openssl-legacy-provider elm-app start
 ```
+
+> The `--openssl-legacy-provider` option is needed until
+> [this issue][create-elm-app#604] gets addressed.
 
 Now, you should be able to use the app at the following address:
 
@@ -265,6 +268,7 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
 [Back end JSON API]: https://survey-tool-back-end.herokuapp.com/survey_results
 [Create Elm App]: https://github.com/halfzebra/create-elm-app
+[create-elm-app#604]: https://github.com/halfzebra/create-elm-app/issues/604
 [Elixir]: https://github.com/elixir-lang/elixir
 [Elm]: http://elm-lang.org/
 [Elm Analyse]: https://github.com/stil4m/elm-analyse
