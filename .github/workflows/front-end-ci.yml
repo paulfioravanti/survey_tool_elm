@@ -36,7 +36,6 @@ jobs:
       - name: Install Local Dependencies
         run: |
           npm install
-          elm-package install
           cp .env.example .env
 
       - name: Install Test Dependencies

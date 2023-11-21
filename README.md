@@ -107,7 +107,6 @@ brew install just watchexec
 ```console
 cd front_end
 npm install
-elm-package install
 cp .env.example .env
 ```
 
