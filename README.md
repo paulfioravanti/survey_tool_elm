@@ -14,7 +14,7 @@ cd survey_tool_elm
 
 ## Back end
 
-The back end is an [Elixir][] app that uses [PlugCowboy][] to serve the JSON
+The back end is an [Elixir][] app that uses [Plug.Cowboy][] to serve the JSON
 files expected by the front end.
 
 ### Dependencies
@@ -222,7 +222,7 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [NodeJS]: https://nodejs.org/en/
 [PETE stack]: https://github.com/dwyl/technology-stack#the-pete-stack
 [Phoenix]: http://phoenixframework.org/
-[PlugCowboy]: https://github.com/elixir-plug/plug_cowboy
+[Plug.Cowboy]: https://github.com/elixir-plug/plug_cowboy
 [Ruby]: https://github.com/ruby/ruby
 [survey-tool-ruby]: https://github.com/paulfioravanti/survey_tool_ruby
 [Tachyons]: http://tachyons.io/
