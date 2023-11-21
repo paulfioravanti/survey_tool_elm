@@ -193,6 +193,9 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 - <https://github.com/paulfioravanti/survey_tool_elixir>
 - <https://github.com/paulfioravanti/survey_tool_ruby>
 
+If you are a [Tmuxinator][] user, you can find my config for this project
+[here][tmuxinator-config].
+
 [asdf-elixir pre-compiled version]: https://github.com/asdf-vm/asdf-elixir#elixir-precompiled-versions
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
 [Build Status image]: https://github.com/paulfioravanti/survey_tool_elm/actions/workflows/ci.yml/badge.svg
@@ -220,6 +223,8 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [Ruby]: https://github.com/ruby/ruby
 [survey-tool-ruby]: https://github.com/paulfioravanti/survey_tool_ruby
 [Tachyons]: http://tachyons.io/
+[Tmuxinator]: https://github.com/tmuxinator/tmuxinator
+[tmuxinator-config]: https://github.com/paulfioravanti/dotfiles/blob/master/tmuxinator/survey_tool_elm.yml
 [watchexec]: https://github.com/mattgreen/watchexec
 
 ---
