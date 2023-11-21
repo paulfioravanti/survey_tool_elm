@@ -5,11 +5,6 @@
 An [Elm][] application that retrieves survey result information from a [JSON][]
 [API][], and displays the results.
 
-### Demo
-
-- [Front end application][]
-- [Back end JSON API][]
-
 ## Setup
 
 ```console
@@ -186,7 +181,7 @@ Use `just` and `watchexec` to run both `elm-verify-examples` and `elm-test`
 when any `src` code is modified:
 
 ```console
-watchexec --watch src --clear just test
+watchexec --watch src --clear=reset just test
 ```
 
 Use `just` and `watchexec` to run both `elm-verify-examples` and `elm-coverage`
@@ -195,66 +190,8 @@ included here because `elm-coverage` ends up touching every `src` file during
 its instrumentation phase, leading to infinite loops:
 
 ```console
-watchexec --watch tests --ignore tests/elm-package.json --clear just coverage
+watchexec --watch tests --ignore tests/elm-package.json --clear=reset just coverage
 ```
-
-## Deployment
-
-Both the front end and back end applications have been deployed to [Heroku][],
-and can be found at the following links:
-
-- Front end: <https://survey-tool-front-end.herokuapp.com/survey_results>
-- Back end: <https://survey-tool-back-end.herokuapp.com/survey_results>
-
-### Deployment Notes
-
-The git remotes for the application look like the following:
-
-```sh
-➜ [survey_tool_elm (master)]$ git remote -v
-heroku-survey-tool-back-end  https://git.heroku.com/survey-tool-back-end.git (fetch)
-heroku-survey-tool-back-end  https://git.heroku.com/survey-tool-back-end.git (push)
-heroku-survey-tool-front-end https://git.heroku.com/survey-tool-front-end.git (fetch)
-heroku-survey-tool-front-end https://git.heroku.com/survey-tool-front-end.git (push)
-origin  git@github.com:paulfioravanti/survey_tool_elm.git (fetch)
-origin  git@github.com:paulfioravanti/survey_tool_elm.git (push)
-```
-
-Both applications share the same Github repository, but are deployed to separate
-Heroku instance using `git subtree`:
-
-```sh
-git subtree push --prefix back_end heroku-survey-tool-back-end master
-git subtree push --prefix front_end heroku-survey-tool-front-end master
-```
-
-The back end application uses the [Heroku Buildpack for Elixir][], and when it
-gets deployed, the `mix run --no-halt` command in the `Procfile` gets run to
-start the Cowboy server to serve up the JSON.
-
-The front end application uses [heroku-buildpack-static][] for deployment, with
-a `static.json` file that points the `root` folder of the application at
-the `build` directory.
-
-There is a [Heroku buildpack for Elm apps][], but since the application was
-created with [Create Elm App][], the command to generate a production app is
-[`elm-app build`][] (and not `elm make` as the buildpack expects), which, along
-with other Create Elm App commands, are not available during the deployment
-process.
-
-Therefore, a new build of this application must be manually generated locally
-before every Heroku deployment. Hence, the `build` directory has been
-put under version control (by default it is `.gitignore`d). 
-
-The push/deployment process is mostly automated via the `push` script in the
-root directory. The way to use it is:
-
-- `./push back`: push repo contents to Github and deploy the back end app to
-  Heroku
-- `./push front`: generate a build, push repo contents to Github, then deploy
-  the front end app to Heroku
-- `./push both`: generate a build, push repo contents to Github, then push the
-  back and front end apps to Heroku
 
 ## Other
 
@@ -266,7 +203,6 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 
 [asdf-elixir pre-compiled version]: https://github.com/asdf-vm/asdf-elixir#elixir-precompiled-versions
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
-[Back end JSON API]: https://survey-tool-back-end.herokuapp.com/survey_results
 [Create Elm App]: https://github.com/halfzebra/create-elm-app
 [create-elm-app#604]: https://github.com/halfzebra/create-elm-app/issues/604
 [Elixir]: https://github.com/elixir-lang/elixir
@@ -278,11 +214,6 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [elm-verify-examples]: https://github.com/stoeffel/elm-verify-examples
 [Erlang]: https://www.erlang.org/
 [ExUnit]: https://hexdocs.pm/ex_unit/ExUnit.html
-[Front end application]: https://survey-tool-front-end.herokuapp.com/survey_results
-[Heroku]: https://www.heroku.com/
-[Heroku buildpack for Elm apps]: https://github.com/srid/heroku-buildpack-elm
-[heroku-buildpack-static]: https://github.com/heroku/heroku-buildpack-static
-[Heroku Buildpack for Elixir]: https://github.com/HashNuke/heroku-buildpack-elixir
 [Homebrew]: https://brew.sh/
 [JSON]: https://www.json.org/
 [JSON Formatter]: https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa

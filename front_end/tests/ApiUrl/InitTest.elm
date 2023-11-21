@@ -21,7 +21,8 @@ initWithEmptyFlagsTest : Test
 initWithEmptyFlagsTest =
     let
         expectedApiUrl =
-            "https://survey-tool-back-end.herokuapp.com/survey_results/"
+            "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/"
+                ++ "master/back_end/lib/back_end/survey_results/"
 
         flags =
             Factory.emptyFlags
@@ -78,7 +79,8 @@ initforProductionEnvWithoutApiUrlTest : Test
 initforProductionEnvWithoutApiUrlTest =
     let
         expectedApiUrl =
-            "https://survey-tool-back-end.herokuapp.com/survey_results/"
+            "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/"
+                ++ "master/back_end/lib/back_end/survey_results/"
 
         flags =
             Factory.flagsWithEnvironment "production"

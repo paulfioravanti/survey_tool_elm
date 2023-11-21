@@ -19,7 +19,7 @@ determined.
         }
 
     init emptyFlags
-    --> "https://survey-tool-back-end.herokuapp.com/survey_results/"
+    --> "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/master/back_end/lib/back_end/survey_results/"
 
     flagsWithApiUrl : Flags
     flagsWithApiUrl =
@@ -40,7 +40,7 @@ determined.
         { emptyFlags | environment = string "production" }
 
     init flagsForProductionEnvWithoutApiUrl
-    --> "https://survey-tool-back-end.herokuapp.com/survey_results/"
+    --> "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/master/back_end/lib/back_end/survey_results/"
 
 -}
 init : Flags -> String
@@ -76,4 +76,5 @@ defaultDevelopmentUrl =
 
 defaultProductionUrl : String
 defaultProductionUrl =
-    "https://survey-tool-back-end.herokuapp.com/survey_results/"
+    "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/"
+        ++ "master/back_end/lib/back_end/survey_results/"
