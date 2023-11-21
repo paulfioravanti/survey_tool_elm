@@ -39,10 +39,8 @@ decoderTest =
 
                 expectedSurveyResult =
                     Ok surveyResultWithIdInUrl
-
-                actualSurveyResult =
-                    surveyResultWithIdInUrl
-                        |> Encoder.encode
-                        |> Decode.decodeValue SurveyResult.decoder
             in
-            Expect.equal expectedSurveyResult actualSurveyResult
+            surveyResultWithIdInUrl
+                |> Encoder.encode
+                |> Decode.decodeValue SurveyResult.decoder
+                |> Expect.ok

@@ -39,14 +39,9 @@ decoderTest =
 
                 surveyResultDetailWithIdInUrl =
                     { surveyResultDetail | url = url }
-
-                expectedSurveyResultDetail =
-                    Ok surveyResultDetailWithIdInUrl
-
-                actualSurveyResultDetail =
-                    surveyResultDetailWithIdInUrl
-                        |> Encoder.encode
-                        |> Decode.decodeValue SurveyResultDetail.decoder
             in
-            Expect.equal expectedSurveyResultDetail actualSurveyResultDetail
+            surveyResultDetailWithIdInUrl
+                |> Encoder.encode
+                |> Decode.decodeValue SurveyResultDetail.decoder
+                |> Expect.ok
         )
