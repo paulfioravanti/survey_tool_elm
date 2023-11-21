@@ -1,6 +1,6 @@
 // REF: https://fontawesome.com/how-to-use/on-the-web/setup/hosting-font-awesome-yourself#using-svgs
 import "@fortawesome/fontawesome-free/js/all"
-import "flag-icon-css/css/flag-icon.css"
+import "flag-icons/css/flag-icons.min.css";
 import "tachyons"
 import { Elm } from "./Main.elm";
 
