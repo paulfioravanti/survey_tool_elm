@@ -18,7 +18,7 @@ toFlagClassWithEnLanguageTest : Test
 toFlagClassWithEnLanguageTest =
     let
         expectedFlagClass =
-            "flag-icon flag-icon-au"
+            "fi fi-au"
 
         language =
             Language.En
@@ -37,7 +37,7 @@ toFlagClassWithItLanguageTest : Test
 toFlagClassWithItLanguageTest =
     let
         expectedFlagClass =
-            "flag-icon flag-icon-it"
+            "fi fi-it"
 
         language =
             Language.It
@@ -56,7 +56,7 @@ toFlagClassWithJaLanguageTest : Test
 toFlagClassWithJaLanguageTest =
     let
         expectedFlagClass =
-            "flag-icon flag-icon-jp"
+            "fi fi-jp"
 
         language =
             Language.Ja
