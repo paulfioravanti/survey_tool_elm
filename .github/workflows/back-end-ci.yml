@@ -1,0 +1,53 @@
+name: Back end CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+concurrency:
+  group: ci-tests-${{ github.ref }}-1
+  cancel-in-progress: true
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: back_end
+    runs-on: ubuntu-latest
+    env:
+      MIX_ENV: test
+    strategy:
+      matrix:
+        elixir: ['1.15.7']
+        otp: ['26.1.2']
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+
+      - name: Get deps cache
+        uses: actions/cache@v2
+        with:
+          path: deps/
+          key: deps-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+
+      - name: Get build cache
+        uses: actions/cache@v2
+        with:
+          path: _build/test/
+          key: build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+
+      - name: Install Dependencies
+        run: mix deps.get
+
+      - name: Check Dependencies
+        run: mix hex.outdated
+
+      - name: Run Tests
+        run: mix test
