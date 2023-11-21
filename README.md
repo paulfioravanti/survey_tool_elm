@@ -24,8 +24,8 @@ files expected by the front end.
 
 ### Dependencies
 
-- [Elixir][] 1.9.2 ([asdf-elixir pre-compiled version][]: 1.9.2-otp-22)
-- [Erlang][] 22.1.3
+- [Elixir][] 1.15.7 ([asdf-elixir pre-compiled version][]: 1.15.7-otp-26)
+- [Erlang][] 26.1.2
 
 ### Setup
 
@@ -75,7 +75,7 @@ would have been overkill).
 ### Dependencies
 
 - [Elm][] 0.19.1
-- [NodeJS][] 15.4.0
+- [NodeJS][] 21.2.0
 
 ### Setup
 
