@@ -95,15 +95,16 @@ fetchedWhenRemoteDataIsSuccessTest randomLanguage randomId =
                     actualTitle =
                         updatedModel.title
                 in
-                Expect.true
-                    """
-                    Expected the surveyResultDetail in the model to be the
-                    Success survey result data and the title to be the survey
-                    result name
-                    """
-                    ((expectedSurveyResultDetail == actualSurveyResultDetail)
-                        && (expectedTitle == actualTitle)
-                    )
+                ((expectedSurveyResultDetail == actualSurveyResultDetail)
+                    && (expectedTitle == actualTitle)
+                )
+                    |> Expect.equal True
+                    |> Expect.onFail
+                        """
+                        Expected the surveyResultDetail in the model to be the
+                        Success survey result data and the title to be the survey
+                        result name
+                        """
             )
         ]
 
@@ -165,14 +166,15 @@ fetchedWhenRemoteDataIsNotFoundTest randomLanguage randomId =
                     actualTitle =
                         updatedModel.title
                 in
-                Expect.true
-                    """
-                    Expected the model's surveyResultDetail to be Failure data,
-                    and the model's title to be the not found title
-                    """
-                    ((expectedSurveyResultDetail == actualSurveyResultDetail)
-                        && (expectedTitle == actualTitle)
-                    )
+                ((expectedSurveyResultDetail == actualSurveyResultDetail)
+                    && (expectedTitle == actualTitle)
+                )
+                    |> Expect.equal True
+                    |> Expect.onFail
+                        """
+                        Expected the model's surveyResultDetail to be Failure
+                        data, and the model's title to be the not found title
+                        """
             )
         ]
 
@@ -235,13 +237,15 @@ fetchedWhenRemoteDataIsFailureTest randomLanguage randomId =
                     actualTitle =
                         updatedModel.title
                 in
-                Expect.true
-                    """
-                    Expected the model's surveyResultDetail to be Failure data,
-                    and the model's title to be the error retrieving data title
-                    """
-                    ((expectedSurveyResultDetail == actualSurveyResultDetail)
-                        && (expectedTitle == actualTitle)
-                    )
+                ((expectedSurveyResultDetail == actualSurveyResultDetail)
+                    && (expectedTitle == actualTitle)
+                )
+                    |> Expect.equal True
+                    |> Expect.onFail
+                        """
+                        Expected the model's surveyResultDetail to be Failure
+                        data, and the model's title to be the error retrieving
+                        data title
+                        """
             )
         ]

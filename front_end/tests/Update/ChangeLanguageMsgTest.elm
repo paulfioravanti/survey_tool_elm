@@ -80,13 +80,14 @@ changeLanguageTest randomApiUrl randomLanguage randomRoute =
                         changedLanguageModel.languageSelector.selectableLanguages
                             |> List.member initialLanguage
                 in
-                Expect.true
-                    """
-                    Expected target language to be the new model language and
-                    for selectable languages to contain initial language
-                    """
-                    (targetLangugageIsNewLanguage
-                        && initialLanguageInSelectableLanguages
-                    )
+                (targetLangugageIsNewLanguage
+                    && initialLanguageInSelectableLanguages
+                )
+                    |> Expect.equal True
+                    |> Expect.onFail
+                        """
+                        Expected target language to be the new model language and
+                        for selectable languages to contain initial language
+                        """
             )
         ]

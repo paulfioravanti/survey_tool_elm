@@ -32,12 +32,13 @@ initTest =
                 model =
                     Model.init flags url key
             in
-            Expect.true
-                """
-                Expected model surveyResultList and surveyResultDetail to be
-                NotAsked, and title to be blank
-                """
-                ((model.surveyResultList == RemoteData.NotAsked)
-                    && (model.surveyResultDetail == RemoteData.NotAsked)
-                    && (model.title == "")
-                )
+            ((model.surveyResultList == RemoteData.NotAsked)
+                && (model.surveyResultDetail == RemoteData.NotAsked)
+                && (model.title == "")
+            )
+                |> Expect.equal True
+                |> Expect.onFail
+                    """
+                    Expected model surveyResultList and surveyResultDetail
+                    to be NotAsked, and title to be blank
+                    """

@@ -104,14 +104,15 @@ loadWhenRemoteDataIsNotAskedTest randomLanguage randomId =
                     actualTitle =
                         updatedModel.title
                 in
-                Expect.true
-                    """
-                    Expected the model's surveyResultDetail to be Loading,
-                    and the model's title to be the Loading title
-                    """
-                    ((expectedSurveyResultDetail == actualSurveyResultDetail)
-                        && (expectedTitle == actualTitle)
-                    )
+                ((expectedSurveyResultDetail == actualSurveyResultDetail)
+                    && (expectedTitle == actualTitle)
+                )
+                    |> Expect.equal True
+                    |> Expect.onFail
+                        """
+                        Expected the model's surveyResultDetail to be Loading,
+                        and the model's title to be the Loading title
+                        """
             )
         ]
 
@@ -172,14 +173,15 @@ loadWhenRemoteDataIsLoadingTest randomLanguage randomId =
                     actualTitle =
                         updatedModel.title
                 in
-                Expect.true
-                    """
-                    Expected the model's surveyResultDetail to be Loading,
-                    and the model's title to be the Loading title
-                    """
-                    ((expectedSurveyResultDetail == actualSurveyResultDetail)
-                        && (expectedTitle == actualTitle)
-                    )
+                ((expectedSurveyResultDetail == actualSurveyResultDetail)
+                    && (expectedTitle == actualTitle)
+                )
+                    |> Expect.equal True
+                    |> Expect.onFail
+                        """
+                        Expected the model's surveyResultDetail to be Loading,
+                        and the model's title to be the Loading title
+                        """
             )
         ]
 
@@ -254,14 +256,15 @@ loadWhenRemoteDataIsSuccessWithCurrentSurveyResultTest randomLanguage randomId =
                     actualTitle =
                         updatedModel.title
                 in
-                Expect.true
-                    """
-                    Expected the surveyResultDetail in the model and the
-                    title to stay the same
-                    """
-                    ((expectedSurveyResultDetail == actualSurveyResultDetail)
-                        && (expectedTitle == actualTitle)
-                    )
+                ((expectedSurveyResultDetail == actualSurveyResultDetail)
+                    && (expectedTitle == actualTitle)
+                )
+                    |> Expect.equal True
+                    |> Expect.onFail
+                        """
+                        Expected the surveyResultDetail in the model and the
+                        title to stay the same
+                        """
             )
         ]
 
@@ -342,14 +345,16 @@ loadWhenRemoteDataIsSuccessWithDifferentSurveyResultTest randomLanguage randomId
                     actualTitle =
                         updatedModel.title
                 in
-                Expect.true
-                    """
-                    Expected the surveyResultDetail in the model to be updated
-                    to Loading and the title to be updated to the Loading title
-                    """
-                    ((expectedSurveyResultDetail == actualSurveyResultDetail)
-                        && (expectedTitle == actualTitle)
-                    )
+                ((expectedSurveyResultDetail == actualSurveyResultDetail)
+                    && (expectedTitle == actualTitle)
+                )
+                    |> Expect.equal True
+                    |> Expect.onFail
+                        """
+                        Expected the surveyResultDetail in the model to be
+                        updated to Loading and the title to be updated to the
+                        Loading title
+                        """
             )
         ]
 
@@ -414,13 +419,14 @@ loadWhenRemoteDataIsFailureTest randomLanguage randomId =
                     actualTitle =
                         updatedModel.title
                 in
-                Expect.true
-                    """
-                    Expected the model's surveyResultDetail to be Loading,
-                    and the model's title to be the Loading title
-                    """
-                    ((expectedSurveyResultDetail == actualSurveyResultDetail)
-                        && (expectedTitle == actualTitle)
-                    )
+                ((expectedSurveyResultDetail == actualSurveyResultDetail)
+                    && (expectedTitle == actualTitle)
+                )
+                    |> Expect.equal True
+                    |> Expect.onFail
+                        """
+                        Expected the model's surveyResultDetail to be Loading,
+                        and the model's title to be the Loading title
+                        """
             )
         ]

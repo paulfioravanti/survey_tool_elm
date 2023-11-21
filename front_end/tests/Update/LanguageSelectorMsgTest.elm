@@ -78,12 +78,13 @@ hideSelectableLanguagesTest randomApiUrl randomLanguage =
                             |> Tuple.first
                             |> .languageSelector
                 in
-                Expect.false
-                    """
-                    Expected showSelectableLanguages of languageSelector
-                    to be false
-                    """
-                    hiddenLanguageSelector.showSelectableLanguages
+                hiddenLanguageSelector.showSelectableLanguages
+                    |> Expect.equal False
+                    |> Expect.onFail
+                        """
+                        Expected showSelectableLanguages of languageSelector
+                        to be false
+                        """
             )
         ]
 
