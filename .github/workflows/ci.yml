@@ -1,4 +1,4 @@
-name: Back end CI
+name: CI
 on:
   push:
     branches:
@@ -37,10 +37,6 @@ jobs:
         run: |
           npm install
           cp .env.example .env
-
-      - name: Install Test Dependencies
-        working-directory: tests
-        run: elm-package install
 
       - name: Run Tests
         run: elm-test
