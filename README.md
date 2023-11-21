@@ -12,7 +12,7 @@ An [Elm][] application that retrieves survey result information from a [JSON][]
 
 ## Setup
 
-```sh
+```console
 git clone https://github.com/paulfioravanti/survey_tool_elm.git
 cd survey_tool_elm
 ```
@@ -29,14 +29,14 @@ files expected by the front end.
 
 ### Setup
 
-```sh
+```console
 cd back_end
 mix deps.get
 ```
 
 ### Run Server
 
-```sh
+```console
 mix run --no-halt
 ```
 
@@ -57,7 +57,7 @@ For easy reading of JSON objects in a browser, I recommend the
 The back end server has a small suite of tests, written with [ExUnit][], that
 can be run with:
 
-```sh
+```console
 mix test
 ```
 
@@ -92,7 +92,7 @@ installing them to be able to run all application and testing commands:
 
 Install:
 
-```sh
+```console
 npm install -g elm-test create-elm-app elm-verify-examples elm-coverage elm-analyse
 ```
 
@@ -103,13 +103,13 @@ In order to get `mix test.watch`-like functionality with Elm, I used:
 
 They can both be installed with [Homebrew][]:
 
-```sh
+```console
 brew install just watchexec
 ```
 
 #### Application Setup
 
-```sh
+```console
 cd front_end
 npm install
 elm-package install
@@ -122,8 +122,8 @@ configure that in the `.env` file.
 
 ### Run Server
 
-```sh
-elm-app start
+```console
+NODE_OPTIONS=--openssl-legacy-provider elm-app start
 ```
 
 Now, you should be able to use the app at the following address:
@@ -137,43 +137,42 @@ survey results).
 
 Install the elm packages in the `tests` directory first:
 
-```sh
+```console
 cd tests
 elm-package install
 ```
 
 Straight tests:
 
-```sh
+```console
 elm-test
 ```
 
 Verified examples (doctests):
 
-```sh
+```console
 elm-verify-examples
 ```
 
 Run tests and generate code coverage report.  
-NOTE: `elm-coverage` does not support Elm 0.19.1 as of this writing.
 
 > Coverage is currently stuck at 99% because there is no way to
 generate a `Navigation.Key` for `Browser.application` apps in a test
-environment. Hopefully, that will change soon, but the issue to follow is
+environment. Hopefully, that will be fixed one day, but the issue to follow is
 [here](https://github.com/elm-explorations/test/issues/24).
 
-```sh
+```console
 elm-coverage
 open .coverage/coverage.html
 ```
 
 Run Elm Analyse confirm best practices are being adhered to:
 
-```sh
+```console
 elm-analyse
 ```
 
-Note: it will take a while for the `elm-css` library to be loaded the first
+Note: it may take a while for the `elm-css` library to be loaded the first
 time this is run, so give it potentially about 10 minutes.
 
 #### Development Mode (optional)
@@ -183,7 +182,7 @@ If you're using this app in development, you could do the following:
 Use `just` and `watchexec` to run both `elm-verify-examples` and `elm-test`
 when any `src` code is modified:
 
-```sh
+```console
 watchexec --watch src --clear just test
 ```
 
@@ -192,7 +191,7 @@ Use `just` and `watchexec` to run both `elm-verify-examples` and `elm-coverage`
 included here because `elm-coverage` ends up touching every `src` file during
 its instrumentation phase, leading to infinite loops:
 
-```sh
+```console
 watchexec --watch tests --ignore tests/elm-package.json --clear just coverage
 ```
 
@@ -262,11 +261,6 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 - <https://github.com/paulfioravanti/survey_tool_elixir>
 - <https://github.com/paulfioravanti/survey_tool_ruby>
 
-## Social
-
-[![Contact][twitter-badge]][twitter-url]<br />
-[![Stack Overflow][stackoverflow-badge]][stackoverflow-url]
-
 [asdf-elixir pre-compiled version]: https://github.com/asdf-vm/asdf-elixir#elixir-precompiled-versions
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
 [Back end JSON API]: https://survey-tool-back-end.herokuapp.com/survey_results
@@ -295,14 +289,10 @@ front-end test in [Elixir][] and [Ruby][], which can be found at the following:
 [Phoenix]: http://phoenixframework.org/
 [PlugCowboy]: https://github.com/elixir-plug/plug_cowboy
 [Ruby]: https://github.com/ruby/ruby
-[stackoverflow-badge]: http://stackoverflow.com/users/flair/567863.png
-[stackoverflow-url]: http://stackoverflow.com/users/567863/paul-fioravanti
 [survey-tool-ruby]: https://github.com/paulfioravanti/survey_tool_ruby
 [Tachyons]: http://tachyons.io/
 [travis-badge]: https://travis-ci.org/paulfioravanti/survey_tool_elm.svg?branch=master
 [travis-url]: https://travis-ci.org/paulfioravanti/survey_tool_elm
-[twitter-badge]: https://img.shields.io/badge/contact-%40paulfioravanti-blue.svg
-[twitter-url]: https://twitter.com/paulfioravanti
 [watchexec]: https://github.com/mattgreen/watchexec
 
 ---
