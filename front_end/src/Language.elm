@@ -74,7 +74,7 @@ toFlagClass language =
                     "jp"
     in
     -- NOTE: Class name determined by the `flag-icon-css` Javascript library.
-    "flag-icon flag-icon-" ++ flagIconLanguage
+    "fi fi-" ++ flagIconLanguage
 
 
 toString : Language -> String
