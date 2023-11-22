@@ -62,16 +62,15 @@ init surveyResponses =
     let
         prependRatingToList { respondentId, responseContent } histogram =
             if Dict.member responseContent histogram then
-                histogram
-                    |> Dict.update
-                        responseContent
-                        (Maybe.map ((::) (String.fromInt respondentId)))
+                Dict.update
+                    responseContent
+                    (Maybe.map ((::) (String.fromInt respondentId)))
+                    histogram
 
             else
                 histogram
     in
-    surveyResponses
-        |> List.foldl prependRatingToList initialHistogram
+    List.foldl prependRatingToList initialHistogram surveyResponses
 
 
 

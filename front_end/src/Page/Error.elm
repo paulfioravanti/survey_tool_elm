@@ -57,8 +57,7 @@ message : Language -> Error -> Html msg
 message language error =
     let
         ( name, messageContent ) =
-            error
-                |> errorToMessage language
+            errorToMessage language error
     in
     div
         [ attribute "data-name" name

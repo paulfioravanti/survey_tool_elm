@@ -34,10 +34,10 @@ import Styles
 
 countryFlag : String -> String
 countryFlag flagClass =
-    [ flagClass
-    , "flex-auto"
-    ]
-        |> String.join " "
+    String.join " "
+        [ flagClass
+        , "flex-auto"
+        ]
 
 
 currentSelection : Bool -> String
@@ -50,25 +50,25 @@ currentSelection showSelectableLanguages =
             else
                 "b--white"
     in
-    [ borderClass
-    , "ba"
-    , "bg-white"
-    , "flex"
-    , "items-center"
-    , "mv0"
-    , "pa2"
-    , "tc"
-    ]
-        |> String.join " "
+    String.join " "
+        [ borderClass
+        , "ba"
+        , "bg-white"
+        , "flex"
+        , "items-center"
+        , "mv0"
+        , "pa2"
+        , "tc"
+        ]
 
 
 dropdownMenu : String
 dropdownMenu =
-    [ "relative"
-    , "pointer"
-    , "w3"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "relative"
+        , "pointer"
+        , "w3"
+        ]
 
 
 dropdownMenuCss : Style
@@ -115,22 +115,22 @@ dropdownMenuList showSelectableLanguages =
             else
                 ""
     in
-    [ displayClass
-    , "absolute"
-    , "b--black-10"
-    , "bb"
-    , "bg-white"
-    , "bl"
-    , "br"
-    , "items-center"
-    , "list"
-    , "ma0"
-    , "pa0"
-    , "tc"
-    , "top-2"
-    , "w3"
-    ]
-        |> String.join " "
+    String.join " "
+        [ displayClass
+        , "absolute"
+        , "b--black-10"
+        , "bb"
+        , "bg-white"
+        , "bl"
+        , "br"
+        , "items-center"
+        , "list"
+        , "ma0"
+        , "pa0"
+        , "tc"
+        , "top-2"
+        , "w3"
+        ]
 
 
 dropdownMenuListCss : Bool -> Style
@@ -154,10 +154,10 @@ dropdownMenuListCss showSelectableLanguages =
 
 dropdownMenuListItem : String
 dropdownMenuListItem =
-    [ "pa2"
-    , "w-100"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "pa2"
+        , "w-100"
+        ]
 
 
 dropdownMenuListItemCss : Style

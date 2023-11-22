@@ -68,8 +68,7 @@ surveyResultThemes : Language -> Maybe (List Theme) -> Html msg
 surveyResultThemes language maybeThemes =
     let
         themes =
-            maybeThemes
-                |> Maybe.withDefault []
+            Maybe.withDefault [] maybeThemes
     in
     div [ attribute "data-name" "themes" ]
         (List.map (Theme.view language) themes)

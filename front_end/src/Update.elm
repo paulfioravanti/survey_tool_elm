@@ -19,13 +19,10 @@ update msg model =
         Msg.ChangeLanguage language ->
             let
                 maybeChangeRoute =
-                    model.navigation.route
-                        |> Cmd.maybeChangeRoute
+                    Cmd.maybeChangeRoute model.navigation.route
 
                 storeLanguage =
-                    language
-                        |> Language.toString
-                        |> Ports.storeLanguage
+                    Ports.storeLanguage (Language.toString language)
 
                 hideSelectableLanguages =
                     Cmd.hideSelectableLanguages
@@ -41,24 +38,23 @@ update msg model =
         Msg.ChangeRoute route ->
             let
                 loadDataForRoute =
-                    model
-                        |> Cmd.loadDataForRoute route
+                    Cmd.loadDataForRoute route model
             in
             ( model, loadDataForRoute )
 
         Msg.LanguageSelector msgForLanguageSelector ->
             let
                 languageSelector =
-                    model.languageSelector
-                        |> LanguageSelector.update msgForLanguageSelector
+                    LanguageSelector.update
+                        msgForLanguageSelector
+                        model.languageSelector
             in
             ( { model | languageSelector = languageSelector }, Cmd.none )
 
         Msg.SurveyResult msgForSurveyResult ->
             let
                 ( surveyResult, title, cmd ) =
-                    msgForSurveyResult
-                        |> SurveyResult.update model.language
+                    SurveyResult.update model.language msgForSurveyResult
             in
             ( { model | surveyResultDetail = surveyResult, title = title }
             , Cmd.map Msg.SurveyResult cmd
@@ -67,8 +63,9 @@ update msg model =
         Msg.SurveyResultList msgForSurveyResultList ->
             let
                 ( surveyResultList, title, cmd ) =
-                    msgForSurveyResultList
-                        |> SurveyResultList.update model.language
+                    SurveyResultList.update
+                        model.language
+                        msgForSurveyResultList
             in
             ( { model | surveyResultList = surveyResultList, title = title }
             , Cmd.map Msg.SurveyResultList cmd
@@ -80,19 +77,16 @@ update msg model =
                     Route.init url
 
                 navigation =
-                    model.navigation
-                        |> Navigation.updateRoute maybeRoute
+                    Navigation.updateRoute maybeRoute model.navigation
 
                 maybeChangeRoute =
-                    maybeRoute
-                        |> Cmd.maybeChangeRoute
+                    Cmd.maybeChangeRoute maybeRoute
             in
             ( { model | navigation = navigation }, maybeChangeRoute )
 
         Msg.UrlRequested urlRequest ->
             let
                 changeUrl =
-                    urlRequest
-                        |> Cmd.changeUrl model.navigation.key
+                    Cmd.changeUrl model.navigation.key urlRequest
             in
             ( model, changeUrl )

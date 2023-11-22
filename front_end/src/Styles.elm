@@ -24,11 +24,11 @@ import Css
 
 body : String
 body =
-    [ "bg-white"
-    , "sans-serif"
-    , "w-100"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "bg-white"
+        , "sans-serif"
+        , "w-100"
+        ]
 
 
 brandBackgroundColor : Style

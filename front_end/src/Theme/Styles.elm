@@ -12,19 +12,19 @@ module Theme.Styles exposing
 
 averageScore : String
 averageScore =
-    [ "b"
-    , "f4 f3-ns"
-    , "mid-gray"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "b"
+        , "f4 f3-ns"
+        , "mid-gray"
+        ]
 
 
 averageScoreLabel : String
 averageScoreLabel =
-    [ "fw2"
-    , "mr2"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "fw2"
+        , "mr2"
+        ]
 
 
 averageScoreValue : String
@@ -34,22 +34,22 @@ averageScoreValue =
 
 theme : String
 theme =
-    [ "b--light-gray"
-    , "bb"
-    , "flex"
-    , "flex-row"
-    , "justify-between"
-    , "mb3"
-    , "mh1 mh0-ns"
-    , "mt4"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "b--light-gray"
+        , "bb"
+        , "flex"
+        , "flex-row"
+        , "justify-between"
+        , "mb3"
+        , "mh1 mh0-ns"
+        , "mt4"
+        ]
 
 
 name : String
 name =
-    [ "f4 f3-ns"
-    , "mid-gray"
-    , "ttu"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "f4 f3-ns"
+        , "mid-gray"
+        , "ttu"
+        ]

@@ -6,30 +6,30 @@ module SurveyResult.Detail.Overview.Styles exposing (label, summary, value)
 
 label : String
 label =
-    [ "f4 f3-ns"
-    , "fw2"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "f4 f3-ns"
+        , "fw2"
+        ]
 
 
 summary : String
 summary =
-    [ "bg-light-gray"
-    , "br3-ns"
-    , "flex"
-    , "flex-row"
-    , "justify-between"
-    , "mv2"
-    , "pa2"
-    , "tc"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "bg-light-gray"
+        , "br3-ns"
+        , "flex"
+        , "flex-row"
+        , "justify-between"
+        , "mv2"
+        , "pa2"
+        , "tc"
+        ]
 
 
 value : String
 value =
-    [ "f4 f3-ns"
-    , "fw8"
-    , "tc"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "f4 f3-ns"
+        , "fw8"
+        , "tc"
+        ]

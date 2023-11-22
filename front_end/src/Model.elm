@@ -48,8 +48,9 @@ changeLanguage : Language -> Model -> Model
 changeLanguage language model =
     let
         languageSelector =
-            model.languageSelector
-                |> LanguageSelector.updateSelectableLanguages language
+            LanguageSelector.updateSelectableLanguages
+                language
+                model.languageSelector
     in
     { model
         | language = language

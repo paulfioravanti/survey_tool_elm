@@ -13,8 +13,7 @@ view : Language -> String -> RespondentHistogram -> Html msg
 view language rating histogram =
     let
         ( attributeName, respondents ) =
-            histogram
-                |> respondentsByResponseContent language rating
+            respondentsByResponseContent language rating histogram
     in
     span
         [ attribute "data-name" attributeName
@@ -89,8 +88,7 @@ displayAllRespondents language respondents =
             )
 
         headIds =
-            head
-                |> String.join ", "
+            String.join ", " head
 
         tailId =
             tail
@@ -108,8 +106,7 @@ truncatedRespondents :
 truncatedRespondents language respondentsToDisplay truncatedRespondentsList =
     let
         idsToDisplay =
-            respondentsToDisplay
-                |> String.join ", "
+            String.join ", " respondentsToDisplay
 
         numTruncated =
             List.length truncatedRespondentsList

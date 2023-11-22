@@ -58,8 +58,7 @@ determineUrlFromEnvironment : Value -> String
 determineUrlFromEnvironment environmentFlag =
     let
         environment =
-            environmentFlag
-                |> Decode.decodeValue Decode.string
+            Decode.decodeValue Decode.string environmentFlag
     in
     case environment of
         Ok "development" ->

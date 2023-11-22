@@ -22,29 +22,29 @@ brandColorAlpha =
 
 content : String
 content =
-    [ "avenir"
-    , "light-silver"
-    , "mv2"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "avenir"
+        , "light-silver"
+        , "mv2"
+        ]
 
 
 heading : String
 heading =
-    [ "f2 f1-ns"
-    , "ttu"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "f2 f1-ns"
+        , "ttu"
+        ]
 
 
 icon : String
 icon =
     -- NOTE: fa-prefixed classes are from Font Awesome.
-    [ "fa-4x"
-    , "fa-frown"
-    , "far"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "fa-4x"
+        , "fa-frown"
+        , "far"
+        ]
 
 
 layout : String
@@ -54,7 +54,7 @@ layout =
 
 message : String
 message =
-    [ "f6"
-    , "tc"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "f6"
+        , "tc"
+        ]

@@ -15,20 +15,20 @@ import Styles
 
 surveyResponseContent : String
 surveyResponseContent =
-    [ "b--light-silver"
-    , "ba"
-    , "bg-moon-gray"
-    , "br4"
-    , "dtc"
-    , "h2"
-    , "hover-white"
-    , "pointer"
-    , "relative"
-    , "tc"
-    , "v-mid"
-    , "w2"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "b--light-silver"
+        , "ba"
+        , "bg-moon-gray"
+        , "br4"
+        , "dtc"
+        , "h2"
+        , "hover-white"
+        , "pointer"
+        , "relative"
+        , "tc"
+        , "v-mid"
+        , "w2"
+        ]
 
 
 surveyResponseContentCss : Style
@@ -45,11 +45,11 @@ surveyResponseContentCss =
 
 surveyResponse : String
 surveyResponse =
-    [ "dt"
-    , "mh1"
-    , "no-underline"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "dt"
+        , "mh1"
+        , "no-underline"
+        ]
 
 
 surveyResponseCss : Style

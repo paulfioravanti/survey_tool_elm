@@ -84,9 +84,7 @@ averageScore theme =
                 |> countValidResponses
                 |> toFloat
     in
-    sumScores
-        / numScores
-        |> Round.round 2
+    Round.round 2 (sumScores / numScores)
 
 
 
@@ -97,21 +95,22 @@ countValidResponses : Theme -> Int
 countValidResponses { questions } =
     let
         addQuestionSurveyResponsesCount question acc =
-            question.surveyResponses
-                |> List.foldl SurveyResponse.countValidResponse 0
-                |> (+) acc
+            let
+                count =
+                    List.foldl
+                        SurveyResponse.countValidResponse
+                        0
+                        question.surveyResponses
+            in
+            acc + count
     in
-    questions
-        |> List.foldl addQuestionSurveyResponsesCount 0
+    List.foldl addQuestionSurveyResponsesCount 0 questions
 
 
 sumValidResponses : Theme -> Int
 sumValidResponses { questions } =
     let
         addQuestionSum question acc =
-            question
-                |> Question.sumValidResponses
-                |> (+) acc
+            acc + Question.sumValidResponses question
     in
-    questions
-        |> List.foldl addQuestionSum 0
+    List.foldl addQuestionSum 0 questions

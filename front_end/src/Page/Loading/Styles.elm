@@ -26,12 +26,12 @@ heading =
 icon : String
 icon =
     -- NOTE: fa-prefixed classes are from Font Awesome.
-    [ "fa-4x"
-    , "fa-pulse"
-    , "fa-spinner"
-    , "fas"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "fa-4x"
+        , "fa-pulse"
+        , "fa-spinner"
+        , "fas"
+        ]
 
 
 layout : String

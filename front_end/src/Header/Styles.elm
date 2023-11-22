@@ -6,10 +6,10 @@ module Header.Styles exposing (layout)
 
 layout : String
 layout =
-    [ "center"
-    , "flex"
-    , "flex-row-reverse"
-    , "mt1"
-    , "mw8"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "center"
+        , "flex"
+        , "flex-row-reverse"
+        , "mt1"
+        , "mw8"
+        ]

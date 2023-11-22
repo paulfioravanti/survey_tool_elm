@@ -14,12 +14,12 @@ import Css.Media exposing (minWidth, only, screen, withMedia)
 
 heading : String
 heading =
-    [ "avenir"
-    , "dark-gray"
-    , "mv3"
-    , "ttu"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "avenir"
+        , "dark-gray"
+        , "mv3"
+        , "ttu"
+        ]
 
 
 headingCss : Style
@@ -34,16 +34,16 @@ headingCss =
 
 section : String
 section =
-    [ "center"
-    , "mw7"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "center"
+        , "mw7"
+        ]
 
 
 surveyResultList : String
 surveyResultList =
-    [ "flex"
-    , "justify-around"
-    , "mt1"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "flex"
+        , "justify-around"
+        , "mt1"
+        ]

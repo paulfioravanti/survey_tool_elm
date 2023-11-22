@@ -79,5 +79,4 @@ decoder =
         surveyResult =
             Decoder.decoder
     in
-    surveyResult
-        |> Decode.at [ "survey_result_detail" ]
+    Decode.at [ "survey_result_detail" ] surveyResult

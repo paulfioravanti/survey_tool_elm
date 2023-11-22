@@ -61,9 +61,7 @@ averageScore question =
                 |> countValidResponses
                 |> toFloat
     in
-    sumScores
-        / numScores
-        |> Round.round 2
+    Round.round 2 (sumScores / numScores)
 
 
 {-| Sums the `responseContent` rating values from a `Question`.
@@ -108,14 +106,10 @@ Only valid `responseContent` values between values 1-5 are included in the sum.
 sumValidResponses : Question -> Int
 sumValidResponses { surveyResponses } =
     let
-        addResponseContent =
-            \surveyResponse acc ->
-                surveyResponse
-                    |> SurveyResponse.ratingScore
-                    |> (+) acc
+        addResponseContent surveyResponse acc =
+            acc + SurveyResponse.ratingScore surveyResponse
     in
-    surveyResponses
-        |> List.foldl addResponseContent 0
+    List.foldl addResponseContent 0 surveyResponses
 
 
 
@@ -124,5 +118,4 @@ sumValidResponses { surveyResponses } =
 
 countValidResponses : Question -> Int
 countValidResponses { surveyResponses } =
-    surveyResponses
-        |> List.foldl SurveyResponse.countValidResponse 0
+    List.foldl SurveyResponse.countValidResponse 0 surveyResponses

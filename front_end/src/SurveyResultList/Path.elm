@@ -5,5 +5,4 @@ import Route
 
 path : String
 path =
-    Route.SurveyResultList
-        |> Route.toString
+    Route.toString Route.SurveyResultList

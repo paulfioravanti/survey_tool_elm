@@ -37,6 +37,6 @@ English.
 -}
 selectableLanguages : Language -> List Language
 selectableLanguages currentLanguage =
-    Language.availableLanguages
-        |> List.filter
-            (\availableLanguage -> availableLanguage /= currentLanguage)
+    List.filter
+        (\availableLanguage -> availableLanguage /= currentLanguage)
+        Language.availableLanguages

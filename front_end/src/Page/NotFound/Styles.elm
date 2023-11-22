@@ -16,13 +16,13 @@ import Styles
 
 backToHomeLink : String
 backToHomeLink =
-    [ "avenir"
-    , "f5"
-    , "hover-gray"
-    , "light-silver"
-    , "link"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "avenir"
+        , "f5"
+        , "hover-gray"
+        , "light-silver"
+        , "link"
+        ]
 
 
 brandColorAlpha : Style
@@ -38,11 +38,11 @@ heading =
 icon : String
 icon =
     -- NOTE: fa-prefixed classes are from Font Awesome.
-    [ "fa-4x"
-    , "fa-meh"
-    , "far"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "fa-4x"
+        , "fa-meh"
+        , "far"
+        ]
 
 
 layout : String

@@ -48,8 +48,7 @@ type Route
 -}
 init : Url -> Maybe Route
 init url =
-    url
-        |> Parser.parse matchers
+    Parser.parse matchers url
 
 
 {-| Translates a Route into a path string

@@ -80,9 +80,7 @@ view language webData =
             Loading.view language
 
         RemoteData.Success data ->
-            data
-                |> View.view language
+            View.view language data
 
         RemoteData.Failure error ->
-            error
-                |> Error.view language
+            Error.view language error

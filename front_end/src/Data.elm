@@ -8,11 +8,9 @@ import RemoteData exposing (WebData)
 fetch : String -> Decoder a -> (WebData a -> msg) -> Cmd msg
 fetch apiUrl decoder callbackMsg =
     let
-        remoteData =
-            callbackMsg << RemoteData.fromResult
-
         response =
-            decoder
-                |> Http.expectJson remoteData
+            Http.expectJson
+                (\result -> callbackMsg (RemoteData.fromResult result))
+                decoder
     in
     Http.get { url = apiUrl, expect = response }

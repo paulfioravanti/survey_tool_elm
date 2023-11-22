@@ -28,19 +28,19 @@ import Css
 
 tooltip : String
 tooltip =
-    [ "absolute"
-    , "avenir"
-    , "bg-dark-gray"
-    , "br3"
-    , "f6"
-    , "nl5"
-    , "pa1"
-    , "tc"
-    , "w4"
-    , "white"
-    , "z-1"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "absolute"
+        , "avenir"
+        , "bg-dark-gray"
+        , "br3"
+        , "f6"
+        , "nl5"
+        , "pa1"
+        , "tc"
+        , "w4"
+        , "white"
+        , "z-1"
+        ]
 
 
 tooltipCss : Style

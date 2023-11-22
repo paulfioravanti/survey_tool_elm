@@ -16,29 +16,29 @@ import Css exposing (Style, overline, textDecoration)
 
 averageScore : String
 averageScore =
-    [ "fw5"
-    , "mt2 mt3-ns"
-    , "tr"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "fw5"
+        , "mt2 mt3-ns"
+        , "tr"
+        ]
 
 
 averageScoreLabel : String
 averageScoreLabel =
-    [ "fw1"
-    , "i"
-    , "mr2"
-    , "times"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "fw1"
+        , "i"
+        , "mr2"
+        , "times"
+        ]
 
 
 descriptionText : String
 descriptionText =
-    [ "fw4"
-    , "w-70-ns"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "fw4"
+        , "w-70-ns"
+        ]
 
 
 overlineText : Style
@@ -48,28 +48,28 @@ overlineText =
 
 question : String
 question =
-    [ "flex"
-    , "flex-column flex-row-ns"
-    , "justify-between-ns"
-    , "mh1 mh0-ns"
-    , "mv2"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "flex"
+        , "flex-column flex-row-ns"
+        , "justify-between-ns"
+        , "mh1 mh0-ns"
+        , "mv2"
+        ]
 
 
 responses : String
 responses =
-    [ "flex"
-    , "flex-row"
-    , "mr3 mr0-ns"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "flex"
+        , "flex-row"
+        , "mr3 mr0-ns"
+        ]
 
 
 scores : String
 scores =
-    [ "flex"
-    , "flex-row-reverse flex-column-ns"
-    , "justify-between-ns"
-    ]
-        |> String.join " "
+    String.join " "
+        [ "flex"
+        , "flex-row-reverse flex-column-ns"
+        , "justify-between-ns"
+        ]

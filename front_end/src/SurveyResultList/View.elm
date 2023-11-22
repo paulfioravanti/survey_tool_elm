@@ -28,8 +28,7 @@ surveyResultList : Language -> List SurveyResult -> List (Html msg)
 surveyResultList language surveyResults =
     let
         surveyResults_ =
-            surveyResults
-                |> List.map (SurveyResult.summaryView language)
+            List.map (SurveyResult.summaryView language) surveyResults
     in
     div [ class Styles.surveyResultList ]
         [ heading language ]

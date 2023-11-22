@@ -56,8 +56,7 @@ responses : Language -> Question -> Html msg
 responses language question =
     let
         respondents =
-            question.surveyResponses
-                |> SurveyResponse.respondentHistogram
+            SurveyResponse.respondentHistogram question.surveyResponses
     in
     div
         [ attribute "data-name" "survey-responses"
