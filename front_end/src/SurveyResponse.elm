@@ -1,5 +1,6 @@
 module SurveyResponse exposing
-    ( SurveyResponse
+    ( RespondentHistogram
+    , SurveyResponse
     , countValidResponse
     , decoder
     , ratingScore

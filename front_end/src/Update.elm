@@ -3,12 +3,12 @@ module Update exposing (update)
 import Browser.Navigation as Navigation
 import Cmd
 import Language
-import LanguageSelector
+import LanguageSelector exposing (LanguageSelector)
 import Model exposing (Model)
 import Msg exposing (Msg)
-import Navigation
+import Navigation exposing (Navigation)
 import Ports
-import Route
+import Route exposing (Route)
 import SurveyResult
 import SurveyResultList
 
@@ -18,14 +18,17 @@ update msg model =
     case msg of
         Msg.ChangeLanguage language ->
             let
+                hideSelectableLanguages : Cmd Msg
+                hideSelectableLanguages =
+                    Cmd.hideSelectableLanguages
+
+                maybeChangeRoute : Cmd Msg
                 maybeChangeRoute =
                     Cmd.maybeChangeRoute model.navigation.route
 
+                storeLanguage : Cmd msg
                 storeLanguage =
                     Ports.storeLanguage (Language.toString language)
-
-                hideSelectableLanguages =
-                    Cmd.hideSelectableLanguages
             in
             ( Model.changeLanguage language model
             , Cmd.batch
@@ -37,6 +40,7 @@ update msg model =
 
         Msg.ChangeRoute route ->
             let
+                loadDataForRoute : Cmd Msg
                 loadDataForRoute =
                     Cmd.loadDataForRoute route model
             in
@@ -44,6 +48,7 @@ update msg model =
 
         Msg.LanguageSelector msgForLanguageSelector ->
             let
+                languageSelector : LanguageSelector
                 languageSelector =
                     LanguageSelector.update
                         msgForLanguageSelector
@@ -73,12 +78,15 @@ update msg model =
 
         Msg.UrlChanged url ->
             let
+                maybeRoute : Maybe Route
                 maybeRoute =
                     Route.init url
 
+                navigation : Navigation
                 navigation =
                     Navigation.updateRoute maybeRoute model.navigation
 
+                maybeChangeRoute : Cmd Msg
                 maybeChangeRoute =
                     Cmd.maybeChangeRoute maybeRoute
             in
@@ -86,6 +94,7 @@ update msg model =
 
         Msg.UrlRequested urlRequest ->
             let
+                changeUrl : Cmd Msg
                 changeUrl =
                     Cmd.changeUrl model.navigation.key urlRequest
             in

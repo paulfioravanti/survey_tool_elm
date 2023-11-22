@@ -6,7 +6,7 @@ module Question.Decoder exposing (decoder)
 import Json.Decode as Decode exposing (Decoder, list, string)
 import Json.Decode.Pipeline exposing (required)
 import Question.Model exposing (Question)
-import SurveyResponse
+import SurveyResponse exposing (SurveyResponse)
 
 
 {-| Decodes a JSON question from a survey result
@@ -47,6 +47,7 @@ import SurveyResponse
 decoder : Decoder Question
 decoder =
     let
+        surveyResponse : Decoder SurveyResponse
         surveyResponse =
             SurveyResponse.decoder
     in

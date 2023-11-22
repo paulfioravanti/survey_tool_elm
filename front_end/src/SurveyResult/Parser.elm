@@ -3,7 +3,7 @@ module SurveyResult.Parser exposing (id)
 {-| Parser to extract a survey result ID from a `SurveyResult`'s `url` string.
 -}
 
-import Parser exposing ((|.), (|=))
+import Parser exposing ((|.), (|=), Parser)
 import SurveyResult.Model exposing (SurveyResult)
 
 
@@ -54,6 +54,7 @@ import SurveyResult.Model exposing (SurveyResult)
 id : SurveyResult -> String
 id surveyResult =
     let
+        idParser : Parser String
         idParser =
             Parser.succeed identity
                 |. Parser.symbol "/"

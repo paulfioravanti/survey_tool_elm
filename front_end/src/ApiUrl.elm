@@ -1,7 +1,7 @@
 module ApiUrl exposing (init)
 
 import Flags exposing (Flags)
-import Json.Decode as Decode exposing (Value)
+import Json.Decode as Decode exposing (Error, Value)
 
 
 {-| Returns an API url to use when fetching survey information from the back
@@ -57,6 +57,7 @@ init { apiUrl, environment } =
 determineUrlFromEnvironment : Value -> String
 determineUrlFromEnvironment environmentFlag =
     let
+        environment : Result Error String
         environment =
             Decode.decodeValue Decode.string environmentFlag
     in

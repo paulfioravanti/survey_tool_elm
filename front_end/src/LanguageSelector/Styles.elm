@@ -43,6 +43,7 @@ countryFlag flagClass =
 currentSelection : Bool -> String
 currentSelection showSelectableLanguages =
     let
+        borderClass : String
         borderClass =
             if showSelectableLanguages then
                 "b--black-10"
@@ -90,6 +91,7 @@ dropdownMenuCss =
 dropdownMenuCaret : Bool -> String
 dropdownMenuCaret showSelectableLanguages =
     let
+        caretColor : String
         caretColor =
             if showSelectableLanguages then
                 "black-20"
@@ -108,6 +110,7 @@ dropdownMenuCaretCss =
 dropdownMenuList : Bool -> String
 dropdownMenuList showSelectableLanguages =
     let
+        displayClass : String
         displayClass =
             if showSelectableLanguages then
                 "flex flex-column"
@@ -139,6 +142,7 @@ dropdownMenuListCss showSelectableLanguages =
         -- Visibility is used here so that flag images always load upfront, and
         -- there are never any blank menu items when you click the dropdown
         -- menu while you are waiting for them to load
+        listVisibility : Style
         listVisibility =
             if showSelectableLanguages then
                 visibility visible

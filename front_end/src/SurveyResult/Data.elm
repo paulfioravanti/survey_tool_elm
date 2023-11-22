@@ -3,6 +3,7 @@ module SurveyResult.Data exposing (init, load, title, view)
 import Data
 import Html.Styled as Html exposing (Html)
 import Http
+import Json.Decode exposing (Decoder)
 import Language exposing (Language)
 import Page.Error as Error
 import Page.Loading as Loading
@@ -27,12 +28,15 @@ load :
     -> ( WebData SurveyResult, Cmd Msg )
 load apiUrl id webData =
     let
+        url : String
         url =
             apiUrl ++ id
 
+        decoder : Decoder SurveyResult
         decoder =
             Decoder.decoder
 
+        callbackMsg : WebData SurveyResult -> Msg
         callbackMsg =
             Msg.fetched
     in
@@ -89,9 +93,7 @@ view language webData =
             Loading.view language
 
         RemoteData.Success surveyResult ->
-            surveyResult
-                |> View.view language
+            View.view language surveyResult
 
         RemoteData.Failure error ->
-            error
-                |> Error.view language
+            Error.view language error

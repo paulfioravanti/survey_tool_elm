@@ -72,9 +72,9 @@ statistic label value =
 responseRate : Language -> Float -> Html msg
 responseRate language responseRate_ =
     let
+        responseRatePercentage : String
         responseRatePercentage =
-            responseRate_
-                |> Utils.percentFromFloat
+            Utils.percentFromFloat responseRate_
     in
     div [ class Styles.responseRate ]
         [ div [ class Styles.responseRateLabel ]

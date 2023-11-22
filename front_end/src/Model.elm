@@ -7,7 +7,7 @@ import Language exposing (Language)
 import LanguageSelector exposing (LanguageSelector)
 import Navigation exposing (Navigation)
 import RemoteData exposing (WebData)
-import Route
+import Route exposing (Route)
 import SurveyResult exposing (SurveyResult)
 import SurveyResultList exposing (SurveyResultList)
 import Title
@@ -28,9 +28,11 @@ type alias Model =
 init : Flags -> Url -> Maybe Key -> Model
 init flags url key =
     let
+        route : Maybe Route
         route =
             Route.init url
 
+        language : Language
         language =
             Language.init flags.language
     in
@@ -47,6 +49,7 @@ init flags url key =
 changeLanguage : Language -> Model -> Model
 changeLanguage language model =
     let
+        languageSelector : LanguageSelector
         languageSelector =
             LanguageSelector.updateSelectableLanguages
                 language

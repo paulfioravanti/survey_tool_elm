@@ -76,6 +76,7 @@ import SurveyResult.Model exposing (SurveyResult)
 decoder : Decoder SurveyResult
 decoder =
     let
+        surveyResult : Decoder SurveyResult
         surveyResult =
             Decoder.decoder
     in

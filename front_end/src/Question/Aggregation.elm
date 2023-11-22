@@ -5,7 +5,7 @@ module Question.Aggregation exposing (averageScore, sumValidResponses)
 
 import Question.Model exposing (Question)
 import Round
-import SurveyResponse
+import SurveyResponse exposing (SurveyResponse)
 
 
 {-| Tallies the `responseContent` rating values from a `Question`, and returns
@@ -51,11 +51,13 @@ Only valid `responseContent` values between values 1-5 are counted in the tally.
 averageScore : Question -> String
 averageScore question =
     let
+        sumScores : Float
         sumScores =
             question
                 |> sumValidResponses
                 |> toFloat
 
+        numScores : Float
         numScores =
             question
                 |> countValidResponses
@@ -106,6 +108,7 @@ Only valid `responseContent` values between values 1-5 are included in the sum.
 sumValidResponses : Question -> Int
 sumValidResponses { surveyResponses } =
     let
+        addResponseContent : SurveyResponse -> Int -> Int
         addResponseContent surveyResponse acc =
             acc + SurveyResponse.ratingScore surveyResponse
     in

@@ -60,6 +60,10 @@ Only valid responses from 1-5 are included in the histogram.
 init : List SurveyResponse -> RespondentHistogram
 init surveyResponses =
     let
+        prependRatingToList :
+            SurveyResponse
+            -> RespondentHistogram
+            -> RespondentHistogram
         prependRatingToList { respondentId, responseContent } histogram =
             if Dict.member responseContent histogram then
                 Dict.update

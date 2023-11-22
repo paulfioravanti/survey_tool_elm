@@ -5,7 +5,7 @@ module Theme.Decoder exposing (decoder)
 
 import Json.Decode as Decode exposing (Decoder, list, string)
 import Json.Decode.Pipeline exposing (required)
-import Question
+import Question exposing (Question)
 import Theme.Model exposing (Theme)
 
 
@@ -56,6 +56,7 @@ import Theme.Model exposing (Theme)
 decoder : Decoder Theme
 decoder =
     let
+        question : Decoder Question
         question =
             Question.decoder
     in

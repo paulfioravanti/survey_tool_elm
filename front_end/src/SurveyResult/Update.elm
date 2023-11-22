@@ -13,19 +13,18 @@ update language msg =
         Msg.Load apiUrl id webData ->
             let
                 ( surveyResult, cmd ) =
-                    webData
-                        |> Data.load apiUrl id
+                    Data.load apiUrl id webData
 
+                title : String
                 title =
-                    surveyResult
-                        |> Data.title language
+                    Data.title language surveyResult
             in
             ( surveyResult, title, cmd )
 
         Msg.Fetched surveyResult ->
             let
+                title : String
                 title =
-                    surveyResult
-                        |> Data.title language
+                    Data.title language surveyResult
             in
             ( surveyResult, title, Cmd.none )

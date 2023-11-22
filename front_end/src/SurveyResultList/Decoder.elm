@@ -2,7 +2,7 @@ module SurveyResultList.Decoder exposing (decoder)
 
 import Json.Decode as Decode exposing (Decoder, list)
 import Json.Decode.Pipeline exposing (required)
-import SurveyResult
+import SurveyResult exposing (SurveyResult)
 import SurveyResultList.Model exposing (SurveyResultList)
 
 
@@ -48,6 +48,7 @@ import SurveyResultList.Model exposing (SurveyResultList)
 decoder : Decoder SurveyResultList
 decoder =
     let
+        surveyResult : Decoder SurveyResult
         surveyResult =
             SurveyResult.decoder
     in

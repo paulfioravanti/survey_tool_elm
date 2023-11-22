@@ -6,7 +6,7 @@ import Language exposing (Language)
 import Question.Aggregation as Aggregation
 import Question.Model exposing (Question)
 import Question.Styles as Styles
-import SurveyResponse
+import SurveyResponse exposing (RespondentHistogram)
 import Translations
 
 
@@ -55,6 +55,7 @@ averageScore language question =
 responses : Language -> Question -> Html msg
 responses language question =
     let
+        respondents : RespondentHistogram
         respondents =
             SurveyResponse.respondentHistogram question.surveyResponses
     in

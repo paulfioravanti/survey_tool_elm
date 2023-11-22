@@ -27,6 +27,7 @@ view language { surveyResults } =
 surveyResultList : Language -> List SurveyResult -> List (Html msg)
 surveyResultList language surveyResults =
     let
+        surveyResults_ : List (Html msg)
         surveyResults_ =
             List.map (SurveyResult.summaryView language) surveyResults
     in

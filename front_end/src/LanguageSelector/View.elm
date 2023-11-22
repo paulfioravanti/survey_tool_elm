@@ -1,6 +1,6 @@
 module LanguageSelector.View exposing (view)
 
-import Html.Styled exposing (Html, div, li, p, span, text, ul)
+import Html.Styled exposing (Attribute, Html, div, li, p, span, text, ul)
 import Html.Styled.Attributes exposing (attribute, class, css)
 import Html.Styled.Events exposing (onClick, onMouseLeave)
 import Language exposing (Language)
@@ -23,6 +23,7 @@ view changeLanguageMsg languageSelectorMsg language languageSelector =
         {- If the language selector is open and the user decides to not
            select a language, then the dropdown menu should close.
         -}
+        hideSelectableLanguages : List (Attribute msg)
         hideSelectableLanguages =
             if languageSelector.showSelectableLanguages then
                 [ onMouseLeave
@@ -47,6 +48,7 @@ view changeLanguageMsg languageSelectorMsg language languageSelector =
 currentSelection : (Msg -> msg) -> Language -> LanguageSelector -> Html msg
 currentSelection languageSelectorMsg language { showSelectableLanguages } =
     let
+        flagStyles : String
         flagStyles =
             language
                 |> Language.toFlagClass
@@ -91,9 +93,11 @@ dropdownList changeLanguageMsg languageSelector =
 dropdownListItem : (Language -> msg) -> Language -> Html msg
 dropdownListItem changeLanguageMsg language =
     let
+        attributeName : String
         attributeName =
             Language.toString language
 
+        flagClasses : String
         flagClasses =
             language
                 |> Language.toFlagClass

@@ -6,7 +6,7 @@ module Language exposing
     , toString
     )
 
-import Json.Decode as Decode exposing (Value)
+import Json.Decode as Decode exposing (Error, Value)
 
 
 type Language
@@ -36,9 +36,9 @@ type Language
 init : Value -> Language
 init languageFlag =
     let
+        language : Result Error String
         language =
-            languageFlag
-                |> Decode.decodeValue Decode.string
+            Decode.decodeValue Decode.string languageFlag
     in
     case language of
         Ok "en" ->
@@ -62,6 +62,7 @@ availableLanguages =
 toFlagClass : Language -> String
 toFlagClass language =
     let
+        flagIconLanguage : String
         flagIconLanguage =
             case language of
                 En ->

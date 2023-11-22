@@ -16,6 +16,7 @@ module Utils exposing (percentFromFloat)
 percentFromFloat : Float -> String
 percentFromFloat float =
     let
+        percent : String
         percent =
             float
                 * 100

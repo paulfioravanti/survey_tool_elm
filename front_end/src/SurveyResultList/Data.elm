@@ -3,6 +3,7 @@ module SurveyResultList.Data exposing (init, load, title, view)
 import Data
 import Html.Styled as Html exposing (Html)
 import Http
+import Json.Decode exposing (Decoder)
 import Language exposing (Language)
 import Page.Error as Error
 import Page.Loading as Loading
@@ -25,9 +26,11 @@ load :
     -> ( WebData SurveyResultList, Cmd Msg )
 load apiUrl webData =
     let
+        decoder : Decoder SurveyResultList
         decoder =
             Decoder.decoder
 
+        callbackMsg : WebData SurveyResultList -> Msg
         callbackMsg =
             Msg.fetched
     in

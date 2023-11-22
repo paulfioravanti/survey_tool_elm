@@ -1,6 +1,6 @@
 module Theme.Aggregation exposing (averageScore)
 
-import Question
+import Question exposing (Question)
 import Round
 import SurveyResponse
 import Theme.Model exposing (Theme)
@@ -74,11 +74,13 @@ Only valid `responseContent` values between values 1-5 are counted in the tally.
 averageScore : Theme -> String
 averageScore theme =
     let
+        sumScores : Float
         sumScores =
             theme
                 |> sumValidResponses
                 |> toFloat
 
+        numScores : Float
         numScores =
             theme
                 |> countValidResponses
@@ -94,8 +96,10 @@ averageScore theme =
 countValidResponses : Theme -> Int
 countValidResponses { questions } =
     let
+        addQuestionSurveyResponsesCount : Question -> Int -> Int
         addQuestionSurveyResponsesCount question acc =
             let
+                count : Int
                 count =
                     List.foldl
                         SurveyResponse.countValidResponse
@@ -110,6 +114,7 @@ countValidResponses { questions } =
 sumValidResponses : Theme -> Int
 sumValidResponses { questions } =
     let
+        addQuestionSum : Question -> Int -> Int
         addQuestionSum question acc =
             acc + Question.sumValidResponses question
     in

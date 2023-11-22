@@ -2,10 +2,11 @@ module View exposing (view)
 
 import Browser exposing (Document)
 import Header
-import Html.Styled as Html
+import Html.Styled as Html exposing (Html)
 import Model exposing (Model)
 import Msg exposing (Msg)
 import Page.NotFound as NotFound
+import RemoteData exposing (WebData)
 import Route
 import SurveyResult
 import SurveyResultList
@@ -14,6 +15,7 @@ import SurveyResultList
 view : Model -> Document Msg
 view model =
     let
+        header : WebData a -> Html Msg
         header =
             Header.view
                 Msg.changeLanguage
@@ -21,6 +23,7 @@ view model =
                 model.language
                 model.languageSelector
 
+        content : List (Html Msg)
         content =
             case model.navigation.route of
                 Just Route.SurveyResultList ->

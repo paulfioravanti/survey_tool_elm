@@ -1,6 +1,6 @@
 module Data exposing (fetch)
 
-import Http
+import Http exposing (Expect)
 import Json.Decode exposing (Decoder)
 import RemoteData exposing (WebData)
 
@@ -8,6 +8,7 @@ import RemoteData exposing (WebData)
 fetch : String -> Decoder a -> (WebData a -> msg) -> Cmd msg
 fetch apiUrl decoder callbackMsg =
     let
+        response : Expect msg
         response =
             Http.expectJson
                 (\result -> callbackMsg (RemoteData.fromResult result))

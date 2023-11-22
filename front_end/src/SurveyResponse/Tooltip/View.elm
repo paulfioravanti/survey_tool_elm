@@ -30,9 +30,11 @@ respondentsByResponseContent :
     -> ( String, String )
 respondentsByResponseContent language rating histogram =
     let
+        numIdsToDisplay : Int
         numIdsToDisplay =
             5
 
+        respondents : List String
         respondents =
             histogram
                 |> Dict.get rating
@@ -43,6 +45,7 @@ respondentsByResponseContent language rating histogram =
             , List.drop numIdsToDisplay respondents
             )
 
+        attributeName : String
         attributeName =
             "survey-response-tooltip-"
     in
@@ -68,6 +71,7 @@ respondentsByResponseContent language rating histogram =
 displaySingleRespondent : Language -> List String -> String
 displaySingleRespondent language respondents =
     let
+        id : String
         id =
             respondents
                 |> List.head
@@ -79,6 +83,7 @@ displaySingleRespondent language respondents =
 displayAllRespondents : Language -> List String -> String
 displayAllRespondents language respondents =
     let
+        allExceptLast : Int
         allExceptLast =
             List.length respondents - 1
 
@@ -87,9 +92,11 @@ displayAllRespondents language respondents =
             , List.drop allExceptLast respondents
             )
 
+        headIds : String
         headIds =
             String.join ", " head
 
+        tailId : String
         tailId =
             tail
                 |> List.head
@@ -105,12 +112,15 @@ truncatedRespondents :
     -> ( String, String )
 truncatedRespondents language respondentsToDisplay truncatedRespondentsList =
     let
+        idsToDisplay : String
         idsToDisplay =
             String.join ", " respondentsToDisplay
 
+        numTruncated : Int
         numTruncated =
             List.length truncatedRespondentsList
 
+        others : String
         others =
             if numTruncated == 1 then
                 Translations.other language
@@ -118,6 +128,7 @@ truncatedRespondents language respondentsToDisplay truncatedRespondentsList =
             else
                 Translations.others language
 
+        dataAttribute : String
         dataAttribute =
             if numTruncated == 1 then
                 "survey-response-tooltip-one-truncated-respondent"

@@ -15,6 +15,7 @@ update language msg =
                 ( surveyResultList, cmd ) =
                     Data.load apiUrl webData
 
+                title : String
                 title =
                     Data.title language surveyResultList
             in
@@ -22,6 +23,7 @@ update language msg =
 
         Msg.Fetched surveyResultList ->
             let
+                title : String
                 title =
                     Data.title language surveyResultList
             in

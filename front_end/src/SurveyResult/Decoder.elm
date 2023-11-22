@@ -14,7 +14,7 @@ import Json.Decode as Decode
         )
 import Json.Decode.Pipeline exposing (optional, required)
 import SurveyResult.Model exposing (SurveyResult)
-import Theme
+import Theme exposing (Theme)
 
 
 {-| Decodes a JSON survey result.
@@ -51,6 +51,7 @@ import Theme
 decoder : Decoder SurveyResult
 decoder =
     let
+        theme : Decoder Theme
         theme =
             Theme.decoder
     in

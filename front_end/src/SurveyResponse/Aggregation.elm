@@ -55,6 +55,7 @@ returned unchanged.
 countValidResponse : SurveyResponse -> Int -> Int
 countValidResponse surveyResponse acc =
     let
+        score : Int
         score =
             ratingScore surveyResponse
     in
@@ -117,6 +118,7 @@ returned.
 ratingScore : SurveyResponse -> Int
 ratingScore { responseContent } =
     let
+        score : Int
         score =
             responseContent
                 |> String.toInt

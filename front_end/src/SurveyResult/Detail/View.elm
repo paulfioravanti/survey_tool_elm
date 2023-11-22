@@ -67,6 +67,7 @@ surveyName name =
 surveyResultThemes : Language -> Maybe (List Theme) -> Html msg
 surveyResultThemes language maybeThemes =
     let
+        themes : List Theme
         themes =
             Maybe.withDefault [] maybeThemes
     in
