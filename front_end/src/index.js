@@ -13,12 +13,15 @@ const app =
     }
   })
 
-app.ports.initBodyProperties.subscribe(classes => {
-  document.body.className = classes
-})
-
-app.ports.storeLanguage.subscribe(language => {
-  localStorage.setItem("survey-tool-language", language)
+app.ports.outbound.subscribe(({ tag, data }) => {
+  switch (tag) {
+  case "INIT_BODY_CLASSES":
+    document.body.className = data.classes
+    break
+  case "STORE_LANGUAGE":
+    localStorage.setItem("survey-tool-language", data.language)
+    break
+  }
 })
 
 function getLanguage() {

@@ -1,7 +1,16 @@
-port module Ports exposing (initBodyProperties, storeLanguage)
+module Ports exposing
+    ( initBodyClasses
+    , storeLanguage
+    )
+
+import Ports.Cmd as Cmd
 
 
-port initBodyProperties : String -> Cmd msg
+initBodyClasses : String -> Cmd msg
+initBodyClasses classes =
+    Cmd.initBodyClasses classes
 
 
-port storeLanguage : String -> Cmd msg
+storeLanguage : String -> Cmd msg
+storeLanguage language =
+    Cmd.storeLanguage language

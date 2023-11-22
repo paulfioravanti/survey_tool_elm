@@ -28,7 +28,7 @@ init : Flags -> Url -> Key -> ( Model, Cmd Msg )
 init flags url key =
     ( Model.init flags url (Just key)
     , Cmd.batch
-        [ Ports.initBodyProperties Styles.body
+        [ Ports.initBodyClasses Styles.body
         , Navigation.pushUrl key (Url.toString url)
         ]
     )
