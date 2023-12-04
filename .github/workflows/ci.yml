@@ -39,6 +39,12 @@ jobs:
           npm install
           cp .env.example .env
 
+      - name: Run Elm Review
+        run: npx elm-review
+
+      - name: Run Elm Analyse
+        run: elm-analyse
+
       - name: Run Tests
         run: elm-test
 
@@ -47,12 +53,6 @@ jobs:
 
       - name: Run Elm Coverage
         run: elm-coverage
-
-      - name: Run Elm Analyse
-        run: elm-analyse
-
-      - name: Run Elm Review
-        run: npx elm-review
 
   back-end-build:
     defaults:
