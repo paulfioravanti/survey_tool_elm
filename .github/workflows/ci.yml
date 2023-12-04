@@ -32,6 +32,7 @@ jobs:
           elm-verify-examples
           elm-coverage
           elm-analyse
+          elm-review
 
       - name: Install Local Dependencies
         run: |
