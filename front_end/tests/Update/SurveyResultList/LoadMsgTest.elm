@@ -2,16 +2,17 @@ module Update.SurveyResultList.LoadMsgTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
+import Http exposing (Error)
 import Http.Error.Fuzzer as Error
 import Language exposing (Language)
 import Language.Fuzzer as Language
 import LanguageSelector
-import LanguageSelector.Msg
-import Msg
+import Model exposing (Model)
+import Msg exposing (Msg)
 import Navigation
-import RemoteData
+import RemoteData exposing (WebData)
 import Route exposing (Route)
-import Route.Fuzzer as Route
+import SurveyResultList exposing (SurveyResultList)
 import SurveyResultList.Fuzzer as SurveyResultList
 import SurveyResultList.Msg
 import Test exposing (Test, describe, fuzz, fuzz2)
@@ -23,6 +24,7 @@ import Update
 all : Test
 all =
     let
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -37,6 +39,7 @@ all =
 loadWhenRemoteDataIsNotAskedTest : Fuzzer Language -> Test
 loadWhenRemoteDataIsNotAskedTest randomLanguage =
     let
+        apiUrl : String
         apiUrl =
             "https://www.example.com/api/endpoint"
     in
@@ -49,9 +52,11 @@ loadWhenRemoteDataIsNotAskedTest randomLanguage =
             """
             (\language ->
                 let
+                    route : Route
                     route =
                         Route.SurveyResultList
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -62,6 +67,7 @@ loadWhenRemoteDataIsNotAskedTest randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    msg : Msg
                     msg =
                         Msg.SurveyResultList
                             (SurveyResultList.Msg.Load
@@ -69,19 +75,23 @@ loadWhenRemoteDataIsNotAskedTest randomLanguage =
                                 model.surveyResultList
                             )
 
+                    expectedSurveyResultList : WebData SurveyResultList
                     expectedSurveyResultList =
                         RemoteData.Loading
 
+                    expectedTitle : String
                     expectedTitle =
                         Translations.loading language
 
+                    updatedModel : Model
                     updatedModel =
-                        Update.update msg model
-                            |> Tuple.first
+                        Tuple.first (Update.update msg model)
 
+                    actualSurveyResultList : WebData SurveyResultList
                     actualSurveyResultList =
                         updatedModel.surveyResultList
 
+                    actualTitle : String
                     actualTitle =
                         updatedModel.title
                 in
@@ -101,6 +111,7 @@ loadWhenRemoteDataIsNotAskedTest randomLanguage =
 loadWhenRemoteDataIsLoadingTest : Fuzzer Language -> Test
 loadWhenRemoteDataIsLoadingTest randomLanguage =
     let
+        apiUrl : String
         apiUrl =
             "https://www.example.com/api/endpoint"
     in
@@ -113,9 +124,11 @@ loadWhenRemoteDataIsLoadingTest randomLanguage =
             """
             (\language ->
                 let
+                    route : Route
                     route =
                         Route.SurveyResultList
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -126,6 +139,7 @@ loadWhenRemoteDataIsLoadingTest randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    msg : Msg
                     msg =
                         Msg.SurveyResultList
                             (SurveyResultList.Msg.Load
@@ -133,19 +147,23 @@ loadWhenRemoteDataIsLoadingTest randomLanguage =
                                 model.surveyResultList
                             )
 
+                    expectedSurveyResultList : WebData SurveyResultList
                     expectedSurveyResultList =
                         RemoteData.Loading
 
+                    expectedTitle : String
                     expectedTitle =
                         Translations.loading language
 
+                    updatedModel : Model
                     updatedModel =
-                        Update.update msg model
-                            |> Tuple.first
+                        Tuple.first (Update.update msg model)
 
+                    actualSurveyResultList : WebData SurveyResultList
                     actualSurveyResultList =
                         updatedModel.surveyResultList
 
+                    actualTitle : String
                     actualTitle =
                         updatedModel.title
                 in
@@ -165,9 +183,11 @@ loadWhenRemoteDataIsLoadingTest randomLanguage =
 loadWhenRemoteDataIsSuccess : Fuzzer Language -> Test
 loadWhenRemoteDataIsSuccess randomLanguage =
     let
+        apiUrl : String
         apiUrl =
             "https://www.example.com/api/endpoint"
 
+        randomSurveyResultList : Fuzzer SurveyResultList
         randomSurveyResultList =
             SurveyResultList.fuzzer
     in
@@ -180,9 +200,11 @@ loadWhenRemoteDataIsSuccess randomLanguage =
             """
             (\language surveyResultList ->
                 let
+                    route : Route
                     route =
                         Route.SurveyResultList
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -193,6 +215,7 @@ loadWhenRemoteDataIsSuccess randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    msg : Msg
                     msg =
                         Msg.SurveyResultList
                             (SurveyResultList.Msg.Load
@@ -200,19 +223,23 @@ loadWhenRemoteDataIsSuccess randomLanguage =
                                 model.surveyResultList
                             )
 
+                    expectedSurveyResultList : WebData SurveyResultList
                     expectedSurveyResultList =
                         RemoteData.Success surveyResultList
 
+                    expectedTitle : String
                     expectedTitle =
                         Translations.surveyResults language
 
+                    updatedModel : Model
                     updatedModel =
-                        Update.update msg model
-                            |> Tuple.first
+                        Tuple.first (Update.update msg model)
 
+                    actualSurveyResultList : WebData SurveyResultList
                     actualSurveyResultList =
                         updatedModel.surveyResultList
 
+                    actualTitle : String
                     actualTitle =
                         updatedModel.title
                 in
@@ -232,9 +259,11 @@ loadWhenRemoteDataIsSuccess randomLanguage =
 loadWhenRemoteDataIsFailureTest : Fuzzer Language -> Test
 loadWhenRemoteDataIsFailureTest randomLanguage =
     let
+        apiUrl : String
         apiUrl =
             "https://www.example.com/api/endpoint"
 
+        randomHttpError : Fuzzer Error
         randomHttpError =
             Error.fuzzer
     in
@@ -248,9 +277,11 @@ loadWhenRemoteDataIsFailureTest randomLanguage =
             """
             (\language httpError ->
                 let
+                    route : Route
                     route =
                         Route.SurveyResultList
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -261,6 +292,7 @@ loadWhenRemoteDataIsFailureTest randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    msg : Msg
                     msg =
                         Msg.SurveyResultList
                             (SurveyResultList.Msg.Load
@@ -268,19 +300,23 @@ loadWhenRemoteDataIsFailureTest randomLanguage =
                                 model.surveyResultList
                             )
 
+                    expectedSurveyResultList : WebData SurveyResultList
                     expectedSurveyResultList =
                         RemoteData.Loading
 
+                    expectedTitle : String
                     expectedTitle =
                         Translations.loading language
 
+                    updatedModel : Model
                     updatedModel =
-                        Update.update msg model
-                            |> Tuple.first
+                        Tuple.first (Update.update msg model)
 
+                    actualSurveyResultList : WebData SurveyResultList
                     actualSurveyResultList =
                         updatedModel.surveyResultList
 
+                    actualTitle : String
                     actualTitle =
                         updatedModel.title
                 in

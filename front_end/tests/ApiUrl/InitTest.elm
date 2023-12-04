@@ -2,8 +2,8 @@ module ApiUrl.InitTest exposing (all)
 
 import ApiUrl
 import Expect
+import Flags exposing (Flags)
 import Flags.Factory as Factory
-import Json.Encode exposing (null, string)
 import Test exposing (Test, describe, test)
 
 
@@ -20,13 +20,15 @@ all =
 initWithEmptyFlagsTest : Test
 initWithEmptyFlagsTest =
     let
+        expectedApiUrl : String
         expectedApiUrl =
-            "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/"
-                ++ "master/back_end/lib/back_end/survey_results/"
+            "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/master/back_end/lib/back_end/survey_results/"
 
+        flags : Flags
         flags =
             Factory.emptyFlags
 
+        actualApiUrl : String
         actualApiUrl =
             ApiUrl.init flags
     in
@@ -40,12 +42,15 @@ initWithEmptyFlagsTest =
 initWithApiUrlTest : Test
 initWithApiUrlTest =
     let
+        expectedApiUrl : String
         expectedApiUrl =
             "www.example.com/endpoint"
 
+        flags : Flags
         flags =
             Factory.flagsWithApiUrl expectedApiUrl
 
+        actualApiUrl : String
         actualApiUrl =
             ApiUrl.init flags
     in
@@ -59,12 +64,15 @@ initWithApiUrlTest =
 initforDevelopmentEnvWithoutApiUrlTest : Test
 initforDevelopmentEnvWithoutApiUrlTest =
     let
+        expectedApiUrl : String
         expectedApiUrl =
             "http://localhost:4000/survey_results/"
 
+        flags : Flags
         flags =
             Factory.flagsWithEnvironment "development"
 
+        actualApiUrl : String
         actualApiUrl =
             ApiUrl.init flags
     in
@@ -78,13 +86,15 @@ initforDevelopmentEnvWithoutApiUrlTest =
 initforProductionEnvWithoutApiUrlTest : Test
 initforProductionEnvWithoutApiUrlTest =
     let
+        expectedApiUrl : String
         expectedApiUrl =
-            "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/"
-                ++ "master/back_end/lib/back_end/survey_results/"
+            "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/master/back_end/lib/back_end/survey_results/"
 
+        flags : Flags
         flags =
             Factory.flagsWithEnvironment "production"
 
+        actualApiUrl : String
         actualApiUrl =
             ApiUrl.init flags
     in

@@ -1,9 +1,9 @@
 module SurveyResult.InitTest exposing (all)
 
 import Expect
-import Fuzz
-import RemoteData
-import SurveyResult
+import Http exposing (Error)
+import RemoteData exposing (RemoteData)
+import SurveyResult exposing (SurveyResult)
 import Test exposing (Test, describe, test)
 
 
@@ -17,9 +17,11 @@ all =
 initTest : Test
 initTest =
     let
+        expectedData : RemoteData Error SurveyResult
         expectedData =
             RemoteData.NotAsked
 
+        actualData : RemoteData Error SurveyResult
         actualData =
             SurveyResult.init
     in

@@ -1,24 +1,23 @@
 module LanguageSelector.ViewTest exposing (all)
 
-import Expect
 import Fuzz exposing (Fuzzer)
-import Html
 import Html.Attributes as Attributes
-import Html.Styled
+import Html.Styled as Html exposing (Html)
 import Language exposing (Language)
 import Language.Fuzzer as Language
-import LanguageSelector
+import LanguageSelector exposing (LanguageSelector)
 import LanguageSelector.Msg
-import Msg
+import Msg exposing (Msg)
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Event as Event exposing (click, mouseLeave)
 import Test.Html.Query as Query
-import Test.Html.Selector as Selector exposing (tag)
+import Test.Html.Selector as Selector exposing (Selector)
 
 
 all : Test
 all =
     let
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -32,6 +31,7 @@ all =
 openDropdownTest : Fuzzer Language -> Test
 openDropdownTest randomLanguage =
     let
+        currentLanguageSelection : Selector
         currentLanguageSelection =
             Selector.attribute
                 (Attributes.attribute
@@ -47,13 +47,16 @@ openDropdownTest randomLanguage =
             """
             (\language ->
                 let
+                    languageSelector : LanguageSelector
                     languageSelector =
                         LanguageSelector.init language
 
+                    toggleSelectableLanguagesMsg : Msg
                     toggleSelectableLanguagesMsg =
                         Msg.LanguageSelector
                             LanguageSelector.Msg.ToggleSelectableLanguages
 
+                    html : Html Msg
                     html =
                         LanguageSelector.view
                             Msg.ChangeLanguage
@@ -62,7 +65,7 @@ openDropdownTest randomLanguage =
                             languageSelector
                 in
                 html
-                    |> Html.Styled.toUnstyled
+                    |> Html.toUnstyled
                     |> Query.fromHtml
                     |> Query.find [ currentLanguageSelection ]
                     |> Event.simulate click
@@ -81,6 +84,7 @@ closeDropdownTest randomLanguage =
             """
             (\language ->
                 let
+                    visibleLanguageSelector : LanguageSelector
                     visibleLanguageSelector =
                         language
                             |> LanguageSelector.init
@@ -90,10 +94,12 @@ closeDropdownTest randomLanguage =
                                     }
                                )
 
+                    hideSelectableLanguagesMsg : Msg
                     hideSelectableLanguagesMsg =
                         Msg.LanguageSelector
                             LanguageSelector.Msg.HideSelectableLanguages
 
+                    html : Html Msg
                     html =
                         LanguageSelector.view
                             Msg.ChangeLanguage
@@ -102,7 +108,7 @@ closeDropdownTest randomLanguage =
                             visibleLanguageSelector
                 in
                 html
-                    |> Html.Styled.toUnstyled
+                    |> Html.toUnstyled
                     |> Query.fromHtml
                     |> Event.simulate mouseLeave
                     |> Event.expect hideSelectableLanguagesMsg
@@ -116,14 +122,17 @@ changeLanguageTest randomLanguage =
         [ fuzz randomLanguage "changes the language" <|
             \language ->
                 let
+                    languageSelector : LanguageSelector
                     languageSelector =
                         LanguageSelector.init language
 
+                    targetLanguage : Language
                     targetLanguage =
                         languageSelector.selectableLanguages
                             |> List.head
                             |> Maybe.withDefault Language.En
 
+                    targetLanguageElement : Selector
                     targetLanguageElement =
                         Selector.attribute
                             (Attributes.attribute
@@ -131,9 +140,11 @@ changeLanguageTest randomLanguage =
                                 ("language-" ++ Language.toString targetLanguage)
                             )
 
+                    changeLanguageMsg : Msg
                     changeLanguageMsg =
                         Msg.ChangeLanguage targetLanguage
 
+                    html : Html Msg
                     html =
                         LanguageSelector.view
                             Msg.ChangeLanguage
@@ -142,7 +153,7 @@ changeLanguageTest randomLanguage =
                             languageSelector
                 in
                 html
-                    |> Html.Styled.toUnstyled
+                    |> Html.toUnstyled
                     |> Query.fromHtml
                     |> Query.find [ targetLanguageElement ]
                     |> Event.simulate click

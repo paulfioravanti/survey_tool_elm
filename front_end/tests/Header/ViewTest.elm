@@ -4,20 +4,21 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import Header
 import Html.Attributes as Attributes
-import Html.Styled
+import Html.Styled as Html exposing (Html)
 import Language exposing (Language)
 import Language.Fuzzer as Language
-import LanguageSelector
-import Msg
-import RemoteData
+import LanguageSelector exposing (LanguageSelector)
+import Msg exposing (Msg)
+import RemoteData exposing (RemoteData)
 import Test exposing (Test, describe, fuzz)
 import Test.Html.Query as Query
-import Test.Html.Selector as Selector exposing (classes, tag)
+import Test.Html.Selector as Selector exposing (Selector, classes, tag)
 
 
 all : Test
 all =
     let
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -30,6 +31,7 @@ all =
 webDataNotPresentTest : Fuzzer Language -> Test
 webDataNotPresentTest randomLanguage =
     let
+        webData : RemoteData e a
         webData =
             RemoteData.Loading
     in
@@ -37,9 +39,11 @@ webDataNotPresentTest randomLanguage =
         [ fuzz randomLanguage "the header does not display" <|
             \language ->
                 let
+                    languageSelector : LanguageSelector
                     languageSelector =
                         LanguageSelector.init language
 
+                    html : Html Msg
                     html =
                         Header.view
                             Msg.ChangeLanguage
@@ -49,7 +53,7 @@ webDataNotPresentTest randomLanguage =
                             webData
                 in
                 html
-                    |> Html.Styled.toUnstyled
+                    |> Html.toUnstyled
                     |> Query.fromHtml
                     |> Query.hasNot [ tag "header" ]
         ]
@@ -58,6 +62,7 @@ webDataNotPresentTest randomLanguage =
 webDataPresentTest : Fuzzer Language -> Test
 webDataPresentTest randomLanguage =
     let
+        webData : RemoteData e ()
         webData =
             RemoteData.Success ()
     in
@@ -65,9 +70,11 @@ webDataPresentTest randomLanguage =
         [ fuzz randomLanguage "the header displays" <|
             \language ->
                 let
+                    languageSelector : LanguageSelector
                     languageSelector =
                         LanguageSelector.init language
 
+                    html : Html Msg
                     html =
                         Header.view
                             Msg.ChangeLanguage
@@ -77,7 +84,7 @@ webDataPresentTest randomLanguage =
                             webData
                 in
                 html
-                    |> Html.Styled.toUnstyled
+                    |> Html.toUnstyled
                     |> Query.fromHtml
                     |> Query.has [ tag "header" ]
         , fuzz
@@ -85,9 +92,11 @@ webDataPresentTest randomLanguage =
             "the header displays the flag of the current language"
             (\language ->
                 let
+                    languageSelector : LanguageSelector
                     languageSelector =
                         LanguageSelector.init language
 
+                    html : Html Msg
                     html =
                         Header.view
                             Msg.ChangeLanguage
@@ -96,6 +105,7 @@ webDataPresentTest randomLanguage =
                             languageSelector
                             webData
 
+                    selectedLanguageElement : Selector
                     selectedLanguageElement =
                         Selector.attribute
                             (Attributes.attribute
@@ -103,11 +113,12 @@ webDataPresentTest randomLanguage =
                                 "language-selector-current-selection"
                             )
 
+                    flagClasses : List String
                     flagClasses =
                         String.split " " (Language.toFlagClass language)
                 in
                 html
-                    |> Html.Styled.toUnstyled
+                    |> Html.toUnstyled
                     |> Query.fromHtml
                     |> Query.find [ selectedLanguageElement ]
                     |> Query.children [ classes flagClasses ]

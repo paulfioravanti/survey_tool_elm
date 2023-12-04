@@ -2,17 +2,17 @@ module Update.SurveyResultList.FetchedMsgTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
-import Http
+import Http exposing (Error)
 import Http.Error.Fuzzer as Error
 import Language exposing (Language)
 import Language.Fuzzer as Language
 import LanguageSelector
-import LanguageSelector.Msg
-import Msg
+import Model exposing (Model)
+import Msg exposing (Msg)
 import Navigation
-import RemoteData
+import RemoteData exposing (WebData)
 import Route exposing (Route)
-import Route.Fuzzer as Route
+import SurveyResultList exposing (SurveyResultList)
 import SurveyResultList.Fuzzer as SurveyResultList
 import SurveyResultList.Msg
 import Test exposing (Test, describe, fuzz, fuzz2)
@@ -24,6 +24,7 @@ import Update
 all : Test
 all =
     let
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -37,9 +38,11 @@ all =
 fetchedWhenRemoteDataIsSuccessTest : Fuzzer Language -> Test
 fetchedWhenRemoteDataIsSuccessTest randomLanguage =
     let
+        apiUrl : String
         apiUrl =
             "https://www.example.com/api/endpoint"
 
+        randomSurveyResultList : Fuzzer SurveyResultList
         randomSurveyResultList =
             SurveyResultList.fuzzer
     in
@@ -53,9 +56,11 @@ fetchedWhenRemoteDataIsSuccessTest randomLanguage =
             """
             (\language surveyResultList ->
                 let
+                    route : Route
                     route =
                         Route.SurveyResultList
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -66,25 +71,30 @@ fetchedWhenRemoteDataIsSuccessTest randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    msg : Msg
                     msg =
                         Msg.SurveyResultList
                             (SurveyResultList.Msg.Fetched
                                 (RemoteData.Success surveyResultList)
                             )
 
+                    expectedSurveyResultList : WebData SurveyResultList
                     expectedSurveyResultList =
                         RemoteData.Success surveyResultList
 
+                    expectedTitle : String
                     expectedTitle =
                         Translations.surveyResults language
 
+                    updatedModel : Model
                     updatedModel =
-                        Update.update msg model
-                            |> Tuple.first
+                        Tuple.first (Update.update msg model)
 
+                    actualSurveyResultList : WebData SurveyResultList
                     actualSurveyResultList =
                         updatedModel.surveyResultList
 
+                    actualTitle : String
                     actualTitle =
                         updatedModel.title
                 in
@@ -105,9 +115,11 @@ fetchedWhenRemoteDataIsSuccessTest randomLanguage =
 fetchedWhenRemoteDataIsNotFoundTest : Fuzzer Language -> Test
 fetchedWhenRemoteDataIsNotFoundTest randomLanguage =
     let
+        apiUrl : String
         apiUrl =
             "https://www.example.com/api/endpoint"
 
+        httpError : Error
         httpError =
             Http.BadStatus 404
     in
@@ -120,9 +132,11 @@ fetchedWhenRemoteDataIsNotFoundTest randomLanguage =
             """
             (\language ->
                 let
+                    route : Route
                     route =
                         Route.SurveyResultList
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -133,25 +147,30 @@ fetchedWhenRemoteDataIsNotFoundTest randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    msg : Msg
                     msg =
                         Msg.SurveyResultList
                             (SurveyResultList.Msg.Fetched
                                 (RemoteData.Failure httpError)
                             )
 
+                    expectedSurveyResultList : WebData SurveyResultList
                     expectedSurveyResultList =
                         RemoteData.Failure httpError
 
+                    expectedTitle : String
                     expectedTitle =
                         Translations.notFound language
 
+                    updatedModel : Model
                     updatedModel =
-                        Update.update msg model
-                            |> Tuple.first
+                        Tuple.first (Update.update msg model)
 
+                    actualSurveyResultList : WebData SurveyResultList
                     actualSurveyResultList =
                         updatedModel.surveyResultList
 
+                    actualTitle : String
                     actualTitle =
                         updatedModel.title
                 in
@@ -171,9 +190,11 @@ fetchedWhenRemoteDataIsNotFoundTest randomLanguage =
 fetchedWhenRemoteDataIsFailureTest : Fuzzer Language -> Test
 fetchedWhenRemoteDataIsFailureTest randomLanguage =
     let
+        apiUrl : String
         apiUrl =
             "https://www.example.com/api/endpoint"
 
+        randomHttpError : Fuzzer Error
         randomHttpError =
             Error.fuzzer
     in
@@ -187,9 +208,11 @@ fetchedWhenRemoteDataIsFailureTest randomLanguage =
             """
             (\language httpError ->
                 let
+                    route : Route
                     route =
                         Route.SurveyResultList
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -200,25 +223,30 @@ fetchedWhenRemoteDataIsFailureTest randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    msg : Msg
                     msg =
                         Msg.SurveyResultList
                             (SurveyResultList.Msg.Fetched
                                 (RemoteData.Failure httpError)
                             )
 
+                    expectedSurveyResultList : WebData SurveyResultList
                     expectedSurveyResultList =
                         RemoteData.Failure httpError
 
+                    expectedTitle : String
                     expectedTitle =
                         Translations.errorRetrievingData language
 
+                    updatedModel : Model
                     updatedModel =
-                        Update.update msg model
-                            |> Tuple.first
+                        Tuple.first (Update.update msg model)
 
+                    actualSurveyResultList : WebData SurveyResultList
                     actualSurveyResultList =
                         updatedModel.surveyResultList
 
+                    actualTitle : String
                     actualTitle =
                         updatedModel.title
                 in

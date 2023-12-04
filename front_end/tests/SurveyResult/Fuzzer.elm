@@ -1,9 +1,7 @@
 module SurveyResult.Fuzzer exposing (fuzzer)
 
-import Fuzz exposing (Fuzzer, constant, float, int, list, string)
+import Fuzz exposing (Fuzzer, constant, float, int, string)
 import SurveyResult.Model exposing (SurveyResult)
-import Theme.Fuzzer as Theme
-import Theme.Model exposing (Theme)
 
 
 fuzzer : Fuzzer SurveyResult

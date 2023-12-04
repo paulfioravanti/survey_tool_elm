@@ -2,7 +2,6 @@ module SurveyResult.Parser.IdTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
-import Json.Decode as Decode
 import SurveyResult exposing (SurveyResult)
 import SurveyResult.Fuzzer as SurveyResult
 import SurveyResult.Parser as Parser
@@ -12,6 +11,7 @@ import Test exposing (Test, describe, fuzz, fuzz2)
 all : Test
 all =
     let
+        randomSurveyResult : Fuzzer SurveyResult
         randomSurveyResult =
             SurveyResult.fuzzer
     in
@@ -32,6 +32,7 @@ all =
 idWithSurveyResultWithNumberPlusFileExtensionTest : Fuzzer SurveyResult -> Test
 idWithSurveyResultWithNumberPlusFileExtensionTest randomSurveyResult =
     let
+        randomId : Fuzzer Int
         randomId =
             Fuzz.int
     in
@@ -42,14 +43,17 @@ idWithSurveyResultWithNumberPlusFileExtensionTest randomSurveyResult =
         [ fuzz2 randomId randomSurveyResult "returns the number as a string" <|
             \intId surveyResult ->
                 let
+                    expectedId : String
                     expectedId =
                         String.fromInt intId
 
+                    surveyResultWithNumberPlusFileExtensionInUrl : SurveyResult
                     surveyResultWithNumberPlusFileExtensionInUrl =
                         { surveyResult
                             | url = "/survey_results/" ++ expectedId ++ ".json"
                         }
 
+                    actualId : String
                     actualId =
                         Parser.id surveyResultWithNumberPlusFileExtensionInUrl
                 in
@@ -62,6 +66,7 @@ idWithSurveyResultWithNumberWithoutFileExtensionTest :
     -> Test
 idWithSurveyResultWithNumberWithoutFileExtensionTest randomSurveyResult =
     let
+        randomId : Fuzzer Int
         randomId =
             Fuzz.int
     in
@@ -73,14 +78,17 @@ idWithSurveyResultWithNumberWithoutFileExtensionTest randomSurveyResult =
         [ fuzz2 randomId randomSurveyResult "returns the number as a string" <|
             \intId surveyResult ->
                 let
+                    expectedId : String
                     expectedId =
                         String.fromInt intId
 
+                    surveyResultWithNumberWithoutFileExtensionInUrl : SurveyResult
                     surveyResultWithNumberWithoutFileExtensionInUrl =
                         { surveyResult
                             | url = "/survey_results/" ++ expectedId
                         }
 
+                    actualId : String
                     actualId =
                         Parser.id
                             surveyResultWithNumberWithoutFileExtensionInUrl
@@ -92,6 +100,7 @@ idWithSurveyResultWithNumberWithoutFileExtensionTest randomSurveyResult =
 idWithSurveyResultWithStringPlusFileExtensionTest : Fuzzer SurveyResult -> Test
 idWithSurveyResultWithStringPlusFileExtensionTest randomSurveyResult =
     let
+        expectedId : String
         expectedId =
             "abc"
     in
@@ -102,11 +111,13 @@ idWithSurveyResultWithStringPlusFileExtensionTest randomSurveyResult =
         [ fuzz randomSurveyResult "returns the string" <|
             \surveyResult ->
                 let
+                    surveyResultWithStringPlusFileExtensionInUrl : SurveyResult
                     surveyResultWithStringPlusFileExtensionInUrl =
                         { surveyResult
                             | url = "/survey_results/" ++ expectedId ++ ".json"
                         }
 
+                    actualId : String
                     actualId =
                         Parser.id surveyResultWithStringPlusFileExtensionInUrl
                 in
@@ -119,6 +130,7 @@ idWithSurveyResultWithStringWithoutFileExtensionTest :
     -> Test
 idWithSurveyResultWithStringWithoutFileExtensionTest randomSurveyResult =
     let
+        expectedId : String
         expectedId =
             "abc"
     in
@@ -130,11 +142,13 @@ idWithSurveyResultWithStringWithoutFileExtensionTest randomSurveyResult =
         [ fuzz randomSurveyResult "returns the string" <|
             \surveyResult ->
                 let
+                    surveyResultWithStringWithoutFileExtensionInUrl : SurveyResult
                     surveyResultWithStringWithoutFileExtensionInUrl =
                         { surveyResult
                             | url = "/survey_results/" ++ expectedId
                         }
 
+                    actualId : String
                     actualId =
                         Parser.id
                             surveyResultWithStringWithoutFileExtensionInUrl
@@ -146,6 +160,7 @@ idWithSurveyResultWithStringWithoutFileExtensionTest randomSurveyResult =
 idWithSurveyResultWithInvalidUrlTest : Fuzzer SurveyResult -> Test
 idWithSurveyResultWithInvalidUrlTest randomSurveyResult =
     let
+        expectedId : String
         expectedId =
             ""
     in
@@ -153,9 +168,11 @@ idWithSurveyResultWithInvalidUrlTest randomSurveyResult =
         [ fuzz randomSurveyResult "returns an empty string" <|
             \surveyResult ->
                 let
+                    surveyResultWithInvalidUrl : SurveyResult
                     surveyResultWithInvalidUrl =
                         { surveyResult | url = "invalid" }
 
+                    actualId : String
                     actualId =
                         Parser.id surveyResultWithInvalidUrl
                 in

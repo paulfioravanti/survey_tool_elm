@@ -12,6 +12,7 @@ import Test exposing (Test, describe, fuzz)
 all : Test
 all =
     let
+        randomQuestion : Fuzzer Question
         randomQuestion =
             Question.fuzzer
     in
@@ -24,6 +25,7 @@ all =
 ratingQuestionWithValidResponsesTest : Fuzzer Question -> Test
 ratingQuestionWithValidResponsesTest randomQuestion =
     let
+        expectedScore : String
         expectedScore =
             "3.20"
     in
@@ -33,12 +35,14 @@ ratingQuestionWithValidResponsesTest randomQuestion =
             "returns an average of all survey response values"
             (\question ->
                 let
+                    questionWithValidSurveyResponses : Question
                     questionWithValidSurveyResponses =
                         { question
                             | surveyResponses =
                                 Factory.listOfValidSurveyResponses
                         }
 
+                    actualScore : String
                     actualScore =
                         Question.Aggregation.averageScore
                             questionWithValidSurveyResponses
@@ -51,6 +55,7 @@ ratingQuestionWithValidResponsesTest randomQuestion =
 ratingQuestionWithSomeInvalidResponsesTest : Fuzzer Question -> Test
 ratingQuestionWithSomeInvalidResponsesTest randomQuestion =
     let
+        expectedScore : String
         expectedScore =
             "5.00"
     in
@@ -60,12 +65,14 @@ ratingQuestionWithSomeInvalidResponsesTest randomQuestion =
             "returns the average of only valid survey response values"
             (\question ->
                 let
+                    questionWithSomeInvalidSurveyResponses : Question
                     questionWithSomeInvalidSurveyResponses =
                         { question
                             | surveyResponses =
                                 Factory.listOfSomeInvalidSurveyResponses
                         }
 
+                    actualScore : String
                     actualScore =
                         Question.Aggregation.averageScore
                             questionWithSomeInvalidSurveyResponses

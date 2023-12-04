@@ -12,6 +12,7 @@ import Translations
 all : Test
 all =
     let
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -25,9 +26,11 @@ titleTest randomLanguage =
     fuzz randomLanguage "displays the title for the given language" <|
         \language ->
             let
+                expectedTitle : String
                 expectedTitle =
                     Translations.notFound language
 
+                actualTitle : String
                 actualTitle =
                     NotFound.title language
             in

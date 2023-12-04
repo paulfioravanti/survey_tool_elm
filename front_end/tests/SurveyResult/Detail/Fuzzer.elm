@@ -13,7 +13,6 @@ import Fuzz
 import Question.Model exposing (Question)
 import SurveyResponse.Model exposing (SurveyResponse)
 import SurveyResult.Model exposing (SurveyResult)
-import Theme.Fuzzer as Theme
 import Theme.Model exposing (Theme)
 
 
@@ -27,6 +26,7 @@ fuzzer =
         -}
         -- themes =
         --     maybe (list Theme.fuzzer)
+        themes : Fuzzer (Maybe (List Theme))
         themes =
             constant
                 (Just

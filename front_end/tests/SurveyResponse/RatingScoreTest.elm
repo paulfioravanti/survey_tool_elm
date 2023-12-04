@@ -4,12 +4,13 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import SurveyResponse exposing (SurveyResponse)
 import SurveyResponse.Fuzzer as SurveyResponse
-import Test exposing (Test, describe, fuzz, fuzz2, test)
+import Test exposing (Test, describe, fuzz, fuzz2)
 
 
 all : Test
 all =
     let
+        randomSurveyResponse : Fuzzer SurveyResponse
         randomSurveyResponse =
             SurveyResponse.fuzzer
     in
@@ -27,12 +28,15 @@ ratingScoreWithEmptyResponseContentTest randomSurveyResponse =
         [ fuzz randomSurveyResponse "returns 0" <|
             \surveyResponse ->
                 let
+                    expectedScore : Int
                     expectedScore =
                         0
 
+                    emptySurveyResponse : SurveyResponse
                     emptySurveyResponse =
                         { surveyResponse | responseContent = "" }
 
+                    actualScore : Int
                     actualScore =
                         SurveyResponse.ratingScore emptySurveyResponse
                 in
@@ -43,6 +47,7 @@ ratingScoreWithEmptyResponseContentTest randomSurveyResponse =
 ratingScoreWithValidResponseContentTest : Fuzzer SurveyResponse -> Test
 ratingScoreWithValidResponseContentTest randomSurveyResponse =
     let
+        randomValidScore : Fuzzer Int
         randomValidScore =
             Fuzz.intRange 1 5
     in
@@ -50,15 +55,19 @@ ratingScoreWithValidResponseContentTest randomSurveyResponse =
         [ fuzz2 randomSurveyResponse randomValidScore "returns the score" <|
             \surveyResponse score ->
                 let
+                    expectedScore : Int
                     expectedScore =
                         score
 
+                    responseContent : String
                     responseContent =
                         String.fromInt score
 
+                    surveyResponseWithValidScore : SurveyResponse
                     surveyResponseWithValidScore =
                         { surveyResponse | responseContent = responseContent }
 
+                    actualScore : Int
                     actualScore =
                         SurveyResponse.ratingScore surveyResponseWithValidScore
                 in
@@ -69,6 +78,7 @@ ratingScoreWithValidResponseContentTest randomSurveyResponse =
 ratingScoreWithOutOfRangeResponseContentTest : Fuzzer SurveyResponse -> Test
 ratingScoreWithOutOfRangeResponseContentTest randomSurveyResponse =
     let
+        randomInvalidIntScore : Fuzzer Int
         randomInvalidIntScore =
             Fuzz.oneOf
                 [ Fuzz.intRange -1 0
@@ -79,15 +89,19 @@ ratingScoreWithOutOfRangeResponseContentTest randomSurveyResponse =
         [ fuzz2 randomSurveyResponse randomInvalidIntScore "returns 0" <|
             \surveyResponse intScore ->
                 let
+                    expectedScore : Int
                     expectedScore =
                         0
 
+                    responseContent : String
                     responseContent =
                         String.fromInt intScore
 
+                    surveyResponseWithOutOfRangeIntValue : SurveyResponse
                     surveyResponseWithOutOfRangeIntValue =
                         { surveyResponse | responseContent = responseContent }
 
+                    actualScore : Int
                     actualScore =
                         SurveyResponse.ratingScore
                             surveyResponseWithOutOfRangeIntValue
@@ -102,12 +116,15 @@ ratingScoreWithNonIntResponseContentTest randomSurveyResponse =
         [ fuzz randomSurveyResponse "returns 0" <|
             \surveyResponse ->
                 let
+                    expectedScore : Int
                     expectedScore =
                         0
 
+                    surveyResponseWithNonIntStringValue : SurveyResponse
                     surveyResponseWithNonIntStringValue =
                         { surveyResponse | responseContent = "invalid" }
 
+                    actualScore : Int
                     actualScore =
                         SurveyResponse.ratingScore
                             surveyResponseWithNonIntStringValue

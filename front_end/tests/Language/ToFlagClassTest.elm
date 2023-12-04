@@ -1,7 +1,7 @@
 module Language.ToFlagClassTest exposing (all)
 
 import Expect
-import Language
+import Language exposing (Language)
 import Test exposing (Test, describe, test)
 
 
@@ -17,12 +17,15 @@ all =
 toFlagClassWithEnLanguageTest : Test
 toFlagClassWithEnLanguageTest =
     let
+        expectedFlagClass : String
         expectedFlagClass =
             "fi fi-au"
 
+        language : Language
         language =
             Language.En
 
+        actualFlagClass : String
         actualFlagClass =
             Language.toFlagClass language
     in
@@ -36,12 +39,15 @@ toFlagClassWithEnLanguageTest =
 toFlagClassWithItLanguageTest : Test
 toFlagClassWithItLanguageTest =
     let
+        expectedFlagClass : String
         expectedFlagClass =
             "fi fi-it"
 
+        language : Language
         language =
             Language.It
 
+        actualFlagClass : String
         actualFlagClass =
             Language.toFlagClass language
     in
@@ -55,12 +61,15 @@ toFlagClassWithItLanguageTest =
 toFlagClassWithJaLanguageTest : Test
 toFlagClassWithJaLanguageTest =
     let
+        expectedFlagClass : String
         expectedFlagClass =
             "fi fi-jp"
 
+        language : Language
         language =
             Language.Ja
 
+        actualFlagClass : String
         actualFlagClass =
             Language.toFlagClass language
     in

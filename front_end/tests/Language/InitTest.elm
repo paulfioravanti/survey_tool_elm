@@ -1,8 +1,8 @@
 module Language.InitTest exposing (all)
 
 import Expect
-import Json.Encode exposing (null, string)
-import Language
+import Json.Encode exposing (Value, null, string)
+import Language exposing (Language)
 import Test exposing (Test, describe, test)
 
 
@@ -19,12 +19,15 @@ all =
 initWithEnFlagTest : Test
 initWithEnFlagTest =
     let
+        expectedLanguage : Language
         expectedLanguage =
             Language.En
 
+        flag : Value
         flag =
             string "en"
 
+        actualLanguage : Language
         actualLanguage =
             Language.init flag
     in
@@ -38,12 +41,15 @@ initWithEnFlagTest =
 initWithItFlagTest : Test
 initWithItFlagTest =
     let
+        expectedLanguage : Language
         expectedLanguage =
             Language.It
 
+        flag : Value
         flag =
             string "it"
 
+        actualLanguage : Language
         actualLanguage =
             Language.init flag
     in
@@ -57,12 +63,15 @@ initWithItFlagTest =
 initWithJaFlagTest : Test
 initWithJaFlagTest =
     let
+        expectedLanguage : Language
         expectedLanguage =
             Language.Ja
 
+        flag : Value
         flag =
             string "ja"
 
+        actualLanguage : Language
         actualLanguage =
             Language.init flag
     in
@@ -76,12 +85,15 @@ initWithJaFlagTest =
 initWithInvalidFlagTest : Test
 initWithInvalidFlagTest =
     let
+        expectedLanguage : Language
         expectedLanguage =
             Language.En
 
+        flag : Value
         flag =
             null
 
+        actualLanguage : Language
         actualLanguage =
             Language.init flag
     in

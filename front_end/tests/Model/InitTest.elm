@@ -1,10 +1,12 @@
 module Model.InitTest exposing (all)
 
 import Expect
+import Flags exposing (Flags)
 import Flags.Factory as Factory
-import Model
+import Model exposing (Model)
 import RemoteData
 import Test exposing (Test, describe, test)
+import Url exposing (Url)
 import Url.Factory as Factory
 
 
@@ -17,18 +19,22 @@ all =
 initTest : Test
 initTest =
     let
+        flags : Flags
         flags =
             Factory.emptyFlags
 
+        url : Url
         url =
             Factory.urlWithPath "/"
 
+        key : Maybe a
         key =
             Nothing
     in
     test "initialises the model" <|
         \() ->
             let
+                model : Model
                 model =
                     Model.init flags url key
             in

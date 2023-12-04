@@ -18,7 +18,7 @@ main =
         { init = init
         , update = Update.update
         , view = View.view
-        , subscriptions = always Sub.none
+        , subscriptions = \_ -> Sub.none
         , onUrlRequest = Msg.urlRequested
         , onUrlChange = Msg.urlChanged
         }

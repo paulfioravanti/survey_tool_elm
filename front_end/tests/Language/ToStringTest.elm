@@ -1,8 +1,7 @@
 module Language.ToStringTest exposing (all)
 
 import Expect
-import Json.Encode exposing (null, string)
-import Language
+import Language exposing (Language)
 import Test exposing (Test, describe, test)
 
 
@@ -18,12 +17,15 @@ all =
 toStringWithEnLanguageTest : Test
 toStringWithEnLanguageTest =
     let
+        expectedString : String
         expectedString =
             "en"
 
+        language : Language
         language =
             Language.En
 
+        actualString : String
         actualString =
             Language.toString language
     in
@@ -37,12 +39,15 @@ toStringWithEnLanguageTest =
 toStringWithItLanguageTest : Test
 toStringWithItLanguageTest =
     let
+        expectedString : String
         expectedString =
             "it"
 
+        language : Language
         language =
             Language.It
 
+        actualString : String
         actualString =
             Language.toString language
     in
@@ -56,12 +61,15 @@ toStringWithItLanguageTest =
 toStringWithJaLanguageTest : Test
 toStringWithJaLanguageTest =
     let
+        expectedString : String
         expectedString =
             "ja"
 
+        language : Language
         language =
             Language.Ja
 
+        actualString : String
         actualString =
             Language.toString language
     in

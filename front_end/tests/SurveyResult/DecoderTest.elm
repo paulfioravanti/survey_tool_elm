@@ -1,9 +1,9 @@
 module SurveyResult.DecoderTest exposing (all)
 
 import Expect
-import Fuzz
+import Fuzz exposing (Fuzzer)
 import Json.Decode as Decode
-import SurveyResult
+import SurveyResult exposing (SurveyResult)
 import SurveyResult.Encoder as Encoder
 import SurveyResult.Fuzzer as SurveyResult
 import Test exposing (Test, describe, fuzz2)
@@ -19,26 +19,28 @@ all =
 decoderTest : Test
 decoderTest =
     let
+        randomId : Fuzzer Int
         randomId =
             Fuzz.int
 
+        randomSurveyResult : Fuzzer SurveyResult
         randomSurveyResult =
             SurveyResult.fuzzer
     in
     fuzz2 randomId randomSurveyResult "decoder maps to a SurveyResult" <|
         \intId surveyResult ->
             let
+                id : String
                 id =
                     String.fromInt intId
 
+                url : String
                 url =
                     "/survey_results/" ++ id ++ ".json"
 
+                surveyResultWithIdInUrl : SurveyResult
                 surveyResultWithIdInUrl =
                     { surveyResult | url = url }
-
-                expectedSurveyResult =
-                    Ok surveyResultWithIdInUrl
             in
             surveyResultWithIdInUrl
                 |> Encoder.encode

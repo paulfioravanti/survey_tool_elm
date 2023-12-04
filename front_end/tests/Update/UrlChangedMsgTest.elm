@@ -5,23 +5,28 @@ import Fuzz exposing (Fuzzer)
 import Language exposing (Language)
 import Language.Fuzzer as Language
 import LanguageSelector
-import Msg
-import Navigation
-import RemoteData
-import Route
-import Test exposing (Test, describe, fuzz2, fuzz3)
+import Model exposing (Model)
+import Msg exposing (Msg)
+import Navigation exposing (Navigation)
+import RemoteData exposing (WebData)
+import Route exposing (Route)
+import SurveyResult exposing (SurveyResult)
+import SurveyResultList exposing (SurveyResultList)
+import Test exposing (Test, describe, fuzz2)
 import Title
 import Update
+import Url exposing (Url)
 import Url.Factory as Factory
-import UrlRequest.Fuzzer as UrlRequest
 
 
 all : Test
 all =
     let
+        randomApiUrl : Fuzzer String
         randomApiUrl =
             Fuzz.string
 
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -34,24 +39,31 @@ all =
 urlChangedWhenValidUrlTest : Fuzzer String -> Fuzzer Language -> Test
 urlChangedWhenValidUrlTest randomApiUrl randomLanguage =
     let
+        route : Maybe Route
         route =
             Just Route.SurveyResultList
 
+        navigation : Navigation
         navigation =
             Navigation.init Nothing route
 
+        surveyResultDetail : WebData SurveyResult
         surveyResultDetail =
             RemoteData.NotAsked
 
+        surveyResultList : WebData SurveyResultList
         surveyResultList =
             RemoteData.NotAsked
 
+        url : Url
         url =
             Factory.urlWithPath "/survey_results/1"
 
+        msg : Msg
         msg =
             Msg.UrlChanged url
 
+        expectedNavigation : Navigation
         expectedNavigation =
             Navigation.init Nothing (Just (Route.SurveyResultDetail "1"))
     in
@@ -65,6 +77,7 @@ urlChangedWhenValidUrlTest randomApiUrl randomLanguage =
             """
             (\apiUrl language ->
                 let
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -75,6 +88,7 @@ urlChangedWhenValidUrlTest randomApiUrl randomLanguage =
                         , title = Title.init route language
                         }
 
+                    actualNavigation : Navigation
                     actualNavigation =
                         Update.update msg model
                             |> Tuple.first
@@ -88,24 +102,31 @@ urlChangedWhenValidUrlTest randomApiUrl randomLanguage =
 urlChangedWhenInvalidUrlTest : Fuzzer String -> Fuzzer Language -> Test
 urlChangedWhenInvalidUrlTest randomApiUrl randomLanguage =
     let
+        route : Maybe Route
         route =
             Just Route.SurveyResultList
 
+        navigation : Navigation
         navigation =
             Navigation.init Nothing route
 
+        surveyResultDetail : WebData SurveyResult
         surveyResultDetail =
             RemoteData.NotAsked
 
+        surveyResultList : WebData SurveyResultList
         surveyResultList =
             RemoteData.NotAsked
 
+        url : Url
         url =
             Factory.urlWithPath "/invalid/"
 
+        msg : Msg
         msg =
             Msg.UrlChanged url
 
+        expectedNavigation : Navigation
         expectedNavigation =
             Navigation.init Nothing Nothing
     in
@@ -119,6 +140,7 @@ urlChangedWhenInvalidUrlTest randomApiUrl randomLanguage =
             """
             (\apiUrl language ->
                 let
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -129,6 +151,7 @@ urlChangedWhenInvalidUrlTest randomApiUrl randomLanguage =
                         , title = Title.init route language
                         }
 
+                    actualNavigation : Navigation
                     actualNavigation =
                         Update.update msg model
                             |> Tuple.first

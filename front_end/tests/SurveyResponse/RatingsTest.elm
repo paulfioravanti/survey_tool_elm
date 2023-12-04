@@ -8,9 +8,11 @@ import Test exposing (Test, describe, test)
 all : Test
 all =
     let
+        expectedRatings : List String
         expectedRatings =
             [ "1", "2", "3", "4", "5" ]
 
+        actualRatings : List String
         actualRatings =
             SurveyResponse.ratings
     in

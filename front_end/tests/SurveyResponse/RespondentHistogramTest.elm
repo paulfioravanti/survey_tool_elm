@@ -4,6 +4,7 @@ import Dict
 import Expect
 import SurveyResponse
 import SurveyResponse.Model exposing (SurveyResponse)
+import SurveyResponse.RespondentHistogram exposing (RespondentHistogram)
 import Test exposing (Test, describe, test)
 
 
@@ -17,6 +18,7 @@ all =
 respondentHistogramForSingleQuestionTest : Test
 respondentHistogramForSingleQuestionTest =
     let
+        surveyResponsesForSingleQuestion : List SurveyResponse
         surveyResponsesForSingleQuestion =
             [ SurveyResponse 500 1 5 "1"
             , SurveyResponse 400 1 4 "2"
@@ -35,6 +37,7 @@ respondentHistogramForSingleQuestionTest =
             , SurveyResponse 1500 1 15 "invalid"
             ]
 
+        expectedHistogram : RespondentHistogram
         expectedHistogram =
             Dict.fromList
                 [ ( "1", [ "5" ] )
@@ -44,6 +47,7 @@ respondentHistogramForSingleQuestionTest =
                 , ( "5", [ "8", "7", "6", "1" ] )
                 ]
 
+        actualHistogram : RespondentHistogram
         actualHistogram =
             SurveyResponse.respondentHistogram surveyResponsesForSingleQuestion
     in

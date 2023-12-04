@@ -1,17 +1,18 @@
 module Language.AvailableLanguagesTest exposing (all)
 
 import Expect
-import Json.Encode exposing (null, string)
-import Language
+import Language exposing (Language)
 import Test exposing (Test, describe, test)
 
 
 all : Test
 all =
     let
+        expectedAvailableLanguages : List Language
         expectedAvailableLanguages =
             [ Language.En, Language.It, Language.Ja ]
 
+        actualAvailableLanguages : List Language
         actualAvailableLanguages =
             Language.availableLanguages
     in

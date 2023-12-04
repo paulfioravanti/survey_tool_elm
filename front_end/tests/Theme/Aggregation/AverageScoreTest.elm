@@ -12,6 +12,7 @@ import Theme.Fuzzer as Theme
 all : Test
 all =
     let
+        randomTheme : Fuzzer Theme
         randomTheme =
             Theme.fuzzer
     in
@@ -24,6 +25,7 @@ all =
 averageScoreWithThemeWithValidQuestionsTest : Fuzzer Theme -> Test
 averageScoreWithThemeWithValidQuestionsTest randomTheme =
     let
+        expectedScore : String
         expectedScore =
             "3.00"
     in
@@ -33,9 +35,11 @@ averageScoreWithThemeWithValidQuestionsTest randomTheme =
             "returns an average of all question survey response values"
             (\theme ->
                 let
+                    themeWithValidQuestions : Theme
                     themeWithValidQuestions =
                         { theme | questions = Factory.listOfValidQuestions }
 
+                    actualScore : String
                     actualScore =
                         Theme.Aggregation.averageScore themeWithValidQuestions
                 in
@@ -47,6 +51,7 @@ averageScoreWithThemeWithValidQuestionsTest randomTheme =
 averageScoreWithThemeWithSomeInvalidQuestionsTest : Fuzzer Theme -> Test
 averageScoreWithThemeWithSomeInvalidQuestionsTest randomTheme =
     let
+        expectedScore : String
         expectedScore =
             "2.40"
     in
@@ -56,11 +61,13 @@ averageScoreWithThemeWithSomeInvalidQuestionsTest randomTheme =
             "returns the average of only valid question survey response values"
             (\theme ->
                 let
+                    themeWithSomeInvalidQuestions : Theme
                     themeWithSomeInvalidQuestions =
                         { theme
                             | questions = Factory.listOfSomeInvalidQuestions
                         }
 
+                    actualScore : String
                     actualScore =
                         Theme.Aggregation.averageScore
                             themeWithSomeInvalidQuestions

@@ -5,11 +5,13 @@ import Fuzz exposing (Fuzzer)
 import Language exposing (Language)
 import Language.Fuzzer as Language
 import LanguageSelector
-import Msg
-import Navigation
+import Model exposing (Model)
+import Msg exposing (Msg)
+import Navigation exposing (Navigation)
 import RemoteData
+import Route exposing (Route)
 import Route.Fuzzer as Route
-import Test exposing (Test, describe, fuzz2, fuzz3)
+import Test exposing (Test, describe, fuzz3)
 import Title
 import Update
 
@@ -17,9 +19,11 @@ import Update
 all : Test
 all =
     let
+        randomApiUrl : Fuzzer String
         randomApiUrl =
             Fuzz.string
 
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -31,6 +35,7 @@ all =
 changeRouteTest : Fuzzer String -> Fuzzer Language -> Test
 changeRouteTest randomApiUrl randomLanguage =
     let
+        randomRoute : Fuzzer Route
         randomRoute =
             Route.fuzzer
     in
@@ -42,12 +47,15 @@ changeRouteTest randomApiUrl randomLanguage =
             "returns model as-is and sends a command to change the route"
             (\apiUrl language route ->
                 let
+                    navigation : Navigation
                     navigation =
                         Navigation.init Nothing (Just route)
 
+                    msg : Msg
                     msg =
                         Msg.ChangeRoute route
 
+                    expectedModel : Model
                     expectedModel =
                         { apiUrl = apiUrl
                         , language = language
@@ -58,9 +66,9 @@ changeRouteTest randomApiUrl randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    actualModel : Model
                     actualModel =
-                        Update.update msg expectedModel
-                            |> Tuple.first
+                        Tuple.first (Update.update msg expectedModel)
                 in
                 Expect.equal expectedModel actualModel
             )

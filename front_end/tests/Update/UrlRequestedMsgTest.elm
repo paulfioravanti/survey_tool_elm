@@ -1,27 +1,32 @@
 module Update.UrlRequestedMsgTest exposing (all)
 
+import Browser exposing (UrlRequest)
 import Expect
 import Fuzz exposing (Fuzzer)
 import Language exposing (Language)
 import Language.Fuzzer as Language
 import LanguageSelector
-import Msg
-import Navigation
-import RemoteData
-import Route
-import Test exposing (Test, describe, fuzz2, fuzz3)
+import Model exposing (Model)
+import Msg exposing (Msg)
+import Navigation exposing (Navigation)
+import RemoteData exposing (WebData)
+import Route exposing (Route)
+import SurveyResult exposing (SurveyResult)
+import SurveyResultList exposing (SurveyResultList)
+import Test exposing (Test, describe, fuzz3)
 import Title
 import Update
-import Url.Factory as Factory
 import UrlRequest.Fuzzer as UrlRequest
 
 
 all : Test
 all =
     let
+        randomApiUrl : Fuzzer String
         randomApiUrl =
             Fuzz.string
 
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -33,18 +38,23 @@ all =
 urlRequestedTest : Fuzzer String -> Fuzzer Language -> Test
 urlRequestedTest randomApiUrl randomLanguage =
     let
+        route : Maybe Route
         route =
             Just Route.SurveyResultList
 
+        navigation : Navigation
         navigation =
             Navigation.init Nothing route
 
+        surveyResultDetail : WebData SurveyResult
         surveyResultDetail =
             RemoteData.NotAsked
 
+        surveyResultList : WebData SurveyResultList
         surveyResultList =
             RemoteData.NotAsked
 
+        randomUrlRequest : Fuzzer UrlRequest
         randomUrlRequest =
             UrlRequest.fuzzer
     in
@@ -56,9 +66,11 @@ urlRequestedTest randomApiUrl randomLanguage =
             "returns model as-is and sends a command to change the url"
             (\apiUrl language urlRequest ->
                 let
+                    msg : Msg
                     msg =
                         Msg.UrlRequested urlRequest
 
+                    expectedModel : Model
                     expectedModel =
                         { apiUrl = apiUrl
                         , language = language
@@ -69,9 +81,9 @@ urlRequestedTest randomApiUrl randomLanguage =
                         , title = Title.init route language
                         }
 
+                    actualModel : Model
                     actualModel =
-                        Update.update msg expectedModel
-                            |> Tuple.first
+                        Tuple.first (Update.update msg expectedModel)
                 in
                 Expect.equal expectedModel actualModel
             )

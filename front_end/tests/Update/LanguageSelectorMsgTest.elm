@@ -4,14 +4,15 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import Language exposing (Language)
 import Language.Fuzzer as Language
-import LanguageSelector
+import LanguageSelector exposing (LanguageSelector)
 import LanguageSelector.Msg
-import Msg
-import Navigation
+import Model exposing (Model)
+import Msg exposing (Msg)
+import Navigation exposing (Navigation)
 import RemoteData
 import Route exposing (Route)
 import Route.Fuzzer as Route
-import Test exposing (Test, describe, fuzz2, fuzz3)
+import Test exposing (Test, describe, fuzz3)
 import Title
 import Update
 
@@ -19,9 +20,11 @@ import Update
 all : Test
 all =
     let
+        randomApiUrl : Fuzzer String
         randomApiUrl =
             Fuzz.string
 
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -34,6 +37,7 @@ all =
 hideSelectableLanguagesTest : Fuzzer String -> Fuzzer Language -> Test
 hideSelectableLanguagesTest randomApiUrl randomLanguage =
     let
+        randomRoute : Fuzzer Route
         randomRoute =
             Route.fuzzer
     in
@@ -48,6 +52,7 @@ hideSelectableLanguagesTest randomApiUrl randomLanguage =
             """
             (\apiUrl language route ->
                 let
+                    visibleLanguageSelector : LanguageSelector
                     visibleLanguageSelector =
                         LanguageSelector.init language
                             |> (\languageSelector ->
@@ -56,9 +61,11 @@ hideSelectableLanguagesTest randomApiUrl randomLanguage =
                                     }
                                )
 
+                    navigation : Navigation
                     navigation =
                         Navigation.init Nothing (Just route)
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -69,10 +76,12 @@ hideSelectableLanguagesTest randomApiUrl randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    msg : Msg
                     msg =
                         Msg.LanguageSelector
                             LanguageSelector.Msg.HideSelectableLanguages
 
+                    hiddenLanguageSelector : LanguageSelector
                     hiddenLanguageSelector =
                         Update.update msg model
                             |> Tuple.first
@@ -92,12 +101,15 @@ hideSelectableLanguagesTest randomApiUrl randomLanguage =
 toggleSelectableLanguagesTest : Fuzzer String -> Fuzzer Language -> Test
 toggleSelectableLanguagesTest randomApiUrl randomLanguage =
     let
+        route : Route
         route =
             Route.SurveyResultList
 
+        navigation : Navigation
         navigation =
             Navigation.init Nothing (Just route)
 
+        randomShowSelectableLanguages : Fuzzer Bool
         randomShowSelectableLanguages =
             Fuzz.bool
     in
@@ -112,6 +124,7 @@ toggleSelectableLanguagesTest randomApiUrl randomLanguage =
             """
             (\apiUrl language showSelectableLanguages ->
                 let
+                    initialLanguageSelector : LanguageSelector
                     initialLanguageSelector =
                         LanguageSelector.init language
                             |> (\languageSelector ->
@@ -121,6 +134,7 @@ toggleSelectableLanguagesTest randomApiUrl randomLanguage =
                                     }
                                )
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -131,10 +145,12 @@ toggleSelectableLanguagesTest randomApiUrl randomLanguage =
                         , title = Title.init (Just route) language
                         }
 
+                    msg : Msg
                     msg =
                         Msg.LanguageSelector
                             LanguageSelector.Msg.ToggleSelectableLanguages
 
+                    updatedLanguageSelector : LanguageSelector
                     updatedLanguageSelector =
                         Update.update msg model
                             |> Tuple.first

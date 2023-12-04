@@ -1,9 +1,10 @@
 module Route.InitTest exposing (all)
 
 import Expect
-import Fuzz
-import Route
+import Fuzz exposing (Fuzzer)
+import Route exposing (Route)
 import Test exposing (Test, describe, fuzz, test)
+import Url exposing (Url)
 import Url.Factory as Factory
 
 
@@ -20,12 +21,15 @@ all =
 initWithRootPathTest : Test
 initWithRootPathTest =
     let
+        expectedRoute : Maybe Route
         expectedRoute =
             Just Route.SurveyResultList
 
+        url : Url
         url =
             Factory.urlWithPath "/"
 
+        actualRoute : Maybe Route
         actualRoute =
             Route.init url
     in
@@ -39,12 +43,15 @@ initWithRootPathTest =
 initWithSurveyResultListPathTest : Test
 initWithSurveyResultListPathTest =
     let
+        expectedRoute : Maybe Route
         expectedRoute =
             Just Route.SurveyResultList
 
+        url : Url
         url =
             Factory.urlWithPath "/survey_results/"
 
+        actualRoute : Maybe Route
         actualRoute =
             Route.init url
     in
@@ -58,6 +65,7 @@ initWithSurveyResultListPathTest =
 initWithSurveyResultDetailPathTest : Test
 initWithSurveyResultDetailPathTest =
     let
+        randomId : Fuzzer Int
         randomId =
             Fuzz.int
     in
@@ -65,15 +73,19 @@ initWithSurveyResultDetailPathTest =
         [ fuzz randomId "returns Just Route.SurveyResultDetail for the id" <|
             \intId ->
                 let
+                    id : String
                     id =
                         String.fromInt intId
 
+                    expectedRoute : Maybe Route
                     expectedRoute =
                         Just (Route.SurveyResultDetail id)
 
+                    url : Url
                     url =
                         Factory.urlWithPath ("/survey_results/" ++ id ++ "/")
 
+                    actualRoute : Maybe Route
                     actualRoute =
                         Route.init url
                 in
@@ -84,12 +96,15 @@ initWithSurveyResultDetailPathTest =
 initWithUnknownPathTest : Test
 initWithUnknownPathTest =
     let
+        expectedRoute : Maybe Route
         expectedRoute =
             Nothing
 
+        url : Url
         url =
             Factory.urlWithPath "/unknown/"
 
+        actualRoute : Maybe Route
         actualRoute =
             Route.init url
     in

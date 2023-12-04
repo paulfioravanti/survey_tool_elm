@@ -1,23 +1,26 @@
 module View.ViewTest exposing (all)
 
+import Browser exposing (Document)
 import Expect
 import Fuzz exposing (Fuzzer)
-import Html
+import Html exposing (Html)
 import Html.Attributes as Attributes
-import Html.Styled
 import Language exposing (Language)
 import Language.Fuzzer as Language
 import LanguageSelector
 import Model exposing (Model)
-import Navigation
-import RemoteData
-import Route
+import Msg exposing (Msg)
+import Navigation exposing (Navigation)
+import RemoteData exposing (WebData)
+import Route exposing (Route)
 import Route.Fuzzer as Route
+import SurveyResult exposing (SurveyResult)
 import SurveyResult.Detail.Fuzzer as SurveyResultDetail
+import SurveyResultList exposing (SurveyResultList)
 import SurveyResultList.Fuzzer as SurveyResultList
 import Test exposing (Test, describe, fuzz2, fuzz3)
 import Test.Html.Query as Query
-import Test.Html.Selector as Selector exposing (tag)
+import Test.Html.Selector as Selector exposing (Selector, tag)
 import Title
 import View
 
@@ -25,9 +28,11 @@ import View
 all : Test
 all =
     let
+        randomApiUrl : Fuzzer String
         randomApiUrl =
             Fuzz.string
 
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -42,18 +47,23 @@ all =
 viewWhenRouteIsSurveyResultListTest : Fuzzer String -> Fuzzer Language -> Test
 viewWhenRouteIsSurveyResultListTest randomApiUrl randomLanguage =
     let
+        route : Maybe Route
         route =
             Just Route.SurveyResultList
 
+        navigation : Navigation
         navigation =
             Navigation.init Nothing route
 
+        surveyResultDetail : WebData SurveyResult
         surveyResultDetail =
             RemoteData.NotAsked
 
+        randomSurveyResultList : Fuzzer SurveyResultList
         randomSurveyResultList =
             SurveyResultList.fuzzer
 
+        surveyResults : Selector
         surveyResults =
             Selector.attribute
                 (Attributes.attribute "data-name" "survey-results")
@@ -66,6 +76,7 @@ viewWhenRouteIsSurveyResultListTest randomApiUrl randomLanguage =
             "displays a list of survey results"
             (\apiUrl language surveyResultList ->
                 let
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -76,9 +87,7 @@ viewWhenRouteIsSurveyResultListTest randomApiUrl randomLanguage =
                         , title = Title.init route language
                         }
 
-                    html =
-                        View.view model
-
+                    htmlBody : Html Msg
                     htmlBody =
                         model
                             |> View.view
@@ -97,18 +106,23 @@ viewWhenRouteIsSurveyResultListTest randomApiUrl randomLanguage =
 viewWhenRouteIsSurveyResultDetailTest : Fuzzer String -> Fuzzer Language -> Test
 viewWhenRouteIsSurveyResultDetailTest randomApiUrl randomLanguage =
     let
+        randomSurveyResultDetail : Fuzzer SurveyResult
         randomSurveyResultDetail =
             SurveyResultDetail.fuzzer
 
+        surveyResultList : WebData SurveyResultList
         surveyResultList =
             RemoteData.NotAsked
 
+        route : Maybe Route
         route =
             Just (Route.SurveyResultDetail "1")
 
+        navigation : Navigation
         navigation =
             Navigation.init Nothing route
 
+        surveyResults : Selector
         surveyResults =
             Selector.attribute
                 (Attributes.attribute "data-name" "survey-result-detail")
@@ -121,6 +135,7 @@ viewWhenRouteIsSurveyResultDetailTest randomApiUrl randomLanguage =
             "displays the details of a survey result"
             (\apiUrl language surveyResultDetail ->
                 let
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -132,6 +147,7 @@ viewWhenRouteIsSurveyResultDetailTest randomApiUrl randomLanguage =
                         , title = Title.init route language
                         }
 
+                    htmlBody : Html Msg
                     htmlBody =
                         model
                             |> View.view
@@ -150,18 +166,23 @@ viewWhenRouteIsSurveyResultDetailTest randomApiUrl randomLanguage =
 viewWhenRouteIsNotFoundTest : Fuzzer String -> Fuzzer Language -> Test
 viewWhenRouteIsNotFoundTest randomApiUrl randomLanguage =
     let
+        route : Maybe Route
         route =
             Nothing
 
+        navigation : Navigation
         navigation =
             Navigation.init Nothing route
 
+        surveyResultDetail : WebData SurveyResult
         surveyResultDetail =
             RemoteData.NotAsked
 
+        surveyResultList : WebData SurveyResultList
         surveyResultList =
             RemoteData.NotAsked
 
+        notFoundMessage : Selector
         notFoundMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "not-found-message")
@@ -169,6 +190,7 @@ viewWhenRouteIsNotFoundTest randomApiUrl randomLanguage =
     fuzz2 randomApiUrl randomLanguage "displays an error message" <|
         \apiUrl language ->
             let
+                model : Model
                 model =
                     { apiUrl = apiUrl
                     , language = language
@@ -179,6 +201,7 @@ viewWhenRouteIsNotFoundTest randomApiUrl randomLanguage =
                     , title = Title.init route language
                     }
 
+                htmlBody : Html Msg
                 htmlBody =
                     model
                         |> View.view
@@ -195,12 +218,15 @@ viewWhenRouteIsNotFoundTest randomApiUrl randomLanguage =
 viewTitleTest : Fuzzer String -> Fuzzer Language -> Test
 viewTitleTest randomApiUrl randomLanguage =
     let
+        surveyResultDetail : WebData SurveyResult
         surveyResultDetail =
             RemoteData.NotAsked
 
+        surveyResultList : WebData SurveyResultList
         surveyResultList =
             RemoteData.NotAsked
 
+        randomRoute : Fuzzer (Maybe Route)
         randomRoute =
             Fuzz.maybe Route.fuzzer
     in
@@ -212,9 +238,11 @@ viewTitleTest randomApiUrl randomLanguage =
             "displays the title stored in the model"
             (\apiUrl language route ->
                 let
+                    navigation : Navigation
                     navigation =
                         Navigation.init Nothing route
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = language
@@ -225,6 +253,7 @@ viewTitleTest randomApiUrl randomLanguage =
                         , title = Title.init route language
                         }
 
+                    html : Document Msg
                     html =
                         View.view model
                 in

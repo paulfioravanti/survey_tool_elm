@@ -1,12 +1,15 @@
 module Msg.MsgTest exposing (all)
 
+import Browser exposing (UrlRequest)
 import Expect
-import Msg
+import Fuzz exposing (Fuzzer)
+import Msg exposing (Msg)
 import SurveyResult
 import SurveyResult.Msg
 import SurveyResultList
 import SurveyResultList.Msg
 import Test exposing (Test, describe, fuzz, test)
+import Url exposing (Url)
 import Url.Factory as Factory
 import UrlRequest.Fuzzer as UrlRequest
 
@@ -24,12 +27,15 @@ all =
 surveyResultTest : Test
 surveyResultTest =
     let
+        surveyResultMsg : SurveyResult.Msg
         surveyResultMsg =
             SurveyResult.Msg.Fetched SurveyResult.init
 
+        expectedData : Msg
         expectedData =
             Msg.SurveyResult surveyResultMsg
 
+        actualData : Msg
         actualData =
             Msg.surveyResult surveyResultMsg
     in
@@ -43,12 +49,15 @@ surveyResultTest =
 surveyResultListTest : Test
 surveyResultListTest =
     let
+        surveyResultListMsg : SurveyResultList.Msg
         surveyResultListMsg =
             SurveyResultList.Msg.Fetched SurveyResultList.init
 
+        expectedData : Msg
         expectedData =
             Msg.SurveyResultList surveyResultListMsg
 
+        actualData : Msg
         actualData =
             Msg.surveyResultList surveyResultListMsg
     in
@@ -62,12 +71,15 @@ surveyResultListTest =
 urlChangedTest : Test
 urlChangedTest =
     let
+        url : Url
         url =
             Factory.urlWithPath "/"
 
+        expectedData : Msg
         expectedData =
             Msg.UrlChanged url
 
+        actualData : Msg
         actualData =
             Msg.urlChanged url
     in
@@ -81,6 +93,7 @@ urlChangedTest =
 urlRequestedTest : Test
 urlRequestedTest =
     let
+        randomUrlRequest : Fuzzer UrlRequest
         randomUrlRequest =
             UrlRequest.fuzzer
     in
@@ -88,9 +101,11 @@ urlRequestedTest =
         [ fuzz randomUrlRequest "returns Msg.UrlRequested urlRequest" <|
             \urlRequest ->
                 let
+                    expectedData : Msg
                     expectedData =
                         Msg.UrlRequested urlRequest
 
+                    actualData : Msg
                     actualData =
                         Msg.urlRequested urlRequest
                 in

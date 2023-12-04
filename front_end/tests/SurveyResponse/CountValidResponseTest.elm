@@ -10,9 +10,11 @@ import Test exposing (Test, describe, fuzz2, fuzz3)
 all : Test
 all =
     let
+        randomSurveyResponse : Fuzzer SurveyResponse
         randomSurveyResponse =
             SurveyResponse.fuzzer
 
+        randomAcc : Fuzzer Int
         randomAcc =
             Fuzz.int
     in
@@ -44,12 +46,15 @@ countValidResponseWithEmptyResponseContentTest randomSurveyResponse randomAcc =
             "does not accumulate the acc value"
             (\surveyResponse acc ->
                 let
+                    expectedAccValue : Int
                     expectedAccValue =
                         acc
 
+                    emptySurveyResponse : SurveyResponse
                     emptySurveyResponse =
                         { surveyResponse | responseContent = "" }
 
+                    actualAccValue : Int
                     actualAccValue =
                         SurveyResponse.countValidResponse
                             emptySurveyResponse
@@ -66,6 +71,7 @@ countValidResponseWithValidResponseContentTest :
     -> Test
 countValidResponseWithValidResponseContentTest randomSurveyResponse randomAcc =
     let
+        randomValidScore : Fuzzer Int
         randomValidScore =
             Fuzz.intRange 1 5
     in
@@ -77,15 +83,19 @@ countValidResponseWithValidResponseContentTest randomSurveyResponse randomAcc =
             "accumulates the acc value by 1"
             (\surveyResponse acc intScore ->
                 let
+                    expectedAccValue : Int
                     expectedAccValue =
                         acc + 1
 
+                    responseContent : String
                     responseContent =
                         String.fromInt intScore
 
+                    surveyResponseWithValidContent : SurveyResponse
                     surveyResponseWithValidContent =
                         { surveyResponse | responseContent = responseContent }
 
+                    actualAccValue : Int
                     actualAccValue =
                         SurveyResponse.countValidResponse
                             surveyResponseWithValidContent
@@ -102,6 +112,7 @@ countValidResponseWithOutOfRangeResponseContentTest :
     -> Test
 countValidResponseWithOutOfRangeResponseContentTest randomSurveyResponse randomAcc =
     let
+        randomInvalidIntScore : Fuzzer Int
         randomInvalidIntScore =
             Fuzz.oneOf
                 [ Fuzz.intRange -1 0
@@ -116,15 +127,19 @@ countValidResponseWithOutOfRangeResponseContentTest randomSurveyResponse randomA
             "does not accumulate the acc value"
             (\surveyResponse acc intScore ->
                 let
+                    expectedAccValue : Int
                     expectedAccValue =
                         acc
 
+                    responseContent : String
                     responseContent =
                         String.fromInt intScore
 
+                    surveyResponseWithOutOfRangeIntValue : SurveyResponse
                     surveyResponseWithOutOfRangeIntValue =
                         { surveyResponse | responseContent = responseContent }
 
+                    actualAccValue : Int
                     actualAccValue =
                         SurveyResponse.countValidResponse
                             surveyResponseWithOutOfRangeIntValue
@@ -147,12 +162,15 @@ countValidResponseWithNonIntResponseContentTest randomSurveyResponse randomAcc =
             "does not accumulate the acc value"
             (\surveyResponse acc ->
                 let
+                    expectedAccValue : Int
                     expectedAccValue =
                         acc
 
+                    surveyResponseWithNonIntStringValue : SurveyResponse
                     surveyResponseWithNonIntStringValue =
                         { surveyResponse | responseContent = "invalid" }
 
+                    actualAccValue : Int
                     actualAccValue =
                         SurveyResponse.countValidResponse
                             surveyResponseWithNonIntStringValue

@@ -3,21 +3,22 @@ module SurveyResult.DetailViewTest exposing (all)
 import Expect
 import Fuzz exposing (Fuzzer)
 import Html.Attributes as Attributes
-import Html.Styled
-import Http
+import Html.Styled as Html exposing (Html)
+import Http exposing (Error)
 import Http.Error.Fuzzer as Error
 import Language exposing (Language)
 import Language.Fuzzer as Language
-import RemoteData
-import SurveyResult
+import RemoteData exposing (RemoteData)
+import SurveyResult exposing (SurveyResult)
 import Test exposing (Test, describe, fuzz, fuzz2)
 import Test.Html.Query as Query
-import Test.Html.Selector as Selector exposing (tag)
+import Test.Html.Selector as Selector exposing (Selector, tag)
 
 
 all : Test
 all =
     let
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
     in
@@ -32,6 +33,7 @@ all =
 viewWhenDataIsNotAskedTest : Fuzzer Language -> Test
 viewWhenDataIsNotAskedTest randomLanguage =
     let
+        surveyResult : RemoteData Error SurveyResult
         surveyResult =
             RemoteData.NotAsked
     in
@@ -39,9 +41,11 @@ viewWhenDataIsNotAskedTest randomLanguage =
         [ fuzz randomLanguage "displays a blank page" <|
             \language ->
                 let
+                    expectedHtml : Html msg
                     expectedHtml =
-                        Html.Styled.text ""
+                        Html.text ""
 
+                    actualHtml : Html msg
                     actualHtml =
                         SurveyResult.detailView language surveyResult
                 in
@@ -52,9 +56,11 @@ viewWhenDataIsNotAskedTest randomLanguage =
 viewWhenDataIsLoadingTest : Fuzzer Language -> Test
 viewWhenDataIsLoadingTest randomLanguage =
     let
+        surveyResult : RemoteData Error SurveyResult
         surveyResult =
             RemoteData.Loading
 
+        loadingMessage : Selector
         loadingMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "loading-message")
@@ -63,11 +69,12 @@ viewWhenDataIsLoadingTest randomLanguage =
         [ fuzz randomLanguage "displays a loading message" <|
             \language ->
                 let
+                    html : Html msg
                     html =
                         SurveyResult.detailView language surveyResult
                 in
                 html
-                    |> Html.Styled.toUnstyled
+                    |> Html.toUnstyled
                     |> Query.fromHtml
                     |> Query.has [ tag "section", loadingMessage ]
         ]
@@ -76,16 +83,20 @@ viewWhenDataIsLoadingTest randomLanguage =
 viewWhenDataIsNotFoundFailureTest : Fuzzer Language -> Test
 viewWhenDataIsNotFoundFailureTest randomLanguage =
     let
+        httpError : Error
         httpError =
             Http.BadStatus 404
 
+        surveyResult : RemoteData Error SurveyResult
         surveyResult =
             RemoteData.Failure httpError
 
+        errorMessage : Selector
         errorMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "error-message")
 
+        badStatusMessage : Selector
         badStatusMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "bad-status-message")
@@ -94,11 +105,12 @@ viewWhenDataIsNotFoundFailureTest randomLanguage =
         [ fuzz randomLanguage "displays an error message" <|
             \language ->
                 let
+                    html : Html msg
                     html =
                         SurveyResult.detailView language surveyResult
                 in
                 html
-                    |> Html.Styled.toUnstyled
+                    |> Html.toUnstyled
                     |> Query.fromHtml
                     |> Query.find [ tag "section", errorMessage ]
                     |> Query.has [ tag "div", badStatusMessage ]
@@ -108,9 +120,11 @@ viewWhenDataIsNotFoundFailureTest randomLanguage =
 viewWhenDataIsFailureTest : Fuzzer Language -> Test
 viewWhenDataIsFailureTest randomLanguage =
     let
+        randomHttpError : Fuzzer Error
         randomHttpError =
             Error.fuzzer
 
+        errorMessage : Selector
         errorMessage =
             Selector.attribute
                 (Attributes.attribute "data-name" "error-message")
@@ -119,14 +133,16 @@ viewWhenDataIsFailureTest randomLanguage =
         [ fuzz2 randomLanguage randomHttpError "displays an error message" <|
             \language httpError ->
                 let
+                    surveyResult : RemoteData Error SurveyResult
                     surveyResult =
                         RemoteData.Failure httpError
 
+                    html : Html msg
                     html =
                         SurveyResult.detailView language surveyResult
                 in
                 html
-                    |> Html.Styled.toUnstyled
+                    |> Html.toUnstyled
                     |> Query.fromHtml
                     |> Query.has [ tag "section", errorMessage ]
         ]

@@ -4,13 +4,14 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import Language exposing (Language)
 import Language.Fuzzer as Language
-import LanguageSelector
-import Msg
-import Navigation
+import LanguageSelector exposing (LanguageSelector)
+import Model exposing (Model)
+import Msg exposing (Msg)
+import Navigation exposing (Navigation)
 import RemoteData
 import Route exposing (Route)
 import Route.Fuzzer as Route
-import Test exposing (Test, describe, fuzz2, fuzz3)
+import Test exposing (Test, describe, fuzz3)
 import Title
 import Update
 
@@ -18,12 +19,15 @@ import Update
 all : Test
 all =
     let
+        randomApiUrl : Fuzzer String
         randomApiUrl =
             Fuzz.string
 
+        randomLanguage : Fuzzer Language
         randomLanguage =
             Language.fuzzer
 
+        randomRoute : Fuzzer Route
         randomRoute =
             Route.fuzzer
     in
@@ -45,12 +49,15 @@ changeLanguageTest randomApiUrl randomLanguage randomRoute =
             """
             (\apiUrl initialLanguage route ->
                 let
+                    languageSelector : LanguageSelector
                     languageSelector =
                         LanguageSelector.init initialLanguage
 
+                    navigation : Navigation
                     navigation =
                         Navigation.init Nothing (Just route)
 
+                    model : Model
                     model =
                         { apiUrl = apiUrl
                         , language = initialLanguage
@@ -61,24 +68,29 @@ changeLanguageTest randomApiUrl randomLanguage randomRoute =
                         , title = Title.init (Just route) initialLanguage
                         }
 
+                    targetLanguage : Language
                     targetLanguage =
                         languageSelector.selectableLanguages
                             |> List.head
                             |> Maybe.withDefault Language.En
 
+                    msg : Msg
                     msg =
                         Msg.ChangeLanguage targetLanguage
 
+                    changedLanguageModel : Model
                     changedLanguageModel =
-                        Update.update msg model
-                            |> Tuple.first
+                        Tuple.first (Update.update msg model)
 
+                    targetLangugageIsNewLanguage : Bool
                     targetLangugageIsNewLanguage =
                         changedLanguageModel.language == targetLanguage
 
+                    initialLanguageInSelectableLanguages : Bool
                     initialLanguageInSelectableLanguages =
-                        changedLanguageModel.languageSelector.selectableLanguages
-                            |> List.member initialLanguage
+                        List.member
+                            initialLanguage
+                            changedLanguageModel.languageSelector.selectableLanguages
                 in
                 (targetLangugageIsNewLanguage
                     && initialLanguageInSelectableLanguages

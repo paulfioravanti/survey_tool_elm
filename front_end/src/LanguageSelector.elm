@@ -10,7 +10,7 @@ module LanguageSelector exposing
 
 import Html.Styled exposing (Html)
 import Language exposing (Language)
-import LanguageSelector.Model as Model exposing (LanguageSelector)
+import LanguageSelector.Model as Model
 import LanguageSelector.Msg as Msg
 import LanguageSelector.Update as Update
 import LanguageSelector.View as View

@@ -1,8 +1,8 @@
 module Route.ToStringTest exposing (all)
 
 import Expect
-import Fuzz
-import Route
+import Fuzz exposing (Fuzzer)
+import Route exposing (Route)
 import Test exposing (Test, describe, fuzz, test)
 
 
@@ -17,12 +17,15 @@ all =
 toStringWithSurveyResultListRouteTest : Test
 toStringWithSurveyResultListRouteTest =
     let
+        expectedString : String
         expectedString =
             "/survey_results/"
 
+        route : Route
         route =
             Route.SurveyResultList
 
+        actualString : String
         actualString =
             Route.toString route
     in
@@ -36,6 +39,7 @@ toStringWithSurveyResultListRouteTest =
 toStringWithSurveyResultDetailRouteTest : Test
 toStringWithSurveyResultDetailRouteTest =
     let
+        randomId : Fuzzer Int
         randomId =
             Fuzz.int
     in
@@ -43,15 +47,19 @@ toStringWithSurveyResultDetailRouteTest =
         [ fuzz randomId "returns '/survey_results/:id'" <|
             \intId ->
                 let
+                    id : String
                     id =
                         String.fromInt intId
 
+                    expectedString : String
                     expectedString =
                         "/survey_results/" ++ id ++ "/"
 
+                    route : Route
                     route =
                         Route.SurveyResultDetail id
 
+                    actualString : String
                     actualString =
                         Route.toString route
                 in

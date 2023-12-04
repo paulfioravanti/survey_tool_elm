@@ -1,13 +1,14 @@
 module SurveyResult.Detail.Encoder exposing (encode)
 
-import Json.Encode as Encode
+import Json.Encode as Encode exposing (Value)
 import SurveyResult exposing (SurveyResult)
 import Theme.Encoder as Theme
 
 
-encode : SurveyResult -> Encode.Value
+encode : SurveyResult -> Value
 encode surveyResult =
     let
+        themesEncoder : Value
         themesEncoder =
             case surveyResult.themes of
                 Just themes ->

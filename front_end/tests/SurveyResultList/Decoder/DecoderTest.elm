@@ -1,7 +1,9 @@
 module SurveyResultList.Decoder.DecoderTest exposing (all)
 
 import Expect
+import Fuzz exposing (Fuzzer)
 import Json.Decode as Decode
+import SurveyResultList exposing (SurveyResultList)
 import SurveyResultList.Decoder as Decoder
 import SurveyResultList.Encoder as Encoder
 import SurveyResultList.Fuzzer as SurveyResultList
@@ -18,6 +20,7 @@ all =
 decoderTest : Test
 decoderTest =
     let
+        randomSurveyResultList : Fuzzer SurveyResultList
         randomSurveyResultList =
             SurveyResultList.fuzzer
     in
