@@ -12,7 +12,6 @@
             "jfmengels/elm-review-debug": "1.0.8",
             "jfmengels/elm-review-the-elm-architecture": "1.0.3",
             "jfmengels/elm-review-unused": "1.2.0",
-            "kress95/elm-review-indirect-internal": "1.0.0",
             "leojpod/review-no-empty-html-text": "1.0.2",
             "sparksp/elm-review-always": "1.0.6",
             "sparksp/elm-review-imports": "1.0.2",
