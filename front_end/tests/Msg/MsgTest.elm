@@ -2,6 +2,7 @@ module Msg.MsgTest exposing (all)
 
 import Browser exposing (UrlRequest)
 import Expect
+import Factory.Url as Factory
 import Fuzz exposing (Fuzzer)
 import Msg exposing (Msg)
 import SurveyResult
@@ -10,7 +11,6 @@ import SurveyResultList
 import SurveyResultList.Msg
 import Test exposing (Test, describe, fuzz, test)
 import Url exposing (Url)
-import Url.Factory as Factory
 import UrlRequest.Fuzzer as UrlRequest
 
 

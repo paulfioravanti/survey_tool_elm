@@ -1,11 +1,11 @@
 module Route.InitTest exposing (all)
 
 import Expect
+import Factory.Url as Factory
 import Fuzz exposing (Fuzzer)
 import Route exposing (Route)
 import Test exposing (Test, describe, fuzz, test)
 import Url exposing (Url)
-import Url.Factory as Factory
 
 
 all : Test

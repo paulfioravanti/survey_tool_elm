@@ -1,4 +1,4 @@
-module Flags.Factory exposing
+module Factory.Flags exposing
     ( emptyFlags
     , flagsWithApiUrl
     , flagsWithEnvironment

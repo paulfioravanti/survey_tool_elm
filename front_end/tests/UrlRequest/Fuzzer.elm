@@ -1,8 +1,8 @@
 module UrlRequest.Fuzzer exposing (fuzzer)
 
 import Browser exposing (UrlRequest)
+import Factory.Url as Factory
 import Fuzz exposing (Fuzzer)
-import Url.Factory as Factory
 
 
 fuzzer : Fuzzer UrlRequest

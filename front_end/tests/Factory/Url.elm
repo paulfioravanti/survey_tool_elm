@@ -1,4 +1,4 @@
-module Url.Factory exposing (urlWithPath)
+module Factory.Url exposing (urlWithPath)
 
 import Url exposing (Url)
 

@@ -2,8 +2,8 @@ module ApiUrl.InitTest exposing (all)
 
 import ApiUrl
 import Expect
+import Factory.Flags as Factory
 import Flags exposing (Flags)
-import Flags.Factory as Factory
 import Test exposing (Test, describe, test)
 
 
