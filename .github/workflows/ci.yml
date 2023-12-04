@@ -52,7 +52,7 @@ jobs:
         run: elm-analyse
 
       - name: Run Elm Review
-        run: elm-review
+        run: npx elm-review
 
   back-end-build:
     defaults:
