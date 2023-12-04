@@ -76,5 +76,4 @@ defaultDevelopmentUrl =
 
 defaultProductionUrl : String
 defaultProductionUrl =
-    "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/"
-        ++ "master/back_end/lib/back_end/survey_results/"
+    "https://raw.githubusercontent.com/paulfioravanti/survey_tool_elm/master/back_end/lib/back_end/survey_results/"

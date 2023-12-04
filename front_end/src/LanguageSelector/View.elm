@@ -20,6 +20,13 @@ view :
     -> Html msg
 view changeLanguageMsg languageSelectorMsg language languageSelector =
     let
+        styles : List (Attribute msg)
+        styles =
+            [ attribute "data-name" "language-selector"
+            , class Styles.dropdownMenu
+            , css [ Styles.dropdownMenuCss ]
+            ]
+
         {- If the language selector is open and the user decides to not
            select a language, then the dropdown menu should close.
         -}
@@ -33,13 +40,7 @@ view changeLanguageMsg languageSelectorMsg language languageSelector =
             else
                 []
     in
-    div
-        ([ attribute "data-name" "language-selector"
-         , class Styles.dropdownMenu
-         , css [ Styles.dropdownMenuCss ]
-         ]
-            ++ hideSelectableLanguages
-        )
+    div (styles ++ hideSelectableLanguages)
         [ currentSelection languageSelectorMsg language languageSelector
         , dropdownList changeLanguageMsg languageSelector
         ]

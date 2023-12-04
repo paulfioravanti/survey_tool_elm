@@ -1,6 +1,5 @@
 module Update exposing (update)
 
-import Browser.Navigation as Navigation
 import Cmd
 import Language
 import LanguageSelector exposing (LanguageSelector)
