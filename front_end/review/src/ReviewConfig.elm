@@ -43,8 +43,6 @@ import Review.Rule exposing (Rule)
 
 config : List Rule
 config =
-    -- NOTE: This rule removed since it fails on external Msgs that *need* to
-    -- take a Posix argument yet are not themselves used in the application.
     [ NoAlways.rule
     , NoBooleanCase.rule
     , NoDebug.Log.rule
