@@ -3,3 +3,4 @@ elm-test:
 
 test: elm-test
   elm-verify-examples --run-tests
+  npx elm-review
