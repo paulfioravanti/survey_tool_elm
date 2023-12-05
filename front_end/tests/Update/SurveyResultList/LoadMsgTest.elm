@@ -2,10 +2,11 @@ module Update.SurveyResultList.LoadMsgTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Error as Error
+import Fuzzer.Language as Language
+import Fuzzer.SurveyResultList as SurveyResultList
 import Http exposing (Error)
-import Http.Error.Fuzzer as Error
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import LanguageSelector
 import Model exposing (Model)
 import Msg exposing (Msg)
@@ -13,7 +14,6 @@ import Navigation
 import RemoteData exposing (WebData)
 import Route exposing (Route)
 import SurveyResultList exposing (SurveyResultList)
-import SurveyResultList.Fuzzer as SurveyResultList
 import SurveyResultList.Msg
 import Test exposing (Test, describe, fuzz, fuzz2)
 import Title

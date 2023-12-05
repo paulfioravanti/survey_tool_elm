@@ -2,12 +2,12 @@ module SurveyResultList.ViewTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Error as Error
+import Fuzzer.Language as Language
 import Html.Attributes as Attributes
 import Html.Styled as Html exposing (Html)
 import Http exposing (Error)
-import Http.Error.Fuzzer as Error
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import RemoteData exposing (RemoteData)
 import SurveyResultList exposing (SurveyResultList)
 import Test exposing (Test, describe, fuzz, fuzz2)

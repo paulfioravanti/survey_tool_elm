@@ -2,11 +2,11 @@ module Header.ViewTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Language as Language
 import Header
 import Html.Attributes as Attributes
 import Html.Styled as Html exposing (Html)
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import LanguageSelector exposing (LanguageSelector)
 import Msg exposing (Msg)
 import RemoteData exposing (RemoteData)

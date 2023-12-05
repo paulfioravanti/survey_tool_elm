@@ -1,10 +1,10 @@
 module LanguageSelector.ViewTest exposing (all)
 
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Language as Language
 import Html.Attributes as Attributes
 import Html.Styled as Html exposing (Html)
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import LanguageSelector exposing (LanguageSelector)
 import LanguageSelector.Msg
 import Msg exposing (Msg)

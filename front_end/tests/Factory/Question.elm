@@ -1,4 +1,4 @@
-module Question.Factory exposing
+module Factory.Question exposing
     ( listOfSomeInvalidQuestions
     , listOfValidQuestions
     )

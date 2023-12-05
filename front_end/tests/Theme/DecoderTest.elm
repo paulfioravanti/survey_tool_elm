@@ -1,12 +1,12 @@
 module Theme.DecoderTest exposing (all)
 
+import Encoder.Theme as Theme
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Theme as Theme
 import Json.Decode as Decode exposing (Error)
 import Test exposing (Test, describe, fuzz)
 import Theme exposing (Theme)
-import Theme.Encoder as Encoder
-import Theme.Fuzzer as Theme
 
 
 all : Test
@@ -33,7 +33,7 @@ decoderTest =
                 actualTheme : Result Error Theme
                 actualTheme =
                     theme
-                        |> Encoder.encode
+                        |> Theme.encode
                         |> Decode.decodeValue Theme.decoder
             in
             Expect.equal expectedTheme actualTheme

@@ -1,8 +1,8 @@
-module SurveyResult.Detail.Encoder exposing (encode)
+module Encoder.SurveyResultDetail exposing (encode)
 
+import Encoder.Theme as Theme
 import Json.Encode as Encode exposing (Value)
 import SurveyResult exposing (SurveyResult)
-import Theme.Encoder as Theme
 
 
 encode : SurveyResult -> Value

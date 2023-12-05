@@ -1,4 +1,4 @@
-module SurveyResult.Detail.Fuzzer exposing (fuzzer)
+module Fuzzer.SurveyResultDetail exposing (fuzzer)
 
 import Fuzz
     exposing

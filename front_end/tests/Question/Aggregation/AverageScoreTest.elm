@@ -1,11 +1,11 @@
 module Question.Aggregation.AverageScoreTest exposing (all)
 
 import Expect
+import Factory.SurveyResponse as Factory
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Question as Question
 import Question exposing (Question)
 import Question.Aggregation
-import Question.Fuzzer as Question
-import SurveyResponse.Factory as Factory
 import Test exposing (Test, describe, fuzz)
 
 

@@ -3,8 +3,8 @@ module Update.UrlChangedMsgTest exposing (all)
 import Expect
 import Factory.Url as Factory
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Language as Language
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import LanguageSelector
 import Model exposing (Model)
 import Msg exposing (Msg)

@@ -2,8 +2,8 @@ module SurveyResponse.RatingScoreTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.SurveyResponse as SurveyResponse
 import SurveyResponse exposing (SurveyResponse)
-import SurveyResponse.Fuzzer as SurveyResponse
 import Test exposing (Test, describe, fuzz, fuzz2)
 
 

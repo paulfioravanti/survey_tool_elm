@@ -2,8 +2,8 @@ module Page.NotFound.TitleTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Language as Language
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import Page.NotFound as NotFound
 import Test exposing (Test, describe, fuzz)
 import Translations

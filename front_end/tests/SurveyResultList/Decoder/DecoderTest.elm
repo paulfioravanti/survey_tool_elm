@@ -1,12 +1,12 @@
 module SurveyResultList.Decoder.DecoderTest exposing (all)
 
+import Encoder.SurveyResultList as SurveyResultList
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.SurveyResultList as SurveyResultList
 import Json.Decode as Decode
 import SurveyResultList exposing (SurveyResultList)
 import SurveyResultList.Decoder as Decoder
-import SurveyResultList.Encoder as Encoder
-import SurveyResultList.Fuzzer as SurveyResultList
 import Test exposing (Test, describe, fuzz)
 
 
@@ -28,7 +28,7 @@ decoderTest =
         [ fuzz randomSurveyResultList "decoder maps to a SurveyResultList" <|
             \surveyResultList ->
                 surveyResultList
-                    |> Encoder.encode
+                    |> SurveyResultList.encode
                     |> Decode.decodeValue Decoder.decoder
                     |> Expect.ok
         ]

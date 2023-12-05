@@ -1,11 +1,11 @@
 module Question.DecoderTest exposing (all)
 
+import Encoder.Question as Encoder
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Question as Question
 import Json.Decode as Decode exposing (Error)
 import Question exposing (Question)
-import Question.Encoder as Encoder
-import Question.Fuzzer as Question
 import Test exposing (Test, describe, fuzz)
 
 

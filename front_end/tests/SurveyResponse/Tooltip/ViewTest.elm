@@ -2,10 +2,10 @@ module SurveyResponse.Tooltip.ViewTest exposing (all)
 
 import Dict
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Language as Language
 import Html.Attributes as Attributes
 import Html.Styled as Html exposing (Html)
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import SurveyResponse.RespondentHistogram exposing (RespondentHistogram)
 import SurveyResponse.Tooltip.View as Tooltip
 import Test exposing (Test, describe, fuzz2)

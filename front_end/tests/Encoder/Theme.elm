@@ -1,7 +1,7 @@
-module Theme.Encoder exposing (encode)
+module Encoder.Theme exposing (encode)
 
+import Encoder.Question as Question
 import Json.Encode as Encode
-import Question.Encoder as Question
 import Theme exposing (Theme)
 
 

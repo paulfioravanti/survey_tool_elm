@@ -1,9 +1,9 @@
-module Question.Fuzzer exposing (fuzzer)
+module Fuzzer.Question exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer, list, string)
+import Fuzzer.SurveyResponse as SurveyResponse
 import Question.Model exposing (Question)
 import SurveyResponse exposing (SurveyResponse)
-import SurveyResponse.Fuzzer as SurveyResponse
 
 
 fuzzer : Fuzzer Question

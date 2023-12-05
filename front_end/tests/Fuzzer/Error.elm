@@ -1,4 +1,4 @@
-module Http.Error.Fuzzer exposing (fuzzer)
+module Fuzzer.Error exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer)
 import Http

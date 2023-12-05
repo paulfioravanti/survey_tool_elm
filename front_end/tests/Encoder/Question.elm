@@ -1,8 +1,8 @@
-module Question.Encoder exposing (encode)
+module Encoder.Question exposing (encode)
 
+import Encoder.SurveyResponse as SurveyResponse
 import Json.Encode as Encode
 import Question exposing (Question)
-import SurveyResponse.Encoder as SurveyResponse
 
 
 encode : Question -> Encode.Value

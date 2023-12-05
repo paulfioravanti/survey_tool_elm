@@ -2,8 +2,8 @@ module SurveyResult.Parser.IdTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.SurveyResult as SurveyResult
 import SurveyResult exposing (SurveyResult)
-import SurveyResult.Fuzzer as SurveyResult
 import SurveyResult.Parser as Parser
 import Test exposing (Test, describe, fuzz, fuzz2)
 

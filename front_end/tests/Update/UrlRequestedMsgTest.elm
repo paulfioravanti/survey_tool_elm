@@ -3,8 +3,9 @@ module Update.UrlRequestedMsgTest exposing (all)
 import Browser exposing (UrlRequest)
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Language as Language
+import Fuzzer.UrlRequest as UrlRequest
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import LanguageSelector
 import Model exposing (Model)
 import Msg exposing (Msg)
@@ -16,7 +17,6 @@ import SurveyResultList exposing (SurveyResultList)
 import Test exposing (Test, describe, fuzz3)
 import Title
 import Update
-import UrlRequest.Fuzzer as UrlRequest
 
 
 all : Test

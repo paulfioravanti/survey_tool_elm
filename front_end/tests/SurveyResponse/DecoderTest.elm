@@ -1,11 +1,11 @@
 module SurveyResponse.DecoderTest exposing (all)
 
+import Encoder.SurveyResponse as SurveyResponse
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.SurveyResponse as SurveyResponse
 import Json.Decode as Decode exposing (Error)
 import SurveyResponse exposing (SurveyResponse)
-import SurveyResponse.Encoder as Encoder
-import SurveyResponse.Fuzzer as SurveyResponse
 import Test exposing (Test, describe, fuzz)
 
 
@@ -33,7 +33,7 @@ decoderTest =
                 actualSurveyResponse : Result Error SurveyResponse
                 actualSurveyResponse =
                     surveyResponse
-                        |> Encoder.encode
+                        |> SurveyResponse.encode
                         |> Decode.decodeValue SurveyResponse.decoder
             in
             Expect.equal expectedSurveyResponse actualSurveyResponse

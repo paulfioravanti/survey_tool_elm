@@ -4,6 +4,7 @@ import Browser exposing (UrlRequest)
 import Expect
 import Factory.Url as Factory
 import Fuzz exposing (Fuzzer)
+import Fuzzer.UrlRequest as UrlRequest
 import Msg exposing (Msg)
 import SurveyResult
 import SurveyResult.Msg
@@ -11,7 +12,6 @@ import SurveyResultList
 import SurveyResultList.Msg
 import Test exposing (Test, describe, fuzz, test)
 import Url exposing (Url)
-import UrlRequest.Fuzzer as UrlRequest
 
 
 all : Test

@@ -1,4 +1,4 @@
-module Route.Fuzzer exposing (fuzzer)
+module Fuzzer.Route exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer)
 import Route exposing (Route)

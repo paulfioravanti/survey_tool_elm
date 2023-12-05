@@ -1,12 +1,12 @@
 module Theme.Aggregation.AverageScoreTest exposing (all)
 
 import Expect
+import Factory.Question as Factory
 import Fuzz exposing (Fuzzer)
-import Question.Factory as Factory
+import Fuzzer.Theme as Theme
 import Test exposing (Test, describe, fuzz)
 import Theme exposing (Theme)
 import Theme.Aggregation
-import Theme.Fuzzer as Theme
 
 
 all : Test

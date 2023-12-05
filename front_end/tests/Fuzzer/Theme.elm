@@ -1,8 +1,8 @@
-module Theme.Fuzzer exposing (fuzzer)
+module Fuzzer.Theme exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer, list, string)
+import Fuzzer.Question as Question
 import Question exposing (Question)
-import Question.Fuzzer as Question
 import Theme.Model exposing (Theme)
 
 

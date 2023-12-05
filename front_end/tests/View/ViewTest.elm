@@ -3,21 +3,21 @@ module View.ViewTest exposing (all)
 import Browser exposing (Document)
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Language as Language
+import Fuzzer.Route as Route
+import Fuzzer.SurveyResultDetail as SurveyResultDetail
+import Fuzzer.SurveyResultList as SurveyResultList
 import Html exposing (Html)
 import Html.Attributes as Attributes
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import LanguageSelector
 import Model exposing (Model)
 import Msg exposing (Msg)
 import Navigation exposing (Navigation)
 import RemoteData exposing (WebData)
 import Route exposing (Route)
-import Route.Fuzzer as Route
 import SurveyResult exposing (SurveyResult)
-import SurveyResult.Detail.Fuzzer as SurveyResultDetail
 import SurveyResultList exposing (SurveyResultList)
-import SurveyResultList.Fuzzer as SurveyResultList
 import Test exposing (Test, describe, fuzz2, fuzz3)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector exposing (Selector, tag)

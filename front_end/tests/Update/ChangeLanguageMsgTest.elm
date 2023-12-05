@@ -2,15 +2,15 @@ module Update.ChangeLanguageMsgTest exposing (all)
 
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.Language as Language
+import Fuzzer.Route as Route
 import Language exposing (Language)
-import Language.Fuzzer as Language
 import LanguageSelector exposing (LanguageSelector)
 import Model exposing (Model)
 import Msg exposing (Msg)
 import Navigation exposing (Navigation)
 import RemoteData
 import Route exposing (Route)
-import Route.Fuzzer as Route
 import Test exposing (Test, describe, fuzz3)
 import Title
 import Update

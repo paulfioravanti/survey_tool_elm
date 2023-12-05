@@ -1,11 +1,11 @@
 module SurveyResult.Detail.DecoderTest exposing (all)
 
+import Encoder.SurveyResultDetail as SurveyResultDetail
 import Expect
 import Fuzz exposing (Fuzzer)
+import Fuzzer.SurveyResultDetail as SurveyResultDetail
 import Json.Decode as Decode
 import SurveyResult.Detail.Decoder as SurveyResultDetail
-import SurveyResult.Detail.Encoder as Encoder
-import SurveyResult.Detail.Fuzzer as SurveyResultDetail
 import SurveyResult.Model exposing (SurveyResult)
 import Test exposing (Test, describe, fuzz2)
 
@@ -47,7 +47,7 @@ decoderTest =
                     { surveyResultDetail | url = url }
             in
             surveyResultDetailWithIdInUrl
-                |> Encoder.encode
+                |> SurveyResultDetail.encode
                 |> Decode.decodeValue SurveyResultDetail.decoder
                 |> Expect.ok
         )

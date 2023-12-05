@@ -1,4 +1,4 @@
-module SurveyResponse.Factory exposing
+module Factory.SurveyResponse exposing
     ( listOfSomeInvalidSurveyResponses
     , listOfValidSurveyResponses
     )

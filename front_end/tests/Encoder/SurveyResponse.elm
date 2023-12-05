@@ -1,4 +1,4 @@
-module SurveyResponse.Encoder exposing (encode)
+module Encoder.SurveyResponse exposing (encode)
 
 import Json.Encode as Encode
 import SurveyResponse exposing (SurveyResponse)

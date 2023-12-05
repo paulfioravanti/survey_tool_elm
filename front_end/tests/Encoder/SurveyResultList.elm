@@ -1,7 +1,7 @@
-module SurveyResultList.Encoder exposing (encode)
+module Encoder.SurveyResultList exposing (encode)
 
+import Encoder.SurveyResult as SurveyResult
 import Json.Encode as Encode
-import SurveyResult.Encoder as SurveyResult
 import SurveyResultList exposing (SurveyResultList)
 
 

@@ -1,4 +1,4 @@
-module Language.Fuzzer exposing (fuzzer)
+module Fuzzer.Language exposing (fuzzer)
 
 import Fuzz exposing (Fuzzer)
 import Language exposing (Language)
