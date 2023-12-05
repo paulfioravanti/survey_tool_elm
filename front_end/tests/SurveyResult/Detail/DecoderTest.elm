@@ -5,8 +5,8 @@ import Expect
 import Fuzz exposing (Fuzzer)
 import Fuzzer.SurveyResultDetail as SurveyResultDetail
 import Json.Decode as Decode
+import SurveyResult exposing (SurveyResult)
 import SurveyResult.Detail.Decoder as SurveyResultDetail
-import SurveyResult.Model exposing (SurveyResult)
 import Test exposing (Test, describe, fuzz2)
 
 

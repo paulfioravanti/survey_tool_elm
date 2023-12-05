@@ -13,7 +13,7 @@ import Msg exposing (Msg)
 import Navigation
 import RemoteData exposing (WebData)
 import Route exposing (Route)
-import SurveyResult.Model exposing (SurveyResult)
+import SurveyResult exposing (SurveyResult)
 import SurveyResult.Msg
 import Test exposing (Test, describe, fuzz2, fuzz3)
 import Title
