@@ -5,6 +5,18 @@
 An [Elm][] application that retrieves survey result information from a [JSON][]
 [API][], and displays the results.
 
+![Screenshot][screenshot url]
+
+I also wrote implementations of the companion back-end developer test to this
+front-end test in [Elixir][] and [Ruby][], which can be found at the following:
+
+- <https://github.com/paulfioravanti/survey_tool_elixir>
+- <https://github.com/paulfioravanti/survey_tool_ruby>
+
+My review of the coding tests can be found in the following blog post:
+
+- _[Coding Test Review: Culture Amp][]_
+
 ## Setup
 
 ```console
@@ -187,12 +199,6 @@ watchexec --watch tests --ignore tests/elm-package.json --clear=reset just cover
 
 ## Other
 
-I also wrote implementations of the companion back-end developer test to this
-front-end test in [Elixir][] and [Ruby][], which can be found at the following:
-
-- <https://github.com/paulfioravanti/survey_tool_elixir>
-- <https://github.com/paulfioravanti/survey_tool_ruby>
-
 If you are a [Tmuxinator][] user, you can find my config for this project
 [here][tmuxinator-config].
 
@@ -200,6 +206,7 @@ If you are a [Tmuxinator][] user, you can find my config for this project
 [API]: https://en.wikipedia.org/wiki/Application_programming_interface
 [Build Status image]: https://github.com/paulfioravanti/survey_tool_elm/actions/workflows/ci.yml/badge.svg
 [Build Status url]: https://github.com/paulfioravanti/survey_tool_elm/actions/workflows/ci.yml
+[Coding Test Review: Culture Amp]: https://www.paulfioravanti.com/blog/coding-test-review-culture-amp/
 [Create Elm App]: https://github.com/halfzebra/create-elm-app
 [create-elm-app#604]: https://github.com/halfzebra/create-elm-app/issues/604
 [Elixir]: https://github.com/elixir-lang/elixir
@@ -221,6 +228,7 @@ If you are a [Tmuxinator][] user, you can find my config for this project
 [Phoenix]: http://phoenixframework.org/
 [Plug.Cowboy]: https://github.com/elixir-plug/plug_cowboy
 [Ruby]: https://github.com/ruby/ruby
+[screenshot url]: ./elm-show-survey-screenshot.jpg
 [survey-tool-ruby]: https://github.com/paulfioravanti/survey_tool_ruby
 [Tachyons]: http://tachyons.io/
 [Tmuxinator]: https://github.com/tmuxinator/tmuxinator
