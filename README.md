@@ -228,7 +228,7 @@ If you are a [Tmuxinator][] user, you can find my config for this project
 [Phoenix]: http://phoenixframework.org/
 [Plug.Cowboy]: https://github.com/elixir-plug/plug_cowboy
 [Ruby]: https://github.com/ruby/ruby
-[screenshot url]: ./elm-show-survey-screenshot.jpg
+[screenshot url]: ./elm-show-survey-screenshot.png
 [survey-tool-ruby]: https://github.com/paulfioravanti/survey_tool_ruby
 [Tachyons]: http://tachyons.io/
 [Tmuxinator]: https://github.com/tmuxinator/tmuxinator
