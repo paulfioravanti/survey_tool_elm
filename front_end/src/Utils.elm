@@ -18,9 +18,6 @@ percentFromFloat float =
     let
         percent : String
         percent =
-            float
-                * 100
-                |> round
-                |> String.fromInt
+            String.fromInt (round (float * 100))
     in
     percent ++ "%"
